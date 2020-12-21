@@ -156,6 +156,12 @@ This object will hold the static contents of the front-end application
 External Object that sends back a treeView of the caategory and lessons hierarchy
 
 
+`TrnFront` external object definition
+-------------------------------------
+
+
+
+
 `TrnGitEndPoint` external object definition
 -------------------------------------------
 

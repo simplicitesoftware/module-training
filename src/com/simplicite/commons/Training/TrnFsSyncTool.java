@@ -27,7 +27,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	private final File contentDir;
 	private final File hashStoreFile;
 	
-	private ObjectDB category, lesson;
+	private ObjectDB category, lesson, picture;
 	
 	//private final JSONObject config;
 	
@@ -160,8 +160,10 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	private void loadTrnObjects(){
 		g.changeAccess("TrnCategory", true,true,true,true);
 		g.changeAccess("TrnLesson", true,true,true,true);
+		g.changeAccess("TrnPicture", true,true,true,true);
 		category = g.getObject("sync_TrnCategory", "TrnCategory");
 		lesson = g.getObject("sync_TrnLesson", "TrnLesson");
+		picture = g.getObject("sync_TrnPicture", "TrnPicture");
 	}
 	
 	private void syncPath(String relativePath) throws TrnSyncException{
@@ -250,7 +252,8 @@ public class TrnFsSyncTool implements java.io.Serializable {
 			String relativePath = getRelativePath(dir);
 			String rowId = getLsnRowIdFromPath(relativePath);
 			String[] name = dir.getName().split("_");
-			String mdContent = FileTool.readFile(dir.getPath()+"/"+name[2]+".md");
+			File markdown = new File(dir.getPath()+"/"+name[2]+".md");
+			File video = new File(dir.getPath()+"/"+name[2]+".webm");
 			
 			JSONObject json = new JSONObject(FileTool.readFile(dir.getPath()+"/lesson.json"));
 			synchronized(lesson){
@@ -260,9 +263,24 @@ public class TrnFsSyncTool implements java.io.Serializable {
 				lesson.setFieldValue("trnLsnTitle", json.getJSONObject("ANY").getString("title"));
 				lesson.setFieldValue("trnLsnPath", relativePath);
 				lesson.setFieldValue("trnLsnCatId", getCatRowIdFromPath(getParentRelativePath(dir)));
-				lesson.setFieldValue("trnLsnContent", mdContent);
+				if(markdown.exists())
+					lesson.setFieldValue("trnLsnContent", FileTool.readFile(markdown));
+				if(video.exists())
+					lesson.getField("trnLsnVideo").setDocument(lesson, video.getName(), new FileInputStream(video));
+					
 				(new BusinessObjectTool(lesson)).validateAndSave();
+				rowId = lesson.getRowId();
 			}
+			
+			for(File f : dir.listFiles())
+				if(f.getName().endsWith(".png"))
+					synchronized(picture){
+						picture.resetValues();
+						picture.getField("trnPicImage").setDocument(picture, f.getName(), new FileInputStream(f));
+						picture.setFieldValue("trnPicLang", "ANY");
+						picture.setFieldValue("trnPicLsnId", rowId);
+						(new BusinessObjectTool(picture)).validateAndSave();
+					}
 		}
 		catch(Exception e){
 			AppLog.error(getClass(), "upsertCategory", e.getMessage(), e, g);
