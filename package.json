@@ -1,0 +1,10 @@
+{
+    "date": "Fri Feb 28 19:07:55 UTC 2020",
+    "name": "Training",
+    "format": "xml",
+    "description": "The module for the Simplciité Training platform",
+    "files": ["Training.xml"],
+    "repository": {},
+    "version": "0.1",
+    "dependencies": {"Simplicite": "5"}
+}

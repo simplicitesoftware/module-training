@@ -1,0 +1,1857 @@
+#  ___ _            _ _    _ _    __
+# / __(_)_ __  _ __| (_)__(_) |_ /_/
+# \__ \ | '  \| '_ \ | / _| |  _/ -_)
+# |___/_|_|_|_| .__/_|_\__|_|\__\___|
+#             |_| Module: Training 0.1
+paths:
+  /rest/TrnCategoryTranslate/{row_id}:
+    post:
+      summary: Create a new TrnCategoryTranslatebusiness object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-trncategorytranslate-create
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/TrnCategoryTranslate'
+          description: Success in creating a new business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - schema:
+          $ref: '#/definitions/TrnCategoryTranslate'
+        in: body
+        name: body
+      tags:
+      - TrnCategoryTranslate
+      consumes:
+      - application/json
+    get:
+      summary: Get a TrnCategoryTranslate business object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-trncategorytranslate-get
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/TrnCategoryTranslate'
+          description: Success in getting a single business object record
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - in: query
+        name: _inline_documents
+        description: Inline documents?
+        type: boolean
+        required: false
+      - in: query
+        name: _inline_thumbnails
+        description: Inline documents' thumbnails?
+        type: boolean
+        required: false
+      - in: query
+        name: _inline_objects
+        description: Inline objects?
+        type: boolean
+        required: false
+      tags:
+      - TrnCategoryTranslate
+    delete:
+      summary: Delete a TrnCategoryTranslate business object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-trncategorytranslate-delete
+      responses:
+        '200':
+          description: Success in deleting a business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      tags:
+      - TrnCategoryTranslate
+    put:
+      summary: Update a TrnCategoryTranslatebusiness object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-trncategorytranslate-update
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/TrnCategoryTranslate'
+          description: Success in updating a business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - schema:
+          $ref: '#/definitions/TrnCategoryTranslate'
+        in: body
+        name: body
+      tags:
+      - TrnCategoryTranslate
+      consumes:
+      - application/json
+  /login:
+    get:
+      summary: Login (obtain bearer token)
+      security:
+      - basicAuth: []
+      produces:
+      - text/plain
+      - application/json
+      operationId: login
+      responses:
+        '200':
+          description: Successful login
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+      parameters:
+      - in: query
+        name: _output
+        description: Optional output format
+        type: string
+        required: false
+        enum:
+        - json
+        - oauth2
+        - token
+      tags:
+      - session
+  /rest/TrnLesson/{row_id}:
+    post:
+      summary: Create a new TrnLessonbusiness object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-trnlesson-create
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/TrnLesson'
+          description: Success in creating a new business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - schema:
+          $ref: '#/definitions/TrnLesson'
+        in: body
+        name: body
+      tags:
+      - TrnLesson
+      consumes:
+      - application/json
+    get:
+      summary: Get a TrnLesson business object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-trnlesson-get
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/TrnLesson'
+          description: Success in getting a single business object record
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - in: query
+        name: _inline_documents
+        description: Inline documents?
+        type: boolean
+        required: false
+      - in: query
+        name: _inline_thumbnails
+        description: Inline documents' thumbnails?
+        type: boolean
+        required: false
+      - in: query
+        name: _inline_objects
+        description: Inline objects?
+        type: boolean
+        required: false
+      tags:
+      - TrnLesson
+    delete:
+      summary: Delete a TrnLesson business object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-trnlesson-delete
+      responses:
+        '200':
+          description: Success in deleting a business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      tags:
+      - TrnLesson
+    put:
+      summary: Update a TrnLessonbusiness object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-trnlesson-update
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/TrnLesson'
+          description: Success in updating a business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - schema:
+          $ref: '#/definitions/TrnLesson'
+        in: body
+        name: body
+      tags:
+      - TrnLesson
+      consumes:
+      - application/json
+  /logout:
+    get:
+      summary: Logout (revoke bearer token)
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: logout
+      responses:
+        '200':
+          description: Successfull logout
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+      tags:
+      - session
+  /rest/TrnCategoryTranslate:
+    get:
+      summary: Search TrnCategoryTranslate business object records or get contextualized
+        metadata
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-trncategorytranslate-search
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/ArrayOfTrnCategoryTranslate'
+          description: Success in searching business object records (or in getting
+            contextualized business object metadata, documentation, ...)
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+      parameters:
+      - in: query
+        name: _metadata
+        description: Metadata?
+        type: boolean
+        required: false
+      - in: query
+        name: _count
+        description: Count?
+        type: boolean
+        required: false
+      - in: query
+        name: _doc
+        description: Documentation?
+        type: boolean
+        required: false
+      - in: query
+        name: trnCtrLang
+        description: Search filter for Category translate language
+        type: string
+        required: false
+        enum:
+        - ANY
+        - ENU
+        - FRA
+      - in: query
+        name: trnCtrTitle
+        description: Search filter for Category translate title
+        type: string
+        required: false
+      - in: query
+        name: trnCtrDescription
+        description: Search filter for Category Translate Description
+        type: string
+        required: false
+      - in: query
+        name: trnCtrPicture
+        description: Search filter for The picture associated with a category.
+        type: string
+        required: false
+      - in: query
+        name: trnCtrCatId
+        description: Search filter for Category ID
+        type: string
+        required: false
+      - in: query
+        name: trnCtrCatId__trnCatTitle
+        description: Search filter for Category Title
+        type: string
+        required: false
+      tags:
+      - TrnCategoryTranslate
+  /rest/TrnPicture:
+    get:
+      summary: Search TrnPicture business object records or get contextualized metadata
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-trnpicture-search
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/ArrayOfTrnPicture'
+          description: Success in searching business object records (or in getting
+            contextualized business object metadata, documentation, ...)
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+      parameters:
+      - in: query
+        name: _metadata
+        description: Metadata?
+        type: boolean
+        required: false
+      - in: query
+        name: _count
+        description: Count?
+        type: boolean
+        required: false
+      - in: query
+        name: _doc
+        description: Documentation?
+        type: boolean
+        required: false
+      - in: query
+        name: _indexsearch
+        description: Index search query
+        type: string
+        required: false
+      - in: query
+        name: trnPicImage
+        description: Search filter for Image
+        type: string
+        required: false
+      - in: query
+        name: trnPicLang
+        description: Search filter for Language
+        type: string
+        required: false
+        enum:
+        - ANY
+        - ENU
+        - FRA
+      - in: query
+        name: trnPicLsnId
+        description: Search filter for Lesson ID
+        type: string
+        required: false
+      - in: query
+        name: trnPicLsnId__trnLsnPath
+        description: Search filter for Lesson Path
+        type: string
+        required: false
+      tags:
+      - TrnPicture
+  /rest/TrnCategory/{row_id}:
+    post:
+      summary: Create a new TrnCategorybusiness object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-trncategory-create
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/TrnCategory'
+          description: Success in creating a new business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - schema:
+          $ref: '#/definitions/TrnCategory'
+        in: body
+        name: body
+      tags:
+      - TrnCategory
+      consumes:
+      - application/json
+    get:
+      summary: Get a TrnCategory business object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-trncategory-get
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/TrnCategory'
+          description: Success in getting a single business object record
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - in: query
+        name: _inline_documents
+        description: Inline documents?
+        type: boolean
+        required: false
+      - in: query
+        name: _inline_thumbnails
+        description: Inline documents' thumbnails?
+        type: boolean
+        required: false
+      - in: query
+        name: _inline_objects
+        description: Inline objects?
+        type: boolean
+        required: false
+      tags:
+      - TrnCategory
+    delete:
+      summary: Delete a TrnCategory business object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-trncategory-delete
+      responses:
+        '200':
+          description: Success in deleting a business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      tags:
+      - TrnCategory
+    put:
+      summary: Update a TrnCategorybusiness object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-trncategory-update
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/TrnCategory'
+          description: Success in updating a business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - schema:
+          $ref: '#/definitions/TrnCategory'
+        in: body
+        name: body
+      tags:
+      - TrnCategory
+      consumes:
+      - application/json
+  /rest/TrnPicture/{row_id}:
+    post:
+      summary: Create a new TrnPicturebusiness object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-trnpicture-create
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/TrnPicture'
+          description: Success in creating a new business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - schema:
+          $ref: '#/definitions/TrnPicture'
+        in: body
+        name: body
+      tags:
+      - TrnPicture
+      consumes:
+      - application/json
+    get:
+      summary: Get a TrnPicture business object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-trnpicture-get
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/TrnPicture'
+          description: Success in getting a single business object record
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - in: query
+        name: _inline_documents
+        description: Inline documents?
+        type: boolean
+        required: false
+      - in: query
+        name: _inline_thumbnails
+        description: Inline documents' thumbnails?
+        type: boolean
+        required: false
+      - in: query
+        name: _inline_objects
+        description: Inline objects?
+        type: boolean
+        required: false
+      tags:
+      - TrnPicture
+    delete:
+      summary: Delete a TrnPicture business object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-trnpicture-delete
+      responses:
+        '200':
+          description: Success in deleting a business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      tags:
+      - TrnPicture
+    put:
+      summary: Update a TrnPicturebusiness object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-trnpicture-update
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/TrnPicture'
+          description: Success in updating a business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - schema:
+          $ref: '#/definitions/TrnPicture'
+        in: body
+        name: body
+      tags:
+      - TrnPicture
+      consumes:
+      - application/json
+  /:
+    get:
+      summary: Get user session information
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: info
+      responses:
+        '200':
+          description: Success in getting user session information
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+      parameters:
+      - in: query
+        name: texts
+        description: Texts?
+        type: boolean
+        required: false
+      tags:
+      - session
+  /rest/TrnSiteContent/{row_id}:
+    post:
+      summary: Create a new TrnSiteContentbusiness object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-trnsitecontent-create
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/TrnSiteContent'
+          description: Success in creating a new business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - schema:
+          $ref: '#/definitions/TrnSiteContent'
+        in: body
+        name: body
+      tags:
+      - TrnSiteContent
+      consumes:
+      - application/json
+    get:
+      summary: Get a TrnSiteContent business object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-trnsitecontent-get
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/TrnSiteContent'
+          description: Success in getting a single business object record
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - in: query
+        name: _inline_documents
+        description: Inline documents?
+        type: boolean
+        required: false
+      - in: query
+        name: _inline_thumbnails
+        description: Inline documents' thumbnails?
+        type: boolean
+        required: false
+      - in: query
+        name: _inline_objects
+        description: Inline objects?
+        type: boolean
+        required: false
+      tags:
+      - TrnSiteContent
+    delete:
+      summary: Delete a TrnSiteContent business object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-trnsitecontent-delete
+      responses:
+        '200':
+          description: Success in deleting a business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      tags:
+      - TrnSiteContent
+    put:
+      summary: Update a TrnSiteContentbusiness object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-trnsitecontent-update
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/TrnSiteContent'
+          description: Success in updating a business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - schema:
+          $ref: '#/definitions/TrnSiteContent'
+        in: body
+        name: body
+      tags:
+      - TrnSiteContent
+      consumes:
+      - application/json
+  /rest/TrnCategory:
+    get:
+      summary: Search TrnCategory business object records or get contextualized metadata
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-trncategory-search
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/ArrayOfTrnCategory'
+          description: Success in searching business object records (or in getting
+            contextualized business object metadata, documentation, ...)
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+      parameters:
+      - in: query
+        name: _metadata
+        description: Metadata?
+        type: boolean
+        required: false
+      - in: query
+        name: _count
+        description: Count?
+        type: boolean
+        required: false
+      - in: query
+        name: _doc
+        description: Documentation?
+        type: boolean
+        required: false
+      - in: query
+        name: trnCatPath
+        description: Search filter for Category Path
+        type: string
+        required: false
+      - in: query
+        name: trnCatOrder
+        description: Search filter for Order
+        type: integer
+        required: false
+      - in: query
+        name: trnCatTitle
+        description: Search filter for Title
+        type: string
+        required: false
+      - in: query
+        name: trnCatDescription
+        description: Search filter for Description
+        type: string
+        required: false
+      - in: query
+        name: trnCatPublish
+        description: Search filter for Determines if the category and its subcategories
+          and lessons are available on the front-end application.
+        type: boolean
+        required: false
+      - in: query
+        name: trnCatId
+        description: Search filter for Parent Category ID
+        type: string
+        required: false
+      - in: query
+        name: trnCatId__trnCatPath
+        description: Search filter for Parent Category Path
+        type: string
+        required: false
+      - in: query
+        name: trnCatId__trnCatTitle
+        description: Search filter for Parent Category Title
+        type: string
+        required: false
+      tags:
+      - TrnCategory
+  /rest/TrnLsnTranslate/{row_id}:
+    post:
+      summary: Create a new TrnLsnTranslatebusiness object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-trnlsntranslate-create
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/TrnLsnTranslate'
+          description: Success in creating a new business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - schema:
+          $ref: '#/definitions/TrnLsnTranslate'
+        in: body
+        name: body
+      tags:
+      - TrnLsnTranslate
+      consumes:
+      - application/json
+    get:
+      summary: Get a TrnLsnTranslate business object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-trnlsntranslate-get
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/TrnLsnTranslate'
+          description: Success in getting a single business object record
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - in: query
+        name: _inline_documents
+        description: Inline documents?
+        type: boolean
+        required: false
+      - in: query
+        name: _inline_thumbnails
+        description: Inline documents' thumbnails?
+        type: boolean
+        required: false
+      - in: query
+        name: _inline_objects
+        description: Inline objects?
+        type: boolean
+        required: false
+      tags:
+      - TrnLsnTranslate
+    delete:
+      summary: Delete a TrnLsnTranslate business object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-trnlsntranslate-delete
+      responses:
+        '200':
+          description: Success in deleting a business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      tags:
+      - TrnLsnTranslate
+    put:
+      summary: Update a TrnLsnTranslatebusiness object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-trnlsntranslate-update
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/TrnLsnTranslate'
+          description: Success in updating a business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - schema:
+          $ref: '#/definitions/TrnLsnTranslate'
+        in: body
+        name: body
+      tags:
+      - TrnLsnTranslate
+      consumes:
+      - application/json
+  /rest/TrnSiteContent:
+    get:
+      summary: Search TrnSiteContent business object records or get contextualized
+        metadata
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-trnsitecontent-search
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/ArrayOfTrnSiteContent'
+          description: Success in searching business object records (or in getting
+            contextualized business object metadata, documentation, ...)
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+      parameters:
+      - in: query
+        name: _metadata
+        description: Metadata?
+        type: boolean
+        required: false
+      - in: query
+        name: _count
+        description: Count?
+        type: boolean
+        required: false
+      - in: query
+        name: _doc
+        description: Documentation?
+        type: boolean
+        required: false
+      - in: query
+        name: trnSitCode
+        description: Search filter for A code identifying the TrnSiteContent object
+        type: string
+        required: false
+      - in: query
+        name: trnSitLanguage
+        description: Search filter for Language
+        type: string
+        required: false
+        enum:
+        - ANY
+        - ENU
+        - FRA
+      - in: query
+        name: trnSitContent
+        description: Search filter for Content
+        type: string
+        required: false
+      tags:
+      - TrnSiteContent
+  /rest/TrnLesson:
+    get:
+      summary: Search TrnLesson business object records or get contextualized metadata
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-trnlesson-search
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/ArrayOfTrnLesson'
+          description: Success in searching business object records (or in getting
+            contextualized business object metadata, documentation, ...)
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+      parameters:
+      - in: query
+        name: _metadata
+        description: Metadata?
+        type: boolean
+        required: false
+      - in: query
+        name: _count
+        description: Count?
+        type: boolean
+        required: false
+      - in: query
+        name: _doc
+        description: Documentation?
+        type: boolean
+        required: false
+      - in: query
+        name: _indexsearch
+        description: Index search query
+        type: string
+        required: false
+      - in: query
+        name: trnLsnPath
+        description: Search filter for Path
+        type: string
+        required: false
+      - in: query
+        name: trnLsnOrder
+        description: Search filter for Order
+        type: integer
+        required: false
+      - in: query
+        name: trnLsnTitle
+        description: Search filter for Title
+        type: string
+        required: false
+      - in: query
+        name: trnLsnDescription
+        description: Search filter for Description
+        type: string
+        required: false
+      - in: query
+        name: trnLsnVideo
+        description: Search filter for Video (.webm)
+        type: string
+        required: false
+      - in: query
+        name: trnLsnContent
+        description: Search filter for Content
+        type: string
+        required: false
+      - in: query
+        name: trnLsnHtmlContent
+        description: Search filter for trn lsn html content
+        type: string
+        required: false
+      - in: query
+        name: trnLsnVisualization
+        description: Search filter for Describes the visualization mode to be used
+          in the front-end application.
+        type: string
+        required: false
+        enum:
+        - TUTO
+        - LINEAR
+      - in: query
+        name: trnLsnPublish
+        description: Search filter for Determines if the lesson is visible on the
+          front-end application.
+        type: boolean
+        required: false
+      - in: query
+        name: trnLsnCatId
+        description: Search filter for Category ID
+        type: string
+        required: false
+      - in: query
+        name: trnLsnCatId__trnCatTitle
+        description: Search filter for Category Title
+        type: string
+        required: false
+      - in: query
+        name: trnLsnCatId__trnCatPath
+        description: Search filter for Category Path
+        type: string
+        required: false
+      - in: query
+        name: trnLsnCatId__trnCatId
+        description: Search filter for Category ID Parent Category ID
+        type: string
+        required: false
+      - in: query
+        name: trnLsnCatId__trnCatId__trnCatTitle
+        description: Search filter for Category ID Parent Category ID Title
+        type: string
+        required: false
+      tags:
+      - TrnLesson
+  /rest/TrnLsnTranslate:
+    get:
+      summary: Search TrnLsnTranslate business object records or get contextualized
+        metadata
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-trnlsntranslate-search
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/ArrayOfTrnLsnTranslate'
+          description: Success in searching business object records (or in getting
+            contextualized business object metadata, documentation, ...)
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+      parameters:
+      - in: query
+        name: _metadata
+        description: Metadata?
+        type: boolean
+        required: false
+      - in: query
+        name: _count
+        description: Count?
+        type: boolean
+        required: false
+      - in: query
+        name: _doc
+        description: Documentation?
+        type: boolean
+        required: false
+      - in: query
+        name: trnLtrLan
+        description: Search filter for Translate language
+        type: string
+        required: false
+        enum:
+        - ANY
+        - ENU
+        - FRA
+      - in: query
+        name: trnLtrTitle
+        description: Search filter for Translate Title
+        type: string
+        required: false
+      - in: query
+        name: trnLtrDescription
+        description: Search filter for Translate Description
+        type: string
+        required: false
+      - in: query
+        name: trnLtrContent
+        description: Search filter for Translate content
+        type: string
+        required: false
+      - in: query
+        name: trnLtrVideo
+        description: Search filter for trn ltr video
+        type: string
+        required: false
+      - in: query
+        name: trnLtrHtmlContent
+        description: Search filter for The HTML equivalent of the content attribute.
+          It's this attribute that is displayed by the front-end application.
+        type: string
+        required: false
+      - in: query
+        name: trnLtrLsnId
+        description: Search filter for Original Lesson ID
+        type: string
+        required: false
+      - in: query
+        name: trnLtrLsnId__trnLsnPath
+        description: Search filter for Lesson Title
+        type: string
+        required: false
+      tags:
+      - TrnLsnTranslate
+securityDefinitions:
+  basicAuth:
+    type: basic
+  bearerAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+definitions:
+  Error404:
+    type: object
+    properties:
+      error:
+        description: Error message
+        type: string
+      status:
+        description: Error status
+        type: integer
+        enum:
+        - 404
+  TrnSiteContent:
+    type: object
+    properties:
+      trnSitContent:
+        description: Content
+        type: string
+      trnSitLanguage:
+        description: Language
+        type: string
+        enum:
+        - ANY
+        - ENU
+        - FRA
+      row_id:
+        description: Unique technical row ID
+        type: string
+      trnSitCode:
+        description: A code identifying the TrnSiteContent object
+        type: string
+  ArrayOfTrnCategory:
+    type: array
+    items:
+      $ref: '#/definitions/TrnCategory'
+  PublicationResult:
+    type: object
+    properties:
+      mime:
+        description: MIME type
+        type: string
+      content:
+        description: Content (plain text or base64 encoded)
+        type: string
+  ArrayOfTrnLesson:
+    type: array
+    items:
+      $ref: '#/definitions/TrnLesson'
+  TrnCategory:
+    type: object
+    properties:
+      trnCatId:
+        description: Parent Category ID
+        type: string
+      trnCatOrder:
+        description: Order
+        type: integer
+      trnCatDescription:
+        description: Description
+        type: string
+      trnCatId__trnCatTitle:
+        description: Parent Category Title
+        type: string
+      trnCatPublish:
+        description: Determines if the category and its subcategories and lessons
+          are available on the front-end application.
+        type: boolean
+      trnCatPath:
+        description: Category Path
+        type: string
+      trnCatTitle:
+        description: Title
+        type: string
+      row_id:
+        description: Unique technical row ID
+        type: string
+      trnCatId__trnCatPath:
+        description: Parent Category Path
+        type: string
+  ArrayOfTrnPicture:
+    type: array
+    items:
+      $ref: '#/definitions/TrnPicture'
+  TrnCategoryTranslate:
+    type: object
+    properties:
+      trnCtrDescription:
+        description: Category Translate Description
+        type: string
+      trnCtrPicture:
+        description: The picture associated with a category.
+        type: object
+      trnCtrCatId:
+        description: Category ID
+        type: string
+      row_id:
+        description: Unique technical row ID
+        type: string
+      trnCtrLang:
+        description: Category translate language
+        type: string
+        enum:
+        - ANY
+        - ENU
+        - FRA
+      trnCtrTitle:
+        description: Category translate title
+        type: string
+      trnCtrCatId__trnCatTitle:
+        description: Category Title
+        type: string
+  TrnPicture:
+    type: object
+    properties:
+      trnPicLang:
+        description: Language
+        type: string
+        enum:
+        - ANY
+        - ENU
+        - FRA
+      trnPicImage:
+        description: Image
+        type: object
+      trnPicLsnId__trnLsnPath:
+        description: Lesson Path
+        type: string
+      trnPicLsnId:
+        description: Lesson ID
+        type: string
+      row_id:
+        description: Unique technical row ID
+        type: string
+  ActionResult:
+    type: object
+    properties:
+      result:
+        description: Action result
+        type: string
+  TrnLesson:
+    type: object
+    properties:
+      trnLsnVideo:
+        description: Video (.webm)
+        type: object
+      trnLsnPublish:
+        description: Determines if the lesson is visible on the front-end application.
+        type: boolean
+      trnLsnCatId__trnCatId:
+        description: Category ID Parent Category ID
+        type: string
+      trnLsnTitle:
+        description: Title
+        type: string
+      trnLsnCatId:
+        description: Category ID
+        type: string
+      trnLsnPath:
+        description: Path
+        type: string
+      trnLsnOrder:
+        description: Order
+        type: integer
+      trnLsnCatId__trnCatPath:
+        description: Category Path
+        type: string
+      trnLsnVisualization:
+        description: Describes the visualization mode to be used in the front-end
+          application.
+        type: string
+        enum:
+        - TUTO
+        - LINEAR
+      trnLsnDescription:
+        description: Description
+        type: string
+      trnLsnContent:
+        description: Content
+        type: string
+      trnLsnCatId__trnCatTitle:
+        description: Category Title
+        type: string
+      row_id:
+        description: Unique technical row ID
+        type: string
+      trnLsnHtmlContent:
+        description: trn lsn html content
+        type: string
+      trnLsnCatId__trnCatId__trnCatTitle:
+        description: Category ID Parent Category ID Title
+        type: string
+  TreeviewData:
+    type: object
+    properties:
+      item:
+        description: Object item with lists of linked objects' items
+        type: object
+  ArrayOfTrnSiteContent:
+    type: array
+    items:
+      $ref: '#/definitions/TrnSiteContent'
+  Error400:
+    type: object
+    properties:
+      error:
+        description: Error message
+        type: string
+      status:
+        description: Error status
+        type: integer
+        enum:
+        - 400
+  ArrayOfTrnCategoryTranslate:
+    type: array
+    items:
+      $ref: '#/definitions/TrnCategoryTranslate'
+  Error401:
+    type: object
+    properties:
+      error:
+        description: Error message
+        type: string
+      status:
+        description: Error status
+        type: integer
+        enum:
+        - 401
+  Error500:
+    type: object
+    properties:
+      error:
+        description: Error message
+        type: string
+      status:
+        description: Error status
+        type: integer
+        enum:
+        - 500
+  TrnLsnTranslate:
+    type: object
+    properties:
+      trnLtrLan:
+        description: Translate language
+        type: string
+        enum:
+        - ANY
+        - ENU
+        - FRA
+      trnLtrLsnId__trnLsnPath:
+        description: Lesson Title
+        type: string
+      trnLtrDescription:
+        description: Translate Description
+        type: string
+      trnLtrHtmlContent:
+        description: The HTML equivalent of the content attribute. It's this attribute
+          that is displayed by the front-end application.
+        type: string
+      trnLtrContent:
+        description: Translate content
+        type: string
+      row_id:
+        description: Unique technical row ID
+        type: string
+      trnLtrTitle:
+        description: Translate Title
+        type: string
+      trnLtrLsnId:
+        description: Original Lesson ID
+        type: string
+      trnLtrVideo:
+        description: trn ltr video
+        type: object
+  ArrayOfTrnLsnTranslate:
+    type: array
+    items:
+      $ref: '#/definitions/TrnLsnTranslate'
+  Error403:
+    type: object
+    properties:
+      error:
+        description: Error message
+        type: string
+      status:
+        description: Error status
+        type: integer
+        enum:
+        - 403
+swagger: '2.0'
+info:
+  license:
+    name: Simplicite license
+    url: http://www.simplicitesoftware.com
+  contact:
+    name: Simplicite Software
+    url: http://www.simplicitesoftware.com
+    email: contact@simplicitesoftware.com
+  description: API for module Training
+  title: Training
+  version: '0.1'
+tags:
+- name: TrnCategory
+  description: Category
+- name: TrnCategoryTranslate
+  description: Categories Translations
+- name: TrnLesson
+  description: Lesson
+- name: TrnLsnTranslate
+  description: Lesson Translations
+- name: TrnPicture
+  description: Lessons Pictures
+- name: TrnSiteContent
+  description: Site Contents
