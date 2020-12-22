@@ -17,9 +17,6 @@ import java.nio.file.Files;
  */
 public class TrnFsSyncTool implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
-	private static final int TYPE_ROOT = 1;
-	private static final int TYPE_CATEGORY = 2;
-	private static final int TYPE_LESSON = 3;
 	private static final String HASHSTORE_FILENAME = "glo.ser";
 	
 	private final Pattern PATTERN_CATEGORY = Pattern.compile("^CTG_[0-9]+_[a-z\\-]+$");
@@ -28,8 +25,6 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	private final File hashStoreFile;
 	
 	private ObjectDB category, lesson, picture;
-	
-	//private final JSONObject config;
 	
 	private HashMap<String, String> hashStore;
 	private ArrayList<String> foundPaths;
@@ -65,7 +60,24 @@ public class TrnFsSyncTool implements java.io.Serializable {
 			throw new TrnSyncException("TRN_SYNC_EMPTY_CONTENT_PATH");
 		contentDir = new File(conf.getString("filesystem_contentdir"));
 		hashStoreFile = new File(g.getContentDir()+"/"+HASHSTORE_FILENAME);
-		//config = new JSONObject(g.getParameter("TRAINING_CONFIG"));
+	}
+	
+	// Main sync algorithm : injects contents at `contentDir` into DB
+	public void sync() throws TrnSyncException{
+		// load (from glo.ser) a hashmap of the checksum of files for each directory, so we know which have changed
+		loadHashes();
+		// verify the structure (recursive)
+		verifyContentStructure();
+		// initialize some usefull objects
+		foundPaths = new ArrayList<>();
+		loadTrnObjects();
+		// injects contents at `contentDir` into DB, sets new hashes (recursive)
+		syncPath("/");
+		// deletes from DB paths that are not in the file structure anymore
+		deleteDeleted();
+		// save new hashes (in glo.ser)
+		// NB: if there was an exception above, glo.ser not modified => sync() would rerun similarly
+		storeHashes();
 	}
 	
 	public void verifyContentStructure() throws TrnSyncException{
@@ -141,21 +153,48 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	}
 	
 	private boolean isCategory(File dir){
-		return dir.isDirectory() && PATTERN_CATEGORY.matcher(dir.getName()).matches();
+		return dir.isDirectory() && isCategory(dir.getName());
+	}
+	
+	private boolean isCategory(String path){
+		return PATTERN_CATEGORY.matcher(path).matches();
 	}
 	
 	private boolean isLesson(File dir){
-		return dir.isDirectory() && PATTERN_LESSON.matcher(dir.getName()).matches();
+		return dir.isDirectory() && isLesson(dir.getName());
 	}
 	
-	public void sync() throws TrnSyncException{
-		loadHashes();
-		verifyContentStructure();
-		foundPaths = new ArrayList<>();
-		loadTrnObjects();
-		syncPath("/");
-		// delete deleted paths
-		storeHashes();
+	private boolean isLesson(String path){
+		return PATTERN_LESSON.matcher(path).matches();
+	}
+	
+	private void deleteDeleted(){
+		for(String path : hashStore.keySet())
+			if(!foundPaths.contains(path))
+				deleteForPath(path);
+	}
+	
+	private void deleteForPath(String path){
+		BusinessObjectTool bot;
+		String id;
+		if(isCategory(path)){
+			bot = new BusinessObjectTool(category);
+			id = getCatRowIdFromPath(path);
+		}
+		else{
+			bot = new BusinessObjectTool(lesson);
+			id = getLsnRowIdFromPath(path);
+		}
+		
+		try{
+			synchronized(bot.getObject()){
+				bot.getForDelete(id);
+				bot.delete();
+			}
+		}
+		catch(Exception e){
+			AppLog.warning(getClass(), "deleteForPath", "TRN_WARN_DEL_PATH_NOT_EXISTANT_IN_DB", e, g);
+		}
 	}
 	
 	private void loadTrnObjects(){
@@ -293,7 +332,6 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		}
 	}
 	
-	
 	// Non-recursive version of https://stackoverflow.com/a/46899517/1612642 => ignores directories
     private static String hashDirectoryFiles(File directory) throws IOException
     {
@@ -332,7 +370,4 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	private boolean isTrainingDbEmpty(){
 		return 0==g.simpleQueryAsDouble("select count(*) from trn_category");
 	}
-	
-	
-	
 }
