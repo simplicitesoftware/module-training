@@ -9,17 +9,7 @@ import com.simplicite.commons.Training.TrnTools;
  * Business object TrnCategory
  */
 public class TrnCategory extends ObjectDB {
-	
 	private static final long serialVersionUID = 1L;
-	
-/*	@Override
-	public List<String> preValidate() {
-		List<String> msgs = new ArrayList<String>();
-		
-		if(Tool.isEmpty(getFieldValue("trnCatId")))
-			setFieldValue("trnCatPath", "");
-		return null;
-	}*/
 	
 	@Override
 	public List<String> postValidate() {
@@ -35,6 +25,7 @@ public class TrnCategory extends ObjectDB {
 	public String preSave() {
 		if(!isSyncInstance())
 			setFieldValue("trnCatPath", getPath());
+		setFieldValue("trnCatFrontPath", TrnTools.path2Front(getFieldValue("trnCatPath")));
 		return null;
 	}
 	

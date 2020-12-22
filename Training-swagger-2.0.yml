@@ -1105,6 +1105,11 @@ paths:
         description: Search filter for Parent Category Title
         type: string
         required: false
+      - in: query
+        name: trnCatFrontPath
+        description: Search filter for trn cat front path
+        type: string
+        required: false
       tags:
       - TrnCategory
   /rest/TrnLsnTranslate/{row_id}:
@@ -1447,6 +1452,11 @@ paths:
         description: Search filter for Category ID Parent Category ID Title
         type: string
         required: false
+      - in: query
+        name: trnLsnFrontPath
+        description: Search filter for trn lsn front path
+        type: string
+        required: false
       tags:
       - TrnLesson
   /rest/TrnLsnTranslate:
@@ -1621,6 +1631,9 @@ definitions:
       trnCatId__trnCatPath:
         description: Parent Category Path
         type: string
+      trnCatFrontPath:
+        description: trn cat front path
+        type: string
   ArrayOfTrnPicture:
     type: array
     items:
@@ -1690,6 +1703,9 @@ definitions:
       trnLsnPublish:
         description: Determines if the lesson is visible on the front-end application.
         type: boolean
+      trnLsnFrontPath:
+        description: trn lsn front path
+        type: string
       trnLsnCatId__trnCatId:
         description: Category ID Parent Category ID
         type: string

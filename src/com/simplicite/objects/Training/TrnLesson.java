@@ -22,6 +22,7 @@ public class TrnLesson extends ObjectDB {
 				setFieldValue("trnLsnPath", category.getFieldValue("trnCatPath") + "/" + TrnTools.toSnake(getFieldValue("trnLsnTitle")));
 			}
 		}
+		setFieldValue("trnLsnFrontPath", TrnTools.path2Front(getFieldValue("trnLsnPath")));
 		return null;
 	}
 	

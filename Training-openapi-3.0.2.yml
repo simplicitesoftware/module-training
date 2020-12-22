@@ -83,6 +83,9 @@ components:
         trnCatId__trnCatPath:
           description: Parent Category Path
           type: string
+        trnCatFrontPath:
+          description: trn cat front path
+          type: string
     ArrayOfTrnPicture:
       type: array
       items:
@@ -152,6 +155,9 @@ components:
         trnLsnPublish:
           description: Determines if the lesson is visible on the front-end application.
           type: boolean
+        trnLsnFrontPath:
+          description: trn lsn front path
+          type: string
         trnLsnCatId__trnCatId:
           description: Category ID Parent Category ID
           type: string
@@ -1616,6 +1622,12 @@ paths:
         name: trnCatId__trnCatTitle
         description: Search filter for Parent Category Title
         required: false
+      - schema:
+          type: string
+        in: query
+        name: trnCatFrontPath
+        description: Search filter for trn cat front path
+        required: false
       tags:
       - TrnCategory
   /rest/TrnLsnTranslate/{row_id}:
@@ -2022,6 +2034,12 @@ paths:
         in: query
         name: trnLsnCatId__trnCatId__trnCatTitle
         description: Search filter for Category ID Parent Category ID Title
+        required: false
+      - schema:
+          type: string
+        in: query
+        name: trnLsnFrontPath
+        description: Search filter for trn lsn front path
         required: false
       tags:
       - TrnLesson

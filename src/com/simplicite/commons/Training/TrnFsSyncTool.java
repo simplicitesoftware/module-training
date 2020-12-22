@@ -167,8 +167,6 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	}
 	
 	private void syncPath(String relativePath) throws TrnSyncException{
-		AppLog.info("", Grant.getSystemAdmin());
-		AppLog.info("Syncing path "+relativePath, Grant.getSystemAdmin());
 		File dir = new File(contentDir.getPath()+relativePath);
 		
 		if(!"/".equals(relativePath)){
@@ -181,12 +179,8 @@ public class TrnFsSyncTool implements java.io.Serializable {
 				throw new TrnSyncException("TRN_SYNC_ERROR_HASHING_FILES", relativePath);
 			}
 			
-			if(oldHash==null || !oldHash.equals(newHash)){
-				AppLog.info(oldHash==null ? "Path not found in store" : "Hash changed.", Grant.getSystemAdmin());
+			if(oldHash==null || !oldHash.equals(newHash))
 				updateDbWithDir(dir);
-			}
-			else
-				AppLog.info("Hash did not change.", Grant.getSystemAdmin());
 			
 			hashStore.put(relativePath, newHash);
 			foundPaths.add(relativePath);
@@ -216,8 +210,12 @@ public class TrnFsSyncTool implements java.io.Serializable {
 			JSONObject json = new JSONObject(FileTool.readFile(dir.getPath()+"/category.json"));
 			synchronized(category){
 				category.resetValues();
-				category.setFieldValue("row_id", Tool.isEmpty(rowId) ? ObjectField.DEFAULT_ROW_ID : rowId);
+				if(Tool.isEmpty(rowId))
+					(new BusinessObjectTool(category)).selectForCreate();
+				else
+					(new BusinessObjectTool(category)).selectForUpdate(rowId);
 				category.setFieldValue("trnCatOrder", name[1]);
+				category.setFieldValue("trnCatPublish", json.optBoolean("published", true));
 				category.setFieldValue("trnCatTitle", json.getJSONObject("ANY").getString("title"));
 				category.setFieldValue("trnCatPath", relativePath);
 				category.setFieldValue("trnCatId", getCatRowIdFromPath(getParentRelativePath(dir)));
@@ -231,12 +229,11 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	}
 	
 	private String getRelativePath(File dir){
-		return dir.getPath().replace(contentDir.getPath()+"/", ""); //convert to substring
+		return dir.getPath().replace(contentDir.getPath(), ""); //convert to substring
 	}
 	
 	private String getParentRelativePath(File dir){
-		String relativePath = getRelativePath(dir);
-		return relativePath.contains("/") ? relativePath.replace("/"+dir.getName(), "") : "";
+		return getRelativePath(dir.getParentFile());
 	}
 	
 	private String getCatRowIdFromPath(String path){
@@ -257,18 +254,25 @@ public class TrnFsSyncTool implements java.io.Serializable {
 			
 			JSONObject json = new JSONObject(FileTool.readFile(dir.getPath()+"/lesson.json"));
 			synchronized(lesson){
+				BusinessObjectTool bot = new BusinessObjectTool(lesson);
 				lesson.resetValues();
-				lesson.setFieldValue("row_id", Tool.isEmpty(rowId) ? ObjectField.DEFAULT_ROW_ID : rowId);
+				if(!Tool.isEmpty(rowId)){
+					bot.selectForDelete(rowId);
+					bot.delete();
+				}
+				
+				bot.selectForCreate();
 				lesson.setFieldValue("trnLsnOrder", name[1]);
 				lesson.setFieldValue("trnLsnTitle", json.getJSONObject("ANY").getString("title"));
 				lesson.setFieldValue("trnLsnPath", relativePath);
 				lesson.setFieldValue("trnLsnCatId", getCatRowIdFromPath(getParentRelativePath(dir)));
+				lesson.setFieldValue("trnLsnPublish", json.optBoolean("published", true));
 				if(markdown.exists())
 					lesson.setFieldValue("trnLsnContent", FileTool.readFile(markdown));
 				if(video.exists())
 					lesson.getField("trnLsnVideo").setDocument(lesson, video.getName(), new FileInputStream(video));
 					
-				(new BusinessObjectTool(lesson)).validateAndSave();
+				bot.validateAndSave(true);
 				rowId = lesson.getRowId();
 			}
 			
@@ -279,7 +283,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 						picture.getField("trnPicImage").setDocument(picture, f.getName(), new FileInputStream(f));
 						picture.setFieldValue("trnPicLang", "ANY");
 						picture.setFieldValue("trnPicLsnId", rowId);
-						(new BusinessObjectTool(picture)).validateAndSave();
+						(new BusinessObjectTool(picture)).validateAndSave(true);
 					}
 		}
 		catch(Exception e){

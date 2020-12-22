@@ -30,6 +30,7 @@ The object that serves as container for lessons, or other categories (reflexivit
 | `trnCatId` link to **`TrnCategory`**                         | id                                       |          | yes       |          | -                                                                                |
 | _Ref. `trnCatId.trnCatPath`_                                 | _char(400)_                              |          |           |          | -                                                                                |
 | _Ref. `trnCatId.trnCatTitle`_                                | _char(200)_                              |          |           |          | -                                                                                |
+| `trnCatFrontPath`                                            | char(255)                                |          |           |          | -                                                                                |
 
 `TrnCategoryTranslate` business object definition
 -------------------------------------------------
@@ -77,6 +78,7 @@ The lesson object for the training, that will hold the content of a lesson.
 | _Ref. `trnLsnCatId.trnCatPath`_                              | _char(400)_                              |          |           |          | -                                                                                |
 | _Ref. `trnLsnCatId.trnCatId`_                                | _id_                                     |          |           |          | -                                                                                |
 | _Ref. `trnCatId.trnCatTitle`_                                | _char(200)_                              |          |           |          | -                                                                                |
+| `trnLsnFrontPath`                                            | text(255)                                |          |           |          | -                                                                                |
 
 ### Lists
 

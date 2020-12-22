@@ -14,4 +14,8 @@ public class TrnTools implements java.io.Serializable {
 	public static String toSnake(String str){
 		return SyntaxTool.forceCase(StringUtils.stripAccents(str), SyntaxTool.SNAKE, true);
 	}
+	
+	public static String path2Front(String path){
+		return path.replaceAll("(CTG|LSN)_[0-9]+_", "");
+	}
 }
