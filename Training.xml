@@ -5,12 +5,9 @@
 	<action>upsert</action>
 	<data>
 		<mdl_name>Training</mdl_name>
-		<mdl_version>0.1</mdl_version>
+		<mdl_version>1</mdl_version>
 		<mdl_prefix>trn</mdl_prefix>
-		<mdl_url><![CDATA[{
-	"type": "git",
-	"origin": { "uri": "https://github.com/simplicitesoftware/module-training.git" }
-}]]></mdl_url>
+		<mdl_url/>
 		<mdl_lastupd>2020-02-28 19:07:55</mdl_lastupd>
 		<mdl_comment><![CDATA[The module for the Simplciité Training platform]]></mdl_comment>
 	</data>

@@ -5,6 +5,6 @@
     "description": "The module for the Simplciité Training platform",
     "files": ["Training.xml"],
     "repository": {},
-    "version": "0.1",
+    "version": "1",
     "dependencies": {"Simplicite": "5"}
 }
