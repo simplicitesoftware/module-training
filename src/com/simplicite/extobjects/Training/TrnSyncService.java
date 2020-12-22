@@ -15,7 +15,7 @@ public class TrnSyncService extends RESTServiceExternalObject {
 	@Override
 	public Object get(Parameters params) {
 		try {
-			TrnFsSyncTool sync = new TrnFsSyncTool(Grant.getSystemAdmin(), "/usr/local/training-content/content");
+			TrnFsSyncTool sync = new TrnFsSyncTool(Grant.getSystemAdmin());
 			sync.sync();
 			setHTTPStatus(200);
 			return "OK";

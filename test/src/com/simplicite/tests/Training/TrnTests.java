@@ -27,7 +27,7 @@ public class TrnTests {
 	@Test
 	public void testSync() {
 		try {
-			TrnFsSyncTool sync = new TrnFsSyncTool(Grant.getSystemAdmin(), "/usr/local/training-content/content");
+			TrnFsSyncTool sync = new TrnFsSyncTool(Grant.getSystemAdmin());
 			sync.sync();
 		} catch (Exception e) {
 			AppLog.error(getClass(), "testVerify", e.getMessage(), e, Grant.getSystemAdmin());

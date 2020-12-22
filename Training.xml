@@ -19,6 +19,18 @@
 	<name>SystemParam</name>
 	<action>upsert</action>
 	<data>
+		<sys_code>TRN_CONFIG</sys_code>
+		<sys_value><![CDATA[{
+	"filesystem_contentdir": ""
+}]]></sys_value>
+		<sys_value2><![CDATA[{
+	"filesystem_contentdir": "/usr/local/training-content/content"
+}]]></sys_value2>
+		<sys_type>PRV</sys_type>
+		<sys_desc/>
+		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
+	</data>
+	<data>
 		<sys_code>TRN_LOCAL_REPO_PATH</sys_code>
 		<sys_value><![CDATA[/home/maxime2/training-content]]></sys_value>
 		<sys_value2/>

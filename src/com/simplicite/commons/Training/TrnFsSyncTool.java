@@ -58,11 +58,12 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		}
 	}
 	
-	public TrnFsSyncTool(Grant g, String contentPath) throws TrnSyncException{
+	public TrnFsSyncTool(Grant g) throws TrnSyncException{
 		this.g = g;
-		if(Tool.isEmpty(contentPath))
+		JSONObject conf = new JSONObject(g.getParameter("TRN_CONFIG"));
+		if(Tool.isEmpty(conf.getString("filesystem_contentdir")))
 			throw new TrnSyncException("TRN_SYNC_EMPTY_CONTENT_PATH");
-		contentDir = new File(contentPath);
+		contentDir = new File(conf.getString("filesystem_contentdir"));
 		hashStoreFile = new File(g.getContentDir()+"/"+HASHSTORE_FILENAME);
 		//config = new JSONObject(g.getParameter("TRAINING_CONFIG"));
 	}
