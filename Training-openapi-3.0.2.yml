@@ -56,17 +56,11 @@ components:
       type: object
       properties:
         trnCatId:
-          description: Parent Category ID
+          description: Parent Category
           type: string
         trnCatOrder:
           description: Order
           type: integer
-        trnCatDescription:
-          description: Description
-          type: string
-        trnCatId__trnCatTitle:
-          description: Parent Category Title
-          type: string
         trnCatPublish:
           description: Determines if the category and its subcategories and lessons
             are available on the front-end application.
@@ -74,17 +68,17 @@ components:
         trnCatPath:
           description: Category Path
           type: string
-        trnCatTitle:
-          description: Title
-          type: string
         row_id:
           description: Unique technical row ID
           type: string
-        trnCatId__trnCatPath:
-          description: Parent Category Path
+        trnCatCode:
+          description: Code
           type: string
         trnCatFrontPath:
           description: trn cat front path
+          type: string
+        trnCatId__trnCatPath:
+          description: Parent Category Path
           type: string
     ArrayOfTrnPicture:
       type: array
@@ -96,9 +90,6 @@ components:
         trnCtrDescription:
           description: Category Translate Description
           type: string
-        trnCtrPicture:
-          description: The picture associated with a category.
-          type: object
         trnCtrCatId:
           description: Category ID
           type: string
@@ -114,9 +105,6 @@ components:
           - FRA
         trnCtrTitle:
           description: Category translate title
-          type: string
-        trnCtrCatId__trnCatTitle:
-          description: Category Title
           type: string
     TrnPicture:
       type: object
@@ -149,24 +137,6 @@ components:
     TrnLesson:
       type: object
       properties:
-        trnLsnVideo:
-          description: Video (.webm)
-          type: object
-        trnLsnPublish:
-          description: Determines if the lesson is visible on the front-end application.
-          type: boolean
-        trnLsnFrontPath:
-          description: trn lsn front path
-          type: string
-        trnLsnCatId__trnCatId:
-          description: Category ID Parent Category ID
-          type: string
-        trnLsnTitle:
-          description: Title
-          type: string
-        trnLsnCatId:
-          description: Category ID
-          type: string
         trnLsnPath:
           description: Path
           type: string
@@ -176,6 +146,9 @@ components:
         trnLsnCatId__trnCatPath:
           description: Category Path
           type: string
+        trnLsnCode:
+          description: trn lsn code
+          type: string
         trnLsnVisualization:
           description: Describes the visualization mode to be used in the front-end
             application.
@@ -183,23 +156,17 @@ components:
           enum:
           - TUTO
           - LINEAR
-        trnLsnDescription:
-          description: Description
-          type: string
-        trnLsnContent:
-          description: Content
-          type: string
-        trnLsnCatId__trnCatTitle:
-          description: Category Title
+        trnLsnPublish:
+          description: Determines if the lesson is visible on the front-end application.
+          type: boolean
+        trnLsnFrontPath:
+          description: trn lsn front path
           type: string
         row_id:
           description: Unique technical row ID
           type: string
-        trnLsnHtmlContent:
-          description: trn lsn html content
-          type: string
-        trnLsnCatId__trnCatId__trnCatTitle:
-          description: Category ID Parent Category ID Title
+        trnLsnCatId:
+          description: Category ID
           type: string
     TreeviewData:
       type: object
@@ -259,7 +226,7 @@ components:
           - ENU
           - FRA
         trnLtrLsnId__trnLsnPath:
-          description: Lesson Title
+          description: Original Lesson ID Path
           type: string
         trnLtrDescription:
           description: Translate Description
@@ -275,7 +242,7 @@ components:
           description: Unique technical row ID
           type: string
         trnLtrTitle:
-          description: Translate Title
+          description: Title
           type: string
         trnLtrLsnId:
           description: Original Lesson ID
@@ -819,20 +786,8 @@ paths:
       - schema:
           type: string
         in: query
-        name: trnCtrPicture
-        description: Search filter for The picture associated with a category.
-        required: false
-      - schema:
-          type: string
-        in: query
         name: trnCtrCatId
         description: Search filter for Category ID
-        required: false
-      - schema:
-          type: string
-        in: query
-        name: trnCtrCatId__trnCatTitle
-        description: Search filter for Category Title
         required: false
       tags:
       - TrnCategoryTranslate
@@ -889,12 +844,6 @@ paths:
         required: false
       - schema:
           type: string
-        in: query
-        name: trnPicImage
-        description: Search filter for Image
-        required: false
-      - schema:
-          type: string
           enum:
           - ANY
           - ENU
@@ -902,6 +851,12 @@ paths:
         in: query
         name: trnPicLang
         description: Search filter for Language
+        required: false
+      - schema:
+          type: string
+        in: query
+        name: trnPicImage
+        description: Search filter for Image
         required: false
       - schema:
           type: string
@@ -1574,6 +1529,13 @@ paths:
         description: Documentation?
         required: false
       - schema:
+          type: boolean
+        in: query
+        name: trnCatPublish
+        description: Search filter for Determines if the category and its subcategories
+          and lessons are available on the front-end application.
+        required: false
+      - schema:
           type: string
         in: query
         name: trnCatPath
@@ -1588,45 +1550,26 @@ paths:
       - schema:
           type: string
         in: query
-        name: trnCatTitle
-        description: Search filter for Title
-        required: false
-      - schema:
-          type: string
-        in: query
-        name: trnCatDescription
-        description: Search filter for Description
-        required: false
-      - schema:
-          type: boolean
-        in: query
-        name: trnCatPublish
-        description: Search filter for Determines if the category and its subcategories
-          and lessons are available on the front-end application.
-        required: false
-      - schema:
-          type: string
-        in: query
-        name: trnCatId
-        description: Search filter for Parent Category ID
-        required: false
-      - schema:
-          type: string
-        in: query
-        name: trnCatId__trnCatPath
-        description: Search filter for Parent Category Path
-        required: false
-      - schema:
-          type: string
-        in: query
-        name: trnCatId__trnCatTitle
-        description: Search filter for Parent Category Title
+        name: trnCatCode
+        description: Search filter for Code
         required: false
       - schema:
           type: string
         in: query
         name: trnCatFrontPath
         description: Search filter for trn cat front path
+        required: false
+      - schema:
+          type: string
+        in: query
+        name: trnCatId
+        description: Search filter for Parent Category
+        required: false
+      - schema:
+          type: string
+        in: query
+        name: trnCatId__trnCatPath
+        description: Search filter for Parent Category Path
         required: false
       tags:
       - TrnCategory
@@ -1947,6 +1890,13 @@ paths:
         description: Index search query
         required: false
       - schema:
+          type: boolean
+        in: query
+        name: trnLsnPublish
+        description: Search filter for Determines if the lesson is visible on the
+          front-end application.
+        required: false
+      - schema:
           type: string
         in: query
         name: trnLsnPath
@@ -1961,32 +1911,8 @@ paths:
       - schema:
           type: string
         in: query
-        name: trnLsnTitle
-        description: Search filter for Title
-        required: false
-      - schema:
-          type: string
-        in: query
-        name: trnLsnDescription
-        description: Search filter for Description
-        required: false
-      - schema:
-          type: string
-        in: query
-        name: trnLsnVideo
-        description: Search filter for Video (.webm)
-        required: false
-      - schema:
-          type: string
-        in: query
-        name: trnLsnContent
-        description: Search filter for Content
-        required: false
-      - schema:
-          type: string
-        in: query
-        name: trnLsnHtmlContent
-        description: Search filter for trn lsn html content
+        name: trnLsnCode
+        description: Search filter for trn lsn code
         required: false
       - schema:
           type: string
@@ -1999,11 +1925,10 @@ paths:
           in the front-end application.
         required: false
       - schema:
-          type: boolean
+          type: string
         in: query
-        name: trnLsnPublish
-        description: Search filter for Determines if the lesson is visible on the
-          front-end application.
+        name: trnLsnFrontPath
+        description: Search filter for trn lsn front path
         required: false
       - schema:
           type: string
@@ -2014,32 +1939,8 @@ paths:
       - schema:
           type: string
         in: query
-        name: trnLsnCatId__trnCatTitle
-        description: Search filter for Category Title
-        required: false
-      - schema:
-          type: string
-        in: query
         name: trnLsnCatId__trnCatPath
         description: Search filter for Category Path
-        required: false
-      - schema:
-          type: string
-        in: query
-        name: trnLsnCatId__trnCatId
-        description: Search filter for Category ID Parent Category ID
-        required: false
-      - schema:
-          type: string
-        in: query
-        name: trnLsnCatId__trnCatId__trnCatTitle
-        description: Search filter for Category ID Parent Category ID Title
-        required: false
-      - schema:
-          type: string
-        in: query
-        name: trnLsnFrontPath
-        description: Search filter for trn lsn front path
         required: false
       tags:
       - TrnLesson
@@ -2103,7 +2004,7 @@ paths:
           type: string
         in: query
         name: trnLtrTitle
-        description: Search filter for Translate Title
+        description: Search filter for Title
         required: false
       - schema:
           type: string
@@ -2140,7 +2041,7 @@ paths:
           type: string
         in: query
         name: trnLtrLsnId__trnLsnPath
-        description: Search filter for Lesson Title
+        description: Search filter for Original Lesson ID Path
         required: false
       tags:
       - TrnLsnTranslate
@@ -2159,12 +2060,12 @@ tags:
 - name: TrnCategory
   description: Category
 - name: TrnCategoryTranslate
-  description: Categories Translations
+  description: Translation
 - name: TrnLesson
   description: Lesson
 - name: TrnLsnTranslate
-  description: Lesson Translations
+  description: Translation
 - name: TrnPicture
-  description: Lessons Pictures
+  description: Picture
 - name: TrnSiteContent
   description: Site Contents

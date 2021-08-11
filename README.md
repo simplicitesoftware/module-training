@@ -22,15 +22,17 @@ The object that serves as container for lessons, or other categories (reflexivit
 
 | Name                                                         | Type                                     | Required | Updatable | Personal | Description                                                                      | 
 | ------------------------------------------------------------ | ---------------------------------------- | -------- | --------- | -------- | -------------------------------------------------------------------------------- |
-| `trnCatPath`                                                 | char(400)                                | *        |           |          | -                                                                                |
-| `trnCatOrder`                                                | int(100)                                 | yes      | yes       |          | -                                                                                |
-| `trnCatTitle`                                                | char(200)                                | yes      | yes       |          | -                                                                                |
-| `trnCatDescription`                                          | text(1000)                               |          | yes       |          | -                                                                                |
 | `trnCatPublish`                                              | boolean                                  |          | yes       |          | Determines if the category and its subcategories and lessons are available on the front-end application. |
+| `trnCatPath`                                                 | text(400)                                | *        |           |          | -                                                                                |
+| `trnCatOrder`                                                | int(100)                                 | yes      | yes       |          | -                                                                                |
+| `trnCatCode`                                                 | char(100)                                | yes      | yes       |          | -                                                                                |
+| `trnCatFrontPath`                                            | text(400)                                |          |           |          | -                                                                                |
 | `trnCatId` link to **`TrnCategory`**                         | id                                       |          | yes       |          | -                                                                                |
-| _Ref. `trnCatId.trnCatPath`_                                 | _char(400)_                              |          |           |          | -                                                                                |
-| _Ref. `trnCatId.trnCatTitle`_                                | _char(200)_                              |          |           |          | -                                                                                |
-| `trnCatFrontPath`                                            | char(255)                                |          |           |          | -                                                                                |
+| _Ref. `trnCatId.trnCatPath`_                                 | _text(400)_                              |          |           |          | -                                                                                |
+
+### Custom actions
+
+* `forceDirSync`: 
 
 `TrnCategoryTranslate` business object definition
 -------------------------------------------------
@@ -42,11 +44,9 @@ This object contains the translation of a category object
 | Name                                                         | Type                                     | Required | Updatable | Personal | Description                                                                      | 
 | ------------------------------------------------------------ | ---------------------------------------- | -------- | --------- | -------- | -------------------------------------------------------------------------------- |
 | `trnCtrLang`                                                 | enum(100) using `LANG_ALL` list          | yes*     | yes       |          | -                                                                                |
-| `trnCtrTitle`                                                | char(200)                                | yes*     | yes       |          | -                                                                                |
+| `trnCtrTitle`                                                | char(200)                                | yes      | yes       |          | -                                                                                |
 | `trnCtrDescription`                                          | text(1000)                               |          | yes       |          | -                                                                                |
-| `trnCtrPicture`                                              | image                                    |          | yes       |          | The picture associated with a category.                                          |
-| `trnCtrCatId` link to **`TrnCategory`**                      | id                                       |          | yes       |          | -                                                                                |
-| _Ref. `trnCtrCatId.trnCatTitle`_                             | _char(200)_                              |          |           |          | -                                                                                |
+| `trnCtrCatId` link to **`TrnCategory`**                      | id                                       | *        | yes       |          | -                                                                                |
 
 ### Lists
 
@@ -64,21 +64,14 @@ The lesson object for the training, that will hold the content of a lesson.
 
 | Name                                                         | Type                                     | Required | Updatable | Personal | Description                                                                      | 
 | ------------------------------------------------------------ | ---------------------------------------- | -------- | --------- | -------- | -------------------------------------------------------------------------------- |
-| `trnLsnPath`                                                 | char(400)                                | *        |           |          | -                                                                                |
-| `trnLsnOrder`                                                | int(100)                                 | yes      | yes       |          | -                                                                                |
-| `trnLsnTitle`                                                | char(200)                                | yes      | yes       |          | -                                                                                |
-| `trnLsnDescription`                                          | text(1000)                               |          | yes       |          | -                                                                                |
-| `trnLsnVideo`                                                | document                                 |          | yes       |          | -                                                                                |
-| `trnLsnContent`                                              | text(200000)                             |          | yes       |          | -                                                                                |
-| `trnLsnHtmlContent`                                          | text(20000)                              |          |           |          | -                                                                                |
-| `trnLsnVisualization`                                        | enum(6) using `TRNLSNVISUALIZATION` list |          | yes       |          | Describes the visualization mode to be used in the front-end application.        |
 | `trnLsnPublish`                                              | boolean                                  |          | yes       |          | Determines if the lesson is visible on the front-end application.                |
-| `trnLsnCatId` link to **`TrnCategory`**                      | id                                       | yes      | yes       |          | -                                                                                |
-| _Ref. `trnLsnCatId.trnCatTitle`_                             | _char(200)_                              |          |           |          | -                                                                                |
-| _Ref. `trnLsnCatId.trnCatPath`_                              | _char(400)_                              |          |           |          | -                                                                                |
-| _Ref. `trnLsnCatId.trnCatId`_                                | _id_                                     |          |           |          | -                                                                                |
-| _Ref. `trnCatId.trnCatTitle`_                                | _char(200)_                              |          |           |          | -                                                                                |
+| `trnLsnPath`                                                 | text(400)                                | *        |           |          | -                                                                                |
+| `trnLsnOrder`                                                | int(100)                                 | yes      | yes       |          | -                                                                                |
+| `trnLsnCode`                                                 | char(255)                                | yes      | yes       |          | -                                                                                |
+| `trnLsnVisualization`                                        | enum(6) using `TRNLSNVISUALIZATION` list |          | yes       |          | Describes the visualization mode to be used in the front-end application.        |
 | `trnLsnFrontPath`                                            | text(255)                                |          |           |          | -                                                                                |
+| `trnLsnCatId` link to **`TrnCategory`**                      | id                                       | yes      | yes       |          | -                                                                                |
+| _Ref. `trnLsnCatId.trnCatPath`_                              | _text(400)_                              |          |           |          | -                                                                                |
 
 ### Lists
 
@@ -96,13 +89,13 @@ The object used to translate the lesson objects, for multilingual transport.
 | Name                                                         | Type                                     | Required | Updatable | Personal | Description                                                                      | 
 | ------------------------------------------------------------ | ---------------------------------------- | -------- | --------- | -------- | -------------------------------------------------------------------------------- |
 | `trnLtrLan`                                                  | enum(100) using `LANG_ALL` list          | yes*     | yes       |          | -                                                                                |
-| `trnLtrTitle`                                                | char(200)                                | yes*     | yes       |          | -                                                                                |
+| `trnLtrTitle`                                                | char(200)                                | yes      | yes       |          | -                                                                                |
 | `trnLtrDescription`                                          | text(1000)                               |          | yes       |          | -                                                                                |
-| `trnLtrContent`                                              | text(20000)                              |          | yes       |          | -                                                                                |
+| `trnLtrContent`                                              | text(100000)                             |          | yes       |          | -                                                                                |
 | `trnLtrVideo`                                                | document                                 |          | yes       |          | -                                                                                |
-| `trnLtrHtmlContent`                                          | html(50000)                              |          | yes       |          | The HTML equivalent of the content attribute. It's this attribute that is displayed by the front-end application. |
-| `trnLtrLsnId` link to **`TrnLesson`**                        | id                                       |          | yes       |          | -                                                                                |
-| _Ref. `trnLtrLsnId.trnLsnPath`_                              | _char(400)_                              |          |           |          | -                                                                                |
+| `trnLtrHtmlContent`                                          | text(500000)                             |          |           |          | The HTML equivalent of the content attribute. It's this attribute that is displayed by the front-end application. |
+| `trnLtrLsnId` link to **`TrnLesson`**                        | id                                       | *        | yes       |          | -                                                                                |
+| _Ref. `trnLtrLsnId.trnLsnPath`_                              | _text(400)_                              |          |           |          | -                                                                                |
 
 ### Lists
 
@@ -120,10 +113,10 @@ The picture object for the lessons. Used for the multilanguage support.
 
 | Name                                                         | Type                                     | Required | Updatable | Personal | Description                                                                      | 
 | ------------------------------------------------------------ | ---------------------------------------- | -------- | --------- | -------- | -------------------------------------------------------------------------------- |
-| `trnPicImage`                                                | image                                    | yes*     | yes       |          | -                                                                                |
 | `trnPicLang`                                                 | enum(100) using `LANG_ALL` list          | yes*     | yes       |          | -                                                                                |
-| `trnPicLsnId` link to **`TrnLesson`**                        | id                                       |          | yes       |          | -                                                                                |
-| _Ref. `trnPicLsnId.trnLsnPath`_                              | _char(400)_                              |          |           |          | -                                                                                |
+| `trnPicImage`                                                | image                                    | yes*     | yes       |          | -                                                                                |
+| `trnPicLsnId` link to **`TrnLesson`**                        | id                                       | yes*     | yes       |          | -                                                                                |
+| _Ref. `trnPicLsnId.trnLsnPath`_                              | _text(400)_                              |          |           |          | -                                                                                |
 
 ### Lists
 

@@ -22,13 +22,14 @@ public class TrnTreeService extends RESTServiceExternalObject  {
 
 	@Override
 	public Object post(Parameters params) {
+		String lang = params.getParameter("array", "ENU");
+		
 		if(!"".equals(params.getParameter("getImages", "")))
 			return getImages(params.getParameter("lessonId", "0"));
 		if(!"".equals(params.getParameter("array", "")))
-			return getTree2();
+			return getTree2(lang);
 		else
-			return getTree();
-			//return "getTree deprecated";
+			return "getTree deprecated";
 	}
 	
 	@Override
@@ -43,14 +44,14 @@ public class TrnTreeService extends RESTServiceExternalObject  {
 		return arr; 
 	}
 
-	private JSONArray getTree2(){
+	private JSONArray getTree2(String lang){
 		boolean[] oldcrudCat = getGrant().changeAccess("TrnCategory", READ_ACCESS);
 		boolean[] oldcrudLsn = getGrant().changeAccess("TrnLesson", READ_ACCESS);
 		
 		ObjectDB tmpCategory = getGrant().getObject("tree_TrnCategory", "TrnCategory");
 		ObjectDB tmpLesson = getGrant().getObject("tree_TrnLesson", "TrnLesson");
 		
-		JSONArray tree = getCategoriesRecursive2("is null", tmpCategory, tmpLesson);
+		JSONArray tree = getCategoriesRecursive2("is null", tmpCategory, tmpLesson, lang);
 		
 		getGrant().changeAccess("TrnCategory", oldcrudCat);
 		getGrant().changeAccess("TrnLesson", oldcrudLsn);
@@ -62,17 +63,17 @@ public class TrnTreeService extends RESTServiceExternalObject  {
 		return tree;
 	}
 	
-	private JSONArray getCategoriesRecursive2(String parentId, ObjectDB tmpCategory, ObjectDB tmpLesson){
+	private JSONArray getCategoriesRecursive2(String parentId, ObjectDB tmpCategory, ObjectDB tmpLesson, String lang){
 		JSONArray cats = new JSONArray();
-		for(JSONObject cat : getCategories(parentId, tmpCategory)){
-			cat.put("categories", getCategoriesRecursive2(cat.getString("row_id"), tmpCategory, tmpLesson));
-			cat.put("lessons", getLessons2(cat.getString("row_id"), tmpLesson));
+		for(JSONObject cat : getCategories(parentId, tmpCategory, lang)){
+			cat.put("categories", getCategoriesRecursive2(cat.getString("row_id"), tmpCategory, tmpLesson, lang));
+			cat.put("lessons", getLessons2(cat.getString("row_id"), tmpLesson, lang));
 			cats.put(cat);
 		}
 		return cats;
 	}
 	
-	private List<JSONObject> getCategories(String parentId, ObjectDB tmpCategory){
+	private List<JSONObject> getCategories(String parentId, ObjectDB tmpCategory, String lang){
 		List<JSONObject> catList = new ArrayList();
 		JSONObject cat;
 		synchronized(tmpCategory){
@@ -88,7 +89,7 @@ public class TrnTreeService extends RESTServiceExternalObject  {
 		return catList;
 	}
 	
-	private JSONArray getLessons2(String categoryId, ObjectDB tmpLesson){
+	private JSONArray getLessons2(String categoryId, ObjectDB tmpLesson, String lang){
 		JSONArray lessons = new JSONArray();
 		JSONObject lsn;
 		String path, next, prev;
@@ -123,6 +124,10 @@ public class TrnTreeService extends RESTServiceExternalObject  {
 		return lessons;
 	}
 	
+	private JSONObject category2Front(JSONObject cat){
+		return cat;
+	}
+	
 	private JSONObject lesson2Front(JSONObject lsn, String previousPath, String path, String nextPath){
        	lsn.remove("trnLsnContent");
     	lsn.remove("trnLsnHtmlContent");
@@ -130,55 +135,5 @@ public class TrnTreeService extends RESTServiceExternalObject  {
 		lsn.put("trnLsnNext", nextPath);
 		return lsn;
 	}
-	
-	private JSONObject getTree(){
-		boolean[] oldcrudCat = getGrant().changeAccess("TrnCategory", READ_ACCESS);
-		boolean[] oldcrudLsn = getGrant().changeAccess("TrnLesson", READ_ACCESS);
-		
-		ObjectDB tmpCategory = getGrant().getObject("tree_TrnCategory", "TrnCategory");
-		ObjectDB tmpLesson = getGrant().getObject("tree_TrnLesson", "TrnLesson");
-		
-		JSONObject tree = getCategoriesRecursive("is null", tmpCategory, tmpLesson);
-		
-		getGrant().changeAccess("TrnCategory", oldcrudCat);
-		getGrant().changeAccess("TrnLesson", oldcrudLsn);
-		
-		return tree;
-	}
-	
-	private JSONObject getCategoriesRecursive(String parentId, ObjectDB tmpCategory, ObjectDB tmpLesson){
-		JSONObject cats = new JSONObject();
-		for(JSONObject cat : getCategories(parentId, tmpCategory)){
-			cat.put("categories", getCategoriesRecursive(cat.getString("row_id"), tmpCategory, tmpLesson));
-			cat.put("lessons", getLessons(cat.getString("row_id"), tmpLesson));
-			cats.put(cat.getString("trnCatFrontPath"), cat);
-		}
-		return cats;
-	}
-	
-	private JSONObject getLessons(String categoryId, ObjectDB tmpLesson){
-		JSONObject lessons = new JSONObject();
-		JSONObject lsn;
-		int INDEX_PATH = tmpLesson.getFieldIndex("trnLsnFrontPath");
-		synchronized(tmpLesson){
-			tmpLesson.resetFilters();
-	        tmpLesson.setFieldFilter("trnLsnCatId", categoryId);
-			List<String[]> rows = tmpLesson.search();
-			for(int i=0; i<rows.size(); i++){
-				tmpLesson.setValues(rows.get(i));
-				
-				lsn = lesson2Front(
-					new JSONObject(tmpLesson.toJSON()),
-					i==0 ? "" : rows.get(i-1)[INDEX_PATH],
-					rows.get(i)[INDEX_PATH],
-					i==rows.size()-1 ? "" : rows.get(i+1)[INDEX_PATH]
-				);
-				
-	        	lessons.put(rows.get(i)[INDEX_PATH], lsn);
-			}
-		}
-		return lessons;
-	}
-	
 }
 

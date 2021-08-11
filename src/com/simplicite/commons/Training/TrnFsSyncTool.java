@@ -53,6 +53,10 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		}
 	}
 	
+	public static void triggerSync() throws TrnSyncException{
+		(new TrnFsSyncTool(Grant.getSystemAdmin())).sync();
+	}
+	
 	public TrnFsSyncTool(Grant g) throws TrnSyncException{
 		this.g = g;
 		JSONObject conf = new JSONObject(g.getParameter("TRN_CONFIG"));

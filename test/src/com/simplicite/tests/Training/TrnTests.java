@@ -13,24 +13,12 @@ import com.simplicite.commons.Training.TrnFsSyncTool;
  * Unit tests TrnTests
  */
 public class TrnTests {
-/*	@Test
-	public void testVerify() {
-		try {
-			TrnFsSyncTool sync = new TrnFsSyncTool(Grant.getSystemAdmin(), "/usr/local/training-content/content");
-			sync.verifyContentStructure();
-		} catch (Exception e) {
-			AppLog.error(getClass(), "testVerify", e.getMessage(), e, Grant.getSystemAdmin());
-			fail(e.getMessage());
-		}
-	}*/
-	
 	@Test
 	public void testSync() {
 		try {
-			TrnFsSyncTool sync = new TrnFsSyncTool(Grant.getSystemAdmin());
-			sync.sync();
+			TrnFsSyncTool.triggerSync();
 		} catch (Exception e) {
-			AppLog.error(getClass(), "testVerify", e.getMessage(), e, Grant.getSystemAdmin());
+			AppLog.error(getClass(), "testSync", e.getMessage(), e, Grant.getSystemAdmin());
 			fail(e.getMessage());
 		}
 	}
