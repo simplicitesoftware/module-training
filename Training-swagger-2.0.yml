@@ -413,6 +413,11 @@ paths:
         type: boolean
         required: false
       - in: query
+        name: _indexsearch
+        description: Index search query
+        type: string
+        required: false
+      - in: query
         name: trnCtrLang
         description: Search filter for Category translate language
         type: string
@@ -1055,6 +1060,11 @@ paths:
         type: boolean
         required: false
       - in: query
+        name: _indexsearch
+        description: Index search query
+        type: string
+        required: false
+      - in: query
         name: trnCatPublish
         description: Search filter for Determines if the category and its subcategories
           and lessons are available on the front-end application.
@@ -1442,6 +1452,11 @@ paths:
         name: _doc
         description: Documentation?
         type: boolean
+        required: false
+      - in: query
+        name: _indexsearch
+        description: Index search query
+        type: string
         required: false
       - in: query
         name: trnLtrLan

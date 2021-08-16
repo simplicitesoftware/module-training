@@ -763,6 +763,12 @@ paths:
         required: false
       - schema:
           type: string
+        in: query
+        name: _indexsearch
+        description: Index search query
+        required: false
+      - schema:
+          type: string
           enum:
           - ANY
           - ENU
@@ -1529,6 +1535,12 @@ paths:
         description: Documentation?
         required: false
       - schema:
+          type: string
+        in: query
+        name: _indexsearch
+        description: Index search query
+        required: false
+      - schema:
           type: boolean
         in: query
         name: trnCatPublish
@@ -1989,6 +2001,12 @@ paths:
         in: query
         name: _doc
         description: Documentation?
+        required: false
+      - schema:
+          type: string
+        in: query
+        name: _indexsearch
+        description: Index search query
         required: false
       - schema:
           type: string

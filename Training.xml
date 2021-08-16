@@ -664,7 +664,7 @@
 		<fld_precision/>
 		<fld_fromdate_id.fld_name/>
 		<fld_dfault/>
-		<fld_indexable>0</fld_indexable>
+		<fld_indexable>1</fld_indexable>
 		<fld_autocomp>0</fld_autocomp>
 		<fld_groupby>0</fld_groupby>
 		<fld_updall>1</fld_updall>
@@ -775,7 +775,7 @@
 		<fld_precision/>
 		<fld_fromdate_id.fld_name/>
 		<fld_dfault/>
-		<fld_indexable>0</fld_indexable>
+		<fld_indexable>1</fld_indexable>
 		<fld_autocomp>0</fld_autocomp>
 		<fld_groupby>0</fld_groupby>
 		<fld_updall>1</fld_updall>
@@ -1034,7 +1034,7 @@
 		<fld_precision/>
 		<fld_fromdate_id.fld_name/>
 		<fld_dfault/>
-		<fld_indexable>0</fld_indexable>
+		<fld_indexable>1</fld_indexable>
 		<fld_autocomp>0</fld_autocomp>
 		<fld_groupby>0</fld_groupby>
 		<fld_updall>1</fld_updall>
@@ -1071,7 +1071,7 @@
 		<fld_precision/>
 		<fld_fromdate_id.fld_name/>
 		<fld_dfault><![CDATA[ANY]]></fld_dfault>
-		<fld_indexable>0</fld_indexable>
+		<fld_indexable>1</fld_indexable>
 		<fld_autocomp>0</fld_autocomp>
 		<fld_groupby>0</fld_groupby>
 		<fld_updall>1</fld_updall>
@@ -1108,7 +1108,7 @@
 		<fld_precision/>
 		<fld_fromdate_id.fld_name/>
 		<fld_dfault/>
-		<fld_indexable>0</fld_indexable>
+		<fld_indexable>1</fld_indexable>
 		<fld_autocomp>0</fld_autocomp>
 		<fld_groupby>0</fld_groupby>
 		<fld_updall>1</fld_updall>
@@ -1214,12 +1214,12 @@
 		<fld_type_id.flt_code/>
 		<fld_list_id.lov_name/>
 		<fld_copy>1</fld_copy>
-		<fld_size>255</fld_size>
+		<fld_size>400</fld_size>
 		<fld_minsize/>
 		<fld_precision/>
 		<fld_fromdate_id.fld_name/>
 		<fld_dfault/>
-		<fld_indexable>0</fld_indexable>
+		<fld_indexable>1</fld_indexable>
 		<fld_autocomp>0</fld_autocomp>
 		<fld_groupby>0</fld_groupby>
 		<fld_updall>1</fld_updall>
@@ -1404,7 +1404,7 @@
 		<fld_precision/>
 		<fld_fromdate_id.fld_name/>
 		<fld_dfault/>
-		<fld_indexable>0</fld_indexable>
+		<fld_indexable>1</fld_indexable>
 		<fld_autocomp>0</fld_autocomp>
 		<fld_groupby>0</fld_groupby>
 		<fld_updall>1</fld_updall>
@@ -1441,7 +1441,7 @@
 		<fld_precision/>
 		<fld_fromdate_id.fld_name/>
 		<fld_dfault/>
-		<fld_indexable>0</fld_indexable>
+		<fld_indexable>1</fld_indexable>
 		<fld_autocomp>0</fld_autocomp>
 		<fld_groupby>0</fld_groupby>
 		<fld_updall>1</fld_updall>
@@ -1515,7 +1515,7 @@
 		<fld_precision/>
 		<fld_fromdate_id.fld_name/>
 		<fld_dfault><![CDATA[ANY]]></fld_dfault>
-		<fld_indexable>0</fld_indexable>
+		<fld_indexable>1</fld_indexable>
 		<fld_autocomp>0</fld_autocomp>
 		<fld_groupby>0</fld_groupby>
 		<fld_updall>1</fld_updall>
@@ -1589,7 +1589,7 @@
 		<fld_precision/>
 		<fld_fromdate_id.fld_name/>
 		<fld_dfault/>
-		<fld_indexable>0</fld_indexable>
+		<fld_indexable>1</fld_indexable>
 		<fld_autocomp>0</fld_autocomp>
 		<fld_groupby>0</fld_groupby>
 		<fld_updall>1</fld_updall>
@@ -2263,7 +2263,7 @@
 		<obo_delspec/>
 		<obo_exportorder>10</obo_exportorder>
 		<obo_distinct>0</obo_distinct>
-		<obo_indexable>0</obo_indexable>
+		<obo_indexable>1</obo_indexable>
 		<obo_groupby>0</obo_groupby>
 		<obo_dfltref/>
 		<obo_template_id.tpl_name>TrnCategory</obo_template_id.tpl_name>
@@ -2325,7 +2325,7 @@
 		<obo_delspec/>
 		<obo_exportorder>20</obo_exportorder>
 		<obo_distinct>0</obo_distinct>
-		<obo_indexable>0</obo_indexable>
+		<obo_indexable>1</obo_indexable>
 		<obo_groupby>0</obo_groupby>
 		<obo_dfltref/>
 		<obo_template_id.tpl_name>TrnCategoryTranslate</obo_template_id.tpl_name>
@@ -2449,7 +2449,7 @@
 		<obo_delspec/>
 		<obo_exportorder>40</obo_exportorder>
 		<obo_distinct>0</obo_distinct>
-		<obo_indexable>0</obo_indexable>
+		<obo_indexable>1</obo_indexable>
 		<obo_groupby>0</obo_groupby>
 		<obo_dfltref/>
 		<obo_template_id.tpl_name>TrnLsnTranslate</obo_template_id.tpl_name>

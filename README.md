@@ -69,7 +69,7 @@ The lesson object for the training, that will hold the content of a lesson.
 | `trnLsnOrder`                                                | int(100)                                 | yes      | yes       |          | -                                                                                |
 | `trnLsnCode`                                                 | char(255)                                | yes      | yes       |          | -                                                                                |
 | `trnLsnVisualization`                                        | enum(6) using `TRNLSNVISUALIZATION` list |          | yes       |          | Describes the visualization mode to be used in the front-end application.        |
-| `trnLsnFrontPath`                                            | text(255)                                |          |           |          | -                                                                                |
+| `trnLsnFrontPath`                                            | text(400)                                |          |           |          | -                                                                                |
 | `trnLsnCatId` link to **`TrnCategory`**                      | id                                       | yes      | yes       |          | -                                                                                |
 | _Ref. `trnLsnCatId.trnCatPath`_                              | _text(400)_                              |          |           |          | -                                                                                |
 
