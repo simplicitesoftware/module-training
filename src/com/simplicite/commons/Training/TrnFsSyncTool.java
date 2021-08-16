@@ -2,10 +2,12 @@ package com.simplicite.commons.Training;
 
 import java.util.*;
 import com.simplicite.util.*;
+import com.simplicite.util.exceptions.*;
 import com.simplicite.util.tools.*;
 import java.io.File;
 import java.util.regex.Pattern;
 import org.json.JSONObject;
+import org.json.JSONArray;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
@@ -23,8 +25,10 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	private final Pattern PATTERN_LESSON = Pattern.compile("^LSN_[0-9]+_[a-z\\-]+$");
 	private final File contentDir;
 	private final File hashStoreFile;
+	private final String[] LANG_CODES;
+	private final String DEFAULT_LANG_CODE = "ANY";
 	
-	private ObjectDB category, lesson, picture;
+	private ObjectDB category, categoryContent, lesson, lessonContent, picture;
 	
 	private HashMap<String, String> hashStore;
 	private ArrayList<String> foundPaths;
@@ -53,8 +57,19 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		}
 	}
 	
+	public static void dropDbData() throws TrnSyncException{
+		TrnFsSyncTool t = new TrnFsSyncTool(Grant.getSystemAdmin());
+		t.dropData();
+	}
+	
+	public static void deleteStore() throws TrnSyncException{
+		TrnFsSyncTool t = new TrnFsSyncTool(Grant.getSystemAdmin());
+		t.deleteHashStore();
+	}
+	
 	public static void triggerSync() throws TrnSyncException{
-		(new TrnFsSyncTool(Grant.getSystemAdmin())).sync();
+		TrnFsSyncTool t = new TrnFsSyncTool(Grant.getSystemAdmin());
+		t.sync();
 	}
 	
 	public TrnFsSyncTool(Grant g) throws TrnSyncException{
@@ -64,6 +79,33 @@ public class TrnFsSyncTool implements java.io.Serializable {
 			throw new TrnSyncException("TRN_SYNC_EMPTY_CONTENT_PATH");
 		contentDir = new File(conf.getString("filesystem_contentdir"));
 		hashStoreFile = new File(g.getContentDir()+"/"+HASHSTORE_FILENAME);
+		LANG_CODES = g.getListOfValues("LANG_ALL").getCodesArray("LANG_ALL");
+	}
+	
+	public void dropData() throws TrnSyncException{
+		try{
+			loadTrnObjectAccess();
+			ObjectDB cat = g.getTmpObject("TrnCategory");
+			synchronized(cat){
+				cat.resetFilters();
+				cat.setFieldFilter("trnCatId.trnCatPath", "is null");
+				for(String[] row : cat.search()){
+					cat.setValues(row);
+					(new BusinessObjectTool(cat)).delete();
+				}
+			}
+		}catch(DeleteException e){
+			throw new TrnSyncException("TRN_DROP_ERROR", e.getMessage());
+		}
+	}
+	
+	private void deleteHashStore() throws TrnSyncException{
+		try{
+			Files.deleteIfExists(hashStoreFile.toPath());
+		} catch(Exception e){
+			AppLog.error(getClass(), "deleteStore", e.getMessage(), e, Grant.getSystemAdmin());
+			throw new TrnSyncException("TRN_SYNC_DELETE_STORE", hashStoreFile);
+		}
 	}
 	
 	// Main sync algorithm : injects contents at `contentDir` into DB
@@ -201,12 +243,30 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		}
 	}
 	
+	private void loadTrnObjectAccess(){
+		boolean[] crud = new boolean[]{true, true, true, true};
+		g.changeAccess("TrnCategory", crud);
+		g.changeAccess("TrnCategoryTranslate", crud);
+		g.changeAccess("TrnLesson", crud);
+		g.changeAccess("TrnLsnTranslate", crud);
+		g.changeAccess("TrnPicture", crud);
+	}
+	
+	private void unloadTrnObjectAccess(){
+		boolean[] crud = new boolean[]{false, false, false, false};
+		g.changeAccess("TrnCategory", crud);
+		g.changeAccess("TrnCategoryTranslate", crud);
+		g.changeAccess("TrnLesson", crud);
+		g.changeAccess("TrnLsnTranslate", crud);
+		g.changeAccess("TrnPicture", crud);
+	}
+	
 	private void loadTrnObjects(){
-		g.changeAccess("TrnCategory", true,true,true,true);
-		g.changeAccess("TrnLesson", true,true,true,true);
-		g.changeAccess("TrnPicture", true,true,true,true);
+		loadTrnObjectAccess();
 		category = g.getObject("sync_TrnCategory", "TrnCategory");
+		categoryContent = g.getObject("sync_TrnCategoryTranslate", "TrnCategoryTranslate");
 		lesson = g.getObject("sync_TrnLesson", "TrnLesson");
+		lessonContent = g.getObject("sync_TrnLsnTranslate", "TrnLsnTranslate");
 		picture = g.getObject("sync_TrnPicture", "TrnPicture");
 	}
 	
@@ -240,7 +300,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		if(isCategory(dir))
 			upsertCategory(dir);
 		else if(isLesson(dir))
-			updateLesson(dir);
+			upsertLesson(dir);
 		else
 			throw new TrnSyncException("TRN_SYNC_ERROR_NOT_CATEGORY_NOR_LESSON", dir);
 	}
@@ -252,24 +312,69 @@ public class TrnFsSyncTool implements java.io.Serializable {
 			String[] name = dir.getName().split("_");
 			
 			JSONObject json = new JSONObject(FileTool.readFile(dir.getPath()+"/category.json"));
+			BusinessObjectTool bot = new BusinessObjectTool(category);
 			synchronized(category){
 				category.resetValues();
 				if(Tool.isEmpty(rowId))
-					(new BusinessObjectTool(category)).selectForCreate();
+					bot.selectForCreate();
 				else
-					(new BusinessObjectTool(category)).selectForUpdate(rowId);
+					bot.selectForUpdate(rowId);
 				category.setFieldValue("trnCatOrder", name[1]);
-				category.setFieldValue("trnCatPublish", json.optBoolean("published", true));
-				category.setFieldValue("trnCatTitle", json.getJSONObject("ANY").getString("title"));
+				category.setFieldValue("trnCatPublish", jsonCatPublish(json));
+				category.setFieldValue("trnCatCode", name[2]);
 				category.setFieldValue("trnCatPath", relativePath);
 				category.setFieldValue("trnCatId", getCatRowIdFromPath(getParentRelativePath(dir)));
-				(new BusinessObjectTool(category)).validateAndSave();
+				bot.validateAndSave();
+				rowId = category.getRowId();
+			}
+			
+			//recreate contents
+			bot = new BusinessObjectTool(categoryContent);
+			synchronized(categoryContent){
+				//delete all content
+				categoryContent.resetFilters();
+				categoryContent.setFieldFilter("trnCtrCatId",rowId);
+				for(String[] row: categoryContent.search()){
+					categoryContent.setValues(row);
+					bot.delete();
+				}
+				//create all content
+				for(String[] row : jsonCatContents(json)){
+					bot.getForCreate();
+					bot.getObject().setValuesFromJSONObject(new JSONObject() // or its alias getForUpsert 
+						.put("trnCtrLang", row[0])
+						.put("trnCtrCatId", rowId)
+						.put("trnCtrTitle", row[1])
+						.put("trnCtrDescription", row[2])
+					, false);
+					bot.validateAndCreate();
+				}
 			}
 		}
 		catch(Exception e){
 			AppLog.error(getClass(), "upsertCategory", e.getMessage(), e, g);
 			throw new TrnSyncException("TRN_SYNC_UPSERT_CATEGORY", e.getMessage()+" "+category.toJSON()+ " "+dir.getPath());
 		}
+	}
+	
+	private boolean jsonCatPublish(JSONObject json){
+		return json.optBoolean("published", true);
+	}
+	
+	private List<String[]> jsonCatContents(JSONObject json){
+		List<String[]> l = new ArrayList<>();
+		for(String lang : LANG_CODES){
+			if(json.has(lang)){
+				JSONObject content = json.getJSONObject(lang);
+				l.add(new String[]{
+					lang,
+					content.getString("title"),
+					content.optString("description", "")
+				});
+			}
+				
+		}
+		return l;
 	}
 	
 	private String getRelativePath(File dir){
@@ -288,17 +393,15 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		return Tool.isEmpty(path) ? "" : g.simpleQuery("select row_id from trn_lesson where trn_lsn_path='"+path+"'");
 	}
 	
-	private void updateLesson(File dir) throws TrnSyncException{
+	private void upsertLesson(File dir) throws TrnSyncException{
 		try{
 			String relativePath = getRelativePath(dir);
 			String rowId = getLsnRowIdFromPath(relativePath);
-			String[] name = dir.getName().split("_");
-			File markdown = new File(dir.getPath()+"/"+name[2]+".md");
-			File video = new File(dir.getPath()+"/"+name[2]+".webm");
 			
-			JSONObject json = new JSONObject(FileTool.readFile(dir.getPath()+"/lesson.json"));
+			JSONObject json = getLsnData(dir);
+			
+			BusinessObjectTool bot = new BusinessObjectTool(lesson);
 			synchronized(lesson){
-				BusinessObjectTool bot = new BusinessObjectTool(lesson);
 				lesson.resetValues();
 				if(!Tool.isEmpty(rowId)){
 					bot.selectForDelete(rowId);
@@ -306,29 +409,56 @@ public class TrnFsSyncTool implements java.io.Serializable {
 				}
 				
 				bot.selectForCreate();
-				lesson.setFieldValue("trnLsnOrder", name[1]);
-				lesson.setFieldValue("trnLsnTitle", json.getJSONObject("ANY").getString("title"));
+				lesson.setFieldValue("trnLsnOrder", json.getString("order"));
+				lesson.setFieldValue("trnLsnCode", json.getString("code"));
 				lesson.setFieldValue("trnLsnPath", relativePath);
 				lesson.setFieldValue("trnLsnCatId", getCatRowIdFromPath(getParentRelativePath(dir)));
-				lesson.setFieldValue("trnLsnPublish", json.optBoolean("published", true));
-				if(markdown.exists())
-					lesson.setFieldValue("trnLsnContent", FileTool.readFile(markdown));
-				if(video.exists())
-					lesson.getField("trnLsnVideo").setDocument(lesson, video.getName(), new FileInputStream(video));
-					
+				lesson.setFieldValue("trnLsnPublish", json.getBoolean("published"));
+				lesson.setFieldValue("trnLsnVisualization", json.getString("viz"));
 				bot.validateAndSave(true);
 				rowId = lesson.getRowId();
 			}
 			
-			for(File f : dir.listFiles())
-				if(f.getName().endsWith(".png"))
-					synchronized(picture){
-						picture.resetValues();
-						picture.getField("trnPicImage").setDocument(picture, f.getName(), new FileInputStream(f));
-						picture.setFieldValue("trnPicLang", "ANY");
-						picture.setFieldValue("trnPicLsnId", rowId);
-						(new BusinessObjectTool(picture)).validateAndSave(true);
+			// create contents
+			for(String lang : LANG_CODES){
+				if(json.getJSONObject("contents").has(lang)){
+					JSONObject content = json.getJSONObject("contents").getJSONObject(lang);
+					
+					bot = new BusinessObjectTool(lessonContent);
+					synchronized(lessonContent){
+						bot.selectForCreate();
+						lessonContent.setFieldValue("trnLtrLsnId", rowId);
+						lessonContent.setFieldValue("trnLtrLan", lang);
+						if(content.has("markdown"))
+							lessonContent.setFieldValue("trnLtrContent", FileTool.readFile(new File(content.getString("markdown"))));
+						if(content.has("video")){
+							File video = new File(content.getString("video"));
+							lessonContent.getField("trnLtrVideo").setDocument(lessonContent, video.getName(), new FileInputStream(video));
+						}
+						if(content.has("title"))
+							lessonContent.setFieldValue("trnLtrTitle", content.getString("title"));
+						if(content.has("description"))
+							lessonContent.setFieldValue("trnLtrDescription", content.getString("description"));
+						bot.validateAndCreate();
 					}
+					
+					if(content.has("pics")){
+						JSONArray pics = content.getJSONArray("pics");
+						
+						bot = new BusinessObjectTool(picture);
+						synchronized(picture){
+							for(int i=0; i<pics.length(); i++){
+								File f = new File(pics.getString(i));
+								picture.resetValues();
+								picture.getField("trnPicImage").setDocument(picture, f.getName(), new FileInputStream(f));
+								picture.setFieldValue("trnPicLang", lang);
+								picture.setFieldValue("trnPicLsnId", rowId);
+								bot.validateAndCreate();
+							}
+						}
+					}
+				}
+			}
 		}
 		catch(Exception e){
 			AppLog.error(getClass(), "upsertCategory", e.getMessage(), e, g);
@@ -336,8 +466,92 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		}
 	}
 	
+	private File getLsnMdFile(File lsnDir, String lang){
+		return getLsnFile(lsnDir, lang, "md");
+	}
+	
+	private File getLsnVideoFile(File lsnDir, String lang){
+		return getLsnFile(lsnDir, lang, "webm");
+	}	
+	
+	private File getLsnFile(File lsnDir, String lang, String extension){
+		lang = DEFAULT_LANG_CODE.equals(lang) ? "" : "_"+lang;
+		return new File(lsnDir.getPath()+"/"+getLsnCode(lsnDir)+lang+"."+extension);
+	}
+	
+	private JSONObject getPics(File lsnDir){
+		JSONObject pics = new JSONObject();
+		for(String lang : LANG_CODES){
+			pics.put(lang, new JSONArray());
+		}
+		
+		for(File f : lsnDir.listFiles()){
+			boolean found = false;
+			for(String lang : LANG_CODES){
+				if(f.getName().endsWith("_"+lang+".png")){
+					pics.getJSONArray(lang).put(f.getPath());
+				}
+				else if(f.getName().endsWith(".png")){
+					pics.getJSONArray(DEFAULT_LANG_CODE).put(f.getPath());
+				}
+			}
+		}
+		return pics;
+	}
+	
+	private String getLsnCode(File lsnDir){
+		return lsnDir.getName().split("_")[2];
+	}
+	
+	private String getLsnOrder(File lsnDir){
+		return lsnDir.getName().split("_")[1];
+	}
+	
+	private JSONObject getLsnData(File dir) throws Exception{
+		JSONObject lsn = new JSONObject();
+		
+		lsn.put("order", getLsnOrder(dir));
+		lsn.put("code", getLsnCode(dir));
+		
+		JSONObject json = new JSONObject(FileTool.readFile(dir.getPath()+"/lesson.json"));
+		lsn.put("published", json.optBoolean("published", true));
+		lsn.put("viz", json.optString("visualization", "TUTO"));
+		
+		
+		JSONObject contents = new JSONObject();
+		JSONObject content;
+		File f;
+		
+		JSONObject pictures = getPics(dir);
+		
+		for(String lang : LANG_CODES){
+			if(json.has(lang)){
+				content = json.getJSONObject(lang);
+				
+				// add markdown content
+				f = getLsnMdFile(dir, lang);
+				if(f.exists())
+					content.put("markdown", f.getPath());
+				
+				// add video file
+				f = getLsnVideoFile(dir, lang);
+				if(f.exists())
+					content.put("video", f.getPath());
+				
+				// add pics
+				if(pictures.getJSONArray(lang).length()>0)
+					content.put("pics", pictures.getJSONArray(lang));
+					
+				contents.put(lang, content);
+			}
+		}
+		
+		lsn.put("contents", contents);
+		return lsn;
+	}
+	
 	// Non-recursive version of https://stackoverflow.com/a/46899517/1612642 => ignores directories
-    private static String hashDirectoryFiles(File directory) throws IOException
+    private static String hashDirectoryFiles(File directory) throws java.io.IOException
     {
         if (!directory.isDirectory())
             throw new IllegalArgumentException("Not a directory");

@@ -19,7 +19,11 @@ public class TrnObject extends ObjectDB {
 	private void isNotUiModeWarning(){
 		if(!TrnTools.isUiMode()){
 			List<ObjectCtxHelp> help = new ArrayList<>();
-			help.add(new ObjectCtxHelp(getName(), new String[]{ ObjectCtxHelp.CTXHELP_LIST, ObjectCtxHelp.CTXHELP_UPDATE}, getGrant().T("TRN_INACTIVATED_UI_WARNING")));
+			help.add(new ObjectCtxHelp(getName(), new String[]{ 
+				ObjectCtxHelp.CTXHELP_LIST, 
+				ObjectCtxHelp.CTXHELP_UPDATE,
+				ObjectCtxHelp.CTXHELP_PANELLIST
+			}, getGrant().T("TRN_INACTIVATED_UI_WARNING")));
 			setCtxHelps(help);
 		}
 	}

@@ -2134,7 +2134,7 @@
 	<data>
 		<ofa_name>TrnLsnTranslate-2</ofa_name>
 		<ofa_position>2</ofa_position>
-		<ofa_title>1</ofa_title>
+		<ofa_title>0</ofa_title>
 		<ofa_ui><![CDATA[<div class="field" data-field="trnLtrLsnId__trnLsnPath"></div>
 ]]></ofa_ui>
 		<ofa_icon><![CDATA[[EXPR:[OBJECTICON:TrnLesson]]]]></ofa_icon>
@@ -2341,7 +2341,7 @@
 		<obo_list_edit>N</obo_list_edit>
 		<obo_useform>1</obo_useform>
 		<obo_title/>
-		<obo_icon>icon/lang/ENU</obo_icon>
+		<obo_icon>img/color/document</obo_icon>
 		<obo_refcount>0</obo_refcount>
 		<obo_tree>0</obo_tree>
 		<obo_viewmode>T</obo_viewmode>
@@ -2465,7 +2465,7 @@
 		<obo_list_edit>N</obo_list_edit>
 		<obo_useform>1</obo_useform>
 		<obo_title/>
-		<obo_icon>icon/lang/ENU</obo_icon>
+		<obo_icon>img/color/document</obo_icon>
 		<obo_refcount>0</obo_refcount>
 		<obo_tree>0</obo_tree>
 		<obo_viewmode>T</obo_viewmode>
@@ -3396,11 +3396,11 @@
 		<obf_ref_export>1</obf_ref_export>
 		<obf_copy/>
 		<obf_ref_order/>
-		<obf_fld_visible/>
+		<obf_fld_visible>3</obf_fld_visible>
 		<obf_fld_required/>
 		<obf_fld_updatable/>
 		<obf_fld_research/>
-		<obf_fld_more/>
+		<obf_fld_more>0</obf_fld_more>
 		<obf_fld_listmore/>
 		<obf_fld_researchreq/>
 		<obf_fld_dfault/>
@@ -4269,7 +4269,7 @@
 		<tsl_typeAction>A</tsl_typeAction>
 		<tsl_id.act_name>forceDirSync</tsl_id.act_name>
 		<tsl_lang>ENU</tsl_lang>
-		<tsl_value>forceDirSync</tsl_value>
+		<tsl_value>Force synchronization</tsl_value>
 		<tsl_simplehelp/>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
 	</data>
@@ -4277,7 +4277,7 @@
 		<tsl_typeAction>A</tsl_typeAction>
 		<tsl_id.act_name>forceDirSync</tsl_id.act_name>
 		<tsl_lang>FRA</tsl_lang>
-		<tsl_value>forceDirSync</tsl_value>
+		<tsl_value>Forcer synchronisation</tsl_value>
 		<tsl_simplehelp/>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
 	</data>
@@ -4301,7 +4301,7 @@
 		<tsl_typeField>F</tsl_typeField>
 		<tsl_id.fld_name>trnCatFrontPath</tsl_id.fld_name>
 		<tsl_lang>ENU</tsl_lang>
-		<tsl_value>trn cat front path</tsl_value>
+		<tsl_value>Front path</tsl_value>
 		<tsl_simplehelp/>
 		<tsl_short_value/>
 		<tsl_placeholder/>
@@ -4469,7 +4469,7 @@
 		<tsl_typeField>F</tsl_typeField>
 		<tsl_id.fld_name>trnLsnCode</tsl_id.fld_name>
 		<tsl_lang>ENU</tsl_lang>
-		<tsl_value>trn lsn code</tsl_value>
+		<tsl_value>Code</tsl_value>
 		<tsl_simplehelp/>
 		<tsl_short_value/>
 		<tsl_placeholder/>
@@ -4481,7 +4481,7 @@
 		<tsl_typeField>F</tsl_typeField>
 		<tsl_id.fld_name>trnLsnFrontPath</tsl_id.fld_name>
 		<tsl_lang>ENU</tsl_lang>
-		<tsl_value>trn lsn front path</tsl_value>
+		<tsl_value>Front path</tsl_value>
 		<tsl_simplehelp/>
 		<tsl_short_value/>
 		<tsl_placeholder/>
@@ -4541,7 +4541,7 @@
 		<tsl_typeField>F</tsl_typeField>
 		<tsl_id.fld_name>trnLtrContent</tsl_id.fld_name>
 		<tsl_lang>ENU</tsl_lang>
-		<tsl_value>Translate content</tsl_value>
+		<tsl_value>Content</tsl_value>
 		<tsl_simplehelp/>
 		<tsl_short_value/>
 		<tsl_placeholder/>
@@ -4553,7 +4553,7 @@
 		<tsl_typeField>F</tsl_typeField>
 		<tsl_id.fld_name>trnLtrDescription</tsl_id.fld_name>
 		<tsl_lang>ENU</tsl_lang>
-		<tsl_value>Translate Description</tsl_value>
+		<tsl_value>Description</tsl_value>
 		<tsl_simplehelp/>
 		<tsl_short_value/>
 		<tsl_placeholder/>
@@ -4577,7 +4577,7 @@
 		<tsl_typeField>F</tsl_typeField>
 		<tsl_id.fld_name>trnLtrLan</tsl_id.fld_name>
 		<tsl_lang>ENU</tsl_lang>
-		<tsl_value>Translate language</tsl_value>
+		<tsl_value>Language</tsl_value>
 		<tsl_simplehelp/>
 		<tsl_short_value/>
 		<tsl_placeholder/>
@@ -4613,7 +4613,7 @@
 		<tsl_typeField>F</tsl_typeField>
 		<tsl_id.fld_name>trnLtrVideo</tsl_id.fld_name>
 		<tsl_lang>ENU</tsl_lang>
-		<tsl_value>trn ltr video</tsl_value>
+		<tsl_value>Video</tsl_value>
 		<tsl_simplehelp/>
 		<tsl_short_value/>
 		<tsl_placeholder/>
@@ -5116,7 +5116,7 @@
 		<tsl_typeFieldArea>Z</tsl_typeFieldArea>
 		<tsl_id.ofa_name>TrnCategory-2</tsl_id.ofa_name>
 		<tsl_lang>ENU</tsl_lang>
-		<tsl_value>TrnCategory-2</tsl_value>
+		<tsl_value>Category</tsl_value>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
 	</data>
 	<data>
@@ -5151,7 +5151,7 @@
 		<tsl_typeFieldArea>Z</tsl_typeFieldArea>
 		<tsl_id.ofa_name>TrnLesson-2</tsl_id.ofa_name>
 		<tsl_lang>ENU</tsl_lang>
-		<tsl_value>TrnLesson-2</tsl_value>
+		<tsl_value>Category</tsl_value>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
 	</data>
 	<data>
@@ -5295,7 +5295,7 @@
 		<tsl_typeObject>O</tsl_typeObject>
 		<tsl_id.obo_name>TrnCategoryTranslate</tsl_id.obo_name>
 		<tsl_lang>ENU</tsl_lang>
-		<tsl_value>Translation|Translations</tsl_value>
+		<tsl_value>Content|Contents</tsl_value>
 		<tsl_help/>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
 	</data>
@@ -5311,7 +5311,7 @@
 		<tsl_typeObject>O</tsl_typeObject>
 		<tsl_id.obo_name>TrnLsnTranslate</tsl_id.obo_name>
 		<tsl_lang>ENU</tsl_lang>
-		<tsl_value>Translation|Translations</tsl_value>
+		<tsl_value>Content|Contents</tsl_value>
 		<tsl_help/>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
 	</data>
@@ -5343,7 +5343,7 @@
 		<tsl_typeObject>O</tsl_typeObject>
 		<tsl_id.obo_name>TrnCategoryTranslate</tsl_id.obo_name>
 		<tsl_lang>FRA</tsl_lang>
-		<tsl_value>Traduction|Traductions</tsl_value>
+		<tsl_value>Contenu|Contenus</tsl_value>
 		<tsl_help/>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
 	</data>
@@ -5359,7 +5359,7 @@
 		<tsl_typeObject>O</tsl_typeObject>
 		<tsl_id.obo_name>TrnLsnTranslate</tsl_id.obo_name>
 		<tsl_lang>FRA</tsl_lang>
-		<tsl_value>Traduction|Traductions</tsl_value>
+		<tsl_value>Contenu|Contenus</tsl_value>
 		<tsl_help/>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
 	</data>
@@ -5487,6 +5487,19 @@
 		<tsl_id.obf_order>120</tsl_id.obf_order>
 		<tsl_lang>ENU</tsl_lang>
 		<tsl_value>Category Path</tsl_value>
+		<tsl_simplehelp/>
+		<tsl_short_value/>
+		<tsl_listhelp/>
+		<tsl_placeholder/>
+		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
+	</data>
+	<data>
+		<tsl_typeObjectField>L</tsl_typeObjectField>
+		<tsl_id.obf_object_id.obo_name>TrnLsnTranslate</tsl_id.obf_object_id.obo_name>
+		<tsl_id.obf_field_id.fld_name>trnLsnPath</tsl_id.obf_field_id.fld_name>
+		<tsl_id.obf_order>110</tsl_id.obf_order>
+		<tsl_lang>ENU</tsl_lang>
+		<tsl_value>Lesson path</tsl_value>
 		<tsl_simplehelp/>
 		<tsl_short_value/>
 		<tsl_listhelp/>

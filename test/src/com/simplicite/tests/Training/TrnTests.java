@@ -16,6 +16,8 @@ public class TrnTests {
 	@Test
 	public void testSync() {
 		try {
+			TrnFsSyncTool.dropDbData();
+			TrnFsSyncTool.deleteStore();
 			TrnFsSyncTool.triggerSync();
 		} catch (Exception e) {
 			AppLog.error(getClass(), "testSync", e.getMessage(), e, Grant.getSystemAdmin());
@@ -23,12 +25,12 @@ public class TrnTests {
 		}
 	}
 	
-	@Test
+	/*@Test
 	public void testDockerVolume() {
 		try {
 			AppLog.info(FileTool.readFile("/usr/local/training-content/glo.ser"), Grant.getSystemAdmin());
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
-	}
+	}*/
 }
