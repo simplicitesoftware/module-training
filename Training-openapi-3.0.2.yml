@@ -218,7 +218,7 @@ components:
     TrnLsnTranslate:
       type: object
       properties:
-        trnLtrLan:
+        trnLtrLang:
           description: Language
           type: string
           enum:
@@ -2015,7 +2015,7 @@ paths:
           - ENU
           - FRA
         in: query
-        name: trnLtrLan
+        name: trnLtrLang
         description: Search filter for Language
         required: false
       - schema:

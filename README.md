@@ -88,7 +88,7 @@ The object used to translate the lesson objects, for multilingual transport.
 
 | Name                                                         | Type                                     | Required | Updatable | Personal | Description                                                                      | 
 | ------------------------------------------------------------ | ---------------------------------------- | -------- | --------- | -------- | -------------------------------------------------------------------------------- |
-| `trnLtrLan`                                                  | enum(100) using `LANG_ALL` list          | yes*     | yes       |          | -                                                                                |
+| `trnLtrLang`                                                 | enum(100) using `LANG_ALL` list          | yes*     | yes       |          | -                                                                                |
 | `trnLtrTitle`                                                | char(200)                                | yes      | yes       |          | -                                                                                |
 | `trnLtrDescription`                                          | text(1000)                               |          | yes       |          | -                                                                                |
 | `trnLtrContent`                                              | text(100000)                             |          | yes       |          | -                                                                                |

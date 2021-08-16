@@ -22,12 +22,12 @@ public class TrnTreeService extends RESTServiceExternalObject  {
 
 	@Override
 	public Object post(Parameters params) {
-		String lang = params.getParameter("array", "ENU");
+		String lang = params.getParameter("lang", "ENU");
 		
 		if(!"".equals(params.getParameter("getImages", "")))
 			return getImages(params.getParameter("lessonId", "0"));
 		if(!"".equals(params.getParameter("array", "")))
-			return getTree2(lang);
+			return getTree(lang);
 		else
 			return "getTree deprecated";
 	}
@@ -44,36 +44,40 @@ public class TrnTreeService extends RESTServiceExternalObject  {
 		return arr; 
 	}
 
-	private JSONArray getTree2(String lang){
+	private JSONArray getTree(String lang){
 		boolean[] oldcrudCat = getGrant().changeAccess("TrnCategory", READ_ACCESS);
+		boolean[] oldcrudCatTsl = getGrant().changeAccess("TrnCategoryTranslate", READ_ACCESS);
 		boolean[] oldcrudLsn = getGrant().changeAccess("TrnLesson", READ_ACCESS);
+		boolean[] oldcrudLsnTsl = getGrant().changeAccess("TrnLsnTranslate", READ_ACCESS);
 		
-		ObjectDB tmpCategory = getGrant().getObject("tree_TrnCategory", "TrnCategory");
-		ObjectDB tmpLesson = getGrant().getObject("tree_TrnLesson", "TrnLesson");
+		TrnCategory tmpCategory = (TrnCategory) getGrant().getObject("tree_TrnCategory", "TrnCategory");
+		TrnLesson tmpLesson = (TrnLesson) getGrant().getObject("tree_TrnLesson", "TrnLesson");
 		
-		JSONArray tree = getCategoriesRecursive2("is null", tmpCategory, tmpLesson, lang);
+		JSONArray tree = getCategoriesRecursive("is null", tmpCategory, tmpLesson, lang);
 		
 		getGrant().changeAccess("TrnCategory", oldcrudCat);
+		getGrant().changeAccess("TrnCategoryTranslate", oldcrudCatTsl);
 		getGrant().changeAccess("TrnLesson", oldcrudLsn);
+		getGrant().changeAccess("TrnLsnTranslate", oldcrudLsnTsl);
 	
 	
 		for(int i = 0; i < lessonsNeedingNextPath.size()-1; i++ )
-			lessonsNeedingNextPath.get(i).put("trnLsnNext", nextPaths.get(i+1));
+			lessonsNeedingNextPath.get(i).put("next_path", nextPaths.get(i+1));
 		
 		return tree;
 	}
 	
-	private JSONArray getCategoriesRecursive2(String parentId, ObjectDB tmpCategory, ObjectDB tmpLesson, String lang){
+	private JSONArray getCategoriesRecursive(String parentId, TrnCategory tmpCategory, TrnLesson tmpLesson, String lang){
 		JSONArray cats = new JSONArray();
 		for(JSONObject cat : getCategories(parentId, tmpCategory, lang)){
-			cat.put("categories", getCategoriesRecursive2(cat.getString("row_id"), tmpCategory, tmpLesson, lang));
-			cat.put("lessons", getLessons2(cat.getString("row_id"), tmpLesson, lang));
+			cat.put("categories", getCategoriesRecursive(cat.getString("row_id"), tmpCategory, tmpLesson, lang));
+			cat.put("lessons", getLessons(cat.getString("row_id"), tmpLesson, lang));
 			cats.put(cat);
 		}
 		return cats;
 	}
 	
-	private List<JSONObject> getCategories(String parentId, ObjectDB tmpCategory, String lang){
+	private List<JSONObject> getCategories(String parentId, TrnCategory tmpCategory, String lang){
 		List<JSONObject> catList = new ArrayList();
 		JSONObject cat;
 		synchronized(tmpCategory){
@@ -83,13 +87,17 @@ public class TrnTreeService extends RESTServiceExternalObject  {
 	        tmpCategory.setFieldFilter("trnCatPublish", "1");
 	        for(String[] row : tmpCategory.search()){
 	        	tmpCategory.setValues(row);
-	        	catList.add(new JSONObject(tmpCategory.toJSON()));
+	        	try{
+	        		catList.add(tmpCategory.getCategoryForFront(lang));
+	        	} catch(Exception e){
+	        		AppLog.error(getClass(), "getCategories", "error getting front-oriented cat", e, getGrant());
+	        	}
 	        }
 		}
 		return catList;
 	}
 	
-	private JSONArray getLessons2(String categoryId, ObjectDB tmpLesson, String lang){
+	private JSONArray getLessons(String categoryId, TrnLesson tmpLesson, String lang){
 		JSONArray lessons = new JSONArray();
 		JSONObject lsn;
 		String path, next, prev;
@@ -103,37 +111,25 @@ public class TrnTreeService extends RESTServiceExternalObject  {
 			List<String[]> rows = tmpLesson.search();
 			for(int i=0; i<rows.size(); i++){
 				tmpLesson.setValues(rows.get(i));
-				
-				lsn = lesson2Front(
-					new JSONObject(tmpLesson.toJSON()),
-					i==0 ? previousLesson : rows.get(i-1)[INDEX_PATH],
-					rows.get(i)[INDEX_PATH],
-					i==rows.size()-1 ? "" : rows.get(i+1)[INDEX_PATH]
-				);
-				
-				lessons.put(lsn);
-
-	        	if(i == rows.size()-1)
-	        		lessonsNeedingNextPath.add(lsn);
-	        	if(i == 0)
-	        		nextPaths.add(tmpLesson.getFieldValue("trnLsnFrontPath"));
+				try{
+					lsn = tmpLesson.getLessonForFront(lang, false);
+					lsn.put("previous_path", i==0 ? previousLesson : rows.get(i-1)[INDEX_PATH]);
+					lsn.put("next_path", i==rows.size()-1 ? "" : rows.get(i+1)[INDEX_PATH]);
+					
+					lessons.put(lsn);
+	
+		        	if(i == rows.size()-1)
+		        		lessonsNeedingNextPath.add(lsn);
+		        	if(i == 0)
+		        		nextPaths.add(tmpLesson.getFieldValue("trnLsnFrontPath"));
+				} catch(Exception e){
+	        		AppLog.error(getClass(), "getLessons2", "error getting front-oriented cat", e, getGrant());
+	        	}
 			}
 			if(rows.size() > 0) 
 				previousLesson = rows.get(rows.size()-1)[INDEX_PATH];
 		}
 		return lessons;
-	}
-	
-	private JSONObject category2Front(JSONObject cat){
-		return cat;
-	}
-	
-	private JSONObject lesson2Front(JSONObject lsn, String previousPath, String path, String nextPath){
-       	lsn.remove("trnLsnContent");
-    	lsn.remove("trnLsnHtmlContent");
-		lsn.put("trnLsnPrevious", previousPath);
-		lsn.put("trnLsnNext", nextPath);
-		return lsn;
 	}
 }
 

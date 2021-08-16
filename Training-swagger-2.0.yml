@@ -1459,7 +1459,7 @@ paths:
         type: string
         required: false
       - in: query
-        name: trnLtrLan
+        name: trnLtrLang
         description: Search filter for Language
         type: string
         required: false
@@ -1726,7 +1726,7 @@ definitions:
   TrnLsnTranslate:
     type: object
     properties:
-      trnLtrLan:
+      trnLtrLang:
         description: Language
         type: string
         enum:

@@ -1493,8 +1493,8 @@
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
 	</data>
 	<data>
-		<fld_name>trnLtrLan</fld_name>
-		<fld_dbname>trn_ltr_lan</fld_dbname>
+		<fld_name>trnLtrLang</fld_name>
+		<fld_dbname>trn_ltr_lang</fld_dbname>
 		<fld_visible>3</fld_visible>
 		<fld_updatable>1</fld_updatable>
 		<fld_required>1</fld_required>
@@ -2110,7 +2110,7 @@
 		<ofa_ui><![CDATA[<div>
   <div class="row">
     <div class="col-sm-2">
-      <div class="field" data-field="trnLtrLan"></div>
+      <div class="field" data-field="trnLtrLang"></div>
     </div>
     <div class="col-sm-10">
       <div class="field" data-field="trnLtrTitle"></div>
@@ -3179,7 +3179,7 @@
 	</data>
 	<data>
 		<obf_object_id.obo_name>TrnLsnTranslate</obf_object_id.obo_name>
-		<obf_field_id.fld_name>trnLtrLan</obf_field_id.fld_name>
+		<obf_field_id.fld_name>trnLtrLang</obf_field_id.fld_name>
 		<obf_field_id.fld_type>7</obf_field_id.fld_type>
 		<obf_order>10</obf_order>
 		<obf_group_by/>
@@ -4575,7 +4575,7 @@
 	</data>
 	<data>
 		<tsl_typeField>F</tsl_typeField>
-		<tsl_id.fld_name>trnLtrLan</tsl_id.fld_name>
+		<tsl_id.fld_name>trnLtrLang</tsl_id.fld_name>
 		<tsl_lang>ENU</tsl_lang>
 		<tsl_value>Language</tsl_value>
 		<tsl_simplehelp/>
@@ -4983,7 +4983,7 @@
 	</data>
 	<data>
 		<tsl_typeField>F</tsl_typeField>
-		<tsl_id.fld_name>trnLtrLan</tsl_id.fld_name>
+		<tsl_id.fld_name>trnLtrLang</tsl_id.fld_name>
 		<tsl_lang>FRA</tsl_lang>
 		<tsl_value>Langue</tsl_value>
 		<tsl_simplehelp/>

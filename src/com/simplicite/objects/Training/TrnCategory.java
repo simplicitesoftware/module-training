@@ -5,6 +5,7 @@ import com.simplicite.util.*;
 import com.simplicite.util.exceptions.*;
 import com.simplicite.util.tools.*;
 import com.simplicite.commons.Training.*;
+import org.json.JSONObject;
 
 /**
  * Business object TrnCategory
@@ -74,6 +75,30 @@ public class TrnCategory extends TrnObject {
 	        	bot.validateAndSave();
 			}
         }
+	}
+	
+	public JSONObject getCategoryForFront(String lang) throws Exception{
+		JSONObject json = (new JSONObject())
+			.put("row_id", getRowId())
+			.put("path", getFieldValue("trnCatFrontPath")
+		);
+			
+		ObjectDB content = getGrant().getTmpObject("TrnCategoryTranslate");
+		synchronized(content){
+			content.resetFilters();
+			content.setFieldFilter("trnCtrCatId", getRowId());
+			content.setFieldFilter("trnCtrLang", lang);
+			if(content.getCount()==0)
+				content.setFieldFilter("trnCtrLang", "ANY");
+			
+			if(content.getCount()!=1)
+				throw new Exception("CAT_CONTENT_NOT_FOUND");
+			else{
+				content.setValues(content.search().get(0));
+				json.put("title", content.getFieldValue("trnCtrTitle"));
+			}
+		}
+		return json;
 	}
 	
 	@Override
