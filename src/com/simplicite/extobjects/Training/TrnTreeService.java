@@ -14,7 +14,6 @@ import com.simplicite.commons.Training.TrnTools;
  */
 public class TrnTreeService extends RESTServiceExternalObject  {
 	private static final long serialVersionUID = 1L;
-	private static final boolean[] READ_ACCESS = {false,true,false,false};
 	
 	private String previousLesson = "";
 	private ArrayList<JSONObject> lessonsNeedingNextPath = new ArrayList<>(); 
@@ -23,13 +22,21 @@ public class TrnTreeService extends RESTServiceExternalObject  {
 	@Override
 	public Object post(Parameters params) {
 		String lang = params.getParameter("lang", "ENU");
+		try{
 		
-		if(!"".equals(params.getParameter("getImages", "")))
-			return getImages(params.getParameter("lessonId", "0"));
-		if(!"".equals(params.getParameter("array", "")))
-			return getTree(lang);
-		else
-			return "getTree deprecated";
+			if(!"".equals(params.getParameter("getImages", "")))
+				return getImages(params.getParameter("lessonId", "0"));
+			if(!"".equals(params.getParameter("getLesson", "")))
+				return getLesson(params.getParameter("getLesson"), lang);
+			if(!"".equals(params.getParameter("array", "")))
+				return getTree(lang);
+			else
+				return "getTree deprecated";
+		}
+		catch(Exception e){
+			AppLog.error(getClass(), "post", e.getMessage(), e, g());
+			return "ERROR "+e.getMessage();
+		}
 	}
 	
 	@Override
@@ -37,29 +44,32 @@ public class TrnTreeService extends RESTServiceExternalObject  {
 		return post(params);
 	}
 	
+	private Grant g(){
+		return getGrant();
+	}
+	
 	private JSONArray getImages(String lessonId){
 		JSONArray arr = new JSONArray();
-		for(String[] row : getGrant().query("select row_id, trn_pic_image from trn_picture where trn_pic_lsn_id="+Tool.toSQL(lessonId)))
+		for(String[] row : g().query("select row_id, trn_pic_image from trn_picture where trn_pic_lsn_id="+Tool.toSQL(lessonId)))
 			arr.put(new JSONObject("{row_id:'"+row[0]+"', trnPicImage:'"+row[1]+"'}"));
 		return arr; 
 	}
+	
+	private JSONObject getLesson(String lessonId, String lang) throws Exception{
+		TrnLesson tmpLesson = (TrnLesson) g().getObject("tree_TrnLesson", "TrnLesson");
+		synchronized(tmpLesson){
+			tmpLesson.resetFilters();
+			if(!tmpLesson.select(lessonId))
+				throw new Exception("Lesson "+lessonId+" not found with user "+g().getLogin());
+			return tmpLesson.getLessonForFront(lang, true);
+		}
+	}
 
 	private JSONArray getTree(String lang){
-		boolean[] oldcrudCat = getGrant().changeAccess("TrnCategory", READ_ACCESS);
-		boolean[] oldcrudCatTsl = getGrant().changeAccess("TrnCategoryTranslate", READ_ACCESS);
-		boolean[] oldcrudLsn = getGrant().changeAccess("TrnLesson", READ_ACCESS);
-		boolean[] oldcrudLsnTsl = getGrant().changeAccess("TrnLsnTranslate", READ_ACCESS);
-		
-		TrnCategory tmpCategory = (TrnCategory) getGrant().getObject("tree_TrnCategory", "TrnCategory");
-		TrnLesson tmpLesson = (TrnLesson) getGrant().getObject("tree_TrnLesson", "TrnLesson");
+		TrnCategory tmpCategory = (TrnCategory) g().getObject("tree_TrnCategory", "TrnCategory");
+		TrnLesson tmpLesson = (TrnLesson) g().getObject("tree_TrnLesson", "TrnLesson");
 		
 		JSONArray tree = getCategoriesRecursive("is null", tmpCategory, tmpLesson, lang);
-		
-		getGrant().changeAccess("TrnCategory", oldcrudCat);
-		getGrant().changeAccess("TrnCategoryTranslate", oldcrudCatTsl);
-		getGrant().changeAccess("TrnLesson", oldcrudLsn);
-		getGrant().changeAccess("TrnLsnTranslate", oldcrudLsnTsl);
-	
 	
 		for(int i = 0; i < lessonsNeedingNextPath.size()-1; i++ )
 			lessonsNeedingNextPath.get(i).put("next_path", nextPaths.get(i+1));
@@ -90,7 +100,7 @@ public class TrnTreeService extends RESTServiceExternalObject  {
 	        	try{
 	        		catList.add(tmpCategory.getCategoryForFront(lang));
 	        	} catch(Exception e){
-	        		AppLog.error(getClass(), "getCategories", "error getting front-oriented cat", e, getGrant());
+	        		AppLog.error(getClass(), "getCategories", "error getting front-oriented cat", e, g());
 	        	}
 	        }
 		}
@@ -123,7 +133,7 @@ public class TrnTreeService extends RESTServiceExternalObject  {
 		        	if(i == 0)
 		        		nextPaths.add(tmpLesson.getFieldValue("trnLsnFrontPath"));
 				} catch(Exception e){
-	        		AppLog.error(getClass(), "getLessons2", "error getting front-oriented cat", e, getGrant());
+	        		AppLog.error(getClass(), "getLessons2", "error getting front-oriented cat", e, g());
 	        	}
 			}
 			if(rows.size() > 0) 

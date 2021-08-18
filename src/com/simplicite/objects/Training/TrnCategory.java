@@ -78,10 +78,10 @@ public class TrnCategory extends TrnObject {
 	}
 	
 	public JSONObject getCategoryForFront(String lang) throws Exception{
-		JSONObject json = (new JSONObject())
+		JSONObject json = new JSONObject()
 			.put("row_id", getRowId())
-			.put("path", getFieldValue("trnCatFrontPath")
-		);
+			.put("path", getFieldValue("trnCatFrontPath"))
+			.put("is_category", true);
 			
 		ObjectDB content = getGrant().getTmpObject("TrnCategoryTranslate");
 		synchronized(content){

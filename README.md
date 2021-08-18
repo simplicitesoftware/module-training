@@ -145,22 +145,10 @@ This object will hold the static contents of the front-end application
     - `ENU` English language
     - `FRA` French language
 
-`TrnExternalTreeView` external object definition
-------------------------------------------------
-
-External Object that sends back a treeView of the caategory and lessons hierarchy
-
-
 `TrnFront` external object definition
 -------------------------------------
 
 
-
-
-`TrnGitEndPoint` external object definition
--------------------------------------------
-
-This endpoint will be hit by the Git repository that contains the training content when a new commit is made on the master branch. This will cause the server to pull those modifications and add them to the database.
 
 
 `TrnSyncService` external object definition

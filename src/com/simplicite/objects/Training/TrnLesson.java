@@ -35,8 +35,7 @@ public class TrnLesson extends TrnObject {
 		JSONObject json = (new JSONObject())
 			.put("row_id", getRowId())
 			.put("path", getFieldValue("trnLsnFrontPath"))
-			.put("viz", getFieldValue("trnLsnVisualization"))
-		;
+			.put("viz", getFieldValue("trnLsnVisualization"));
 		
 		ObjectDB content = getGrant().getTmpObject("TrnLsnTranslate");
 		synchronized(content){
@@ -49,7 +48,7 @@ public class TrnLesson extends TrnObject {
 			if(content.getCount()!=1)
 				throw new Exception("LSN_CONTENT_NOT_FOUND");
 			else{
-				content.setValues(content.search().get(0));
+				content.setValues((content.search()).get(0));
 				json.put("title", content.getFieldValue("trnLtrTitle"));
 				json.put("video", content.getFieldValue("trnLtrVideo"));
 				if(includeHtml)
