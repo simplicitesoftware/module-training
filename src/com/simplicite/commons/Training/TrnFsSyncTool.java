@@ -23,7 +23,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	private static final String HASHSTORE_FILENAME = "glo.ser";
 	
 	private final Pattern PATTERN_CATEGORY = Pattern.compile("^CTG_[0-9]+_[a-z\\-]+$");
-	private final Pattern PATTERN_LESSON = Pattern.compile("^LSN_[0-9]+_[a-z\\-]+$");
+	private final Pattern PATTERN_LESSON = Pattern.compile("^LSN_[0-9]+_[a-z0-9-]+$");
 	private final File contentDir;
 	private final File hashStoreFile;
 	private final String[] LANG_CODES;
@@ -169,34 +169,35 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	}
 	
 	private void validateLessonContent(File dir) throws TrnSyncException{
-		String lessonCode = dir.getName().split("_")[2];
+		String lessonCode = getLsnCode(dir);
 		boolean hasJson = false;
-		boolean hasMd = false;
-		boolean hasWebm = false;
 		for(File child : dir.listFiles()){
 			if("lesson.json".equals(child.getName()))
 				hasJson = true;
 			else if(child.isDirectory())
 				throw new TrnSyncException("TRN_SYNC_LESSON_CONTAINING_FOLDER", child);
-			else if(child.getName().equals(lessonCode+".md"))
-				hasMd = true;
-			else if(FileTool.getExtension(child.getName()).equals("md")){
-				hasMd = true;
-				if(!child.getName().equals(lessonCode+".md"))
-					throw new TrnSyncException("TRN_SYNC_LESSON_MARDOWN_NAME_INCONSISTENT", child);
-			}
-			else if(FileTool.getExtension(child.getName()).equals("webm")){
-				hasWebm = true;
-				if(!child.getName().equals(lessonCode+".webm"))
-					throw new TrnSyncException("TRN_SYNC_LESSON_VIDEO_NAME_INCONSISTENT", child);
-			}
-			else if(!FileTool.getExtension(child.getName()).equals("png")){
-				AppLog.info(FileTool.getExtension(child.getName()), Grant.getSystemAdmin());
-				throw new TrnSyncException("TRN_SYNC_LESSON_EXTENSION_NOT_ALLOWED", child);
-			}
+			else if(isMarkdown(child) && !lessonCode.equals(getLocaleStrippedBaseName(child)))
+				throw new TrnSyncException("TRN_SYNC_LESSON_MARDOWN_NAME_INCONSISTENT", child);
+			else if(isVideo(child) && !lessonCode.equals(getLocaleStrippedBaseName(child)))	
+				throw new TrnSyncException("TRN_SYNC_LESSON_VIDEO_NAME_INCONSISTENT", child);
+			else if(!isPic(child) && !isMarkdown(child) && !isVideo(child))
+				throw new TrnSyncException("TRN_SYNC_FILETYPE_NOT_ALLOWED", child);
 		}
 		if(!hasJson)
 			throw new TrnSyncException("TRN_SYNC_LESSON_JSON_MISSING", dir);
+	}
+	
+	private boolean isMarkdown(File f){
+		return FileTool.getExtension(f.getName()).toLowerCase().equals("md");
+	}
+	
+	private boolean isPic(File f){
+		String extension = FilenameUtils.getExtension(f.getName()).toLowerCase();
+		return "png".equals(extension) || "jpg".equals(extension);
+	}
+	
+	private boolean isVideo(File f){
+		return FileTool.getExtension(f.getName()).toLowerCase().equals("webm");
 	}
 	
 	private boolean isCategory(File dir){
@@ -401,8 +402,6 @@ public class TrnFsSyncTool implements java.io.Serializable {
 			
 			JSONObject json = getLsnData(dir);
 			
-			AppLog.info("---------------------------"+json, Grant.getSystemAdmin());
-			
 			BusinessObjectTool bot = new BusinessObjectTool(lesson);
 			synchronized(lesson){
 				lesson.resetValues();
@@ -495,15 +494,19 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		return pics;
 	}
 	
+	private String getLocaleStrippedBaseName(File f){
+		String baseName = FilenameUtils.getBaseName(f.getName());
+		String[] split = baseName.toUpperCase().split("_");
+		String locale = split.length>0 ? split[split.length-1] : null;
+		String stripped = locale!=null && Arrays.asList(LANG_CODES).contains(locale) ? baseName.replace("_"+locale, "") : baseName;
+		AppLog.info("---------------------------"+stripped, Grant.getSystemAdmin());
+		return stripped;
+	}
+	
 	private String getLocale(File f){
 		String[] split = FilenameUtils.getBaseName(f.getName()).toUpperCase().split("_");
 		String locale = split.length>0 ? split[split.length-1] : null;
 		return locale!=null && Arrays.asList(LANG_CODES).contains(locale) ? locale : DEFAULT_LANG_CODE;
-	}
-	
-	private boolean isPic(File f){
-		String extension = FilenameUtils.getExtension(f.getName()).toLowerCase();
-		return "png".equals(extension);
 	}
 	
 	private String getLsnCode(File lsnDir){
