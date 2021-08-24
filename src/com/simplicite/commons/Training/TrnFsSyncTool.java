@@ -8,6 +8,7 @@ import java.io.File;
 import java.util.regex.Pattern;
 import org.json.JSONObject;
 import org.json.JSONArray;
+import org.apache.commons.io.FilenameUtils;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
@@ -400,6 +401,8 @@ public class TrnFsSyncTool implements java.io.Serializable {
 			
 			JSONObject json = getLsnData(dir);
 			
+			AppLog.info("---------------------------"+json, Grant.getSystemAdmin());
+			
 			BusinessObjectTool bot = new BusinessObjectTool(lesson);
 			synchronized(lesson){
 				lesson.resetValues();
@@ -415,6 +418,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 				lesson.setFieldValue("trnLsnCatId", getCatRowIdFromPath(getParentRelativePath(dir)));
 				lesson.setFieldValue("trnLsnPublish", json.getBoolean("published"));
 				lesson.setFieldValue("trnLsnVisualization", json.getString("viz"));
+				lesson.populate(true);
 				bot.validateAndSave(true);
 				rowId = lesson.getRowId();
 			}
@@ -428,7 +432,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 					synchronized(lessonContent){
 						bot.selectForCreate();
 						lessonContent.setFieldValue("trnLtrLsnId", rowId);
-						lessonContent.setFieldValue("trnLtrLan", lang);
+						lessonContent.setFieldValue("trnLtrLang", lang);
 						if(content.has("markdown"))
 							lessonContent.setFieldValue("trnLtrContent", FileTool.readFile(new File(content.getString("markdown"))));
 						if(content.has("video")){
@@ -481,22 +485,25 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	
 	private JSONObject getPics(File lsnDir){
 		JSONObject pics = new JSONObject();
-		for(String lang : LANG_CODES){
+		for(String lang : LANG_CODES)
 			pics.put(lang, new JSONArray());
-		}
 		
-		for(File f : lsnDir.listFiles()){
-			boolean found = false;
-			for(String lang : LANG_CODES){
-				if(f.getName().endsWith("_"+lang+".png")){
-					pics.getJSONArray(lang).put(f.getPath());
-				}
-				else if(f.getName().endsWith(".png")){
-					pics.getJSONArray(DEFAULT_LANG_CODE).put(f.getPath());
-				}
-			}
-		}
+		for(File f : lsnDir.listFiles())
+			if(isPic(f))
+				pics.getJSONArray(getLocale(f)).put(f.getPath());
+		
 		return pics;
+	}
+	
+	private String getLocale(File f){
+		String[] split = FilenameUtils.getBaseName(f.getName()).toUpperCase().split("_");
+		String locale = split.length>0 ? split[split.length-1] : null;
+		return locale!=null && Arrays.asList(LANG_CODES).contains(locale) ? locale : DEFAULT_LANG_CODE;
+	}
+	
+	private boolean isPic(File f){
+		String extension = FilenameUtils.getExtension(f.getName()).toLowerCase();
+		return "png".equals(extension);
 	}
 	
 	private String getLsnCode(File lsnDir){
