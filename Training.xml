@@ -5,7 +5,7 @@
 	<action>upsert</action>
 	<data>
 		<mdl_name>Training</mdl_name>
-		<mdl_version>1</mdl_version>
+		<mdl_version>2.0</mdl_version>
 		<mdl_prefix>trn</mdl_prefix>
 		<mdl_url/>
 		<mdl_comment><![CDATA[The module for the Simplciité Training platform]]></mdl_comment>

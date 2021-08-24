@@ -498,9 +498,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		String baseName = FilenameUtils.getBaseName(f.getName());
 		String[] split = baseName.toUpperCase().split("_");
 		String locale = split.length>0 ? split[split.length-1] : null;
-		String stripped = locale!=null && Arrays.asList(LANG_CODES).contains(locale) ? baseName.replace("_"+locale, "") : baseName;
-		AppLog.info("---------------------------"+stripped, Grant.getSystemAdmin());
-		return stripped;
+		return locale!=null && Arrays.asList(LANG_CODES).contains(locale) ? baseName.replace("_"+locale, "") : baseName;
 	}
 	
 	private String getLocale(File f){

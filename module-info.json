@@ -1,9 +1,9 @@
 {
-    "date": "2021-08-24 16:20:57",
+    "date": "2021-08-24 16:31:53",
     "name": "Training",
     "format": "xml",
     "files": ["Training.xml"],
     "repository": {},
-    "version": "1",
+    "version": "2.0",
     "platform": "5.0.61"
 }
