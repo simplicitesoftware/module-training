@@ -33,7 +33,7 @@ public class TrnTools implements java.io.Serializable {
 		if(includeDefault)
 			return getLangs(g);
 		else{
-			List<String> langs = Arrays.asList(getLangs(g));
+			List<String> langs = new LinkedList<String>(Arrays.asList(getLangs(g)));
 			langs.remove(getDefaultLang());
 			return langs.toArray(new String[0]);
 		}
