@@ -17,15 +17,43 @@
 	<data>
 		<sys_code>TRN_CONFIG</sys_code>
 		<sys_value><![CDATA[{
-	"edition_type": "UI",
-	"filesystem_contentdir": ""
-}]]></sys_value>
-		<sys_value2><![CDATA[{
 	"edition_type": "FILESYSTEM",
-	"filesystem_contentdir": "/usr/local/training-content/content"
-}]]></sys_value2>
+	"filesystem_contentdir": "/usr/local/training-content/content",
+	"index_type": "simplicite"
+}]]></sys_value>
+		<sys_value2/>
 		<sys_type>PRV</sys_type>
-		<sys_desc/>
+		<sys_desc><![CDATA[Examples : 
+
+Simple usecase
+---------------------------
+
+Editing through UI, using Simplicité indexing
+
+```json
+{
+	"edition_type": "UI",
+	"index_type": "simplicite"
+}
+```
+
+Advanced usecase
+---------------------------
+
+Editing through Filesystem (possible git repo), using ElasticSearch indexing
+
+```json
+{
+	"edition_type": "FILESYSTEM",
+	"filesystem_contentdir": "/path/to/directory/to/sync/with",
+	"index_type": "elasticsearch",
+	"esi_config": {
+		"instance": "https://elasticsearchinstance.mydomain.not",
+		"index": "docs_myinstance",
+		"credentials":"user:password"
+	}
+}
+```]]></sys_desc>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
 	</data>
 </object>
@@ -3828,6 +3856,25 @@
 		<act_count/>
 		<act_order/>
 	</data>
+	<data>
+		<act_name>reIndexAll</act_name>
+		<act_type>L</act_type>
+		<act_async>0</act_async>
+		<act_job_depth/>
+		<act_method>reIndexAll</act_method>
+		<act_script/>
+		<act_url/>
+		<act_image>icon/color/link</act_image>
+		<act_confirm>1</act_confirm>
+		<act_confirm_expr/>
+		<act_confirm_ui/>
+		<act_plus>0</act_plus>
+		<act_comment/>
+		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
+		<act_exec>BCK</act_exec>
+		<act_count/>
+		<act_order/>
+	</data>
 </object>
 <object>
 	<name>Function</name>
@@ -3865,6 +3912,15 @@
 		<fct_object_id.obj_name>TrnCategory</fct_object_id.obj_name>
 		<fct_function>L</fct_function>
 		<fct_action_id.act_name/>
+		<fct_view_id.viw_name/>
+		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
+	</data>
+	<data>
+		<fct_name>TRN_CAT_RE_INDEX_ALL_A</fct_name>
+		<fct_object_id.obj_type>O</fct_object_id.obj_type>
+		<fct_object_id.obj_name>TrnCategory</fct_object_id.obj_name>
+		<fct_function>A</fct_function>
+		<fct_action_id.act_name>reIndexAll</fct_action_id.act_name>
 		<fct_view_id.viw_name/>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
 	</data>
@@ -3996,6 +4052,16 @@
 		<grt_function_id.fct_object_id.obj_type>O</grt_function_id.fct_object_id.obj_type>
 		<grt_function_id.fct_object_id.obj_name>TrnCategory</grt_function_id.fct_object_id.obj_name>
 		<grt_function_id.fct_action_id.act_name>forceDirSync</grt_function_id.fct_action_id.act_name>
+		<grt_function_id.fct_function>A</grt_function_id.fct_function>
+		<grt_activ>1</grt_activ>
+		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
+	</data>
+	<data>
+		<grt_group_id.grp_name>TRN_ADMIN</grt_group_id.grp_name>
+		<grt_function_id.fct_name>TRN_CAT_RE_INDEX_ALL_A</grt_function_id.fct_name>
+		<grt_function_id.fct_object_id.obj_type>O</grt_function_id.fct_object_id.obj_type>
+		<grt_function_id.fct_object_id.obj_name>TrnCategory</grt_function_id.fct_object_id.obj_name>
+		<grt_function_id.fct_action_id.act_name>reIndexAll</grt_function_id.fct_action_id.act_name>
 		<grt_function_id.fct_function>A</grt_function_id.fct_function>
 		<grt_activ>1</grt_activ>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
@@ -4302,9 +4368,25 @@
 	</data>
 	<data>
 		<tsl_typeAction>A</tsl_typeAction>
+		<tsl_id.act_name>reIndexAll</tsl_id.act_name>
+		<tsl_lang>ENU</tsl_lang>
+		<tsl_value>reIndexAll</tsl_value>
+		<tsl_simplehelp/>
+		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
+	</data>
+	<data>
+		<tsl_typeAction>A</tsl_typeAction>
 		<tsl_id.act_name>forceDirSync</tsl_id.act_name>
 		<tsl_lang>FRA</tsl_lang>
 		<tsl_value>Forcer synchronisation</tsl_value>
+		<tsl_simplehelp/>
+		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
+	</data>
+	<data>
+		<tsl_typeAction>A</tsl_typeAction>
+		<tsl_id.act_name>reIndexAll</tsl_id.act_name>
+		<tsl_lang>FRA</tsl_lang>
+		<tsl_value>reIndexAll</tsl_value>
 		<tsl_simplehelp/>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
 	</data>

@@ -33,6 +33,7 @@ The object that serves as container for lessons, or other categories (reflexivit
 ### Custom actions
 
 * `forceDirSync`: 
+* `reIndexAll`: 
 
 `TrnCategoryTranslate` business object definition
 -------------------------------------------------
