@@ -4,6 +4,7 @@ import java.util.*;
 import com.simplicite.util.*;
 import com.simplicite.util.tools.*;
 import com.simplicite.commons.Training.*;
+import org.jsoup.Jsoup;
 
 /**
  * Business object TrnLsnTranslate
@@ -13,7 +14,10 @@ public class TrnLsnTranslate extends TrnObject {
 	
 	@Override
 	public String preSave() {
-		setFieldValue("trnLtrHtmlContent", MarkdownTool.toHTML(getFieldValue("trnLtrContent")));
+		String html = MarkdownTool.toHTML(getFieldValue("trnLtrContent"));
+		setFieldValue("trnLtrHtmlContent", html);
+		// Remove HTML tags (https://stackoverflow.com/a/9036849/1612642)
+		setFieldValue("trnLtrRawContent", Jsoup.parse(html).text());
 		return null;
 	}
 	

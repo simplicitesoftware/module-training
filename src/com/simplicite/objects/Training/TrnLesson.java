@@ -47,10 +47,14 @@ public class TrnLesson extends TrnObject {
 	}
 	
 	public JSONObject getLessonForFront(String lang, boolean includeHtml) throws Exception{
-		return _getLessonAsJson(lang, includeHtml);
+		return _getLessonAsJson(lang, includeHtml, false);
 	}
 	
-	private JSONObject _getLessonAsJson(String lang, boolean includeHtml) throws Exception{
+	public JSONObject getLessonForIndex(String lang) throws Exception{
+		return _getLessonAsJson(lang, false, true);
+	}
+	
+	private JSONObject _getLessonAsJson(String lang, boolean includeHtml, boolean includeRaw) throws Exception{
 		JSONObject json = (new JSONObject())
 			.put("row_id", getRowId())
 			.put("path", getFieldValue("trnLsnFrontPath"))
@@ -72,6 +76,8 @@ public class TrnLesson extends TrnObject {
 				json.put("video", content.getFieldValue("trnLtrVideo"));
 				if(includeHtml)
 					json.put("html", content.getFieldValue("trnLtrHtmlContent"));
+				if(includeRaw)
+					json.put("raw_content", content.getFieldValue("trnLtrRawContent"));
 			}
 		}
 		return json;

@@ -5,7 +5,7 @@
 	<action>upsert</action>
 	<data>
 		<mdl_name>Training</mdl_name>
-		<mdl_version>2.1</mdl_version>
+		<mdl_version>2.3</mdl_version>
 		<mdl_prefix>trn</mdl_prefix>
 		<mdl_url/>
 		<mdl_comment><![CDATA[The module for the Simplciité Training platform]]></mdl_comment>
@@ -123,7 +123,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<usr_menu_defcollapsed>0</usr_menu_defcollapsed>
 		<usr_menu_defdomain_id.obd_name/>
 		<usr_logout>2021-08-18 13:27:16</usr_logout>
-		<usr_last_logon>2021-08-24 11:30:25</usr_last_logon>
+		<usr_last_logon>2021-08-25 15:29:17</usr_last_logon>
 		<usr_dateformat/>
 		<usr_lang_pref>FRA</usr_lang_pref>
 		<usr_uuid/>
@@ -998,7 +998,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<fld_updatable>1</fld_updatable>
 		<fld_required>0</fld_required>
 		<fld_fonctid>0</fld_fonctid>
-		<fld_research/>
+		<fld_research>1</fld_research>
 		<fld_researchreq>0</fld_researchreq>
 		<fld_sort>C</fld_sort>
 		<fld_more>0</fld_more>
@@ -1014,7 +1014,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<fld_precision/>
 		<fld_fromdate_id.fld_name/>
 		<fld_dfault/>
-		<fld_indexable>0</fld_indexable>
+		<fld_indexable>1</fld_indexable>
 		<fld_autocomp>0</fld_autocomp>
 		<fld_groupby>0</fld_groupby>
 		<fld_updall>1</fld_updall>
@@ -1199,7 +1199,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<fld_precision/>
 		<fld_fromdate_id.fld_name/>
 		<fld_dfault><![CDATA[ANY]]></fld_dfault>
-		<fld_indexable>1</fld_indexable>
+		<fld_indexable>0</fld_indexable>
 		<fld_autocomp>0</fld_autocomp>
 		<fld_groupby>0</fld_groupby>
 		<fld_updall>1</fld_updall>
@@ -1442,7 +1442,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<fld_updatable>1</fld_updatable>
 		<fld_required>0</fld_required>
 		<fld_fonctid>0</fld_fonctid>
-		<fld_research/>
+		<fld_research>1</fld_research>
 		<fld_researchreq>0</fld_researchreq>
 		<fld_sort>C</fld_sort>
 		<fld_more>0</fld_more>
@@ -1532,7 +1532,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<fld_precision/>
 		<fld_fromdate_id.fld_name/>
 		<fld_dfault/>
-		<fld_indexable>1</fld_indexable>
+		<fld_indexable>0</fld_indexable>
 		<fld_autocomp>0</fld_autocomp>
 		<fld_groupby>0</fld_groupby>
 		<fld_updall>1</fld_updall>
@@ -1676,6 +1676,43 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<fld_list_id.lov_name/>
 		<fld_copy>1</fld_copy>
 		<fld_size>11</fld_size>
+		<fld_minsize/>
+		<fld_precision/>
+		<fld_fromdate_id.fld_name/>
+		<fld_dfault/>
+		<fld_indexable>0</fld_indexable>
+		<fld_autocomp>0</fld_autocomp>
+		<fld_groupby>0</fld_groupby>
+		<fld_updall>1</fld_updall>
+		<fld_case/>
+		<fld_righttoleft>0</fld_righttoleft>
+		<fld_rendering/>
+		<fld_speech/>
+		<fld_calc/>
+		<fld_objlist/>
+		<fld_comment/>
+		<fld_classification/>
+		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
+	</data>
+	<data>
+		<fld_name>trnLtrRawContent</fld_name>
+		<fld_dbname>trn_ltr_raw_content</fld_dbname>
+		<fld_visible>2</fld_visible>
+		<fld_updatable>0</fld_updatable>
+		<fld_required>0</fld_required>
+		<fld_fonctid>0</fld_fonctid>
+		<fld_research>1</fld_research>
+		<fld_researchreq>0</fld_researchreq>
+		<fld_sort>C</fld_sort>
+		<fld_more>1</fld_more>
+		<fld_listmore>0</fld_listmore>
+		<fld_listsum/>
+		<fld_tray>0</fld_tray>
+		<fld_type>13</fld_type>
+		<fld_type_id.flt_code/>
+		<fld_list_id.lov_name/>
+		<fld_copy>1</fld_copy>
+		<fld_size>10000</fld_size>
 		<fld_minsize/>
 		<fld_precision/>
 		<fld_fromdate_id.fld_name/>
@@ -1865,7 +1902,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<fld_precision/>
 		<fld_fromdate_id.fld_name/>
 		<fld_dfault/>
-		<fld_indexable>1</fld_indexable>
+		<fld_indexable>0</fld_indexable>
 		<fld_autocomp>0</fld_autocomp>
 		<fld_groupby>0</fld_groupby>
 		<fld_updall>1</fld_updall>
@@ -2254,6 +2291,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
   </div>
   <div class="field" data-field="trnLtrContent"></div>
   <div class="field" data-field="trnLtrHtmlContent"></div>
+  <div class="field" data-field="trnLtrRawContent"></div>
 </div>
 ]]></ofa_ui>
 		<ofa_icon><![CDATA[[EXPR:[OBJECTICON:TrnLsnTranslate]]]]></ofa_icon>
@@ -3516,6 +3554,35 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
 	</data>
 	<data>
+		<obf_object_id.obo_name>TrnLsnTranslate</obf_object_id.obo_name>
+		<obf_field_id.fld_name>trnLtrRawContent</obf_field_id.fld_name>
+		<obf_field_id.fld_type>13</obf_field_id.fld_type>
+		<obf_order>120</obf_order>
+		<obf_group_by/>
+		<obf_dfault_order/>
+		<obf_input/>
+		<obf_ref_field_id.fld_name/>
+		<obf_ref_object_id.obo_name/>
+		<obf_cascad/>
+		<obf_card/>
+		<obf_visible/>
+		<obf_ref_export>1</obf_ref_export>
+		<obf_copy/>
+		<obf_ref_order/>
+		<obf_fld_visible/>
+		<obf_fld_required/>
+		<obf_fld_updatable/>
+		<obf_fld_research/>
+		<obf_fld_more/>
+		<obf_fld_listmore/>
+		<obf_fld_researchreq/>
+		<obf_fld_dfault/>
+		<obf_field_id.fld_dfault/>
+		<obf_area_id.ofa_name>TrnLsnTranslate-1</obf_area_id.ofa_name>
+		<obf_area_id.ofa_position>1</obf_area_id.ofa_position>
+		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
+	</data>
+	<data>
 		<obf_object_id.obo_name>TrnPicture</obf_object_id.obo_name>
 		<obf_field_id.fld_name>trnPicLang</obf_field_id.fld_name>
 		<obf_field_id.fld_type>7</obf_field_id.fld_type>
@@ -4717,6 +4784,18 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 	</data>
 	<data>
 		<tsl_typeField>F</tsl_typeField>
+		<tsl_id.fld_name>trnLtrRawContent</tsl_id.fld_name>
+		<tsl_lang>ENU</tsl_lang>
+		<tsl_value>trn ltr raw content</tsl_value>
+		<tsl_simplehelp/>
+		<tsl_short_value/>
+		<tsl_placeholder/>
+		<tsl_listhelp/>
+		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
+		<tsl_tooltip/>
+	</data>
+	<data>
+		<tsl_typeField>F</tsl_typeField>
 		<tsl_id.fld_name>trnLtrTitle</tsl_id.fld_name>
 		<tsl_lang>ENU</tsl_lang>
 		<tsl_value>Title</tsl_value>
@@ -5116,6 +5195,18 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<tsl_id.fld_name>trnLtrLsnId</tsl_id.fld_name>
 		<tsl_lang>FRA</tsl_lang>
 		<tsl_value>ID de la Leçon</tsl_value>
+		<tsl_simplehelp/>
+		<tsl_short_value/>
+		<tsl_placeholder/>
+		<tsl_listhelp/>
+		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
+		<tsl_tooltip/>
+	</data>
+	<data>
+		<tsl_typeField>F</tsl_typeField>
+		<tsl_id.fld_name>trnLtrRawContent</tsl_id.fld_name>
+		<tsl_lang>FRA</tsl_lang>
+		<tsl_value>Raw Content</tsl_value>
 		<tsl_simplehelp/>
 		<tsl_short_value/>
 		<tsl_placeholder/>

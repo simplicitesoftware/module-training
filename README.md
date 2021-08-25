@@ -97,6 +97,7 @@ The object used to translate the lesson objects, for multilingual transport.
 | `trnLtrHtmlContent`                                          | text(500000)                             |          |           |          | The HTML equivalent of the content attribute. It's this attribute that is displayed by the front-end application. |
 | `trnLtrLsnId` link to **`TrnLesson`**                        | id                                       | *        | yes       |          | -                                                                                |
 | _Ref. `trnLtrLsnId.trnLsnPath`_                              | _text(400)_                              |          |           |          | -                                                                                |
+| `trnLtrRawContent`                                           | text(10000)                              |          |           |          | -                                                                                |
 
 ### Lists
 
