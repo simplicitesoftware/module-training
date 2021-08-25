@@ -2,7 +2,7 @@
 # / __(_)_ __  _ __| (_)__(_) |_ /_/
 # \__ \ | '  \| '_ \ | / _| |  _/ -_)
 # |___/_|_|_|_| .__/_|_\__|_|\__\___|
-#             |_| Module: Training 2.0
+#             |_| Module: Training 2.1
 paths:
   /rest/TrnCategoryTranslate/{row_id}:
     post:
@@ -1784,7 +1784,7 @@ info:
     email: contact@simplicitesoftware.com
   description: API for module Training
   title: Training
-  version: '2.0'
+  version: '2.1'
 tags:
 - name: TrnCategory
   description: Category

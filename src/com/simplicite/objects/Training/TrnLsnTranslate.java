@@ -16,4 +16,15 @@ public class TrnLsnTranslate extends TrnObject {
 		setFieldValue("trnLtrHtmlContent", MarkdownTool.toHTML(getFieldValue("trnLtrContent")));
 		return null;
 	}
+	
+	@Override
+	public String postSave() {
+		TrnLesson lsn = (TrnLesson) getGrant().getTmpObject("TrnLesson");
+		synchronized(lsn){
+			lsn.resetFilters();
+			lsn.select(getFieldValue("trnLtrLsnId"));
+			lsn.index();
+		}
+		return null;
+	}
 }

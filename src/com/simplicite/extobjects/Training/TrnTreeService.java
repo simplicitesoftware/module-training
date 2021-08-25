@@ -21,7 +21,8 @@ public class TrnTreeService extends RESTServiceExternalObject  {
 
 	@Override
 	public Object post(Parameters params) {
-		String lang = params.getParameter("lang", "ENU");
+		String defaultLang = TrnTools.getLangs(g(), false)[0];//use first lang as default
+		String lang = params.getParameter("lang", defaultLang);
 		try{
 		
 			if(!"".equals(params.getParameter("getImages", "")))

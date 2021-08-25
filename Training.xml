@@ -5,7 +5,7 @@
 	<action>upsert</action>
 	<data>
 		<mdl_name>Training</mdl_name>
-		<mdl_version>2.0</mdl_version>
+		<mdl_version>2.1</mdl_version>
 		<mdl_prefix>trn</mdl_prefix>
 		<mdl_url/>
 		<mdl_comment><![CDATA[The module for the Simplciité Training platform]]></mdl_comment>
@@ -4279,6 +4279,12 @@
 	<data>
 		<scr_code>TrnObject</scr_code>
 		<scr_file>src/com/simplicite/commons/Training/TrnObject.java</scr_file>
+		<scr_type>JSR</scr_type>
+		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
+	</data>
+	<data>
+		<scr_code>TrnIndexer</scr_code>
+		<scr_file>src/com/simplicite/commons/Training/TrnIndexer.java</scr_file>
 		<scr_type>JSR</scr_type>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
 	</data>

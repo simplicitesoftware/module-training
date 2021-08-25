@@ -26,12 +26,31 @@ public class TrnLesson extends TrnObject {
 		
 		return null;
 	}
+	
+	@Override
+	public String postSave() {
+		index();
+		return null;
+	}
+	
+	public void index(){
+		try{
+			TrnIndexer.indexLesson(this);
+		}
+		catch(Exception e){
+			AppLog.error("Error indexing lessson", e, getGrant());
+		}
+	}
 
 	private String getPath(){
 		return getFieldValue("trnLsnCatId.trnCatPath")+"/"+"LSN_"+getFieldValue("trnLsnOrder")+"_"+TrnTools.toSnake(getFieldValue("trnLsnCode"));
 	}
 	
 	public JSONObject getLessonForFront(String lang, boolean includeHtml) throws Exception{
+		return _getLessonAsJson(lang, includeHtml);
+	}
+	
+	private JSONObject _getLessonAsJson(String lang, boolean includeHtml) throws Exception{
 		JSONObject json = (new JSONObject())
 			.put("row_id", getRowId())
 			.put("path", getFieldValue("trnLsnFrontPath"))
@@ -57,4 +76,6 @@ public class TrnLesson extends TrnObject {
 		}
 		return json;
 	}
+	
+	
 }

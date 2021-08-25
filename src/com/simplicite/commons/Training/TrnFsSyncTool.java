@@ -27,7 +27,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	private final File contentDir;
 	private final File hashStoreFile;
 	private final String[] LANG_CODES;
-	private final String DEFAULT_LANG_CODE = "ANY";
+	private final String DEFAULT_LANG_CODE;
 	
 	private ObjectDB category, categoryContent, lesson, lessonContent, picture;
 	
@@ -80,7 +80,8 @@ public class TrnFsSyncTool implements java.io.Serializable {
 			throw new TrnSyncException("TRN_SYNC_EMPTY_CONTENT_PATH");
 		contentDir = new File(conf.getString("filesystem_contentdir"));
 		hashStoreFile = new File(g.getContentDir()+"/"+HASHSTORE_FILENAME);
-		LANG_CODES = g.getListOfValues("LANG_ALL").getCodesArray("LANG_ALL");
+		LANG_CODES = TrnTools.getLangs(g);
+		DEFAULT_LANG_CODE = TrnTools.getDefaultLang();
 	}
 	
 	public void dropData() throws TrnSyncException{
