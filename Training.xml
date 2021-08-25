@@ -4379,7 +4379,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<tsl_typeAction>A</tsl_typeAction>
 		<tsl_id.act_name>reIndexAll</tsl_id.act_name>
 		<tsl_lang>ENU</tsl_lang>
-		<tsl_value>reIndexAll</tsl_value>
+		<tsl_value>Re-index all</tsl_value>
 		<tsl_simplehelp/>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
 	</data>
@@ -4395,7 +4395,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<tsl_typeAction>A</tsl_typeAction>
 		<tsl_id.act_name>reIndexAll</tsl_id.act_name>
 		<tsl_lang>FRA</tsl_lang>
-		<tsl_value>reIndexAll</tsl_value>
+		<tsl_value>Tout ré-indéxer</tsl_value>
 		<tsl_simplehelp/>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
 	</data>

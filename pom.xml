@@ -84,7 +84,7 @@ ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
     <dependency>
       <groupId>com.simplicite.modules</groupId>
       <artifactId>ElasticSearchIndexer</artifactId>
-      <version>0.1-SNAPSHOT</version>
+      <version>1-SNAPSHOT</version>
     </dependency>
   </dependencies>
 </project>
