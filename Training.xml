@@ -5,7 +5,7 @@
 	<action>upsert</action>
 	<data>
 		<mdl_name>Training</mdl_name>
-		<mdl_version>2.3</mdl_version>
+		<mdl_version>2.4</mdl_version>
 		<mdl_prefix>trn</mdl_prefix>
 		<mdl_url/>
 		<mdl_comment><![CDATA[The module for the Simplciité Training platform]]></mdl_comment>
@@ -123,7 +123,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<usr_menu_defcollapsed>0</usr_menu_defcollapsed>
 		<usr_menu_defdomain_id.obd_name/>
 		<usr_logout>2021-08-18 13:27:16</usr_logout>
-		<usr_last_logon>2021-08-25 15:29:17</usr_last_logon>
+		<usr_last_logon>2021-08-30 10:32:01</usr_last_logon>
 		<usr_dateformat/>
 		<usr_lang_pref>FRA</usr_lang_pref>
 		<usr_uuid/>

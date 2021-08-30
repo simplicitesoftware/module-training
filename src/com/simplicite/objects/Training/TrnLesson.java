@@ -74,6 +74,7 @@ public class TrnLesson extends TrnObject {
 				content.setValues((content.search()).get(0));
 				json.put("title", content.getFieldValue("trnLtrTitle"));
 				json.put("video", content.getFieldValue("trnLtrVideo"));
+				json.put("ltr_id", content.getRowId());
 				if(includeHtml)
 					json.put("html", content.getFieldValue("trnLtrHtmlContent"));
 				if(includeRaw)
