@@ -30,16 +30,7 @@
 	"filesystem_contentdir": "/usr/local/training-content/content",
 	"index_type": "simplicite"
 }]]></sys_value>
-		<sys_value2><![CDATA[{
-    "edition_type": "FILESYSTEM",	
-    "filesystem_contentdir": "/home/trainingrec/training-content/content",
-    "index_type": "elasticsearch",
-    "esi_config": {
-        "instance": "https://index.simplicite.io",
-        "index": "docs_rec",
-        "credentials":"frontend:7~HFym%vvWM9{b5iGwG>CPDL>"
-    }
-}]]></sys_value2>
+		<sys_value2/>
 		<sys_type>PRV</sys_type>
 		<sys_desc><![CDATA[Examples : 
 
