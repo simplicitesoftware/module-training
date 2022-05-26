@@ -5,7 +5,7 @@
 	<action>upsert</action>
 	<data>
 		<mdl_name>Training</mdl_name>
-		<mdl_version>2.4</mdl_version>
+		<mdl_version>2.6</mdl_version>
 		<mdl_prefix>trn</mdl_prefix>
 		<mdl_url/>
 		<mdl_comment><![CDATA[The module for the Simplciité Training platform]]></mdl_comment>
@@ -30,7 +30,16 @@
 	"filesystem_contentdir": "/usr/local/training-content/content",
 	"index_type": "simplicite"
 }]]></sys_value>
-		<sys_value2/>
+		<sys_value2><![CDATA[{
+    "edition_type": "FILESYSTEM",	
+    "filesystem_contentdir": "/home/trainingrec/training-content/content",
+    "index_type": "elasticsearch",
+    "esi_config": {
+        "instance": "https://index.simplicite.io",
+        "index": "docs_rec",
+        "credentials":"frontend:7~HFym%vvWM9{b5iGwG>CPDL>"
+    }
+}]]></sys_value2>
 		<sys_type>PRV</sys_type>
 		<sys_desc><![CDATA[Examples : 
 
@@ -123,7 +132,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<usr_menu_defcollapsed>0</usr_menu_defcollapsed>
 		<usr_menu_defdomain_id.obd_name/>
 		<usr_logout>2021-08-18 13:27:16</usr_logout>
-		<usr_last_logon>2021-08-30 10:32:01</usr_last_logon>
+		<usr_last_logon>2022-04-19 10:36:39</usr_last_logon>
 		<usr_dateformat/>
 		<usr_lang_pref>FRA</usr_lang_pref>
 		<usr_uuid/>
@@ -155,7 +164,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<usr_menu_defcollapsed>0</usr_menu_defcollapsed>
 		<usr_menu_defdomain_id.obd_name/>
 		<usr_logout>2021-08-18 14:03:07</usr_logout>
-		<usr_last_logon/>
+		<usr_last_logon>2022-02-04 16:13:10</usr_last_logon>
 		<usr_dateformat/>
 		<usr_lang_pref>FRA</usr_lang_pref>
 		<usr_uuid/>
@@ -204,6 +213,14 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<rsp_login_id.usr_login>training-front</rsp_login_id.usr_login>
 		<rsp_group_id.grp_name>TRN_READ</rsp_group_id.grp_name>
 		<rsp_start_dt>2021-08-18</rsp_start_dt>
+		<rsp_end_dt/>
+		<rsp_activ>1</rsp_activ>
+		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
+	</data>
+	<data>
+		<rsp_login_id.usr_login>training-sync</rsp_login_id.usr_login>
+		<rsp_group_id.grp_name>TRN_SYNC</rsp_group_id.grp_name>
+		<rsp_start_dt>2021-08-30</rsp_start_dt>
 		<rsp_end_dt/>
 		<rsp_activ>1</rsp_activ>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
@@ -2080,8 +2097,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<tpl_ui><![CDATA[<div>
   <div class="area" data-area="1"></div>
   <div class="area" data-area="2"></div>
-</div>
-]]></tpl_ui>
+</div>]]></tpl_ui>
 		<tpl_min/>
 		<tpl_image/>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
@@ -2095,8 +2111,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 	</data>
 	<data>
 		<tpl_name>TrnCategoryTranslate</tpl_name>
-		<tpl_ui><![CDATA[<div class="area" data-area="1"></div>
-]]></tpl_ui>
+		<tpl_ui><![CDATA[<div class="area" data-area="1"></div>]]></tpl_ui>
 		<tpl_min/>
 		<tpl_image/>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
@@ -2106,8 +2121,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<tpl_ui><![CDATA[<div>
   <div class="area" data-area="1"></div>
   <div class="area" data-area="2"></div>
-</div>
-]]></tpl_ui>
+</div>]]></tpl_ui>
 		<tpl_min/>
 		<tpl_image/>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
@@ -2117,24 +2131,21 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<tpl_ui><![CDATA[<div>
   <div class="area" data-area="2"></div>
   <div class="area" data-area="1"></div>
-</div>
-]]></tpl_ui>
+</div>]]></tpl_ui>
 		<tpl_min/>
 		<tpl_image/>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
 	</data>
 	<data>
 		<tpl_name>TrnPicture</tpl_name>
-		<tpl_ui><![CDATA[<div class="area" data-area="1"></div>
-]]></tpl_ui>
+		<tpl_ui><![CDATA[<div class="area" data-area="1"></div>]]></tpl_ui>
 		<tpl_min/>
 		<tpl_image/>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
 	</data>
 	<data>
 		<tpl_name>TrnSiteContent</tpl_name>
-		<tpl_ui><![CDATA[<div class="area" data-area="1"></div>
-]]></tpl_ui>
+		<tpl_ui><![CDATA[<div class="area" data-area="1"></div>]]></tpl_ui>
 		<tpl_min/>
 		<tpl_image/>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
@@ -2167,8 +2178,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
       <div class="field" data-field="trnCatFrontPath"></div>
     </div>
   </div>
-</div>
-]]></ofa_ui>
+</div>]]></ofa_ui>
 		<ofa_icon><![CDATA[[EXPR:[OBJECTICON:TrnCategory]]]]></ofa_icon>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
 	</data>
@@ -2176,8 +2186,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<ofa_name>TrnCategory-2</ofa_name>
 		<ofa_position>2</ofa_position>
 		<ofa_title>1</ofa_title>
-		<ofa_ui><![CDATA[<div class="field" data-field="trnCatId__trnCatPath"></div>
-]]></ofa_ui>
+		<ofa_ui><![CDATA[<div class="field" data-field="trnCatId__trnCatPath"></div>]]></ofa_ui>
 		<ofa_icon><![CDATA[[EXPR:[OBJECTICON:TrnCategory]]]]></ofa_icon>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
 	</data>
@@ -2222,8 +2231,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
     </div>
   </div>
   <div class="field" data-field="trnCtrDescription"></div>
-</div>
-]]></ofa_ui>
+</div>]]></ofa_ui>
 		<ofa_icon>star</ofa_icon>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
 	</data>
@@ -2254,8 +2262,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
       <div class="field" data-field="trnLsnFrontPath"></div>
     </div>
   </div>
-</div>
-]]></ofa_ui>
+</div>]]></ofa_ui>
 		<ofa_icon><![CDATA[[EXPR:[OBJECTICON:TrnLesson]]]]></ofa_icon>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
 	</data>
@@ -2263,8 +2270,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<ofa_name>TrnLesson-2</ofa_name>
 		<ofa_position>2</ofa_position>
 		<ofa_title>1</ofa_title>
-		<ofa_ui><![CDATA[<div class="field" data-field="trnLsnCatId__trnCatPath"></div>
-]]></ofa_ui>
+		<ofa_ui><![CDATA[<div class="field" data-field="trnLsnCatId__trnCatPath"></div>]]></ofa_ui>
 		<ofa_icon><![CDATA[[EXPR:[OBJECTICON:TrnCategory]]]]></ofa_icon>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
 	</data>
@@ -2292,8 +2298,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
   <div class="field" data-field="trnLtrContent"></div>
   <div class="field" data-field="trnLtrHtmlContent"></div>
   <div class="field" data-field="trnLtrRawContent"></div>
-</div>
-]]></ofa_ui>
+</div>]]></ofa_ui>
 		<ofa_icon><![CDATA[[EXPR:[OBJECTICON:TrnLsnTranslate]]]]></ofa_icon>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
 	</data>
@@ -2301,8 +2306,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<ofa_name>TrnLsnTranslate-2</ofa_name>
 		<ofa_position>2</ofa_position>
 		<ofa_title>0</ofa_title>
-		<ofa_ui><![CDATA[<div class="field" data-field="trnLtrLsnId__trnLsnPath"></div>
-]]></ofa_ui>
+		<ofa_ui><![CDATA[<div class="field" data-field="trnLtrLsnId__trnLsnPath"></div>]]></ofa_ui>
 		<ofa_icon><![CDATA[[EXPR:[OBJECTICON:TrnLesson]]]]></ofa_icon>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
 	</data>
@@ -2314,8 +2318,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
   <div class="field" data-field="trnPicLsnId__trnLsnPath"></div>
   <div class="field" data-field="trnPicLang"></div>
   <div class="field" data-field="trnPicImage"></div>
-</div>
-]]></ofa_ui>
+</div>]]></ofa_ui>
 		<ofa_icon><![CDATA[[EXPR:[OBJECTICON:TrnPicture]]]]></ofa_icon>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
 	</data>
@@ -2333,8 +2336,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
     </div>
   </div>
   <div class="field" data-field="trnSitContent"></div>
-</div>
-]]></ofa_ui>
+</div>]]></ofa_ui>
 		<ofa_icon><![CDATA[[EXPR:[OBJECTICON:TrnSiteContent]]]]></ofa_icon>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
 	</data>
@@ -4112,6 +4114,16 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 <object>
 	<name>Grant</name>
 	<action>upsert</action>
+	<data>
+		<grt_group_id.grp_name>PUBLIC</grt_group_id.grp_name>
+		<grt_function_id.fct_name>TRN_FRONT_E</grt_function_id.fct_name>
+		<grt_function_id.fct_object_id.obj_type>E</grt_function_id.fct_object_id.obj_type>
+		<grt_function_id.fct_object_id.obj_name>TrnFront</grt_function_id.fct_object_id.obj_name>
+		<grt_function_id.fct_action_id.act_name/>
+		<grt_function_id.fct_function>L</grt_function_id.fct_function>
+		<grt_activ>1</grt_activ>
+		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
+	</data>
 	<data>
 		<grt_group_id.grp_name>TRN_ADMIN</grt_group_id.grp_name>
 		<grt_function_id.fct_name>TRN_CAT_CRUD</grt_function_id.fct_name>

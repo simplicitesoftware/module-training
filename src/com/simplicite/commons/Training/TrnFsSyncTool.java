@@ -524,7 +524,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		
 		JSONObject json = new JSONObject(FileTool.readFile(dir.getPath()+"/lesson.json"));
 		lsn.put("published", json.optBoolean("published", true));
-		lsn.put("viz", json.optString("visualization", "TUTO"));
+		lsn.put("viz", json.optString("display", "TUTO"));
 		
 		
 		JSONObject contents = new JSONObject();

@@ -64,24 +64,44 @@ public class TrnLesson extends TrnObject {
 		synchronized(content){
 			content.resetFilters();
 			content.setFieldFilter("trnLtrLsnId", getRowId());
-			content.setFieldFilter("trnLtrLang", lang);
-			if(content.getCount()==0)
-				content.setFieldFilter("trnLtrLang", "ANY");
 			
-			if(content.getCount()!=1)
-				throw new Exception("LSN_CONTENT_NOT_FOUND");
-			else{
-				content.setValues((content.search()).get(0));
-				json.put("title", content.getFieldValue("trnLtrTitle"));
-				json.put("video", content.getFieldValue("trnLtrVideo"));
-				json.put("ltr_id", content.getRowId());
-				if(includeHtml)
-					json.put("html", content.getFieldValue("trnLtrHtmlContent"));
-				if(includeRaw)
-					json.put("raw_content", content.getFieldValue("trnLtrRawContent"));
-			}
+			// fill json with asked lang
+			content.setFieldFilter("trnLtrLang", lang);
+			fillJsonLesson(json, content, includeHtml, includeRaw);
+			
+			// fill empty fields with default lang
+			content.setFieldFilter("trnLtrLang", "ANY");
+			fillJsonLesson(json, content, includeHtml, includeRaw);
 		}
 		return json;
+	}
+	
+	private void fillJsonLesson(JSONObject json, ObjectDB content, boolean includeHtml, boolean includeRaw){
+		if(!json.has("title") || !json.has("video") || (includeHtml && !json.has("html")) || (includeRaw && !json.has("raw_content"))){
+			if(content.getCount()==1){
+				content.setValues((content.search()).get(0));
+				
+				ObjectField f;
+				f = content.getField("trnLtrTitle");
+				if(!f.isEmpty() && !json.has("title")){
+					json.put("title", f.getValue());
+				}
+				
+				f = content.getField("trnLtrVideo");
+				if(!f.isEmpty() && !json.has("video")){
+					json.put("video", f.getValue());
+					json.put("ltr_id", content.getRowId());
+				}
+				
+				f = content.getField("trnLtrHtmlContent");
+				if(includeHtml && !f.isEmpty() && !json.has("html"))
+					json.put("html", f.getValue());
+				
+				f = content.getField("trnLtrRawContent");
+				if(includeRaw && !f.isEmpty() && !json.has("raw_content"))
+					json.put("raw_content", f.getValue());
+			}
+		}
 	}
 	
 	
