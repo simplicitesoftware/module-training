@@ -5,9 +5,13 @@
 	<action>upsert</action>
 	<data>
 		<mdl_name>Training</mdl_name>
-		<mdl_version>2.6</mdl_version>
+		<mdl_version>2.7</mdl_version>
 		<mdl_prefix>trn</mdl_prefix>
-		<mdl_url/>
+		<mdl_url><![CDATA[{
+	"type": "git",
+	"origin": { "uri": "https://github.com/simplicitesoftware/module-training.git" }
+}]]></mdl_url>
+		<mdl_type>A</mdl_type>
 		<mdl_comment><![CDATA[The module for the Simplciité Training platform]]></mdl_comment>
 	</data>
 </object>
@@ -123,9 +127,11 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<usr_menu_defcollapsed>0</usr_menu_defcollapsed>
 		<usr_menu_defdomain_id.obd_name/>
 		<usr_logout>2021-08-18 13:27:16</usr_logout>
-		<usr_last_logon>2022-04-19 10:36:39</usr_last_logon>
+		<usr_last_logon>2022-05-30 13:17:38</usr_last_logon>
 		<usr_dateformat/>
 		<usr_lang_pref>FRA</usr_lang_pref>
+		<usr_mfa_method/>
+		<usr_mfa_settings><![CDATA[{}]]></usr_mfa_settings>
 		<usr_uuid/>
 	</data>
 	<data>
@@ -158,7 +164,23 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<usr_last_logon>2022-02-04 16:13:10</usr_last_logon>
 		<usr_dateformat/>
 		<usr_lang_pref>FRA</usr_lang_pref>
+		<usr_mfa_method/>
+		<usr_mfa_settings><![CDATA[{}]]></usr_mfa_settings>
 		<usr_uuid/>
+	</data>
+</object>
+<object>
+	<name>UserSysParam</name>
+	<action>upsert</action>
+	<data>
+		<usp_user_id.usr_login>training-front</usp_user_id.usr_login>
+		<usp_param_id.sys_code>DISPOSITION</usp_param_id.sys_code>
+		<usp_value/>
+		<usp_param_id.sys_type>LFL</usp_param_id.sys_type>
+		<usp_param_id.sys_value><![CDATA[default]]></usp_param_id.sys_value>
+		<usp_param_id.sys_value2/>
+		<usp_param_id.sys_desc><![CDATA[Webapp disposition, ex: default, myapp, ...]]></usp_param_id.sys_desc>
+		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
 	</data>
 </object>
 <object>
@@ -467,7 +489,6 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 	<data>
 		<lov_code_id.lov_list_id.lov_name>TRN_SIT_LANGUAGE</lov_code_id.lov_list_id.lov_name>
 		<lov_code_id.lov_code>fre</lov_code_id.lov_code>
-		<lov_code_id.lov_order_by>10</lov_code_id.lov_order_by>
 		<lov_lang>ENU</lov_lang>
 		<lov_value><![CDATA[French]]></lov_value>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
@@ -475,7 +496,6 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 	<data>
 		<lov_code_id.lov_list_id.lov_name>TRN_SIT_LANGUAGE</lov_code_id.lov_list_id.lov_name>
 		<lov_code_id.lov_code>spa</lov_code_id.lov_code>
-		<lov_code_id.lov_order_by>20</lov_code_id.lov_order_by>
 		<lov_lang>ENU</lov_lang>
 		<lov_value><![CDATA[Spanish]]></lov_value>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
@@ -483,7 +503,6 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 	<data>
 		<lov_code_id.lov_list_id.lov_name>TRN_SIT_LANGUAGE</lov_code_id.lov_list_id.lov_name>
 		<lov_code_id.lov_code>eng</lov_code_id.lov_code>
-		<lov_code_id.lov_order_by>30</lov_code_id.lov_order_by>
 		<lov_lang>ENU</lov_lang>
 		<lov_value><![CDATA[English]]></lov_value>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
@@ -491,7 +510,6 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 	<data>
 		<lov_code_id.lov_list_id.lov_name>TRN_SIT_LANGUAGE</lov_code_id.lov_list_id.lov_name>
 		<lov_code_id.lov_code>fre</lov_code_id.lov_code>
-		<lov_code_id.lov_order_by>10</lov_code_id.lov_order_by>
 		<lov_lang>FRA</lov_lang>
 		<lov_value><![CDATA[Français]]></lov_value>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
@@ -499,7 +517,6 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 	<data>
 		<lov_code_id.lov_list_id.lov_name>TRN_SIT_LANGUAGE</lov_code_id.lov_list_id.lov_name>
 		<lov_code_id.lov_code>spa</lov_code_id.lov_code>
-		<lov_code_id.lov_order_by>20</lov_code_id.lov_order_by>
 		<lov_lang>FRA</lov_lang>
 		<lov_value><![CDATA[Espagnol]]></lov_value>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
@@ -507,7 +524,6 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 	<data>
 		<lov_code_id.lov_list_id.lov_name>TRN_SIT_LANGUAGE</lov_code_id.lov_list_id.lov_name>
 		<lov_code_id.lov_code>eng</lov_code_id.lov_code>
-		<lov_code_id.lov_order_by>30</lov_code_id.lov_order_by>
 		<lov_lang>FRA</lov_lang>
 		<lov_value><![CDATA[Anglais]]></lov_value>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
@@ -515,7 +531,6 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 	<data>
 		<lov_code_id.lov_list_id.lov_name>TRNCTPLANGUAGE</lov_code_id.lov_list_id.lov_name>
 		<lov_code_id.lov_code>A</lov_code_id.lov_code>
-		<lov_code_id.lov_order_by>10</lov_code_id.lov_order_by>
 		<lov_lang>ENU</lov_lang>
 		<lov_value><![CDATA[A]]></lov_value>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
@@ -523,7 +538,6 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 	<data>
 		<lov_code_id.lov_list_id.lov_name>TRNCTPLANGUAGE</lov_code_id.lov_list_id.lov_name>
 		<lov_code_id.lov_code>B</lov_code_id.lov_code>
-		<lov_code_id.lov_order_by>20</lov_code_id.lov_order_by>
 		<lov_lang>ENU</lov_lang>
 		<lov_value><![CDATA[B]]></lov_value>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
@@ -531,7 +545,6 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 	<data>
 		<lov_code_id.lov_list_id.lov_name>TRNCTPLANGUAGE</lov_code_id.lov_list_id.lov_name>
 		<lov_code_id.lov_code>C</lov_code_id.lov_code>
-		<lov_code_id.lov_order_by>30</lov_code_id.lov_order_by>
 		<lov_lang>ENU</lov_lang>
 		<lov_value><![CDATA[C]]></lov_value>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
@@ -539,7 +552,6 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 	<data>
 		<lov_code_id.lov_list_id.lov_name>TRNCTPLANGUAGE</lov_code_id.lov_list_id.lov_name>
 		<lov_code_id.lov_code>A</lov_code_id.lov_code>
-		<lov_code_id.lov_order_by>10</lov_code_id.lov_order_by>
 		<lov_lang>FRA</lov_lang>
 		<lov_value><![CDATA[A]]></lov_value>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
@@ -547,7 +559,6 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 	<data>
 		<lov_code_id.lov_list_id.lov_name>TRNCTPLANGUAGE</lov_code_id.lov_list_id.lov_name>
 		<lov_code_id.lov_code>B</lov_code_id.lov_code>
-		<lov_code_id.lov_order_by>20</lov_code_id.lov_order_by>
 		<lov_lang>FRA</lov_lang>
 		<lov_value><![CDATA[B]]></lov_value>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
@@ -555,7 +566,6 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 	<data>
 		<lov_code_id.lov_list_id.lov_name>TRNCTPLANGUAGE</lov_code_id.lov_list_id.lov_name>
 		<lov_code_id.lov_code>C</lov_code_id.lov_code>
-		<lov_code_id.lov_order_by>30</lov_code_id.lov_order_by>
 		<lov_lang>FRA</lov_lang>
 		<lov_value><![CDATA[C]]></lov_value>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
@@ -563,7 +573,6 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 	<data>
 		<lov_code_id.lov_list_id.lov_name>TRNCTRLANG</lov_code_id.lov_list_id.lov_name>
 		<lov_code_id.lov_code>A</lov_code_id.lov_code>
-		<lov_code_id.lov_order_by>10</lov_code_id.lov_order_by>
 		<lov_lang>ENU</lov_lang>
 		<lov_value><![CDATA[A]]></lov_value>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
@@ -571,7 +580,6 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 	<data>
 		<lov_code_id.lov_list_id.lov_name>TRNCTRLANG</lov_code_id.lov_list_id.lov_name>
 		<lov_code_id.lov_code>B</lov_code_id.lov_code>
-		<lov_code_id.lov_order_by>20</lov_code_id.lov_order_by>
 		<lov_lang>ENU</lov_lang>
 		<lov_value><![CDATA[B]]></lov_value>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
@@ -579,7 +587,6 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 	<data>
 		<lov_code_id.lov_list_id.lov_name>TRNCTRLANG</lov_code_id.lov_list_id.lov_name>
 		<lov_code_id.lov_code>C</lov_code_id.lov_code>
-		<lov_code_id.lov_order_by>30</lov_code_id.lov_order_by>
 		<lov_lang>ENU</lov_lang>
 		<lov_value><![CDATA[C]]></lov_value>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
@@ -587,7 +594,6 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 	<data>
 		<lov_code_id.lov_list_id.lov_name>TRNCTRLANG</lov_code_id.lov_list_id.lov_name>
 		<lov_code_id.lov_code>A</lov_code_id.lov_code>
-		<lov_code_id.lov_order_by>10</lov_code_id.lov_order_by>
 		<lov_lang>FRA</lov_lang>
 		<lov_value><![CDATA[A]]></lov_value>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
@@ -595,7 +601,6 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 	<data>
 		<lov_code_id.lov_list_id.lov_name>TRNCTRLANG</lov_code_id.lov_list_id.lov_name>
 		<lov_code_id.lov_code>B</lov_code_id.lov_code>
-		<lov_code_id.lov_order_by>20</lov_code_id.lov_order_by>
 		<lov_lang>FRA</lov_lang>
 		<lov_value><![CDATA[B]]></lov_value>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
@@ -603,7 +608,6 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 	<data>
 		<lov_code_id.lov_list_id.lov_name>TRNCTRLANG</lov_code_id.lov_list_id.lov_name>
 		<lov_code_id.lov_code>C</lov_code_id.lov_code>
-		<lov_code_id.lov_order_by>30</lov_code_id.lov_order_by>
 		<lov_lang>FRA</lov_lang>
 		<lov_value><![CDATA[C]]></lov_value>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
@@ -611,7 +615,6 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 	<data>
 		<lov_code_id.lov_list_id.lov_name>TRNLSNVISUALIZATION</lov_code_id.lov_list_id.lov_name>
 		<lov_code_id.lov_code>TUTO</lov_code_id.lov_code>
-		<lov_code_id.lov_order_by>10</lov_code_id.lov_order_by>
 		<lov_lang>ENU</lov_lang>
 		<lov_value><![CDATA[Tutorial]]></lov_value>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
@@ -619,7 +622,6 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 	<data>
 		<lov_code_id.lov_list_id.lov_name>TRNLSNVISUALIZATION</lov_code_id.lov_list_id.lov_name>
 		<lov_code_id.lov_code>LINEAR</lov_code_id.lov_code>
-		<lov_code_id.lov_order_by>20</lov_code_id.lov_order_by>
 		<lov_lang>ENU</lov_lang>
 		<lov_value><![CDATA[Linear]]></lov_value>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
@@ -627,7 +629,6 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 	<data>
 		<lov_code_id.lov_list_id.lov_name>TRNLSNVISUALIZATION</lov_code_id.lov_list_id.lov_name>
 		<lov_code_id.lov_code>TUTO</lov_code_id.lov_code>
-		<lov_code_id.lov_order_by>10</lov_code_id.lov_order_by>
 		<lov_lang>FRA</lov_lang>
 		<lov_value><![CDATA[Tutoriel]]></lov_value>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
@@ -635,7 +636,6 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 	<data>
 		<lov_code_id.lov_list_id.lov_name>TRNLSNVISUALIZATION</lov_code_id.lov_list_id.lov_name>
 		<lov_code_id.lov_code>LINEAR</lov_code_id.lov_code>
-		<lov_code_id.lov_order_by>20</lov_code_id.lov_order_by>
 		<lov_lang>FRA</lov_lang>
 		<lov_value><![CDATA[Linéaire]]></lov_value>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
@@ -643,7 +643,6 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 	<data>
 		<lov_code_id.lov_list_id.lov_name>TRNLTRLAN</lov_code_id.lov_list_id.lov_name>
 		<lov_code_id.lov_code>A</lov_code_id.lov_code>
-		<lov_code_id.lov_order_by>10</lov_code_id.lov_order_by>
 		<lov_lang>ENU</lov_lang>
 		<lov_value><![CDATA[A]]></lov_value>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
@@ -651,7 +650,6 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 	<data>
 		<lov_code_id.lov_list_id.lov_name>TRNLTRLAN</lov_code_id.lov_list_id.lov_name>
 		<lov_code_id.lov_code>B</lov_code_id.lov_code>
-		<lov_code_id.lov_order_by>20</lov_code_id.lov_order_by>
 		<lov_lang>ENU</lov_lang>
 		<lov_value><![CDATA[B]]></lov_value>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
@@ -659,7 +657,6 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 	<data>
 		<lov_code_id.lov_list_id.lov_name>TRNLTRLAN</lov_code_id.lov_list_id.lov_name>
 		<lov_code_id.lov_code>C</lov_code_id.lov_code>
-		<lov_code_id.lov_order_by>30</lov_code_id.lov_order_by>
 		<lov_lang>ENU</lov_lang>
 		<lov_value><![CDATA[C]]></lov_value>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
@@ -667,7 +664,6 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 	<data>
 		<lov_code_id.lov_list_id.lov_name>TRNLTRLAN</lov_code_id.lov_list_id.lov_name>
 		<lov_code_id.lov_code>A</lov_code_id.lov_code>
-		<lov_code_id.lov_order_by>10</lov_code_id.lov_order_by>
 		<lov_lang>FRA</lov_lang>
 		<lov_value><![CDATA[A]]></lov_value>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
@@ -675,7 +671,6 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 	<data>
 		<lov_code_id.lov_list_id.lov_name>TRNLTRLAN</lov_code_id.lov_list_id.lov_name>
 		<lov_code_id.lov_code>B</lov_code_id.lov_code>
-		<lov_code_id.lov_order_by>20</lov_code_id.lov_order_by>
 		<lov_lang>FRA</lov_lang>
 		<lov_value><![CDATA[B]]></lov_value>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
@@ -683,7 +678,6 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 	<data>
 		<lov_code_id.lov_list_id.lov_name>TRNLTRLAN</lov_code_id.lov_list_id.lov_name>
 		<lov_code_id.lov_code>C</lov_code_id.lov_code>
-		<lov_code_id.lov_order_by>30</lov_code_id.lov_order_by>
 		<lov_lang>FRA</lov_lang>
 		<lov_value><![CDATA[C]]></lov_value>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
@@ -691,7 +685,6 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 	<data>
 		<lov_code_id.lov_list_id.lov_name>TRNPICLANG</lov_code_id.lov_list_id.lov_name>
 		<lov_code_id.lov_code>FR</lov_code_id.lov_code>
-		<lov_code_id.lov_order_by>10</lov_code_id.lov_order_by>
 		<lov_lang>ENU</lov_lang>
 		<lov_value><![CDATA[FR]]></lov_value>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
@@ -699,7 +692,6 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 	<data>
 		<lov_code_id.lov_list_id.lov_name>TRNPICLANG</lov_code_id.lov_list_id.lov_name>
 		<lov_code_id.lov_code>EN</lov_code_id.lov_code>
-		<lov_code_id.lov_order_by>20</lov_code_id.lov_order_by>
 		<lov_lang>ENU</lov_lang>
 		<lov_value><![CDATA[EN]]></lov_value>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
@@ -707,7 +699,6 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 	<data>
 		<lov_code_id.lov_list_id.lov_name>TRNPICLANG</lov_code_id.lov_list_id.lov_name>
 		<lov_code_id.lov_code>SP</lov_code_id.lov_code>
-		<lov_code_id.lov_order_by>30</lov_code_id.lov_order_by>
 		<lov_lang>ENU</lov_lang>
 		<lov_value><![CDATA[SP]]></lov_value>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
@@ -715,7 +706,6 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 	<data>
 		<lov_code_id.lov_list_id.lov_name>TRNPICLANG</lov_code_id.lov_list_id.lov_name>
 		<lov_code_id.lov_code>FR</lov_code_id.lov_code>
-		<lov_code_id.lov_order_by>10</lov_code_id.lov_order_by>
 		<lov_lang>FRA</lov_lang>
 		<lov_value><![CDATA[French]]></lov_value>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
@@ -723,7 +713,6 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 	<data>
 		<lov_code_id.lov_list_id.lov_name>TRNPICLANG</lov_code_id.lov_list_id.lov_name>
 		<lov_code_id.lov_code>EN</lov_code_id.lov_code>
-		<lov_code_id.lov_order_by>20</lov_code_id.lov_order_by>
 		<lov_lang>FRA</lov_lang>
 		<lov_value><![CDATA[English]]></lov_value>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
@@ -731,7 +720,6 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 	<data>
 		<lov_code_id.lov_list_id.lov_name>TRNPICLANG</lov_code_id.lov_list_id.lov_name>
 		<lov_code_id.lov_code>SP</lov_code_id.lov_code>
-		<lov_code_id.lov_order_by>30</lov_code_id.lov_order_by>
 		<lov_lang>FRA</lov_lang>
 		<lov_value><![CDATA[Spanish]]></lov_value>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
@@ -753,7 +741,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<fld_more>0</fld_more>
 		<fld_listmore>0</fld_listmore>
 		<fld_listsum/>
-		<fld_tray>0</fld_tray>
+		<fld_tray/>
 		<fld_type>3</fld_type>
 		<fld_type_id.flt_code/>
 		<fld_list_id.lov_name/>
@@ -790,7 +778,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<fld_more>0</fld_more>
 		<fld_listmore>0</fld_listmore>
 		<fld_listsum/>
-		<fld_tray>0</fld_tray>
+		<fld_tray/>
 		<fld_type>13</fld_type>
 		<fld_type_id.flt_code/>
 		<fld_list_id.lov_name/>
@@ -827,7 +815,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<fld_more>0</fld_more>
 		<fld_listmore>0</fld_listmore>
 		<fld_listsum/>
-		<fld_tray>0</fld_tray>
+		<fld_tray/>
 		<fld_type>0</fld_type>
 		<fld_type_id.flt_code/>
 		<fld_list_id.lov_name/>
@@ -864,7 +852,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<fld_more>0</fld_more>
 		<fld_listmore>0</fld_listmore>
 		<fld_listsum/>
-		<fld_tray>0</fld_tray>
+		<fld_tray/>
 		<fld_type>1</fld_type>
 		<fld_type_id.flt_code/>
 		<fld_list_id.lov_name/>
@@ -901,7 +889,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<fld_more>0</fld_more>
 		<fld_listmore>0</fld_listmore>
 		<fld_listsum/>
-		<fld_tray>0</fld_tray>
+		<fld_tray/>
 		<fld_type>13</fld_type>
 		<fld_type_id.flt_code/>
 		<fld_list_id.lov_name/>
@@ -938,7 +926,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<fld_more>0</fld_more>
 		<fld_listmore>0</fld_listmore>
 		<fld_listsum/>
-		<fld_tray>0</fld_tray>
+		<fld_tray/>
 		<fld_type>8</fld_type>
 		<fld_type_id.flt_code/>
 		<fld_list_id.lov_name/>
@@ -975,7 +963,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<fld_more>0</fld_more>
 		<fld_listmore>0</fld_listmore>
 		<fld_listsum/>
-		<fld_tray>0</fld_tray>
+		<fld_tray/>
 		<fld_type>0</fld_type>
 		<fld_type_id.flt_code/>
 		<fld_list_id.lov_name/>
@@ -1012,7 +1000,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<fld_more>0</fld_more>
 		<fld_listmore>0</fld_listmore>
 		<fld_listsum/>
-		<fld_tray>0</fld_tray>
+		<fld_tray/>
 		<fld_type>3</fld_type>
 		<fld_type_id.flt_code/>
 		<fld_list_id.lov_name/>
@@ -1049,7 +1037,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<fld_more>0</fld_more>
 		<fld_listmore>0</fld_listmore>
 		<fld_listsum/>
-		<fld_tray>0</fld_tray>
+		<fld_tray/>
 		<fld_type>20</fld_type>
 		<fld_type_id.flt_code/>
 		<fld_list_id.lov_name/>
@@ -1086,7 +1074,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<fld_more>0</fld_more>
 		<fld_listmore>0</fld_listmore>
 		<fld_listsum/>
-		<fld_tray>0</fld_tray>
+		<fld_tray/>
 		<fld_type>7</fld_type>
 		<fld_type_id.flt_code/>
 		<fld_list_id.lov_name>LANG_ALL</fld_list_id.lov_name>
@@ -1123,7 +1111,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<fld_more>0</fld_more>
 		<fld_listmore>0</fld_listmore>
 		<fld_listsum/>
-		<fld_tray>0</fld_tray>
+		<fld_tray/>
 		<fld_type>0</fld_type>
 		<fld_type_id.flt_code/>
 		<fld_list_id.lov_name/>
@@ -1160,7 +1148,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<fld_more>0</fld_more>
 		<fld_listmore>0</fld_listmore>
 		<fld_listsum/>
-		<fld_tray>0</fld_tray>
+		<fld_tray/>
 		<fld_type>13</fld_type>
 		<fld_type_id.flt_code/>
 		<fld_list_id.lov_name/>
@@ -1197,7 +1185,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<fld_more>0</fld_more>
 		<fld_listmore>0</fld_listmore>
 		<fld_listsum/>
-		<fld_tray>0</fld_tray>
+		<fld_tray/>
 		<fld_type>7</fld_type>
 		<fld_type_id.flt_code/>
 		<fld_list_id.lov_name>LANG_ALL</fld_list_id.lov_name>
@@ -1234,7 +1222,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<fld_more>0</fld_more>
 		<fld_listmore>0</fld_listmore>
 		<fld_listsum/>
-		<fld_tray>0</fld_tray>
+		<fld_tray/>
 		<fld_type>3</fld_type>
 		<fld_type_id.flt_code/>
 		<fld_list_id.lov_name/>
@@ -1271,7 +1259,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<fld_more>0</fld_more>
 		<fld_listmore>0</fld_listmore>
 		<fld_listsum/>
-		<fld_tray>0</fld_tray>
+		<fld_tray/>
 		<fld_type>0</fld_type>
 		<fld_type_id.flt_code/>
 		<fld_list_id.lov_name/>
@@ -1308,7 +1296,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<fld_more>0</fld_more>
 		<fld_listmore>0</fld_listmore>
 		<fld_listsum/>
-		<fld_tray>0</fld_tray>
+		<fld_tray/>
 		<fld_type>3</fld_type>
 		<fld_type_id.flt_code/>
 		<fld_list_id.lov_name/>
@@ -1345,7 +1333,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<fld_more>0</fld_more>
 		<fld_listmore>0</fld_listmore>
 		<fld_listsum/>
-		<fld_tray>0</fld_tray>
+		<fld_tray/>
 		<fld_type>13</fld_type>
 		<fld_type_id.flt_code/>
 		<fld_list_id.lov_name/>
@@ -1382,7 +1370,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<fld_more>0</fld_more>
 		<fld_listmore>0</fld_listmore>
 		<fld_listsum/>
-		<fld_tray>0</fld_tray>
+		<fld_tray/>
 		<fld_type>1</fld_type>
 		<fld_type_id.flt_code/>
 		<fld_list_id.lov_name/>
@@ -1419,7 +1407,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<fld_more>0</fld_more>
 		<fld_listmore>0</fld_listmore>
 		<fld_listsum/>
-		<fld_tray>0</fld_tray>
+		<fld_tray/>
 		<fld_type>13</fld_type>
 		<fld_type_id.flt_code/>
 		<fld_list_id.lov_name/>
@@ -1456,7 +1444,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<fld_more>0</fld_more>
 		<fld_listmore>0</fld_listmore>
 		<fld_listsum/>
-		<fld_tray>0</fld_tray>
+		<fld_tray/>
 		<fld_type>8</fld_type>
 		<fld_type_id.flt_code/>
 		<fld_list_id.lov_name/>
@@ -1493,7 +1481,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<fld_more>0</fld_more>
 		<fld_listmore>0</fld_listmore>
 		<fld_listsum/>
-		<fld_tray>0</fld_tray>
+		<fld_tray/>
 		<fld_type>7</fld_type>
 		<fld_type_id.flt_code/>
 		<fld_list_id.lov_name>TRNLSNVISUALIZATION</fld_list_id.lov_name>
@@ -1530,7 +1518,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<fld_more>0</fld_more>
 		<fld_listmore>0</fld_listmore>
 		<fld_listsum/>
-		<fld_tray>0</fld_tray>
+		<fld_tray/>
 		<fld_type>13</fld_type>
 		<fld_type_id.flt_code/>
 		<fld_list_id.lov_name/>
@@ -1567,7 +1555,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<fld_more>0</fld_more>
 		<fld_listmore>0</fld_listmore>
 		<fld_listsum/>
-		<fld_tray>0</fld_tray>
+		<fld_tray/>
 		<fld_type>13</fld_type>
 		<fld_type_id.flt_code/>
 		<fld_list_id.lov_name/>
@@ -1599,12 +1587,12 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<fld_required>0</fld_required>
 		<fld_fonctid>0</fld_fonctid>
 		<fld_research/>
-		<fld_researchreq/>
+		<fld_researchreq>0</fld_researchreq>
 		<fld_sort>C</fld_sort>
 		<fld_more>1</fld_more>
 		<fld_listmore>0</fld_listmore>
 		<fld_listsum/>
-		<fld_tray>0</fld_tray>
+		<fld_tray/>
 		<fld_type>13</fld_type>
 		<fld_type_id.flt_code/>
 		<fld_list_id.lov_name/>
@@ -1641,7 +1629,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<fld_more>0</fld_more>
 		<fld_listmore>0</fld_listmore>
 		<fld_listsum/>
-		<fld_tray>0</fld_tray>
+		<fld_tray/>
 		<fld_type>7</fld_type>
 		<fld_type_id.flt_code/>
 		<fld_list_id.lov_name>LANG_ALL</fld_list_id.lov_name>
@@ -1678,7 +1666,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<fld_more>0</fld_more>
 		<fld_listmore>0</fld_listmore>
 		<fld_listsum/>
-		<fld_tray>0</fld_tray>
+		<fld_tray/>
 		<fld_type>0</fld_type>
 		<fld_type_id.flt_code/>
 		<fld_list_id.lov_name/>
@@ -1715,7 +1703,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<fld_more>1</fld_more>
 		<fld_listmore>0</fld_listmore>
 		<fld_listsum/>
-		<fld_tray>0</fld_tray>
+		<fld_tray/>
 		<fld_type>13</fld_type>
 		<fld_type_id.flt_code/>
 		<fld_list_id.lov_name/>
@@ -1752,7 +1740,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<fld_more>0</fld_more>
 		<fld_listmore>0</fld_listmore>
 		<fld_listsum/>
-		<fld_tray>0</fld_tray>
+		<fld_tray/>
 		<fld_type>3</fld_type>
 		<fld_type_id.flt_code/>
 		<fld_list_id.lov_name/>
@@ -1789,7 +1777,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<fld_more>0</fld_more>
 		<fld_listmore>0</fld_listmore>
 		<fld_listsum/>
-		<fld_tray>0</fld_tray>
+		<fld_tray/>
 		<fld_type>17</fld_type>
 		<fld_type_id.flt_code/>
 		<fld_list_id.lov_name/>
@@ -1826,7 +1814,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<fld_more>0</fld_more>
 		<fld_listmore>0</fld_listmore>
 		<fld_listsum/>
-		<fld_tray>0</fld_tray>
+		<fld_tray/>
 		<fld_type>20</fld_type>
 		<fld_type_id.flt_code/>
 		<fld_list_id.lov_name/>
@@ -1863,7 +1851,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<fld_more>0</fld_more>
 		<fld_listmore>0</fld_listmore>
 		<fld_listsum/>
-		<fld_tray>0</fld_tray>
+		<fld_tray/>
 		<fld_type>7</fld_type>
 		<fld_type_id.flt_code/>
 		<fld_list_id.lov_name>LANG_ALL</fld_list_id.lov_name>
@@ -1900,7 +1888,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<fld_more>0</fld_more>
 		<fld_listmore>0</fld_listmore>
 		<fld_listsum/>
-		<fld_tray>0</fld_tray>
+		<fld_tray/>
 		<fld_type>0</fld_type>
 		<fld_type_id.flt_code/>
 		<fld_list_id.lov_name/>
@@ -1937,7 +1925,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<fld_more>0</fld_more>
 		<fld_listmore>0</fld_listmore>
 		<fld_listsum/>
-		<fld_tray>0</fld_tray>
+		<fld_tray/>
 		<fld_type>3</fld_type>
 		<fld_type_id.flt_code/>
 		<fld_list_id.lov_name/>
@@ -1974,7 +1962,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<fld_more>0</fld_more>
 		<fld_listmore>0</fld_listmore>
 		<fld_listsum/>
-		<fld_tray>0</fld_tray>
+		<fld_tray/>
 		<fld_type>13</fld_type>
 		<fld_type_id.flt_code/>
 		<fld_list_id.lov_name/>
@@ -2011,7 +1999,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<fld_more>0</fld_more>
 		<fld_listmore>0</fld_listmore>
 		<fld_listsum/>
-		<fld_tray>0</fld_tray>
+		<fld_tray/>
 		<fld_type>7</fld_type>
 		<fld_type_id.flt_code/>
 		<fld_list_id.lov_name>LANG_ALL</fld_list_id.lov_name>
@@ -2390,6 +2378,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 	<data>
 		<obo_name>TrnCategory</obo_name>
 		<obo_dbtable>trn_category</obo_dbtable>
+		<obo_role>OBJ</obo_role>
 		<obo_class/>
 		<obo_script_id>src/com/simplicite/objects/Training/TrnCategory.java</obo_script_id>
 		<obo_usets>1</obo_usets>
@@ -2441,6 +2430,8 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<obo_btn_merge>P</obo_btn_merge>
 		<obo_btn_save>1</obo_btn_save>
 		<obo_btn_saveclose>1</obo_btn_saveclose>
+		<obo_btn_savenew>1</obo_btn_savenew>
+		<obo_btn_savecopy>1</obo_btn_savecopy>
 		<obo_btn_close>1</obo_btn_close>
 		<obo_tray>1</obo_tray>
 		<obo_dashboard>1</obo_dashboard>
@@ -2448,10 +2439,13 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<obo_search_ts/>
 		<obo_minrows/>
 		<obo_maxrows/>
+		<obo_sortable>1</obo_sortable>
+		<obo_list_areas/>
 	</data>
 	<data>
 		<obo_name>TrnCategoryTranslate</obo_name>
 		<obo_dbtable>trn_category_translate</obo_dbtable>
+		<obo_role>OBJ</obo_role>
 		<obo_class/>
 		<obo_script_id>src/com/simplicite/objects/Training/TrnCategoryTranslate.java</obo_script_id>
 		<obo_usets>1</obo_usets>
@@ -2503,6 +2497,8 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<obo_btn_merge>P</obo_btn_merge>
 		<obo_btn_save>1</obo_btn_save>
 		<obo_btn_saveclose>1</obo_btn_saveclose>
+		<obo_btn_savenew>1</obo_btn_savenew>
+		<obo_btn_savecopy>1</obo_btn_savecopy>
 		<obo_btn_close>1</obo_btn_close>
 		<obo_tray>1</obo_tray>
 		<obo_dashboard>1</obo_dashboard>
@@ -2510,10 +2506,13 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<obo_search_ts/>
 		<obo_minrows/>
 		<obo_maxrows/>
+		<obo_sortable>1</obo_sortable>
+		<obo_list_areas/>
 	</data>
 	<data>
 		<obo_name>TrnLesson</obo_name>
 		<obo_dbtable>trn_lesson</obo_dbtable>
+		<obo_role>OBJ</obo_role>
 		<obo_class/>
 		<obo_script_id>src/com/simplicite/objects/Training/TrnLesson.java</obo_script_id>
 		<obo_usets>1</obo_usets>
@@ -2565,6 +2564,8 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<obo_btn_merge>P</obo_btn_merge>
 		<obo_btn_save>1</obo_btn_save>
 		<obo_btn_saveclose>1</obo_btn_saveclose>
+		<obo_btn_savenew>1</obo_btn_savenew>
+		<obo_btn_savecopy>1</obo_btn_savecopy>
 		<obo_btn_close>1</obo_btn_close>
 		<obo_tray>1</obo_tray>
 		<obo_dashboard>1</obo_dashboard>
@@ -2572,10 +2573,13 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<obo_search_ts/>
 		<obo_minrows/>
 		<obo_maxrows/>
+		<obo_sortable>1</obo_sortable>
+		<obo_list_areas/>
 	</data>
 	<data>
 		<obo_name>TrnLsnTranslate</obo_name>
 		<obo_dbtable>trn_lsn_translate</obo_dbtable>
+		<obo_role>OBJ</obo_role>
 		<obo_class/>
 		<obo_script_id>src/com/simplicite/objects/Training/TrnLsnTranslate.java</obo_script_id>
 		<obo_usets>1</obo_usets>
@@ -2627,6 +2631,8 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<obo_btn_merge>P</obo_btn_merge>
 		<obo_btn_save>1</obo_btn_save>
 		<obo_btn_saveclose>1</obo_btn_saveclose>
+		<obo_btn_savenew>1</obo_btn_savenew>
+		<obo_btn_savecopy>1</obo_btn_savecopy>
 		<obo_btn_close>1</obo_btn_close>
 		<obo_tray>1</obo_tray>
 		<obo_dashboard>1</obo_dashboard>
@@ -2634,10 +2640,13 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<obo_search_ts/>
 		<obo_minrows/>
 		<obo_maxrows/>
+		<obo_sortable>1</obo_sortable>
+		<obo_list_areas/>
 	</data>
 	<data>
 		<obo_name>TrnPicture</obo_name>
 		<obo_dbtable>trn_picture</obo_dbtable>
+		<obo_role>OBJ</obo_role>
 		<obo_class/>
 		<obo_script_id>src/com/simplicite/objects/Training/TrnPicture.java</obo_script_id>
 		<obo_usets>1</obo_usets>
@@ -2689,6 +2698,8 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<obo_btn_merge>P</obo_btn_merge>
 		<obo_btn_save>1</obo_btn_save>
 		<obo_btn_saveclose>1</obo_btn_saveclose>
+		<obo_btn_savenew>1</obo_btn_savenew>
+		<obo_btn_savecopy>1</obo_btn_savecopy>
 		<obo_btn_close>1</obo_btn_close>
 		<obo_tray>1</obo_tray>
 		<obo_dashboard>1</obo_dashboard>
@@ -2696,10 +2707,13 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<obo_search_ts/>
 		<obo_minrows/>
 		<obo_maxrows/>
+		<obo_sortable>1</obo_sortable>
+		<obo_list_areas/>
 	</data>
 	<data>
 		<obo_name>TrnSiteContent</obo_name>
 		<obo_dbtable>trn_site_content</obo_dbtable>
+		<obo_role>OBJ</obo_role>
 		<obo_class/>
 		<obo_script_id/>
 		<obo_usets>1</obo_usets>
@@ -2751,6 +2765,8 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<obo_btn_merge>P</obo_btn_merge>
 		<obo_btn_save>1</obo_btn_save>
 		<obo_btn_saveclose>1</obo_btn_saveclose>
+		<obo_btn_savenew>1</obo_btn_savenew>
+		<obo_btn_savecopy>1</obo_btn_savecopy>
 		<obo_btn_close>1</obo_btn_close>
 		<obo_tray>1</obo_tray>
 		<obo_dashboard>1</obo_dashboard>
@@ -2758,6 +2774,8 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<obo_search_ts/>
 		<obo_minrows/>
 		<obo_maxrows/>
+		<obo_sortable>1</obo_sortable>
+		<obo_list_areas/>
 	</data>
 </object>
 <object>
@@ -4277,6 +4295,37 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 	</data>
 </object>
 <object>
+	<name>DocIndex</name>
+	<action>upsert</action>
+	<data>
+		<din_name>B-trnCtpImage</din_name>
+		<din_field_id.fld_name/>
+		<din_path/>
+		<din_min/>
+		<din_max/>
+		<din_grant>0</din_grant>
+		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
+	</data>
+	<data>
+		<din_name>B-trnLtrVideo</din_name>
+		<din_field_id.fld_name/>
+		<din_path/>
+		<din_min/>
+		<din_max/>
+		<din_grant>0</din_grant>
+		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
+	</data>
+	<data>
+		<din_name>B-trnPicImage</din_name>
+		<din_field_id.fld_name/>
+		<din_path/>
+		<din_min/>
+		<din_max/>
+		<din_grant>0</din_grant>
+		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
+	</data>
+</object>
+<object>
 	<name>Map</name>
 	<action>upsert</action>
 	<data>
@@ -4382,7 +4431,6 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<res_code>SITE</res_code>
 		<res_cached>0</res_cached>
 		<res_file>resources/ObjectExternal/TrnFront/SITE.zip</res_file>
-		<res_file_compiled/>
 		<res_image/>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
 	</data>
@@ -5800,6 +5848,52 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<tsl_lang>FRA</tsl_lang>
 		<tsl_value>TreeView du Training</tsl_value>
 		<tsl_help/>
+		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
+	</data>
+</object>
+<object>
+	<name>TranslateDocIndex</name>
+	<action>upsert</action>
+	<data>
+		<tsl_typeDocIndex>B</tsl_typeDocIndex>
+		<tsl_id.din_name>B-trnCtpImage</tsl_id.din_name>
+		<tsl_lang>ENU</tsl_lang>
+		<tsl_value>B-trn ctp image</tsl_value>
+		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
+	</data>
+	<data>
+		<tsl_typeDocIndex>B</tsl_typeDocIndex>
+		<tsl_id.din_name>B-trnLtrVideo</tsl_id.din_name>
+		<tsl_lang>ENU</tsl_lang>
+		<tsl_value>B-trn ltr video</tsl_value>
+		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
+	</data>
+	<data>
+		<tsl_typeDocIndex>B</tsl_typeDocIndex>
+		<tsl_id.din_name>B-trnPicImage</tsl_id.din_name>
+		<tsl_lang>ENU</tsl_lang>
+		<tsl_value>B-trn pic image</tsl_value>
+		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
+	</data>
+	<data>
+		<tsl_typeDocIndex>B</tsl_typeDocIndex>
+		<tsl_id.din_name>B-trnCtpImage</tsl_id.din_name>
+		<tsl_lang>FRA</tsl_lang>
+		<tsl_value>B-trn ctp image</tsl_value>
+		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
+	</data>
+	<data>
+		<tsl_typeDocIndex>B</tsl_typeDocIndex>
+		<tsl_id.din_name>B-trnLtrVideo</tsl_id.din_name>
+		<tsl_lang>FRA</tsl_lang>
+		<tsl_value>B-trn ltr video</tsl_value>
+		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
+	</data>
+	<data>
+		<tsl_typeDocIndex>B</tsl_typeDocIndex>
+		<tsl_id.din_name>B-trnPicImage</tsl_id.din_name>
+		<tsl_lang>FRA</tsl_lang>
+		<tsl_value>B-trn pic image</tsl_value>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
 	</data>
 </object>

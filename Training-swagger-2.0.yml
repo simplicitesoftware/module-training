@@ -2,7 +2,7 @@
 # / __(_)_ __  _ __| (_)__(_) |_ /_/
 # \__ \ | '  \| '_ \ | / _| |  _/ -_)
 # |___/_|_|_|_| .__/_|_\__|_|\__\___|
-#             |_| Module: Training 2.4
+#             |_| Module: Training 2.7
 paths:
   /rest/TrnCategoryTranslate/{row_id}:
     post:
@@ -1565,6 +1565,27 @@ definitions:
     type: array
     items:
       $ref: '#/definitions/TrnLesson'
+  PlaceData:
+    type: object
+    properties:
+      coord:
+        description: Geographical coordinates
+        type: string
+      address:
+        description: Address
+        type: string
+      row_id:
+        description: Row ID
+        type: string
+      label1:
+        description: 'Label #1'
+        type: string
+      label2:
+        description: 'Label #2'
+        type: string
+      label3:
+        description: 'Label #3'
+        type: string
   TrnCategory:
     type: object
     properties:
@@ -1592,6 +1613,17 @@ definitions:
         type: string
       trnCatId__trnCatPath:
         description: Parent Category Path
+        type: string
+  PlaceMapData:
+    type: object
+    properties:
+      places:
+        description: Places
+        type: array
+        items:
+          $ref: '#/definitions/PlaceData'
+      name:
+        description: Name
         type: string
   ArrayOfTrnPicture:
     type: array
@@ -1792,7 +1824,7 @@ info:
     email: contact@simplicitesoftware.com
   description: API for module Training
   title: Training
-  version: '2.4'
+  version: '2.7'
 tags:
 - name: TrnCategory
   description: Category

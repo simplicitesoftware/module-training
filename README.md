@@ -13,6 +13,26 @@
 
 The module for the Simplciité Training platform
 
+`TrnSiteContent` business object definition
+-------------------------------------------
+
+This object will hold the static contents of the front-end application
+
+### Fields
+
+| Name                                                         | Type                                     | Required | Updatable | Personal | Description                                                                      |
+|--------------------------------------------------------------|------------------------------------------|----------|-----------|----------|----------------------------------------------------------------------------------|
+| `trnSitCode`                                                 | char(50)                                 | yes*     | yes       |          | A code identifying the TrnSiteContent object                                     |
+| `trnSitLanguage`                                             | enum(5) using `LANG_ALL` list            | yes*     | yes       |          | -                                                                                |
+| `trnSitContent`                                              | text(100000)                             |          | yes       |          | -                                                                                |
+
+### Lists
+
+* `LANG_ALL`
+    - `ANY` All languages
+    - `ENU` English language
+    - `FRA` French language
+
 `TrnCategory` business object definition
 ----------------------------------------
 
@@ -20,8 +40,8 @@ The object that serves as container for lessons, or other categories (reflexivit
 
 ### Fields
 
-| Name                                                         | Type                                     | Required | Updatable | Personal | Description                                                                      | 
-| ------------------------------------------------------------ | ---------------------------------------- | -------- | --------- | -------- | -------------------------------------------------------------------------------- |
+| Name                                                         | Type                                     | Required | Updatable | Personal | Description                                                                      |
+|--------------------------------------------------------------|------------------------------------------|----------|-----------|----------|----------------------------------------------------------------------------------|
 | `trnCatPublish`                                              | boolean                                  |          | yes       |          | Determines if the category and its subcategories and lessons are available on the front-end application. |
 | `trnCatPath`                                                 | text(400)                                | *        |           |          | -                                                                                |
 | `trnCatOrder`                                                | int(100)                                 | yes      | yes       |          | -                                                                                |
@@ -42,8 +62,8 @@ This object contains the translation of a category object
 
 ### Fields
 
-| Name                                                         | Type                                     | Required | Updatable | Personal | Description                                                                      | 
-| ------------------------------------------------------------ | ---------------------------------------- | -------- | --------- | -------- | -------------------------------------------------------------------------------- |
+| Name                                                         | Type                                     | Required | Updatable | Personal | Description                                                                      |
+|--------------------------------------------------------------|------------------------------------------|----------|-----------|----------|----------------------------------------------------------------------------------|
 | `trnCtrLang`                                                 | enum(100) using `LANG_ALL` list          | yes*     | yes       |          | -                                                                                |
 | `trnCtrTitle`                                                | char(200)                                | yes      | yes       |          | -                                                                                |
 | `trnCtrDescription`                                          | text(1000)                               |          | yes       |          | -                                                                                |
@@ -63,8 +83,8 @@ The lesson object for the training, that will hold the content of a lesson.
 
 ### Fields
 
-| Name                                                         | Type                                     | Required | Updatable | Personal | Description                                                                      | 
-| ------------------------------------------------------------ | ---------------------------------------- | -------- | --------- | -------- | -------------------------------------------------------------------------------- |
+| Name                                                         | Type                                     | Required | Updatable | Personal | Description                                                                      |
+|--------------------------------------------------------------|------------------------------------------|----------|-----------|----------|----------------------------------------------------------------------------------|
 | `trnLsnPublish`                                              | boolean                                  |          | yes       |          | Determines if the lesson is visible on the front-end application.                |
 | `trnLsnPath`                                                 | text(400)                                | *        |           |          | -                                                                                |
 | `trnLsnOrder`                                                | int(100)                                 | yes      | yes       |          | -                                                                                |
@@ -87,8 +107,8 @@ The object used to translate the lesson objects, for multilingual transport.
 
 ### Fields
 
-| Name                                                         | Type                                     | Required | Updatable | Personal | Description                                                                      | 
-| ------------------------------------------------------------ | ---------------------------------------- | -------- | --------- | -------- | -------------------------------------------------------------------------------- |
+| Name                                                         | Type                                     | Required | Updatable | Personal | Description                                                                      |
+|--------------------------------------------------------------|------------------------------------------|----------|-----------|----------|----------------------------------------------------------------------------------|
 | `trnLtrLang`                                                 | enum(100) using `LANG_ALL` list          | yes*     | yes       |          | -                                                                                |
 | `trnLtrTitle`                                                | char(200)                                | yes      | yes       |          | -                                                                                |
 | `trnLtrDescription`                                          | text(1000)                               |          | yes       |          | -                                                                                |
@@ -113,32 +133,12 @@ The picture object for the lessons. Used for the multilanguage support.
 
 ### Fields
 
-| Name                                                         | Type                                     | Required | Updatable | Personal | Description                                                                      | 
-| ------------------------------------------------------------ | ---------------------------------------- | -------- | --------- | -------- | -------------------------------------------------------------------------------- |
+| Name                                                         | Type                                     | Required | Updatable | Personal | Description                                                                      |
+|--------------------------------------------------------------|------------------------------------------|----------|-----------|----------|----------------------------------------------------------------------------------|
 | `trnPicLang`                                                 | enum(100) using `LANG_ALL` list          | yes*     | yes       |          | -                                                                                |
 | `trnPicImage`                                                | image                                    | yes*     | yes       |          | -                                                                                |
 | `trnPicLsnId` link to **`TrnLesson`**                        | id                                       | yes*     | yes       |          | -                                                                                |
 | _Ref. `trnPicLsnId.trnLsnPath`_                              | _text(400)_                              |          |           |          | -                                                                                |
-
-### Lists
-
-* `LANG_ALL`
-    - `ANY` All languages
-    - `ENU` English language
-    - `FRA` French language
-
-`TrnSiteContent` business object definition
--------------------------------------------
-
-This object will hold the static contents of the front-end application
-
-### Fields
-
-| Name                                                         | Type                                     | Required | Updatable | Personal | Description                                                                      | 
-| ------------------------------------------------------------ | ---------------------------------------- | -------- | --------- | -------- | -------------------------------------------------------------------------------- |
-| `trnSitCode`                                                 | char(50)                                 | yes*     | yes       |          | A code identifying the TrnSiteContent object                                     |
-| `trnSitLanguage`                                             | enum(5) using `LANG_ALL` list            | yes*     | yes       |          | -                                                                                |
-| `trnSitContent`                                              | text(100000)                             |          | yes       |          | -                                                                                |
 
 ### Lists
 
