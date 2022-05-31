@@ -5,7 +5,7 @@
 	<action>upsert</action>
 	<data>
 		<mdl_name>Training</mdl_name>
-		<mdl_version>2.7</mdl_version>
+		<mdl_version>2.8</mdl_version>
 		<mdl_prefix>trn</mdl_prefix>
 		<mdl_url><![CDATA[{
 	"type": "git",
@@ -3926,7 +3926,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 	<action>upsert</action>
 	<data>
 		<act_name>forceDirSync</act_name>
-		<act_type>L</act_type>
+		<act_type>B</act_type>
 		<act_async>2</act_async>
 		<act_job_depth/>
 		<act_method>forceDirSync</act_method>
@@ -5911,6 +5911,14 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<dt_name>Training-data-20200227110539</dt_name>
 		<dt_file>data/Training-data-20200227110539.zip</dt_file>
 		<dt_desc><![CDATA[Created by module's data export on 2020-02-27 11:05:39]]></dt_desc>
+	</data>
+	<data>
+		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
+		<dt_name>trigger-forceDirSync</dt_name>
+		<dt_file>data/trigger-forceDirSync.xml</dt_file>
+		<dt_desc><![CDATA[For CI/CD purposes in FileSystem mode, to trigger synchronization right after module import.
+
+See https://community.simplicite.io/t/execution-post-importspec/4918/6]]></dt_desc>
 	</data>
 </object>
 </simplicite>
