@@ -2,7 +2,6 @@ package com.simplicite.objects.Training;
 
 import java.util.*;
 import com.simplicite.util.*;
-import com.simplicite.util.tools.*;
 import com.simplicite.commons.Training.*;
 import org.jsoup.Jsoup;
 
