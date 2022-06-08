@@ -349,7 +349,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 						.put("trnCtrCatId", rowId)
 						.put("trnCtrTitle", row[1])
 						.put("trnCtrDescription", row[2])
-					, false, false);
+					, false); // removed false
 					bot.validateAndCreate();
 				}
 			}

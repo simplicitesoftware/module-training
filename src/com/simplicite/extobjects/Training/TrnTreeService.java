@@ -94,16 +94,16 @@ public class TrnTreeService extends RESTServiceExternalObject  {
 		synchronized(tmpCategory){
 			tmpCategory.resetFilters();
 			tmpCategory.setFieldOrder("trnCatOrder", 1);
-	        tmpCategory.setFieldFilter("trnCatId", parentId);
-	        tmpCategory.setFieldFilter("trnCatPublish", "1");
-	        for(String[] row : tmpCategory.search()){
-	        	tmpCategory.setValues(row);
-	        	try{
-	        		catList.add(tmpCategory.getCategoryForFront(lang));
-	        	} catch(Exception e){
-	        		AppLog.error(getClass(), "getCategories", "error getting front-oriented cat", e, g());
-	        	}
-	        }
+	    tmpCategory.setFieldFilter("trnCatId", parentId);
+	  	tmpCategory.setFieldFilter("trnCatPublish", "1");
+			for(String[] row : tmpCategory.search()){
+				tmpCategory.setValues(row);
+				try{
+					catList.add(tmpCategory.getCategoryForFront(lang));
+				} catch(Exception e){
+					AppLog.error(getClass(), "getCategories", "error getting front-oriented cat", e, g());
+				}
+			}
 		}
 		return catList;
 	}
@@ -117,7 +117,7 @@ public class TrnTreeService extends RESTServiceExternalObject  {
 		
 		synchronized(tmpLesson){
 			tmpLesson.resetFilters();
-	        tmpLesson.setFieldFilter("trnLsnCatId", categoryId);
+	    tmpLesson.setFieldFilter("trnLsnCatId", categoryId);
 			tmpLesson.setFieldFilter("trnLsnPublish", "1");
 			List<String[]> rows = tmpLesson.search();
 			for(int i=0; i<rows.size(); i++){
@@ -129,10 +129,9 @@ public class TrnTreeService extends RESTServiceExternalObject  {
 					
 					lessons.put(lsn);
 	
-		        	if(i == rows.size()-1)
-		        		lessonsNeedingNextPath.add(lsn);
-		        	if(i == 0)
-		        		nextPaths.add(tmpLesson.getFieldValue("trnLsnFrontPath"));
+		      if(i == rows.size()-1) lessonsNeedingNextPath.add(lsn);
+	      	if(i == 0) nextPaths.add(tmpLesson.getFieldValue("trnLsnFrontPath"));
+					
 				} catch(Exception e){
 	        		AppLog.error(getClass(), "getLessons2", "error getting front-oriented cat", e, g());
 	        	}
