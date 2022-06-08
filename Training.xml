@@ -4482,6 +4482,12 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<scr_type>JSR</scr_type>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
 	</data>
+	<data>
+		<scr_code>MarkdownTool2</scr_code>
+		<scr_file>src/com/simplicite/commons/Training/MarkdownTool2.java</scr_file>
+		<scr_type>JSR</scr_type>
+		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
+	</data>
 </object>
 <object>
 	<name>TranslateAction</name>
