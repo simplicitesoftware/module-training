@@ -247,7 +247,7 @@ Editing through Filesystem (possible git repo), using ElasticSearch indexing
 		<lov_name>TEXT</lov_name>
 		<lov_code>TRN_INACTIVATED_UI_WARNING</lov_code>
 		<lov_lang>ANY</lov_lang>
-		<lov_value><![CDATA[Administration of content for this isntance is made through synchronization with a filesystem directory (usually a git repository) hosting the content, no UI changes are allowed for this object.]]></lov_value>
+		<lov_value><![CDATA[Administration of content for this instance is made through synchronization with a filesystem directory (usually a git repository) hosting the content, no UI changes are allowed for this object.]]></lov_value>
 		<lov_order_by>1</lov_order_by>
 		<lov_event_id.lev_code/>
 		<row_module_id.mdl_name>Training</row_module_id.mdl_name>
