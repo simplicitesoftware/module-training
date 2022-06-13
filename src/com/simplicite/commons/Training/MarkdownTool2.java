@@ -51,7 +51,7 @@ import com.simplicite.util.tools.FileTool;
  */
 public class MarkdownTool2
 {
-	private static final Pattern mdPatternAnchorNameId = Pattern.compile("(#+|\\b)\\s?(.+)\\{#(.+)\\}");
+	private static final Pattern PATTERN_ANCHOR_ANCHORED_AND_HEADING = Pattern.compile("(#+|\\b)\\s?(.+)(.+\\s\\{#)\\}");
 	/** Hidden default constructor */
 	private MarkdownTool2()
 	{
@@ -266,40 +266,29 @@ public class MarkdownTool2
 	 * @param md Markdown string
 	 * @return A markdown with HTML headers
 	 */
-	public static String toHTMLAnchors(String md) {
-		// while(matcher.find()) {
-		// 	for(int i = 0; i < matcher.groupCount(); i += 2) {
-		// 		// Cannot use replaceAll as some logic has to be implemented for the headings
-		// 		int headingNbr = 1;
-		// 		if(matcher.group(i).length() != 0) headingNbr = matcher.group(i).length(); 
-		// 		String group1 = matcher.group(i + 1);
-		// 		group1 = group1.substring(0, group1.length() - 1);
-		// 		String group2 = matcher.group(i + 2);
-		// 	}
-		// }
+	public static String toHTMLWithAnchors(String md) {
 		BufferedReader br = new BufferedReader(new StringReader(md));
 		StringBuffer inputBuffer = new StringBuffer();
 		String line;
 		try {
 			while((line = br.readLine()) != null) {
 				line = line.replaceAll("(\\-+)", "");
-				Matcher matcher = mdPatternAnchorNameId.matcher(line);
+				Matcher matcher = PATTERN_ANCHOR_ANCHORED_AND_HEADING.matcher(line);
 				while(matcher.find())
 				{
-					String nbr = matcher.group(1);
-					int headingNbr = nbr.length();
+					int headingNbr = matcher.group(1).length();
 					if(headingNbr == 0) ++headingNbr;
 					String title = matcher.group(2);
-					title = title.substring(0, title.length() - 1);
 					String id = matcher.group(3);
 					line = "<h" + headingNbr + " id=\"" + id +"\">" + title + "</h" + headingNbr +">";
 				}
 				inputBuffer.append(line + "\n");
 			}
 		} catch(IOException e) {
-			AppLog.info("Problem reading markdown", Grant.getPublic());
+			AppLog.error(e, Grant.getPublic());
 		}
-		return inputBuffer.toString();
+		String html = toHTML(inputBuffer.toString(), false);
+		return html;
 	}
 
 	/**

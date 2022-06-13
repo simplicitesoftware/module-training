@@ -14,7 +14,7 @@ public class TrnLsnTranslate extends TrnObject {
 	@Override
 	public String preSave() {
 		String md = getFieldValue("trnLtrContent");
-		String html = MarkdownTool2.toHTML(MarkdownTool2.toHTMLAnchors(md));
+		String html = MarkdownTool2.toHTMLWithAnchors(md);
 
 		setFieldValue("trnLtrHtmlContent", html);
 		// Remove HTML tags (https://stackoverflow.com/a/9036849/1612642)
