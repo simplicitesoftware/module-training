@@ -7,6 +7,7 @@ package com.simplicite.commons.Training;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -14,7 +15,10 @@ import java.io.StringReader;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import org.checkerframework.checker.lock.qual.MayReleaseLocks;
 import org.commonmark.Extension;
 import org.commonmark.ext.autolink.AutolinkExtension;
 import org.commonmark.ext.front.matter.YamlFrontMatterExtension;
@@ -47,6 +51,7 @@ import com.simplicite.util.tools.FileTool;
  */
 public class MarkdownTool2
 {
+	private static final Pattern mdPatternAnchorNameId = Pattern.compile("(#+|\\b)\\s?(.+)\\{#(.+)\\}");
 	/** Hidden default constructor */
 	private MarkdownTool2()
 	{
@@ -254,6 +259,47 @@ public class MarkdownTool2
 	public static String image(String url, String alt)
 	{
 		return "!" + link(url, alt);
+	}
+
+	/**
+	 * Convert a the anchor links of a markdown into html elements
+	 * @param md Markdown string
+	 * @return A markdown with HTML headers
+	 */
+	public static String toHTMLAnchors(String md) {
+		// while(matcher.find()) {
+		// 	for(int i = 0; i < matcher.groupCount(); i += 2) {
+		// 		// Cannot use replaceAll as some logic has to be implemented for the headings
+		// 		int headingNbr = 1;
+		// 		if(matcher.group(i).length() != 0) headingNbr = matcher.group(i).length(); 
+		// 		String group1 = matcher.group(i + 1);
+		// 		group1 = group1.substring(0, group1.length() - 1);
+		// 		String group2 = matcher.group(i + 2);
+		// 	}
+		// }
+		BufferedReader br = new BufferedReader(new StringReader(md));
+		StringBuffer inputBuffer = new StringBuffer();
+		String line;
+		try {
+			while((line = br.readLine()) != null) {
+				line = line.replaceAll("(\\-+)", "");
+				Matcher matcher = mdPatternAnchorNameId.matcher(line);
+				while(matcher.find())
+				{
+					String nbr = matcher.group(1);
+					int headingNbr = nbr.length();
+					if(headingNbr == 0) ++headingNbr;
+					String title = matcher.group(2);
+					title = title.substring(0, title.length() - 1);
+					String id = matcher.group(3);
+					line = "<h" + headingNbr + " id=\"" + id +"\">" + title + "</h" + headingNbr +">";
+				}
+				inputBuffer.append(line + "\n");
+			}
+		} catch(IOException e) {
+			AppLog.info("Problem reading markdown", Grant.getPublic());
+		}
+		return inputBuffer.toString();
 	}
 
 	/**
