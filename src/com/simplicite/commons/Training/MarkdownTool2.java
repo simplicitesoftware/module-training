@@ -280,7 +280,7 @@ public class MarkdownTool2 {
 			}
 			return "<h" + headingNbr + " id=\"" + id +"\">" + title + "</h" + headingNbr + ">";
 		});
-		return mdHTMlAnchored;
+		return toHTML(mdHTMlAnchored, false);
 	}
 
 	/**
