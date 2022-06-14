@@ -13,6 +13,20 @@
 
 The module for the Simplciité Training platform
 
+`TrnLsnTag` business object definition
+--------------------------------------
+
+
+
+### Fields
+
+| Name                                                         | Type                                     | Required | Updatable | Personal | Description                                                                      |
+|--------------------------------------------------------------|------------------------------------------|----------|-----------|----------|----------------------------------------------------------------------------------|
+| `trnLsntagLsnId` link to **`TrnLesson`**                     | id                                       | yes*     | yes       |          | -                                                                                |
+| _Ref. `trnLsntagLsnId.trnLsnPath`_                           | _text(400)_                              |          |           |          | -                                                                                |
+| `trnLsntagTagId` link to **`TrnTag`**                        | id                                       | yes*     | yes       |          | -                                                                                |
+| _Ref. `trnLsntagTagId.trnTagCode`_                           | _char(255)_                              |          |           |          | -                                                                                |
+
 `TrnSiteContent` business object definition
 -------------------------------------------
 
@@ -25,6 +39,38 @@ This object will hold the static contents of the front-end application
 | `trnSitCode`                                                 | char(50)                                 | yes*     | yes       |          | A code identifying the TrnSiteContent object                                     |
 | `trnSitLanguage`                                             | enum(5) using `LANG_ALL` list            | yes*     | yes       |          | -                                                                                |
 | `trnSitContent`                                              | text(100000)                             |          | yes       |          | -                                                                                |
+
+### Lists
+
+* `LANG_ALL`
+    - `ANY` All languages
+    - `ENU` English language
+    - `FRA` French language
+
+`TrnTag` business object definition
+-----------------------------------
+
+Object that contains lessons tags.
+
+### Fields
+
+| Name                                                         | Type                                     | Required | Updatable | Personal | Description                                                                      |
+|--------------------------------------------------------------|------------------------------------------|----------|-----------|----------|----------------------------------------------------------------------------------|
+| `trnTagCode`                                                 | char(255)                                | yes*     | yes       |          | -                                                                                |
+
+`TrnTagTranslate` business object definition
+--------------------------------------------
+
+Translation of tag object.
+
+### Fields
+
+| Name                                                         | Type                                     | Required | Updatable | Personal | Description                                                                      |
+|--------------------------------------------------------------|------------------------------------------|----------|-----------|----------|----------------------------------------------------------------------------------|
+| `trnTagTranslateLang`                                        | enum(255) using `LANG_ALL` list          | yes*     | yes       |          | -                                                                                |
+| `trnTagTranslateTrad`                                        | char(255)                                | yes*     | yes       |          | Traduction content                                                               |
+| `trnTaglangTagId` link to **`TrnTag`**                       | id                                       |          | yes       |          | -                                                                                |
+| _Ref. `trnTaglangTagId.trnTagCode`_                          | _char(255)_                              |          |           |          | -                                                                                |
 
 ### Lists
 

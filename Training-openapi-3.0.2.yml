@@ -35,10 +35,32 @@ components:
         trnSitCode:
           description: A code identifying the TrnSiteContent object
           type: string
-    ArrayOfTrnCategory:
+    TrnTagTranslate:
+      type: object
+      properties:
+        trnTagTranslateLang:
+          description: Trn tag translate lang
+          type: string
+          enum:
+          - ANY
+          - ENU
+          - FRA
+        trnTagTranslateTrad:
+          description: Traduction content
+          type: string
+        trnTaglangTagId__trnTagCode:
+          description: Tag Trn tag code
+          type: string
+        trnTaglangTagId:
+          description: Tag
+          type: string
+        row_id:
+          description: Unique technical row ID
+          type: string
+    ArrayOfTrnLsnTag:
       type: array
       items:
-        $ref: '#/components/schemas/TrnCategory'
+        $ref: '#/components/schemas/TrnLsnTag'
     PublicationResult:
       type: object
       properties:
@@ -48,10 +70,6 @@ components:
         content:
           description: Content (plain text or base64 encoded)
           type: string
-    ArrayOfTrnLesson:
-      type: array
-      items:
-        $ref: '#/components/schemas/TrnLesson'
     PlaceData:
       type: object
       properties:
@@ -73,34 +91,6 @@ components:
         label3:
           description: 'Label #3'
           type: string
-    TrnCategory:
-      type: object
-      properties:
-        trnCatId:
-          description: Parent Category
-          type: string
-        trnCatOrder:
-          description: Order
-          type: integer
-        trnCatPublish:
-          description: Determines if the category and its subcategories and lessons
-            are available on the front-end application.
-          type: boolean
-        trnCatPath:
-          description: Category Path
-          type: string
-        row_id:
-          description: Unique technical row ID
-          type: string
-        trnCatCode:
-          description: Code
-          type: string
-        trnCatFrontPath:
-          description: Front path
-          type: string
-        trnCatId__trnCatPath:
-          description: Parent Category Path
-          type: string
     PlaceMapData:
       type: object
       properties:
@@ -112,10 +102,6 @@ components:
         name:
           description: Name
           type: string
-    ArrayOfTrnPicture:
-      type: array
-      items:
-        $ref: '#/components/schemas/TrnPicture'
     TrnCategoryTranslate:
       type: object
       properties:
@@ -160,6 +146,116 @@ components:
         row_id:
           description: Unique technical row ID
           type: string
+    Error400:
+      type: object
+      properties:
+        error:
+          description: Error message
+          type: string
+        status:
+          description: Error status
+          type: integer
+          enum:
+          - 400
+    ArrayOfTrnCategoryTranslate:
+      type: array
+      items:
+        $ref: '#/components/schemas/TrnCategoryTranslate'
+    Error401:
+      type: object
+      properties:
+        error:
+          description: Error message
+          type: string
+        status:
+          description: Error status
+          type: integer
+          enum:
+          - 401
+    Error500:
+      type: object
+      properties:
+        error:
+          description: Error message
+          type: string
+        status:
+          description: Error status
+          type: integer
+          enum:
+          - 500
+    Error403:
+      type: object
+      properties:
+        error:
+          description: Error message
+          type: string
+        status:
+          description: Error status
+          type: integer
+          enum:
+          - 403
+    TrnLsnTag:
+      type: object
+      properties:
+        trnLsntagTagId__trnTagCode:
+          description: Trn lsntag tag id Trn tag code
+          type: string
+        trnLsntagLsnId:
+          description: Trn lsntag lsn id
+          type: string
+        row_id:
+          description: Unique technical row ID
+          type: string
+        trnLsntagLsnId__trnLsnPath:
+          description: Trn lsntag lsn id Path
+          type: string
+        trnLsntagTagId:
+          description: Trn lsntag tag id
+          type: string
+    ArrayOfTrnTagTranslate:
+      type: array
+      items:
+        $ref: '#/components/schemas/TrnTagTranslate'
+    ArrayOfTrnCategory:
+      type: array
+      items:
+        $ref: '#/components/schemas/TrnCategory'
+    ArrayOfTrnLesson:
+      type: array
+      items:
+        $ref: '#/components/schemas/TrnLesson'
+    TrnCategory:
+      type: object
+      properties:
+        trnCatId:
+          description: Parent Category
+          type: string
+        trnCatOrder:
+          description: Order
+          type: integer
+        trnCatPublish:
+          description: Determines if the category and its subcategories and lessons
+            are available on the front-end application.
+          type: boolean
+        trnCatPath:
+          description: Category Path
+          type: string
+        row_id:
+          description: Unique technical row ID
+          type: string
+        trnCatCode:
+          description: Code
+          type: string
+        trnCatFrontPath:
+          description: Front path
+          type: string
+        trnCatId__trnCatPath:
+          description: Parent Category Path
+          type: string
+    ArrayOfTrnPicture:
+      type: array
+      items:
+        $ref: '#/components/schemas/TrnPicture'
     ActionResult:
       type: object
       properties:
@@ -206,47 +302,23 @@ components:
         item:
           description: Object item with lists of linked objects' items
           type: object
+    ArrayOfTrnTag:
+      type: array
+      items:
+        $ref: '#/components/schemas/TrnTag'
     ArrayOfTrnSiteContent:
       type: array
       items:
         $ref: '#/components/schemas/TrnSiteContent'
-    Error400:
+    TrnTag:
       type: object
       properties:
-        error:
-          description: Error message
+        trnTagCode:
+          description: Trn tag code
           type: string
-        status:
-          description: Error status
-          type: integer
-          enum:
-          - 400
-    ArrayOfTrnCategoryTranslate:
-      type: array
-      items:
-        $ref: '#/components/schemas/TrnCategoryTranslate'
-    Error401:
-      type: object
-      properties:
-        error:
-          description: Error message
+        row_id:
+          description: Unique technical row ID
           type: string
-        status:
-          description: Error status
-          type: integer
-          enum:
-          - 401
-    Error500:
-      type: object
-      properties:
-        error:
-          description: Error message
-          type: string
-        status:
-          description: Error status
-          type: integer
-          enum:
-          - 500
     TrnLsnTranslate:
       type: object
       properties:
@@ -289,17 +361,6 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/TrnLsnTranslate'
-    Error403:
-      type: object
-      properties:
-        error:
-          description: Error message
-          type: string
-        status:
-          description: Error status
-          type: integer
-          enum:
-          - 403
   securitySchemes:
     basicAuth:
       scheme: basic
@@ -1376,6 +1437,153 @@ paths:
         required: false
       tags:
       - session
+  /rest/TrnLsnTag:
+    get:
+      summary: Search TrnLsnTag business object records or get contextualized metadata
+      security:
+      - bearerAuth: []
+      operationId: obj-trnlsntag-search
+      responses:
+        '200':
+          description: Success in searching business object records (or in getting
+            contextualized business object metadata, documentation, ...)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfTrnLsnTag'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500'
+      parameters:
+      - schema:
+          type: boolean
+        in: query
+        name: _metadata
+        description: Metadata?
+        required: false
+      - schema:
+          type: boolean
+        in: query
+        name: _count
+        description: Count?
+        required: false
+      - schema:
+          type: boolean
+        in: query
+        name: _doc
+        description: Documentation?
+        required: false
+      - schema:
+          type: string
+        in: query
+        name: trnLsntagLsnId
+        description: Search filter for Trn lsntag lsn id
+        required: false
+      - schema:
+          type: string
+        in: query
+        name: trnLsntagLsnId__trnLsnPath
+        description: Search filter for Trn lsntag lsn id Path
+        required: false
+      - schema:
+          type: string
+        in: query
+        name: trnLsntagTagId
+        description: Search filter for Trn lsntag tag id
+        required: false
+      - schema:
+          type: string
+        in: query
+        name: trnLsntagTagId__trnTagCode
+        description: Search filter for Trn lsntag tag id Trn tag code
+        required: false
+      tags:
+      - TrnLsnTag
+  /rest/TrnTagTranslate:
+    get:
+      summary: Search TrnTagTranslate business object records or get contextualized
+        metadata
+      security:
+      - bearerAuth: []
+      operationId: obj-trntagtranslate-search
+      responses:
+        '200':
+          description: Success in searching business object records (or in getting
+            contextualized business object metadata, documentation, ...)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfTrnTagTranslate'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500'
+      parameters:
+      - schema:
+          type: boolean
+        in: query
+        name: _metadata
+        description: Metadata?
+        required: false
+      - schema:
+          type: boolean
+        in: query
+        name: _count
+        description: Count?
+        required: false
+      - schema:
+          type: boolean
+        in: query
+        name: _doc
+        description: Documentation?
+        required: false
+      - schema:
+          type: string
+          enum:
+          - ANY
+          - ENU
+          - FRA
+        in: query
+        name: trnTagTranslateLang
+        description: Search filter for Trn tag translate lang
+        required: false
+      - schema:
+          type: string
+        in: query
+        name: trnTagTranslateTrad
+        description: Search filter for Traduction content
+        required: false
+      - schema:
+          type: string
+        in: query
+        name: trnTaglangTagId
+        description: Search filter for Tag
+        required: false
+      - schema:
+          type: string
+        in: query
+        name: trnTaglangTagId__trnTagCode
+        description: Search filter for Tag Trn tag code
+        required: false
+      tags:
+      - TrnTagTranslate
   /rest/TrnSiteContent/{row_id}:
     post:
       summary: Create a new TrnSiteContentbusiness object record
@@ -1862,6 +2070,201 @@ paths:
         required: true
       tags:
       - TrnLsnTranslate
+  /rest/TrnTagTranslate/{row_id}:
+    post:
+      summary: Create a new TrnTagTranslatebusiness object record
+      security:
+      - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrnTagTranslate'
+      operationId: obj-trntagtranslate-create
+      responses:
+        '200':
+          description: Success in creating a new business object record
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrnTagTranslate'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error400'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500'
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        required: true
+      tags:
+      - TrnTagTranslate
+    get:
+      summary: Get a TrnTagTranslate business object record
+      security:
+      - bearerAuth: []
+      operationId: obj-trntagtranslate-get
+      responses:
+        '200':
+          description: Success in getting a single business object record
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrnTagTranslate'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        required: true
+      - schema:
+          type: boolean
+        in: query
+        name: _inline_documents
+        description: Inline documents?
+        required: false
+      - schema:
+          type: boolean
+        in: query
+        name: _inline_thumbnails
+        description: Inline documents' thumbnails?
+        required: false
+      - schema:
+          type: boolean
+        in: query
+        name: _inline_objects
+        description: Inline objects?
+        required: false
+      tags:
+      - TrnTagTranslate
+    delete:
+      summary: Delete a TrnTagTranslate business object record
+      security:
+      - bearerAuth: []
+      operationId: obj-trntagtranslate-delete
+      responses:
+        '200':
+          description: Success in deleting a business object record
+          content:
+            application/json: {}
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error400'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        required: true
+      tags:
+      - TrnTagTranslate
+    put:
+      summary: Update a TrnTagTranslatebusiness object record
+      security:
+      - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrnTagTranslate'
+      operationId: obj-trntagtranslate-update
+      responses:
+        '200':
+          description: Success in updating a business object record
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrnTagTranslate'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error400'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        required: true
+      tags:
+      - TrnTagTranslate
   /rest/TrnSiteContent:
     get:
       summary: Search TrnSiteContent business object records or get contextualized
@@ -2198,6 +2601,449 @@ paths:
         required: true
       tags:
       - TrnCategory
+  /rest/TrnLsnTag/{row_id}:
+    post:
+      summary: Create a new TrnLsnTagbusiness object record
+      security:
+      - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrnLsnTag'
+      operationId: obj-trnlsntag-create
+      responses:
+        '200':
+          description: Success in creating a new business object record
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrnLsnTag'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error400'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500'
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        required: true
+      tags:
+      - TrnLsnTag
+    get:
+      summary: Get a TrnLsnTag business object record
+      security:
+      - bearerAuth: []
+      operationId: obj-trnlsntag-get
+      responses:
+        '200':
+          description: Success in getting a single business object record
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrnLsnTag'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        required: true
+      - schema:
+          type: boolean
+        in: query
+        name: _inline_documents
+        description: Inline documents?
+        required: false
+      - schema:
+          type: boolean
+        in: query
+        name: _inline_thumbnails
+        description: Inline documents' thumbnails?
+        required: false
+      - schema:
+          type: boolean
+        in: query
+        name: _inline_objects
+        description: Inline objects?
+        required: false
+      tags:
+      - TrnLsnTag
+    delete:
+      summary: Delete a TrnLsnTag business object record
+      security:
+      - bearerAuth: []
+      operationId: obj-trnlsntag-delete
+      responses:
+        '200':
+          description: Success in deleting a business object record
+          content:
+            application/json: {}
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error400'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        required: true
+      tags:
+      - TrnLsnTag
+    put:
+      summary: Update a TrnLsnTagbusiness object record
+      security:
+      - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrnLsnTag'
+      operationId: obj-trnlsntag-update
+      responses:
+        '200':
+          description: Success in updating a business object record
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrnLsnTag'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error400'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        required: true
+      tags:
+      - TrnLsnTag
+  /rest/TrnTag/{row_id}:
+    post:
+      summary: Create a new TrnTagbusiness object record
+      security:
+      - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrnTag'
+      operationId: obj-trntag-create
+      responses:
+        '200':
+          description: Success in creating a new business object record
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrnTag'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error400'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500'
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        required: true
+      tags:
+      - TrnTag
+    get:
+      summary: Get a TrnTag business object record
+      security:
+      - bearerAuth: []
+      operationId: obj-trntag-get
+      responses:
+        '200':
+          description: Success in getting a single business object record
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrnTag'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        required: true
+      - schema:
+          type: boolean
+        in: query
+        name: _inline_documents
+        description: Inline documents?
+        required: false
+      - schema:
+          type: boolean
+        in: query
+        name: _inline_thumbnails
+        description: Inline documents' thumbnails?
+        required: false
+      - schema:
+          type: boolean
+        in: query
+        name: _inline_objects
+        description: Inline objects?
+        required: false
+      tags:
+      - TrnTag
+    delete:
+      summary: Delete a TrnTag business object record
+      security:
+      - bearerAuth: []
+      operationId: obj-trntag-delete
+      responses:
+        '200':
+          description: Success in deleting a business object record
+          content:
+            application/json: {}
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error400'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        required: true
+      tags:
+      - TrnTag
+    put:
+      summary: Update a TrnTagbusiness object record
+      security:
+      - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrnTag'
+      operationId: obj-trntag-update
+      responses:
+        '200':
+          description: Success in updating a business object record
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrnTag'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error400'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        required: true
+      tags:
+      - TrnTag
+  /rest/TrnTag:
+    get:
+      summary: Search TrnTag business object records or get contextualized metadata
+      security:
+      - bearerAuth: []
+      operationId: obj-trntag-search
+      responses:
+        '200':
+          description: Success in searching business object records (or in getting
+            contextualized business object metadata, documentation, ...)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfTrnTag'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500'
+      parameters:
+      - schema:
+          type: boolean
+        in: query
+        name: _metadata
+        description: Metadata?
+        required: false
+      - schema:
+          type: boolean
+        in: query
+        name: _count
+        description: Count?
+        required: false
+      - schema:
+          type: boolean
+        in: query
+        name: _doc
+        description: Documentation?
+        required: false
+      - schema:
+          type: string
+        in: query
+        name: trnTagCode
+        description: Search filter for Trn tag code
+        required: false
+      tags:
+      - TrnTag
 info:
   license:
     name: Simplicite license
@@ -2216,9 +3062,15 @@ tags:
   description: Content
 - name: TrnLesson
   description: Lesson
+- name: TrnLsnTag
+  description: TrnLsnTag
 - name: TrnLsnTranslate
   description: Content
 - name: TrnPicture
   description: Picture
 - name: TrnSiteContent
   description: Site Contents
+- name: TrnTag
+  description: Tag
+- name: TrnTagTranslate
+  description: Trn tag translate
