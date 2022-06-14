@@ -60,7 +60,7 @@
       "usr_menu": true,
       "usr_menu_defcollapsed": false,
       "usr_menu_defdomain_id__obd_name": null,
-      "usr_last_logon": "2022-06-13 16:05:05",
+      "usr_last_logon": "2022-06-14 08:08:57",
       "usr_dateformat": null,
       "usr_lang_pref": "FRA",
       "usr_mfa_method": null,
@@ -119,6 +119,26 @@
      "sys_value2": null,
      "sys_type": "PRV",
      "sys_desc": "Examples : \n\nSimple usecase\n---------------------------\n\nEditing through UI, using Simplicité indexing\n\n```json\n{\n\t\"edition_type\": \"UI\",\n\t\"index_type\": \"simplicite\"\n}\n```\n\nAdvanced usecase\n---------------------------\n\nEditing through Filesystem (possible git repo), using ElasticSearch indexing\n\n```json\n{\n\t\"edition_type\": \"FILESYSTEM\",\n\t\"filesystem_contentdir\": \"/path/to/directory/to/sync/with\",\n\t\"index_type\": \"elasticsearch\",\n\t\"esi_config\": {\n\t\t\"instance\": \"https://elasticsearchinstance.mydomain.not\",\n\t\t\"index\": \"docs_myinstance\",\n\t\t\"credentials\":\"user:password\"\n\t}\n}\n```",
+     "row_module_id__mdl_name": "Training"
+    }
+   }]
+  },
+  {
+   "object": "UserSysParam",
+   "label": "User parameter",
+   "icon": "img/system/system_param",
+   "field": "row_module_id",
+   "list": [{
+    "object": "UserSysParam",
+    "userkey": "training-front~DISPOSITION",
+    "item": {
+     "usp_user_id__usr_login": "training-front",
+     "usp_param_id__sys_code": "DISPOSITION",
+     "usp_value": null,
+     "usp_param_id__sys_type": "LFL",
+     "usp_param_id__sys_value": "default",
+     "usp_param_id__sys_value2": null,
+     "usp_param_id__sys_desc": "Webapp disposition, ex: default, myapp, ...",
      "row_module_id__mdl_name": "Training"
     }
    }]
@@ -8427,11 +8447,11 @@
       "scr_code": "MarkdownTool2",
       "scr_file": {
        "path": "src/com/simplicite/commons/Training/MarkdownTool2.java",
-       "size": 24630,
+       "size": 24523,
        "field": "scr_file",
        "mime": "text/plain",
        "name": "MarkdownTool2.java",
-       "id": "4898",
+       "id": "5453",
        "object": "Script",
        "rowid": "8"
       },
@@ -8446,11 +8466,11 @@
       "scr_code": "TrnTestMarkdownTool2",
       "scr_file": {
        "path": "test/src/com/simplicite/tests/Training/TrnTestMarkdownTool2.java",
-       "size": 580,
+       "size": 2426,
        "field": "scr_file",
        "mime": "text/plain",
        "name": "TrnTestMarkdownTool2.java",
-       "id": "4901",
+       "id": "5455",
        "object": "Script",
        "rowid": "9"
       },

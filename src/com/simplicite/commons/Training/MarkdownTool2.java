@@ -49,9 +49,9 @@ import com.simplicite.util.tools.FileTool;
  * Markdown toolbox
  * <br>This class only provides static variables and methods
  */
-public class MarkdownTool2
-{
-	private static final Pattern PATTERN_ANCHOR_ANCHORED_AND_HEADING = Pattern.compile("(#+|\\b)\\s?(.+)(.+\\s\\{#)\\}");
+public class MarkdownTool2 {
+
+	private static final Pattern PATTERN_ANCHORED_HEADING = Pattern.compile( 	"(#+|\\b)\\s?(.+)\\s\\{#(.+)\\}(?:\\R(-{4,}+|={4,}+))?");
 	/** Hidden default constructor */
 	private MarkdownTool2()
 	{
@@ -267,28 +267,20 @@ public class MarkdownTool2
 	 * @return A markdown with HTML headers
 	 */
 	public static String toHTMLWithAnchors(String md) {
-		BufferedReader br = new BufferedReader(new StringReader(md));
-		StringBuffer inputBuffer = new StringBuffer();
-		String line;
-		try {
-			while((line = br.readLine()) != null) {
-				line = line.replaceAll("(\\-+)", "");
-				Matcher matcher = PATTERN_ANCHOR_ANCHORED_AND_HEADING.matcher(line);
-				while(matcher.find())
-				{
-					int headingNbr = matcher.group(1).length();
-					if(headingNbr == 0) ++headingNbr;
-					String title = matcher.group(2);
-					String id = matcher.group(3);
-					line = "<h" + headingNbr + " id=\"" + id +"\">" + title + "</h" + headingNbr +">";
-				}
-				inputBuffer.append(line + "\n");
+		Matcher matcher = PATTERN_ANCHORED_HEADING.matcher(md);
+		String mdHTMlAnchored = matcher.replaceAll((match) -> {
+			int headingNbr = match.group(1).length(); 
+			String title = match.group(2);
+			String id = match.group(3);
+			String optionnalString = match.group(4); // ---- or ====
+			if(headingNbr == 0 && optionnalString == null) return match.group(0);
+			else if(optionnalString != null) {
+				if(optionnalString.charAt(0) == '-') headingNbr = 2;
+				else if(optionnalString.charAt(0) == '=') headingNbr = 1; 
 			}
-		} catch(IOException e) {
-			AppLog.error(e, Grant.getPublic());
-		}
-		String html = toHTML(inputBuffer.toString(), false);
-		return html;
+			return "<h" + headingNbr + " id=\"" + id +"\">" + title + "</h" + headingNbr + ">";
+		});
+		return mdHTMlAnchored;
 	}
 
 	/**
