@@ -13,6 +13,20 @@
 
 The module for the Simplciité Training platform
 
+`TrnCatTag` business object definition
+--------------------------------------
+
+
+
+### Fields
+
+| Name                                                         | Type                                     | Required | Updatable | Personal | Description                                                                      |
+|--------------------------------------------------------------|------------------------------------------|----------|-----------|----------|----------------------------------------------------------------------------------|
+| `trnCattagCatId` link to **`TrnCategory`**                   | id                                       | yes*     | yes       |          | -                                                                                |
+| _Ref. `trnCattagCatId.trnCatPath`_                           | _text(400)_                              |          |           |          | -                                                                                |
+| `trnCattagTagId` link to **`TrnTag`**                        | id                                       | yes*     | yes       |          | -                                                                                |
+| _Ref. `trnCattagTagId.trnTagCode`_                           | _char(255)_                              |          |           |          | -                                                                                |
+
 `TrnSiteContent` business object definition
 -------------------------------------------
 
@@ -157,20 +171,6 @@ Object that contains lessons tags.
 | Name                                                         | Type                                     | Required | Updatable | Personal | Description                                                                      |
 |--------------------------------------------------------------|------------------------------------------|----------|-----------|----------|----------------------------------------------------------------------------------|
 | `trnTagCode`                                                 | char(255)                                | yes*     | yes       |          | -                                                                                |
-
-`TrnLsnTag` business object definition
---------------------------------------
-
-
-
-### Fields
-
-| Name                                                         | Type                                     | Required | Updatable | Personal | Description                                                                      |
-|--------------------------------------------------------------|------------------------------------------|----------|-----------|----------|----------------------------------------------------------------------------------|
-| `trnLsntagLsnId` link to **`TrnLesson`**                     | id                                       | yes*     | yes       |          | -                                                                                |
-| _Ref. `trnLsntagLsnId.trnLsnPath`_                           | _text(400)_                              |          |           |          | -                                                                                |
-| `trnLsntagTagId` link to **`TrnTag`**                        | id                                       | yes*     | yes       |          | -                                                                                |
-| _Ref. `trnLsntagTagId.trnTagCode`_                           | _char(255)_                              |          |           |          | -                                                                                |
 
 `TrnTagTranslate` business object definition
 --------------------------------------------
