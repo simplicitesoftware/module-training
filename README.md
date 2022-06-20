@@ -33,20 +33,6 @@ This object will hold the static contents of the front-end application
     - `ENU` English language
     - `FRA` French language
 
-`TrnTagLsn` business object definition
---------------------------------------
-
-
-
-### Fields
-
-| Name                                                         | Type                                     | Required | Updatable | Personal | Description                                                                      |
-|--------------------------------------------------------------|------------------------------------------|----------|-----------|----------|----------------------------------------------------------------------------------|
-| `trnTaglsnTagId` link to **`TrnTag`**                        | id                                       | yes*     | yes       |          | -                                                                                |
-| _Ref. `trnTaglsnTagId.trnTagCode`_                           | _char(255)_                              |          |           |          | -                                                                                |
-| `trnTaglsnLsnId` link to **`TrnLesson`**                     | id                                       | yes*     | yes       |          | -                                                                                |
-| _Ref. `trnTaglsnLsnId.trnLsnPath`_                           | _text(400)_                              |          |           |          | -                                                                                |
-
 `TrnCategory` business object definition
 ----------------------------------------
 
@@ -192,6 +178,20 @@ Translation of tag object.
     - `ANY` All languages
     - `ENU` English language
     - `FRA` French language
+
+`TrnTagLsn` business object definition
+--------------------------------------
+
+
+
+### Fields
+
+| Name                                                         | Type                                     | Required | Updatable | Personal | Description                                                                      |
+|--------------------------------------------------------------|------------------------------------------|----------|-----------|----------|----------------------------------------------------------------------------------|
+| `trnTaglsnTagId` link to **`TrnTag`**                        | id                                       | yes*     | yes       |          | -                                                                                |
+| _Ref. `trnTaglsnTagId.trnTagCode`_                           | _char(255)_                              |          |           |          | -                                                                                |
+| `trnTaglsnLsnId` link to **`TrnLesson`**                     | id                                       | yes*     | yes       |          | -                                                                                |
+| _Ref. `trnTaglsnLsnId.trnLsnPath`_                           | _text(400)_                              |          |           |          | -                                                                                |
 
 `TrnFront` external object definition
 -------------------------------------
