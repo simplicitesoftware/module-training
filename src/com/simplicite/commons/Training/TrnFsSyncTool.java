@@ -1,8 +1,11 @@
 package com.simplicite.commons.Training;
 
 import java.util.*;
+
+import com.google.gson.JsonArray;
 import com.simplicite.util.*;
 import com.simplicite.util.exceptions.*;
+import com.simplicite.util.exceptions.IOException;
 import com.simplicite.util.tools.*;
 import java.io.File;
 import java.util.regex.Pattern;
@@ -29,7 +32,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	private final String[] LANG_CODES;
 	private final String DEFAULT_LANG_CODE;
 	
-	private ObjectDB category, categoryContent, lesson, lessonContent, picture;
+	private ObjectDB category, categoryContent, lesson, lessonContent, picture, tag, categoryTag, translateTag;
 	
 	private HashMap<String, String> hashStore;
 	private ArrayList<String> foundPaths;
@@ -153,7 +156,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	
 	private void validateRootContent(File dir) throws TrnSyncException{
 		for(File child : dir.listFiles())
-			if(!isCategory(child))
+			if(!isCategory(child) && !child.getName().equals("tags.json"))
 				throw new TrnSyncException("TRN_SYNC_ROOT_NON_CONFORMITY", child);
 	}
 	
@@ -253,6 +256,10 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		g.changeAccess("TrnLesson", crud);
 		g.changeAccess("TrnLsnTranslate", crud);
 		g.changeAccess("TrnPicture", crud);
+		g.changeAccess("TrnTag", crud);
+		g.changeAccess("TrnCatTag", crud);
+		g.changeAccess("TrnTagTranslate", crud);
+
 	}
 	
 	private void unloadTrnObjectAccess(){
@@ -262,6 +269,9 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		g.changeAccess("TrnLesson", crud);
 		g.changeAccess("TrnLsnTranslate", crud);
 		g.changeAccess("TrnPicture", crud);
+		g.changeAccess("TrnTag", crud);
+		g.changeAccess("TrnCatTag", crud);
+		g.changeAccess("TrnTagTranslate", crud);
 	}
 	
 	private void loadTrnObjects(){
@@ -271,27 +281,29 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		lesson = g.getObject("sync_TrnLesson", "TrnLesson");
 		lessonContent = g.getObject("sync_TrnLsnTranslate", "TrnLsnTranslate");
 		picture = g.getObject("sync_TrnPicture", "TrnPicture");
+		tag = g.getObject("sync_TrnTag", "TrnTag");
+		categoryTag = g.getObject("sync_TrnCatTag", "TrnCatTag");
+		translateTag = g.getObject("sync_TrnTagTranslate", "TrnTagTranslate");
 	}
 	
 	private void syncPath(String relativePath) throws TrnSyncException{
 		File dir = new File(contentDir.getPath()+relativePath);
-		
-		if(!"/".equals(relativePath)){
-			String oldHash = hashStore.get(relativePath);
-			String newHash = "";
-			try{
-				newHash = hashDirectoryFiles(dir);
-			}
-			catch(Exception e){
-				throw new TrnSyncException("TRN_SYNC_ERROR_HASHING_FILES", relativePath);
-			}
-			
-			if(oldHash==null || !oldHash.equals(newHash))
-				updateDbWithDir(dir);
-			
-			hashStore.put(relativePath, newHash);
-			foundPaths.add(relativePath);
+	
+		String oldHash = hashStore.get(relativePath);
+		String newHash = "";
+		try{
+			newHash = hashDirectoryFiles(dir);
 		}
+		catch(Exception e){
+			throw new TrnSyncException("TRN_SYNC_ERROR_HASHING_FILES", relativePath);
+		}
+		
+		if(oldHash==null || !oldHash.equals(newHash))
+			if("/".equals(relativePath)) updateTags(dir);
+			else updateDbWithDir(dir);
+		
+		hashStore.put(relativePath, newHash);
+		foundPaths.add(relativePath);
 		
 		File[] files = dir.listFiles();
 		for(File file : files)
@@ -306,6 +318,54 @@ public class TrnFsSyncTool implements java.io.Serializable {
 			upsertLesson(dir);
 		else
 			throw new TrnSyncException("TRN_SYNC_ERROR_NOT_CATEGORY_NOR_LESSON", dir);
+	}
+
+	private void updateTags(File dir) throws TrnSyncException {
+		try {
+			JSONArray tagArray = new JSONArray(FileTool.readFile(dir.getPath()+"/tags.json"));
+			for (int i = 0; i < tagArray.length(); i++) {
+				JSONObject tagValues = tagArray.getJSONObject(i);
+				String code = tagValues.optString("code");
+				upsertTag(code);
+				JSONArray traductions = tagValues.optJSONArray("traductions");
+				for (int j = 0; j < traductions.length(); j++) {
+					upsertTraduction(traductions.getJSONObject(j));
+				}
+			}
+		} catch(Exception e) {
+			AppLog.error(getClass(), "updateTags", e.getMessage(), e, g);
+			throw new TrnSyncException("TRN_SYNC_ERROR_TAGS_READING_FILE", e.getMessage()+" "+category.toJSON()+ " "+dir.getPath());
+		}          
+	}
+
+	private void upsertTraduction(JSONObject trad) throws TrnSyncException {
+		try {
+			BusinessObjectTool bot = new BusinessObjectTool(translateTag);
+			synchronized(translateTag) {
+				translateTag.resetValues();
+				translateTag.setFieldValue("trnTagTranslateLang", trad.optString("lang"));
+				translateTag.setFieldValue("trnTagTranslateTrad", trad.optString("trad"));
+				translateTag.setFieldValue("trnTaglangTagId", tag.getCurrentRowId());
+				bot.validateAndSave();
+			}
+		} catch(Exception e) {
+			AppLog.error(getClass(), "upsertTag", e.getMessage(), e, g);
+			throw new TrnSyncException("TRN_SYNC_UPSERT_TAG");
+		}
+	}
+
+	private void upsertTag(String code) throws TrnSyncException {
+		try {
+			BusinessObjectTool bot = new BusinessObjectTool(tag);
+			synchronized(tag) {
+				tag.resetValues();
+				tag.setFieldValue("trnTagCode", code);
+				bot.validateAndSave();
+			}
+		} catch(Exception e) {
+			AppLog.error(getClass(), "upsertTag", e.getMessage(), e, g);
+			throw new TrnSyncException("TRN_SYNC_UPSERT_TAG");
+		}
 	}
 	
 	private void upsertCategory(File dir) throws TrnSyncException{
@@ -418,10 +478,13 @@ public class TrnFsSyncTool implements java.io.Serializable {
 				lesson.setFieldValue("trnLsnCatId", getCatRowIdFromPath(getParentRelativePath(dir)));
 				lesson.setFieldValue("trnLsnPublish", json.getBoolean("published"));
 				lesson.setFieldValue("trnLsnVisualization", json.getString("viz"));
+				
 				lesson.populate(true);
 				bot.validateAndSave(true);
 				rowId = lesson.getRowId();
 			}
+
+			bot = new BusinessObjectTool(tag);
 			
 			// create contents
 			for(String lang : LANG_CODES){
@@ -525,7 +588,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		JSONObject json = new JSONObject(FileTool.readFile(dir.getPath()+"/lesson.json"));
 		lsn.put("published", json.optBoolean("published", true));
 		lsn.put("viz", json.optString("display", "TUTO"));
-		
+		lsn.put("tags", json.optJSONArray("tags"));
 		
 		JSONObject contents = new JSONObject();
 		JSONObject content;

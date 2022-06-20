@@ -13,10 +13,8 @@ public class TrnLsnTranslate extends TrnObject {
 	
 	@Override
 	public String preSave() {
-		if(getFieldValue("trnLtrTitle").equals("Tomcat operation")) {
-			AppLog.info("Tomcat opeartion appeared", getGrant());
-		}
-		String html = MarkdownTool2.toHTML(getFieldValue("trnLtrContent"));
+		String md = getFieldValue("trnLtrContent");
+		String html = MarkdownTool2.toHTMLWithAnchors(md);
 
 		setFieldValue("trnLtrHtmlContent", html);
 		// Remove HTML tags (https://stackoverflow.com/a/9036849/1612642)

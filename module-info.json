@@ -1,9 +1,9 @@
 {
-    "date": "2022-05-31 20:40:23",
+    "date": "2022-06-15 14:23:28",
     "name": "Training",
-    "format": "xml",
-    "files": ["Training.xml"],
+    "format": "json",
+    "files": ["Training.json"],
     "repository": {"origin": {"uri": "https://github.com/simplicitesoftware/module-training.git"}},
     "version": "2.8",
-    "platform": "5.2.4"
+    "platform": "5.2.6"
 }

@@ -7,6 +7,7 @@ package com.simplicite.commons.Training;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -14,7 +15,10 @@ import java.io.StringReader;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import org.checkerframework.checker.lock.qual.MayReleaseLocks;
 import org.commonmark.Extension;
 import org.commonmark.ext.autolink.AutolinkExtension;
 import org.commonmark.ext.front.matter.YamlFrontMatterExtension;
@@ -45,8 +49,9 @@ import com.simplicite.util.tools.FileTool;
  * Markdown toolbox
  * <br>This class only provides static variables and methods
  */
-public class MarkdownTool2
-{
+public class MarkdownTool2 {
+
+	private static final Pattern PATTERN_ANCHORED_HEADING = Pattern.compile( 	"(#+|\\b)\\s?(.+)\\s\\{#(.+)\\}(?:\\R(-{4,}+|={4,}+))?");
 	/** Hidden default constructor */
 	private MarkdownTool2()
 	{
@@ -254,6 +259,28 @@ public class MarkdownTool2
 	public static String image(String url, String alt)
 	{
 		return "!" + link(url, alt);
+	}
+
+	/**
+	 * Convert a the anchor links of a markdown into html elements
+	 * @param md Markdown string
+	 * @return A markdown with HTML headers
+	 */
+	public static String toHTMLWithAnchors(String md) {
+		Matcher matcher = PATTERN_ANCHORED_HEADING.matcher(md);
+		String mdHTMlAnchored = matcher.replaceAll((match) -> {
+			int headingNbr = match.group(1).length(); 
+			String title = match.group(2);
+			String id = match.group(3);
+			String optionnalString = match.group(4); // ---- or ====
+			if(headingNbr == 0 && optionnalString == null) return match.group(0);
+			else if(optionnalString != null) {
+				if(optionnalString.charAt(0) == '-') headingNbr = 2;
+				else if(optionnalString.charAt(0) == '=') headingNbr = 1; 
+			}
+			return "<h" + headingNbr + " id=\"" + id +"\">" + title + "</h" + headingNbr + ">";
+		});
+		return toHTML(mdHTMlAnchored, false);
 	}
 
 	/**
