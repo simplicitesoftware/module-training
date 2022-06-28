@@ -351,7 +351,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 					rowId = tag.getCurrentRowId();
 				}
 
-				// loop on the traduction object
+				// loop on the translate object
 				JSONObject tradObj = tagObject.optJSONObject("translation");
 				for(String lang : LANG_CODES) {
 					if(tradObj.has(lang)) {
