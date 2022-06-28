@@ -275,7 +275,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		g.changeAccess("TrnLsnTranslate", crud);
 		g.changeAccess("TrnPicture", crud);
 		g.changeAccess("TrnTag", crud);
-		g.changeAccess("TrnCatLsn", crud);
+		g.changeAccess("TrnTagLsn", crud);
 		g.changeAccess("TrnTagTranslate", crud);
 
 	}
