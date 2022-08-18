@@ -300,7 +300,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		lessonContent = g.getObject("sync_TrnLsnTranslate", "TrnLsnTranslate");
 		picture = g.getObject("sync_TrnPicture", "TrnPicture");
 		tag = g.getObject("sync_TrnTag", "TrnTag");
-		tagLsn = g.getObject("sync_TrnCatTag", "TrnTagLsn");
+		tagLsn = g.getObject("sync_TrnTagLsn", "TrnTagLsn");
 		translateTag = g.getObject("sync_TrnTagTranslate", "TrnTagTranslate");
 	}
 	
@@ -519,6 +519,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 			bot = new BusinessObjectTool(tagLsn);
 			JSONArray tags = json.optJSONArray("tags");
 			if(!Tool.isEmpty(tags)) {
+
 				for(int i = 0; i < tags.length(); i++) {
 					String tagCode = tags.getString(i);
 					String tagRowId = getTagRowIdFromCode(tagCode);
@@ -592,8 +593,12 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	}
 
 	private String getTagLsnRowId(String code, String lsnPath) {
-		if(Tool.isEmpty(code) || Tool.isEmpty(lsnPath)) return "";
-		return g.simpleQuery("select row_id from trn_tag_lsn where trn_tag_code='"+code+"' AND trn_lsn_path='"+lsnPath+"'");
+		ObjectDB ttl = g.getTmpObject("TrnTagLsn");
+		ttl.resetFilters();
+		ttl.getField("trnTaglsnTagId.trnTagCode").setFilter(code);
+		ttl.getField("trnTaglsnLsnId.trnLsnPath").setFilter(lsnPath);
+		List<String[]> res = ttl.search();
+		return res.get(0)[0];
 	}
 	
 	private File getLsnMdFile(File lsnDir, String lang){

@@ -15,6 +15,8 @@ import com.simplicite.commons.Training.TrnTools;
 public class TrnTreeService extends RESTServiceExternalObject  {
 	private static final long serialVersionUID = 1L;
 	
+	private final Grant g = getGrant();
+
 	private String previousLesson = "";
 	private ArrayList<JSONObject> lessonsNeedingNextPath = new ArrayList<>(); 
 	private ArrayList<String> nextPaths = new ArrayList<>(); 
@@ -29,8 +31,10 @@ public class TrnTreeService extends RESTServiceExternalObject  {
 				return getImages(params.getParameter("lessonId", "0"));
 			if(!"".equals(params.getParameter("getLesson", "")))
 				return getLesson(params.getParameter("getLesson"), lang);
-			if(!"".equals(params.getParameter("array", "")))
-				return getTree(lang);
+			if(!"".equals(params.getParameter("array", ""))) {
+				JSONArray tags = params.getJSONObject().getJSONArray("tags");
+				return getTree(lang, tags);
+			}
 			else
 				return "getTree deprecated";
 		}
@@ -66,11 +70,11 @@ public class TrnTreeService extends RESTServiceExternalObject  {
 		}
 	}
 
-	private JSONArray getTree(String lang){
+	private JSONArray getTree(String lang, JSONArray tags){
 		TrnCategory tmpCategory = (TrnCategory) g().getObject("tree_TrnCategory", "TrnCategory");
 		TrnLesson tmpLesson = (TrnLesson) g().getObject("tree_TrnLesson", "TrnLesson");
 		
-		JSONArray tree = getCategoriesRecursive("is null", tmpCategory, tmpLesson, lang);
+		JSONArray tree = getCategoriesRecursive("is null", tmpCategory, tmpLesson, tags, lang);
 	
 		for(int i = 0; i < lessonsNeedingNextPath.size()-1; i++ )
 			lessonsNeedingNextPath.get(i).put("next_path", nextPaths.get(i+1));
@@ -78,30 +82,38 @@ public class TrnTreeService extends RESTServiceExternalObject  {
 		return tree;
 	}
 	
-	private JSONArray getCategoriesRecursive(String parentId, TrnCategory tmpCategory, TrnLesson tmpLesson, String lang){
+	private JSONArray getCategoriesRecursive(String parentId, TrnCategory tmpCategory, TrnLesson tmpLesson, JSONArray tags, String lang){
 		JSONArray cats = new JSONArray();
-		for(JSONObject cat : getCategories(parentId, tmpCategory, lang)){
-			cat.put("categories", getCategoriesRecursive(cat.getString("row_id"), tmpCategory, tmpLesson, lang));
+		for(JSONObject cat : getCategories(parentId, tmpCategory, tags, lang)){
+			cat.put("categories", getCategoriesRecursive(cat.getString("row_id"), tmpCategory, tmpLesson, tags, lang));
 			cat.put("lessons", getLessons(cat.getString("row_id"), tmpLesson, lang));
 			cats.put(cat);
 		}
 		return cats;
 	}
 	
-	private List<JSONObject> getCategories(String parentId, TrnCategory tmpCategory, String lang){
+	private List<JSONObject> getCategories(String parentId, TrnCategory tmpCategory, JSONArray tags, String lang){
 		List<JSONObject> catList = new ArrayList();
-		JSONObject cat;
 		synchronized(tmpCategory){
 			tmpCategory.resetFilters();
 			tmpCategory.setFieldOrder("trnCatOrder", 1);
 	    tmpCategory.setFieldFilter("trnCatId", parentId);
 	  	tmpCategory.setFieldFilter("trnCatPublish", "1");
+			
 			for(String[] row : tmpCategory.search()){
-				tmpCategory.setValues(row);
-				try{
-					catList.add(tmpCategory.getCategoryForFront(lang));
-				} catch(Exception e){
-					AppLog.error(getClass(), "getCategories", "error getting front-oriented cat", e, g());
+				Boolean addCategoryFlag = false;
+				for(int i = 0; i < tags.length(); i++) {
+					String tagId = tags.getJSONObject(i).getString("row_id");
+					// check if cat has at least a lesson when sorting with tags
+					if(tmpCategory.categoryHasAtLeastOneLesson(row[0], tagId)) addCategoryFlag = true;	
+				}
+				if(addCategoryFlag) {
+					tmpCategory.setValues(row);
+					try{
+						catList.add(tmpCategory.getCategoryForFront(lang));
+					} catch(Exception e){
+						AppLog.error(getClass(), "getCategories", "error getting front-oriented cat", e, g());
+					}
 				}
 			}
 		}
@@ -134,7 +146,7 @@ public class TrnTreeService extends RESTServiceExternalObject  {
 					
 				} catch(Exception e){
 	        		AppLog.error(getClass(), "getLessons2", "error getting front-oriented cat", e, g());
-	        	}
+	      }
 			}
 			if(rows.size() > 0) 
 				previousLesson = rows.get(rows.size()-1)[INDEX_PATH];
