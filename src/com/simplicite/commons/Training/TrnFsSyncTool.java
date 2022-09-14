@@ -3,6 +3,8 @@ package com.simplicite.commons.Training;
 import java.util.*;
 
 import com.google.gson.JsonArray;
+import com.simplicite.objects.Training.TrnCategory;
+import com.simplicite.objects.Training.TrnTagLsn;
 import com.simplicite.util.*;
 import com.simplicite.util.exceptions.*;
 import com.simplicite.util.exceptions.IOException;
@@ -32,7 +34,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	private final String[] LANG_CODES;
 	private final String DEFAULT_LANG_CODE;
 	
-	private ObjectDB category, categoryContent, lesson, lessonContent, picture, tag, tagLsn, translateTag;
+	private ObjectDB category, categoryContent, lesson, lessonContent, picture, tag, translateTag;
 	
 	private HashMap<String, String> hashStore;
 	private ArrayList<String> foundPaths;
@@ -300,7 +302,6 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		lessonContent = g.getObject("sync_TrnLsnTranslate", "TrnLsnTranslate");
 		picture = g.getObject("sync_TrnPicture", "TrnPicture");
 		tag = g.getObject("sync_TrnTag", "TrnTag");
-		tagLsn = g.getObject("sync_TrnTagLsn", "TrnTagLsn");
 		translateTag = g.getObject("sync_TrnTagTranslate", "TrnTagTranslate");
 	}
 	
@@ -515,16 +516,16 @@ public class TrnFsSyncTool implements java.io.Serializable {
 				rowId = lesson.getRowId();
 			}
 
-			// create tag N-N lesson if tag exists and if association does not already exist 
+			// create tag N-N lesson if tag exists and if association does not already exist
+			TrnTagLsn tagLsn = (TrnTagLsn) g.getObject("tree_TrnTagLsn", "TrnTagLsn");
 			bot = new BusinessObjectTool(tagLsn);
 			JSONArray tags = json.optJSONArray("tags");
-			if(!Tool.isEmpty(tags)) {
-
+			if(!Tool.isEmpty(tags) && tags != null) {
 				for(int i = 0; i < tags.length(); i++) {
 					String tagCode = tags.getString(i);
 					String tagRowId = getTagRowIdFromCode(tagCode);
 					if(Tool.isEmpty(tagRowId)) throw new TrnSyncException("TRN_SYNC_UPSERT_TAG_LSN", "tag does not exist" + tagCode);
-					String tagLsnRowId = getTagLsnRowId(tagCode, relativePath);
+					String tagLsnRowId = tagLsn.getTagLsnRowId(tagCode, relativePath);
 					if(Tool.isEmpty(tagLsnRowId)) {
 						bot.selectForCreate();
 						tagLsn.setFieldValue("trnTaglsnLsnId", rowId);
@@ -592,14 +593,14 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		return g.simpleQuery("select row_id from trn_tag_translate where trn_tag_translate_lang='"+lang+"' AND trn_tag_translate_trad='"+translation+"' AND trn_taglang_tag_id='"+tagRowId+"'");
 	}
 
-	private String getTagLsnRowId(String code, String lsnPath) {
-		ObjectDB ttl = g.getTmpObject("TrnTagLsn");
-		ttl.resetFilters();
-		ttl.getField("trnTaglsnTagId.trnTagCode").setFilter(code);
-		ttl.getField("trnTaglsnLsnId.trnLsnPath").setFilter(lsnPath);
-		List<String[]> res = ttl.search();
-		return res.get(0)[0];
-	}
+	// private String getTagLsnRowId(String code, String lsnPath) {
+	// 	ObjectDB ttl = g.getTmpObject("TrnTagLsn");
+	// 	ttl.resetFilters();
+	// 	ttl.getField("trnTaglsnTagId.trnTagCode").setFilter(code);
+	// 	ttl.getField("trnTaglsnLsnId.trnLsnPath").setFilter(lsnPath);
+	// 	List<String[]> res = ttl.search();
+	// 	return res.get(0)[0];
+	// }
 	
 	private File getLsnMdFile(File lsnDir, String lang){
 		return getLsnFile(lsnDir, lang, "md");
