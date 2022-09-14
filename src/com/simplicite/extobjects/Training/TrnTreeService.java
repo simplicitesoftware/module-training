@@ -5,6 +5,8 @@ import com.simplicite.util.*;
 import com.simplicite.util.tools.*;
 import com.simplicite.objects.Training.TrnCategory;
 import com.simplicite.objects.Training.TrnLesson;
+import com.simplicite.objects.Training.TrnTagLsn;
+
 import org.json.*;
 import com.simplicite.webapp.services.RESTServiceExternalObject ;
 import com.simplicite.commons.Training.TrnTools;
@@ -14,8 +16,6 @@ import com.simplicite.commons.Training.TrnTools;
  */
 public class TrnTreeService extends RESTServiceExternalObject  {
 	private static final long serialVersionUID = 1L;
-	
-	private final Grant g = getGrant();
 
 	private String previousLesson = "";
 	private ArrayList<JSONObject> lessonsNeedingNextPath = new ArrayList<>(); 
@@ -73,8 +73,9 @@ public class TrnTreeService extends RESTServiceExternalObject  {
 	private JSONArray getTree(String lang, JSONArray tags){
 		TrnCategory tmpCategory = (TrnCategory) g().getObject("tree_TrnCategory", "TrnCategory");
 		TrnLesson tmpLesson = (TrnLesson) g().getObject("tree_TrnLesson", "TrnLesson");
+		TrnTagLsn tagLsn = (TrnTagLsn) g().getObject("tree_TrnTagLsn", "TrnTagLsn");
 		
-		JSONArray tree = getCategoriesRecursive("is null", tmpCategory, tmpLesson, tags, lang);
+		JSONArray tree = getCategoriesRecursive("is null", tmpCategory, tmpLesson, tagLsn, tags, lang);
 	
 		for(int i = 0; i < lessonsNeedingNextPath.size()-1; i++ )
 			lessonsNeedingNextPath.get(i).put("next_path", nextPaths.get(i+1));
@@ -82,11 +83,12 @@ public class TrnTreeService extends RESTServiceExternalObject  {
 		return tree;
 	}
 	
-	private JSONArray getCategoriesRecursive(String parentId, TrnCategory tmpCategory, TrnLesson tmpLesson, JSONArray tags, String lang){
+	private JSONArray getCategoriesRecursive(String parentId, TrnCategory tmpCategory, TrnLesson tmpLesson, TrnTagLsn tagLsn, JSONArray tags, String lang){
 		JSONArray cats = new JSONArray();
 		for(JSONObject cat : getCategories(parentId, tmpCategory, lang)){
-			cat.put("categories", getCategoriesRecursive(cat.getString("row_id"), tmpCategory, tmpLesson, tags, lang));
-			cat.put("lessons", getLessons(cat.getString("row_id"), tmpLesson, lang, tags));
+			cat.put("categories", getCategoriesRecursive(cat.getString("row_id"), tmpCategory, tmpLesson, tagLsn, tags, lang));
+			cat.put("lessons", getLessons(cat.getString("row_id"), tmpLesson, tagLsn, lang, tags));
+			if(cat.getJSONArray("lessons").length() == 0 && cat.getJSONArray("categories").length() == 0) continue;
 			cats.put(cat);
 		}
 		return cats;
@@ -111,7 +113,7 @@ public class TrnTreeService extends RESTServiceExternalObject  {
 		return catList;
 	}
 	
-	private JSONArray getLessons(String categoryId, TrnLesson tmpLesson, String lang, JSONArray tags){
+	private JSONArray getLessons(String categoryId, TrnLesson tmpLesson, TrnTagLsn tagLsn, String lang, JSONArray tags){
 		JSONArray lessons = new JSONArray();
 		JSONObject lsn;
 		
@@ -123,24 +125,20 @@ public class TrnTreeService extends RESTServiceExternalObject  {
 		tmpLesson.setFieldFilter("trnLsnPublish", "1");
 		List<String[]> rows = tmpLesson.search();
 		for(int i=0; i<rows.size(); i++){
-			Boolean addLessonFlag = true;
-			if(tags.length() > 0 && TrnTagLsn.lessonHasTag(rows.get(i)[0], tags)) addLessonFlag = false; 
-			if(addLessonFlag) {
-				tmpLesson.setValues(rows.get(i));
-				try{
-					lsn = tmpLesson.getLessonForFront(lang, false);
-					lsn.put("previous_path", i==0 ? previousLesson : rows.get(i-1)[INDEX_PATH]);
-					lsn.put("next_path", i==rows.size()-1 ? "" : rows.get(i+1)[INDEX_PATH]);
-					
-					lessons.put(lsn);
-	
-					if(i == rows.size()-1) lessonsNeedingNextPath.add(lsn);
-					if(i == 0) nextPaths.add(tmpLesson.getFieldValue("trnLsnFrontPath"));
-					
-				} catch(Exception e){
-					AppLog.error(getClass(), "getLessons2", "error getting front-oriented cat", e, g());
-				}
-			}	
+			tmpLesson.setValues(rows.get(i));
+			try{
+				lsn = tmpLesson.getLessonForFront(lang, false);
+				lsn.put("previous_path", i==0 ? previousLesson : rows.get(i-1)[INDEX_PATH]);
+				lsn.put("next_path", i==rows.size()-1 ? "" : rows.get(i+1)[INDEX_PATH]);
+				Boolean addLessonFlag = true;
+				if(tags.length() > 0 && !tagLsn.lessonHasTag(rows.get(i)[0], tags)) addLessonFlag = false; 
+				if(addLessonFlag) lessons.put(lsn);
+				if(i == rows.size()-1) lessonsNeedingNextPath.add(lsn);
+				if(i == 0) nextPaths.add(tmpLesson.getFieldValue("trnLsnFrontPath"));
+				
+			} catch(Exception e){
+				AppLog.error(getClass(), "getLessons2", "error getting front-oriented cat", e, g());
+			}
 		}
 		if(rows.size() > 0) 
 			previousLesson = rows.get(rows.size()-1)[INDEX_PATH];

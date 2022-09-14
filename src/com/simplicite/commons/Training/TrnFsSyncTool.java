@@ -4,6 +4,7 @@ import java.util.*;
 
 import com.google.gson.JsonArray;
 import com.simplicite.objects.Training.TrnCategory;
+import com.simplicite.objects.Training.TrnTagLsn;
 import com.simplicite.util.*;
 import com.simplicite.util.exceptions.*;
 import com.simplicite.util.exceptions.IOException;
@@ -33,7 +34,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	private final String[] LANG_CODES;
 	private final String DEFAULT_LANG_CODE;
 	
-	private ObjectDB category, categoryContent, lesson, lessonContent, picture, tag, tagLsn, translateTag;
+	private ObjectDB category, categoryContent, lesson, lessonContent, picture, tag, translateTag;
 	
 	private HashMap<String, String> hashStore;
 	private ArrayList<String> foundPaths;
@@ -301,7 +302,6 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		lessonContent = g.getObject("sync_TrnLsnTranslate", "TrnLsnTranslate");
 		picture = g.getObject("sync_TrnPicture", "TrnPicture");
 		tag = g.getObject("sync_TrnTag", "TrnTag");
-		tagLsn = g.getObject("sync_TrnTagLsn", "TrnTagLsn");
 		translateTag = g.getObject("sync_TrnTagTranslate", "TrnTagTranslate");
 	}
 	
@@ -516,7 +516,8 @@ public class TrnFsSyncTool implements java.io.Serializable {
 				rowId = lesson.getRowId();
 			}
 
-			// create tag N-N lesson if tag exists and if association does not already exist 
+			// create tag N-N lesson if tag exists and if association does not already exist
+			TrnTagLsn tagLsn = (TrnTagLsn) g.getObject("tree_TrnTagLsn", "TrnTagLsn");
 			bot = new BusinessObjectTool(tagLsn);
 			JSONArray tags = json.optJSONArray("tags");
 			if(!Tool.isEmpty(tags) && tags != null) {
@@ -524,7 +525,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 					String tagCode = tags.getString(i);
 					String tagRowId = getTagRowIdFromCode(tagCode);
 					if(Tool.isEmpty(tagRowId)) throw new TrnSyncException("TRN_SYNC_UPSERT_TAG_LSN", "tag does not exist" + tagCode);
-					String tagLsnRowId = TrnTagLsn.getTagLsnRowId(tagCode, relativePath);
+					String tagLsnRowId = tagLsn.getTagLsnRowId(tagCode, relativePath);
 					if(Tool.isEmpty(tagLsnRowId)) {
 						bot.selectForCreate();
 						tagLsn.setFieldValue("trnTaglsnLsnId", rowId);
