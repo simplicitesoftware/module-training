@@ -205,6 +205,12 @@ Translation of tag object.
 
 
 
+`TrnTagService` external object definition
+------------------------------------------
+
+sends a JSON containing tags and theirs traduction in the current front langage
+
+
 `TrnTreeService` external object definition
 -------------------------------------------
 

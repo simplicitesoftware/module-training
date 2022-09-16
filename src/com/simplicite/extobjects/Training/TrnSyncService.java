@@ -3,7 +3,7 @@ package com.simplicite.extobjects.Training;
 import java.util.*;
 import com.simplicite.util.*;
 import com.simplicite.util.tools.*;
-import com.simplicite.webapp.services.RESTServiceExternalObject ;
+import com.simplicite.webapp.services.RESTServiceExternalObject;
 import com.simplicite.commons.Training.TrnFsSyncTool;
 
 /**
