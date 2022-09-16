@@ -957,7 +957,7 @@ paths:
         required: false
       - in: query
         name: trnTaglangTagId__trnTagCode
-        description: Search filter for Tag Trn tag code
+        description: Search filter for Tag Code
         type: string
         required: false
       tags:
@@ -2210,7 +2210,7 @@ paths:
         required: false
       - in: query
         name: trnTagCode
-        description: Search filter for Trn tag code
+        description: Search filter for Code
         type: string
         required: false
       tags:
@@ -2260,7 +2260,7 @@ paths:
         required: false
       - in: query
         name: trnTaglsnTagId__trnTagCode
-        description: Search filter for Trn taglsn tag id Trn tag code
+        description: Search filter for Code
         type: string
         required: false
       - in: query
@@ -2270,7 +2270,7 @@ paths:
         required: false
       - in: query
         name: trnTaglsnLsnId__trnLsnPath
-        description: Search filter for Trn taglsn lsn id Path
+        description: Search filter for Path
         type: string
         required: false
       tags:
@@ -2327,7 +2327,7 @@ definitions:
         description: Traduction content
         type: string
       trnTaglangTagId__trnTagCode:
-        description: Tag Trn tag code
+        description: Tag Code
         type: string
       trnTaglangTagId:
         description: Tag
@@ -2574,13 +2574,13 @@ definitions:
     type: object
     properties:
       trnTaglsnLsnId__trnLsnPath:
-        description: Trn taglsn lsn id Path
+        description: Path
         type: string
       trnTaglsnTagId:
         description: Trn taglsn tag id
         type: string
       trnTaglsnTagId__trnTagCode:
-        description: Trn taglsn tag id Trn tag code
+        description: Code
         type: string
       row_id:
         description: Unique technical row ID
@@ -2592,7 +2592,7 @@ definitions:
     type: object
     properties:
       trnTagCode:
-        description: Trn tag code
+        description: Code
         type: string
       row_id:
         description: Unique technical row ID
@@ -2667,6 +2667,6 @@ tags:
 - name: TrnTag
   description: Tag
 - name: TrnTagLsn
-  description: TrnTagLsn
+  description: Tags
 - name: TrnTagTranslate
   description: Trn tag translate

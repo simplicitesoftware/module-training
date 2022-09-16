@@ -49,7 +49,7 @@ components:
           description: Traduction content
           type: string
         trnTaglangTagId__trnTagCode:
-          description: Tag Trn tag code
+          description: Tag Code
           type: string
         trnTaglangTagId:
           description: Tag
@@ -296,13 +296,13 @@ components:
       type: object
       properties:
         trnTaglsnLsnId__trnLsnPath:
-          description: Trn taglsn lsn id Path
+          description: Path
           type: string
         trnTaglsnTagId:
           description: Trn taglsn tag id
           type: string
         trnTaglsnTagId__trnTagCode:
-          description: Trn taglsn tag id Trn tag code
+          description: Code
           type: string
         row_id:
           description: Unique technical row ID
@@ -314,7 +314,7 @@ components:
       type: object
       properties:
         trnTagCode:
-          description: Trn tag code
+          description: Code
           type: string
         row_id:
           description: Unique technical row ID
@@ -1509,7 +1509,7 @@ paths:
           type: string
         in: query
         name: trnTaglangTagId__trnTagCode
-        description: Search filter for Tag Trn tag code
+        description: Search filter for Tag Code
         required: false
       tags:
       - TrnTagTranslate
@@ -3009,7 +3009,7 @@ paths:
           type: string
         in: query
         name: trnTagCode
-        description: Search filter for Trn tag code
+        description: Search filter for Code
         required: false
       tags:
       - TrnTag
@@ -3068,7 +3068,7 @@ paths:
           type: string
         in: query
         name: trnTaglsnTagId__trnTagCode
-        description: Search filter for Trn taglsn tag id Trn tag code
+        description: Search filter for Code
         required: false
       - schema:
           type: string
@@ -3080,7 +3080,7 @@ paths:
           type: string
         in: query
         name: trnTaglsnLsnId__trnLsnPath
-        description: Search filter for Trn taglsn lsn id Path
+        description: Search filter for Path
         required: false
       tags:
       - TrnTagLsn
@@ -3111,6 +3111,6 @@ tags:
 - name: TrnTag
   description: Tag
 - name: TrnTagLsn
-  description: TrnTagLsn
+  description: Tags
 - name: TrnTagTranslate
   description: Trn tag translate

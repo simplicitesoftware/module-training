@@ -1,11 +1,11 @@
 {
-    "date": "2022-09-14 10:57:06",
+    "date": "2022-09-16 11:16:51",
     "name": "Training",
     "format": "json",
     "files": ["Training.json"],
     "repository": {"origin": {
         "uri": "https://github.com/simplicitesoftware/module-training.git",
-        "branch": "tag_implementation"
+        "branch": "master"
     }},
     "version": "2.8",
     "platform": "5.2.14"
