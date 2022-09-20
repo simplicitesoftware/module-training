@@ -178,6 +178,20 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		for(File child : dir.listFiles())
 			if(!isCategory(child) && !child.getName().equals("tags.json"))
 				throw new TrnSyncException("TRN_SYNC_ROOT_NON_CONFORMITY", child);
+			else if (child.getName().equals("tags.json")) {
+				// check if tags.json has a correct structure
+				try {
+					JSONArray tags = new JSONArray(FileTool.readFile(dir.getPath()+"/tags.json"));
+					for(int i = 0; i < tags.length(); i++) {
+						JSONObject tag = tags.getJSONObject(i);
+						if(Tool.isEmpty(tag.getString("code")) && Tool.isEmpty(tag.getJSONObject("translation"))) {
+							throw new Exception();
+						}
+					}
+				} catch(Exception e) {
+					throw new TrnSyncException("TRN_SYNC_ROOT_TAGS_JSON_NON_CONFORMITY", dir);
+				}
+			}
 	}
 	
 	private void validateCategoryContent(File dir) throws TrnSyncException{
