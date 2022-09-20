@@ -238,7 +238,7 @@
        "field": "obo_script_id",
        "mime": "text/plain",
        "name": "TrnCategory.java",
-       "id": "5879",
+       "id": "6199",
        "object": "ObjectInternal",
        "rowid": "2005"
       },
@@ -1549,7 +1549,7 @@
        "field": "obo_script_id",
        "mime": "text/plain",
        "name": "TrnCategoryTranslate.java",
-       "id": "5880",
+       "id": "6194",
        "object": "ObjectInternal",
        "rowid": "2006"
       },
@@ -2225,7 +2225,7 @@
        "field": "obo_script_id",
        "mime": "text/plain",
        "name": "TrnLesson.java",
-       "id": "5881",
+       "id": "6195",
        "object": "ObjectInternal",
        "rowid": "2007"
       },
@@ -3428,7 +3428,7 @@
        "field": "obo_script_id",
        "mime": "text/plain",
        "name": "TrnLsnTranslate.java",
-       "id": "5882",
+       "id": "6196",
        "object": "ObjectInternal",
        "rowid": "2008"
       },
@@ -4640,7 +4640,7 @@
        "field": "obo_script_id",
        "mime": "text/plain",
        "name": "TrnPicture.java",
-       "id": "5883",
+       "id": "6198",
        "object": "ObjectInternal",
        "rowid": "2009"
       },
@@ -5783,11 +5783,11 @@
       "obo_class": null,
       "obo_script_id": {
        "path": "src/com/simplicite/objects/Training/TrnTag.java",
-       "size": 1130,
+       "size": 1173,
        "field": "obo_script_id",
        "mime": "text/plain",
        "name": "TrnTag.java",
-       "id": "6090",
+       "id": "6215",
        "object": "ObjectInternal",
        "rowid": "2011"
       },
@@ -5870,7 +5870,7 @@
           "tsl_typeObject": "O",
           "tsl_id__obo_name": "TrnTag",
           "tsl_lang": "ENU",
-          "tsl_value": "Tag",
+          "tsl_value": "Tags",
           "tsl_help": null,
           "row_module_id__mdl_name": "Training"
          }
@@ -5882,7 +5882,7 @@
           "tsl_typeObject": "O",
           "tsl_id__obo_name": "TrnTag",
           "tsl_lang": "FRA",
-          "tsl_value": "Tag",
+          "tsl_value": "Tags",
           "tsl_help": null,
           "row_module_id__mdl_name": "Training"
          }
@@ -6165,11 +6165,11 @@
       "obo_class": null,
       "obo_script_id": {
        "path": "src/com/simplicite/objects/Training/TrnTagLsn.java",
-       "size": 1011,
+       "size": 1054,
        "field": "obo_script_id",
        "mime": "text/plain",
        "name": "TrnTagLsn.java",
-       "id": "5884",
+       "id": "6217",
        "object": "ObjectInternal",
        "rowid": "2012"
       },
@@ -6194,11 +6194,7 @@
       "obo_updall": true,
       "obo_delall": true,
       "obo_listsearch": true,
-      "obo_list_edit": [
-       "N",
-       "L",
-       "E"
-      ],
+      "obo_list_edit": ["N"],
       "obo_useform": true,
       "obo_title": null,
       "obo_icon": "img/color/tag_window",
@@ -6596,23 +6592,42 @@
           "label": "Object field translation",
           "icon": "img/system/translation",
           "field": "tsl_id",
-          "list": [{
-           "object": "TranslateObjectField",
-           "userkey": "L~TrnTagLsn~trnLsnPath~210~ENU",
-           "item": {
-            "tsl_typeObjectField": "L",
-            "tsl_id__obf_object_id__obo_name": "TrnTagLsn",
-            "tsl_id__obf_field_id__fld_name": "trnLsnPath",
-            "tsl_id__obf_order": 210,
-            "tsl_lang": "ENU",
-            "tsl_value": "Path",
-            "tsl_simplehelp": null,
-            "tsl_short_value": null,
-            "tsl_listhelp": null,
-            "tsl_placeholder": null,
-            "row_module_id__mdl_name": "Training"
+          "list": [
+           {
+            "object": "TranslateObjectField",
+            "userkey": "L~TrnTagLsn~trnLsnPath~210~ENU",
+            "item": {
+             "tsl_typeObjectField": "L",
+             "tsl_id__obf_object_id__obo_name": "TrnTagLsn",
+             "tsl_id__obf_field_id__fld_name": "trnLsnPath",
+             "tsl_id__obf_order": 210,
+             "tsl_lang": "ENU",
+             "tsl_value": "Path",
+             "tsl_simplehelp": null,
+             "tsl_short_value": null,
+             "tsl_listhelp": null,
+             "tsl_placeholder": null,
+             "row_module_id__mdl_name": "Training"
+            }
+           },
+           {
+            "object": "TranslateObjectField",
+            "userkey": "L~TrnTagLsn~trnLsnPath~210~FRA",
+            "item": {
+             "tsl_typeObjectField": "L",
+             "tsl_id__obf_object_id__obo_name": "TrnTagLsn",
+             "tsl_id__obf_field_id__fld_name": "trnLsnPath",
+             "tsl_id__obf_order": 210,
+             "tsl_lang": "FRA",
+             "tsl_value": "Chemin",
+             "tsl_simplehelp": null,
+             "tsl_short_value": null,
+             "tsl_listhelp": null,
+             "tsl_placeholder": null,
+             "row_module_id__mdl_name": "Training"
+            }
            }
-          }]
+          ]
          }]
         }
        ]
@@ -6701,7 +6716,16 @@
       "obo_dbtable": "trn_tag_translate",
       "obo_role": "OBJ",
       "obo_class": null,
-      "obo_script_id": null,
+      "obo_script_id": {
+       "path": "src/com/simplicite/objects/Training/TrnTagTranslate.java",
+       "size": 357,
+       "field": "obo_script_id",
+       "mime": "text/plain",
+       "name": "TrnTagTranslate.java",
+       "id": "6265",
+       "object": "ObjectInternal",
+       "rowid": "2013"
+      },
       "obo_usets": "1",
       "obo_nosearch": "1",
       "obo_comment": "Translation of tag object.",
@@ -6723,14 +6747,10 @@
       "obo_updall": true,
       "obo_delall": true,
       "obo_listsearch": true,
-      "obo_list_edit": [
-       "N",
-       "L",
-       "E"
-      ],
+      "obo_list_edit": ["N"],
       "obo_useform": true,
       "obo_title": null,
-      "obo_icon": null,
+      "obo_icon": "img/system/translation",
       "obo_refcount": false,
       "obo_tree": false,
       "obo_viewmode": "T",
@@ -6781,7 +6801,7 @@
           "tsl_typeObject": "O",
           "tsl_id__obo_name": "TrnTagTranslate",
           "tsl_lang": "ENU",
-          "tsl_value": "Trn tag translate",
+          "tsl_value": "Translations",
           "tsl_help": null,
           "row_module_id__mdl_name": "Training"
          }
@@ -6793,7 +6813,7 @@
           "tsl_typeObject": "O",
           "tsl_id__obo_name": "TrnTagTranslate",
           "tsl_lang": "FRA",
-          "tsl_value": "Trn tag translate",
+          "tsl_value": "Traductions",
           "tsl_help": null,
           "row_module_id__mdl_name": "Training"
          }
@@ -6896,7 +6916,7 @@
                "tsl_typeField": "F",
                "tsl_id__fld_name": "trnTagTranslateLang",
                "tsl_lang": "ENU",
-               "tsl_value": "Trn tag translate lang",
+               "tsl_value": "Language",
                "tsl_simplehelp": null,
                "tsl_short_value": null,
                "tsl_placeholder": null,
@@ -6912,7 +6932,7 @@
                "tsl_typeField": "F",
                "tsl_id__fld_name": "trnTagTranslateLang",
                "tsl_lang": "FRA",
-               "tsl_value": "Trn tag translate lang",
+               "tsl_value": "Langue",
                "tsl_simplehelp": null,
                "tsl_short_value": null,
                "tsl_placeholder": null,
@@ -7016,7 +7036,7 @@
                "tsl_typeField": "F",
                "tsl_id__fld_name": "trnTagTranslateTrad",
                "tsl_lang": "ENU",
-               "tsl_value": "Trn tag translate trad",
+               "tsl_value": "Traduction",
                "tsl_simplehelp": null,
                "tsl_short_value": null,
                "tsl_placeholder": null,
@@ -7032,7 +7052,7 @@
                "tsl_typeField": "F",
                "tsl_id__fld_name": "trnTagTranslateTrad",
                "tsl_lang": "FRA",
-               "tsl_value": "Trn tag translate trad",
+               "tsl_value": "Traduction",
                "tsl_simplehelp": null,
                "tsl_short_value": null,
                "tsl_placeholder": null,
@@ -7301,7 +7321,7 @@
        "field": "obe_script_id",
        "mime": "text/plain",
        "name": "TrnFront.java",
-       "id": "5876",
+       "id": "6190",
        "object": "ObjectExternal",
        "rowid": "2002"
       },
@@ -7398,7 +7418,7 @@
        "field": "obe_script_id",
        "mime": "text/plain",
        "name": "TrnSyncService.java",
-       "id": "6056",
+       "id": "6192",
        "object": "ObjectExternal",
        "rowid": "2003"
       },
@@ -7495,7 +7515,7 @@
        "field": "obe_script_id",
        "mime": "text/plain",
        "name": "TrnTagService.java",
-       "id": "6089",
+       "id": "6193",
        "object": "ObjectExternal",
        "rowid": "2014"
       },
@@ -7592,7 +7612,7 @@
        "field": "obe_script_id",
        "mime": "text/plain",
        "name": "TrnTreeService.java",
-       "id": "5878",
+       "id": "6191",
        "object": "ObjectExternal",
        "rowid": "2004"
       },
@@ -7792,6 +7812,18 @@
          "map_object_id__obj_name": "TrnLesson",
          "map_process_id__pcs_name": null,
          "map_order": 200,
+         "map_ext": false,
+         "row_module_id__mdl_name": "Training"
+        }
+       },
+       {
+        "object": "Map",
+        "userkey": "TrnDomain~300",
+        "item": {
+         "map_domain_id__obd_name": "TrnDomain",
+         "map_object_id__obj_name": "TrnTag",
+         "map_process_id__pcs_name": null,
+         "map_order": 300,
          "map_ext": false,
          "row_module_id__mdl_name": "Training"
         }
@@ -10089,7 +10121,7 @@
       "field": "res_file",
       "mime": "application/zip",
       "name": "SITE.zip",
-      "id": "5885",
+      "id": "6201",
       "object": "Resource",
       "rowid": "276"
      },
@@ -10116,7 +10148,7 @@
       "field": "mod_doc",
       "mime": "image/svg+xml",
       "name": "TrainingModel.svg",
-      "id": "5874",
+      "id": "6188",
       "object": "Model",
       "rowid": "9"
      },
@@ -10127,7 +10159,7 @@
       "field": "mod_image",
       "mime": "image/png",
       "name": "TrainingModel.png",
-      "id": "5875",
+      "id": "6189",
       "object": "Model",
       "rowid": "9"
      },
@@ -10155,7 +10187,7 @@
       "field": "adp_script_id",
       "mime": "text/plain",
       "name": "TrainingContentAdapter.java",
-      "id": "5886",
+      "id": "6202",
       "object": "Adapter",
       "rowid": "14"
      },
@@ -10180,7 +10212,7 @@
        "field": "scr_file",
        "mime": "text/plain",
        "name": "TrnTools.java",
-       "id": "5887",
+       "id": "6209",
        "object": "Script",
        "rowid": "3"
       },
@@ -10199,7 +10231,7 @@
        "field": "scr_file",
        "mime": "text/plain",
        "name": "TrnFsSyncTool.java",
-       "id": "5888",
+       "id": "6208",
        "object": "Script",
        "rowid": "4"
       },
@@ -10218,7 +10250,7 @@
        "field": "scr_file",
        "mime": "text/plain",
        "name": "TrnTests.java",
-       "id": "5889",
+       "id": "6205",
        "object": "Script",
        "rowid": "5"
       },
@@ -10237,7 +10269,7 @@
        "field": "scr_file",
        "mime": "text/plain",
        "name": "TrnObject.java",
-       "id": "5890",
+       "id": "6207",
        "object": "Script",
        "rowid": "6"
       },
@@ -10256,7 +10288,7 @@
        "field": "scr_file",
        "mime": "text/plain",
        "name": "TrnIndexer.java",
-       "id": "5891",
+       "id": "6204",
        "object": "Script",
        "rowid": "7"
       },
@@ -10275,7 +10307,7 @@
        "field": "scr_file",
        "mime": "text/plain",
        "name": "MarkdownTool2.java",
-       "id": "5892",
+       "id": "6203",
        "object": "Script",
        "rowid": "8"
       },
@@ -10294,7 +10326,7 @@
        "field": "scr_file",
        "mime": "text/plain",
        "name": "TrnTestMarkdownTool2.java",
-       "id": "5893",
+       "id": "6206",
        "object": "Script",
        "rowid": "9"
       },
@@ -10459,7 +10491,7 @@
        "field": "dt_file",
        "mime": "text/xml",
        "name": "Technical-passwords.xml",
-       "id": "5894",
+       "id": "6212",
        "object": "Dataset",
        "rowid": "1"
       },
@@ -10478,7 +10510,7 @@
        "field": "dt_file",
        "mime": "application/zip",
        "name": "Training-data-20200227110539.zip",
-       "id": "5895",
+       "id": "6210",
        "object": "Dataset",
        "rowid": "2"
       },
@@ -10497,7 +10529,7 @@
        "field": "dt_file",
        "mime": "text/xml",
        "name": "trigger-forceDirSync.xml",
-       "id": "5896",
+       "id": "6211",
        "object": "Dataset",
        "rowid": "3"
       },

@@ -39,7 +39,7 @@ components:
       type: object
       properties:
         trnTagTranslateLang:
-          description: Trn tag translate lang
+          description: Language
           type: string
           enum:
           - ANY
@@ -1491,7 +1491,7 @@ paths:
           - FRA
         in: query
         name: trnTagTranslateLang
-        description: Search filter for Trn tag translate lang
+        description: Search filter for Language
         required: false
       - schema:
           type: string
@@ -3109,8 +3109,8 @@ tags:
 - name: TrnSiteContent
   description: Site Contents
 - name: TrnTag
-  description: Tag
+  description: Tags
 - name: TrnTagLsn
   description: Tags
 - name: TrnTagTranslate
-  description: Trn tag translate
+  description: Translations

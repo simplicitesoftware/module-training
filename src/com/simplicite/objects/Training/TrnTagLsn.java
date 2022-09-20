@@ -5,13 +5,14 @@ import java.util.*;
 import com.simplicite.util.*;
 import com.simplicite.util.exceptions.*;
 import com.simplicite.util.tools.*;
+import com.simplicite.commons.Training.*;
 import org.json.JSONArray;
 
 
 /**
  * Business object TrnTagLsn
  */
-public class TrnTagLsn extends ObjectDB {
+public class TrnTagLsn extends TrnObject {
 	private static final long serialVersionUID = 1L;
 	
 	public Boolean lessonHasTag(String lsn_row_id, JSONArray tags) {

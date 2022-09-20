@@ -938,7 +938,7 @@ paths:
         required: false
       - in: query
         name: trnTagTranslateLang
-        description: Search filter for Trn tag translate lang
+        description: Search filter for Language
         type: string
         required: false
         enum:
@@ -2317,7 +2317,7 @@ definitions:
     type: object
     properties:
       trnTagTranslateLang:
-        description: Trn tag translate lang
+        description: Language
         type: string
         enum:
         - ANY
@@ -2665,8 +2665,8 @@ tags:
 - name: TrnSiteContent
   description: Site Contents
 - name: TrnTag
-  description: Tag
+  description: Tags
 - name: TrnTagLsn
   description: Tags
 - name: TrnTagTranslate
-  description: Trn tag translate
+  description: Translations

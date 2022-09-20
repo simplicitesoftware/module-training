@@ -5,12 +5,13 @@ import java.util.*;
 import com.simplicite.util.*;
 import com.simplicite.util.exceptions.*;
 import com.simplicite.util.tools.*;
+import com.simplicite.commons.Training.*;
 import org.json.*;
 
 /**
  * Business object TrnTag
  */
-public class TrnTag extends ObjectDB {
+public class TrnTag extends TrnObject {
 	private static final long serialVersionUID = 1L;
 	
 	public JSONObject getTagForFront(String lang) throws Exception {
