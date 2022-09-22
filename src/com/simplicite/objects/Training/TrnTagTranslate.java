@@ -12,4 +12,15 @@ import com.simplicite.util.tools.*;
  */
 public class TrnTagTranslate extends TrnObject {
 	private static final long serialVersionUID = 1L;
+
+	public List<String[]> getTranslatesFromTagId(String tag_id) {	
+		List<String[]> res = new ArrayList<>();
+		ObjectDB tagTranslate = getGrant().getTmpObject("TrnTagTranslate");
+		synchronized(tagTranslate){
+			tagTranslate.resetFilters();
+			tagTranslate.setFieldFilter("trnTaglangTagId", tag_id);
+			res = tagTranslate.search();
+		}
+		return res;
+	}
 }

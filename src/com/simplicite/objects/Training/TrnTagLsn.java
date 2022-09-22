@@ -27,8 +27,8 @@ public class TrnTagLsn extends TrnObject {
 		return hasTag;
 	}
 	
-	public String getTagLsnRowId(String code, String lsnPath) {
-		if(Tool.isEmpty(code) || Tool.isEmpty(lsnPath)) return "";
-		return getGrant().simpleQuery("select row_id from trn_tag_lsn where trn_tag_code='"+code+"' AND trn_lsn_path='"+lsnPath+"'");
+	public String getTagLsnRowId(String tagId, String lsnId) {
+		if(Tool.isEmpty(tagId) || Tool.isEmpty(lsnId)) return "";
+		return getGrant().simpleQuery("select row_id from trn_tag_lsn where trn_taglsn_tag_id='"+tagId+"' AND trn_taglsn_lsn_id='"+lsnId+"'");
 	}
 }
