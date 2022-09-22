@@ -1872,6 +1872,11 @@ paths:
         description: Search filter for Category Path
         type: string
         required: false
+      - in: query
+        name: trnTagLsnVirtual
+        description: Search filter for Trn tag lsn virtual
+        type: string
+        required: false
       tags:
       - TrnLesson
   /rest/TrnLsnTranslate:
@@ -2209,6 +2214,11 @@ paths:
         type: boolean
         required: false
       - in: query
+        name: _indexsearch
+        description: Index search query
+        type: string
+        required: false
+      - in: query
         name: trnTagCode
         description: Search filter for Code
         type: string
@@ -2540,6 +2550,9 @@ definitions:
         enum:
         - TUTO
         - LINEAR
+      trnTagLsnVirtual:
+        description: Trn tag lsn virtual
+        type: string
       trnLsnPublish:
         description: Determines if the lesson is visible on the front-end application.
         type: boolean

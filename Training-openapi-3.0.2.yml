@@ -262,6 +262,9 @@ components:
           enum:
           - TUTO
           - LINEAR
+        trnTagLsnVirtual:
+          description: Trn tag lsn virtual
+          type: string
         trnLsnPublish:
           description: Determines if the lesson is visible on the front-end application.
           type: boolean
@@ -2603,6 +2606,12 @@ paths:
         name: trnLsnCatId__trnCatPath
         description: Search filter for Category Path
         required: false
+      - schema:
+          type: string
+        in: query
+        name: trnTagLsnVirtual
+        description: Search filter for Trn tag lsn virtual
+        required: false
       tags:
       - TrnLesson
   /rest/TrnLsnTranslate:
@@ -3004,6 +3013,12 @@ paths:
         in: query
         name: _doc
         description: Documentation?
+        required: false
+      - schema:
+          type: string
+        in: query
+        name: _indexsearch
+        description: Index search query
         required: false
       - schema:
           type: string

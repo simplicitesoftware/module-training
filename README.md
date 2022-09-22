@@ -93,6 +93,7 @@ The lesson object for the training, that will hold the content of a lesson.
 | `trnLsnFrontPath`                                            | text(400)                                |          |           |          | -                                                                                |
 | `trnLsnCatId` link to **`TrnCategory`**                      | id                                       | yes      | yes       |          | -                                                                                |
 | _Ref. `trnLsnCatId.trnCatPath`_                              | _text(400)_                              |          |           |          | -                                                                                |
+| `trnTagLsnVirtual` link to **`TrnTag`**                      | id                                       |          | yes       |          | -                                                                                |
 
 ### Lists
 
