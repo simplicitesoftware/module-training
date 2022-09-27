@@ -10,7 +10,7 @@ import java.io.IOException;
  */
 public class TrnFront extends com.simplicite.webapp.web.StaticSiteExternalObject {
 	private static final long serialVersionUID = 1L;
-	private static final String NOT_FOUND = "notfound.html";
+	private static final String NOT_FOUND = "index.html";
 
 	@Override
 	public Object notfound(Parameters params)
