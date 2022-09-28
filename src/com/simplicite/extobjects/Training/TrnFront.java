@@ -1,10 +1,8 @@
 package com.simplicite.extobjects.Training;
 
-import java.util.*;
 import com.simplicite.util.*;
 import com.simplicite.util.tools.*;
 import java.io.IOException;
-
 /**
  * External object TrnFront
  */

@@ -37,6 +37,11 @@ public class TrnObject extends ObjectDB {
 	public boolean isUpdateEnable(String[] row) {
 		return isChangeEnable();
 	}
+	
+	@Override
+	public boolean isDeleteEnable(String[] row) {
+		return isChangeEnable();
+	}
 
 	private boolean isChangeEnable(){
 		return TrnTools.isUiMode() || isSyncInstance();

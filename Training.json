@@ -60,7 +60,7 @@
       "usr_menu": true,
       "usr_menu_defcollapsed": false,
       "usr_menu_defdomain_id__obd_name": null,
-      "usr_last_logon": "2022-09-27 10:12:05",
+      "usr_last_logon": "2022-09-28 11:13:12",
       "usr_dateformat": null,
       "usr_lang_pref": "FRA",
       "usr_mfa_method": null,
@@ -7372,7 +7372,7 @@
       "obe_class": null,
       "obe_script_id": {
        "path": "src/com/simplicite/extobjects/Training/TrnFront.java",
-       "size": 760,
+       "size": 739,
        "field": "obe_script_id",
        "mime": "text/plain",
        "name": "TrnFront.java",
@@ -7566,7 +7566,7 @@
       "obe_class": null,
       "obe_script_id": {
        "path": "src/com/simplicite/extobjects/Training/TrnTagService.java",
-       "size": 1464,
+       "size": 1402,
        "field": "obe_script_id",
        "mime": "text/plain",
        "name": "TrnTagService.java",
@@ -10306,11 +10306,11 @@
      "res_cached": false,
      "res_file": {
       "path": "resources/ObjectExternal/TrnFront/SITE.zip",
-      "size": 2337985,
+      "size": 2338919,
       "field": "res_file",
       "mime": "application/zip",
       "name": "site.zip",
-      "id": "7340",
+      "id": "7527",
       "object": "Resource",
       "rowid": "277"
      },
@@ -10366,13 +10366,13 @@
     "userkey": "TrainingContentAdapter",
     "item": {
      "adp_name": "TrainingContentAdapter",
-     "adp_atomic": false,
+     "adp_atomic": true,
      "adp_type": "JAVA",
      "adp_script": null,
      "adp_class": null,
      "adp_script_id": {
       "path": "src/com/simplicite/adapters/Training/TrainingContentAdapter.java",
-      "size": 16101,
+      "size": 16070,
       "field": "adp_script_id",
       "mime": "text/plain",
       "name": "TrainingContentAdapter.java",
@@ -10454,11 +10454,11 @@
       "scr_code": "TrnObject",
       "scr_file": {
        "path": "src/com/simplicite/commons/Training/TrnObject.java",
-       "size": 1057,
+       "size": 1147,
        "field": "scr_file",
        "mime": "text/plain",
        "name": "TrnObject.java",
-       "id": "7329",
+       "id": "7530",
        "object": "Script",
        "rowid": "6"
       },
