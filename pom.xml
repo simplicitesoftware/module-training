@@ -13,7 +13,7 @@ ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
   <description>Simplicite module: Training</description>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <simplicite.url>https://trainingrec.dev.simplicite.io</simplicite.url>
+    <simplicite.url>http://localhost:8080</simplicite.url>
     <simplicite.version>5.2-SNAPSHOT</simplicite.version>
     <maven.compiler.source>11</maven.compiler.source>
     <maven.compiler.target>11</maven.compiler.target>
@@ -89,7 +89,7 @@ ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
     <dependency>
       <groupId>com.simplicite.modules</groupId>
       <artifactId>ElasticSearchIndexer</artifactId>
-      <version>1-SNAPSHOT</version>
+      <version>0-SNAPSHOT</version>
     </dependency>
   </dependencies>
 </project>
