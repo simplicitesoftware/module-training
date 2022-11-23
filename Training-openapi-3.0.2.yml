@@ -569,6 +569,53 @@ paths:
         required: true
       tags:
       - TrnCategoryTranslate
+  /rest/TrnCategory/{row_id}/action:forceDirSync:
+    get:
+      summary: Call a custom action for a TrnCategory business object record or for
+        all records
+      security:
+      - bearerAuth: []
+      operationId: obj-trncategory-action-forcedirsync
+      responses:
+        '200':
+          description: Success in calling the custom action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActionResult'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error400'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        required: true
+      tags:
+      - TrnCategory
   /login:
     get:
       summary: Login (obtain bearer token)
