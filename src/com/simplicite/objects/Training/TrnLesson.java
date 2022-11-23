@@ -17,6 +17,14 @@ public class TrnLesson extends TrnObject {
 	}
 
 	@Override
+	public void postLoad() {
+		super.postLoad();
+		if(getGrant().hasResponsibility("TRN_READ")){
+			setDefaultSearchSpec("t.trn_lsn_publish='1'");
+		}
+	}
+
+	@Override
 	public List<String> postValidate() {
 		if(!isSyncInstance())
 			setFieldValue("trnLsnPath", getPath());

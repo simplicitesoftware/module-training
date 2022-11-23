@@ -60,7 +60,7 @@
       "usr_menu": true,
       "usr_menu_defcollapsed": false,
       "usr_menu_defdomain_id__obd_name": null,
-      "usr_last_logon": "2022-11-22 16:34:21",
+      "usr_last_logon": "2022-11-23 14:22:25",
       "usr_dateformat": null,
       "usr_lang_pref": "FRA",
       "usr_mfa_method": null,
@@ -252,11 +252,11 @@
       "obo_class": null,
       "obo_script_id": {
        "path": "src/com/simplicite/objects/Training/TrnCategory.java",
-       "size": 4318,
+       "size": 4481,
        "field": "obo_script_id",
        "mime": "text/plain",
        "name": "TrnCategory.java",
-       "id": "7070",
+       "id": "7417",
        "object": "ObjectInternal",
        "rowid": "2006"
       },
@@ -2143,11 +2143,11 @@
       "obo_class": null,
       "obo_script_id": {
        "path": "src/com/simplicite/objects/Training/TrnLesson.java",
-       "size": 3039,
+       "size": 3202,
        "field": "obo_script_id",
        "mime": "text/plain",
        "name": "TrnLesson.java",
-       "id": "7077",
+       "id": "7433",
        "object": "ObjectInternal",
        "rowid": "2014"
       },

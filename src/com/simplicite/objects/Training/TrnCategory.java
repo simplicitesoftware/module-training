@@ -27,6 +27,14 @@ public class TrnCategory extends TrnObject {
 			
 		return msgs;
 	}
+
+	@Override
+	public void postLoad() {
+		super.postLoad();
+		if(getGrant().hasResponsibility("TRN_READ")){
+			setDefaultSearchSpec("t.trn_cat_publish='1'");
+		}
+	}
 	
 	@Override
 	public String getUserKeyLabel(String[] row) {
