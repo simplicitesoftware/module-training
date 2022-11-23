@@ -124,26 +124,6 @@
    }]
   },
   {
-   "object": "UserSysParam",
-   "label": "User parameter",
-   "icon": "img/system/system_param",
-   "field": "row_module_id",
-   "list": [{
-    "object": "UserSysParam",
-    "userkey": "training-front~DISPOSITION",
-    "item": {
-     "usp_user_id__usr_login": "training-front",
-     "usp_param_id__sys_code": "DISPOSITION",
-     "usp_value": null,
-     "usp_param_id__sys_type": "LFL",
-     "usp_param_id__sys_value": "default",
-     "usp_param_id__sys_value2": null,
-     "usp_param_id__sys_desc": "Webapp disposition, ex: default, myapp, ...",
-     "row_module_id__mdl_name": "Training"
-    }
-   }]
-  },
-  {
    "object": "Group",
    "label": "Groups",
    "icon": "img/system/group",
