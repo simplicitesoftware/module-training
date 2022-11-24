@@ -199,6 +199,12 @@ Translation of tag object.
 
 
 
+`TrnPublicService` external object definition
+---------------------------------------------
+
+
+
+
 `TrnSyncService` external object definition
 -------------------------------------------
 
