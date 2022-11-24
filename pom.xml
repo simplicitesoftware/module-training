@@ -86,10 +86,5 @@ ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
       <version>${simplicite.version}</version>
       <classifier>sources</classifier>
     </dependency>
-    <dependency>
-      <groupId>com.simplicite.modules</groupId>
-      <artifactId>ElasticSearchIndexer</artifactId>
-      <version>1-SNAPSHOT</version>
-    </dependency>
   </dependencies>
 </project>

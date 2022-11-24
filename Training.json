@@ -11,21 +11,6 @@
  },
  "links": [
   {
-   "object": "ModuleLink",
-   "label": "Dependency",
-   "icon": "img/system/module",
-   "field": "row_module_id",
-   "list": [{
-    "object": "ModuleLink",
-    "userkey": "ElasticSearchIndexer~Training",
-    "item": {
-     "mdk_parent_id__mdl_name": "ElasticSearchIndexer",
-     "row_module_id__mdl_name": "Training",
-     "mdk_cascad": "R"
-    }
-   }]
-  },
-  {
    "object": "User",
    "label": "Users",
    "icon": "img/system/user",
