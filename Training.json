@@ -15,80 +15,42 @@
    "label": "Users",
    "icon": "img/system/user",
    "field": "row_module_id",
-   "list": [
-    {
-     "object": "User",
-     "userkey": "training-front",
-     "item": {
-      "usr_image_id": null,
-      "usr_login": "training-front",
-      "usr_timezone": null,
-      "usr_minrows": 20,
-      "usr_maxrows": 50,
-      "usr_title": null,
-      "usr_first_name": null,
-      "usr_last_name": null,
-      "usr_lang": "FRA",
-      "usr_email": null,
-      "usr_work_num": null,
-      "usr_home_num": null,
-      "usr_cell_num": null,
-      "usr_active": "1",
-      "usr_home_id__viw_name": null,
-      "usr_address1": null,
-      "usr_address2": null,
-      "usr_zipcode": null,
-      "usr_city": null,
-      "usr_state": null,
-      "usr_country": null,
-      "row_module_id__mdl_name": "Training",
-      "usr_menu": true,
-      "usr_menu_defcollapsed": false,
-      "usr_menu_defdomain_id__obd_name": null,
-      "usr_last_logon": "2022-11-28 11:22:54",
-      "usr_dateformat": null,
-      "usr_lang_pref": "FRA",
-      "usr_mfa_method": null,
-      "usr_mfa_settings": {}
-     }
-    },
-    {
-     "object": "User",
-     "userkey": "training-sync",
-     "item": {
-      "usr_image_id": null,
-      "usr_login": "training-sync",
-      "usr_timezone": null,
-      "usr_minrows": 20,
-      "usr_maxrows": 50,
-      "usr_title": null,
-      "usr_first_name": null,
-      "usr_last_name": null,
-      "usr_lang": "FRA",
-      "usr_email": null,
-      "usr_work_num": null,
-      "usr_home_num": null,
-      "usr_cell_num": null,
-      "usr_active": "1",
-      "usr_home_id__viw_name": null,
-      "usr_address1": null,
-      "usr_address2": null,
-      "usr_zipcode": null,
-      "usr_city": null,
-      "usr_state": null,
-      "usr_country": null,
-      "row_module_id__mdl_name": "Training",
-      "usr_menu": true,
-      "usr_menu_defcollapsed": false,
-      "usr_menu_defdomain_id__obd_name": null,
-      "usr_last_logon": "2022-02-04 16:13:10",
-      "usr_dateformat": null,
-      "usr_lang_pref": "FRA",
-      "usr_mfa_method": null,
-      "usr_mfa_settings": {}
-     }
+   "list": [{
+    "object": "User",
+    "userkey": "training-sync",
+    "item": {
+     "usr_image_id": null,
+     "usr_login": "training-sync",
+     "usr_timezone": null,
+     "usr_minrows": 20,
+     "usr_maxrows": 50,
+     "usr_title": null,
+     "usr_first_name": null,
+     "usr_last_name": null,
+     "usr_lang": "FRA",
+     "usr_email": null,
+     "usr_work_num": null,
+     "usr_home_num": null,
+     "usr_cell_num": null,
+     "usr_active": "1",
+     "usr_home_id__viw_name": null,
+     "usr_address1": null,
+     "usr_address2": null,
+     "usr_zipcode": null,
+     "usr_city": null,
+     "usr_state": null,
+     "usr_country": null,
+     "row_module_id__mdl_name": "Training",
+     "usr_menu": true,
+     "usr_menu_defcollapsed": false,
+     "usr_menu_defdomain_id__obd_name": null,
+     "usr_last_logon": "2022-02-04 16:13:10",
+     "usr_dateformat": null,
+     "usr_lang_pref": "FRA",
+     "usr_mfa_method": null,
+     "usr_mfa_settings": {}
     }
-   ]
+   }]
   },
   {
    "object": "SystemParam",
@@ -127,50 +89,20 @@
    "label": "User parameter",
    "icon": "img/system/system_param",
    "field": "row_module_id",
-   "list": [
-    {
-     "object": "UserSysParam",
-     "userkey": "training-front~DISPOSITION",
-     "item": {
-      "usp_user_id__usr_login": "training-front",
-      "usp_param_id__sys_code": "DISPOSITION",
-      "usp_value": null,
-      "usp_param_id__sys_type": "LFL",
-      "usp_param_id__sys_value": "default",
-      "usp_param_id__sys_value2": null,
-      "usp_param_id__sys_desc": "Webapp disposition, ex: default, myapp, ...",
-      "row_module_id__mdl_name": "Training"
-     }
-    },
-    {
-     "object": "UserSysParam",
-     "userkey": "training-front~FORCE_CHANGE_PASSWORD",
-     "item": {
-      "usp_user_id__usr_login": "training-front",
-      "usp_param_id__sys_code": "FORCE_CHANGE_PASSWORD",
-      "usp_value": "yes",
-      "usp_param_id__sys_type": "PRV",
-      "usp_param_id__sys_value": "empty",
-      "usp_param_id__sys_value2": null,
-      "usp_param_id__sys_desc": "Force password change (set at user level)",
-      "row_module_id__mdl_name": "Training"
-     }
-    },
-    {
-     "object": "UserSysParam",
-     "userkey": "training-sync~FORCE_CHANGE_PASSWORD",
-     "item": {
-      "usp_user_id__usr_login": "training-sync",
-      "usp_param_id__sys_code": "FORCE_CHANGE_PASSWORD",
-      "usp_value": "yes",
-      "usp_param_id__sys_type": "PRV",
-      "usp_param_id__sys_value": "empty",
-      "usp_param_id__sys_value2": null,
-      "usp_param_id__sys_desc": "Force password change (set at user level)",
-      "row_module_id__mdl_name": "Training"
-     }
+   "list": [{
+    "object": "UserSysParam",
+    "userkey": "training-sync~FORCE_CHANGE_PASSWORD",
+    "item": {
+     "usp_user_id__usr_login": "training-sync",
+     "usp_param_id__sys_code": "FORCE_CHANGE_PASSWORD",
+     "usp_value": "yes",
+     "usp_param_id__sys_type": "PRV",
+     "usp_param_id__sys_value": "empty",
+     "usp_param_id__sys_value2": null,
+     "usp_param_id__sys_desc": "Force password change (set at user level)",
+     "row_module_id__mdl_name": "Training"
     }
-   ]
+   }]
   },
   {
    "object": "Group",
@@ -251,24 +183,6 @@
     "item": {
      "prf_profile_id__grp_name": "ADMIN",
      "prf_group_id__grp_name": "TRN_ADMIN",
-     "row_module_id__mdl_name": "Training"
-    }
-   }]
-  },
-  {
-   "object": "Responsability",
-   "label": "Responsibilities",
-   "icon": "img/system/responsability",
-   "field": "row_module_id",
-   "list": [{
-    "object": "Responsability",
-    "userkey": "training-front~PUBLIC~2022-11-28",
-    "item": {
-     "rsp_login_id__usr_login": "training-front",
-     "rsp_group_id__grp_name": "PUBLIC",
-     "rsp_start_dt": "2022-11-28",
-     "rsp_end_dt": null,
-     "rsp_activ": true,
      "row_module_id__mdl_name": "Training"
     }
    }]
@@ -10458,11 +10372,11 @@
      "res_cached": false,
      "res_file": {
       "path": "resources/ObjectExternal/TrnFront/SITE.zip",
-      "size": 2338919,
+      "size": 2339243,
       "field": "res_file",
       "mime": "application/zip",
-      "name": "SITE.zip",
-      "id": "8971",
+      "name": "site.zip",
+      "id": "9045",
       "object": "Resource",
       "rowid": "277"
      },
@@ -10847,11 +10761,11 @@
       "dt_name": "Technical-passwords",
       "dt_file": {
        "path": "data/Technical-passwords.xml",
-       "size": 579,
+       "size": 400,
        "field": "dt_file",
        "mime": "text/xml",
        "name": "Technical-passwords.xml",
-       "id": "8983",
+       "id": "9046",
        "object": "Dataset",
        "rowid": "4"
       },
