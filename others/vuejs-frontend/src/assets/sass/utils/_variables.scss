@@ -1,0 +1,64 @@
+//COLORS
+  //MAIN
+$color-primary: #20477a;
+$color-secondary: #387ED1;
+$color-accent: #399953;
+$light-grey: #eee;
+$color-information: #e6f4fa;
+$color-success: #e6fae7;
+$color-warning: #f5e5d5;
+$color-error: #ffc9c9;
+  //CODE
+$color-code-background: #F7F7F7;
+$color-code-regular-text: #4D515C;
+$color-code-keyword: blue;
+$color-code-string: darkred;
+$color-code-comment: purple;
+$color-code-tag: darkgreen;
+$color-code-attribute: darkblue;
+  //TREE
+$color-tree-hover: rgba(255, 255, 255, 0.3);
+$color-tree-active: black;
+  //SANDBOX FORM
+$color-invalid-email: red;
+$color-form-title: #2B2B2B;
+$color-form-background: white;
+$color-border-form-element: #999;
+$color-focus-form-element: black;
+$color-separator: #A2A2A2;
+
+//DURATIONS
+$duration-caret-rotation: 175ms;
+$duration-drawer-collapse: 0.3s;
+
+//WIDTHS
+$homepage-dividing-width: 50%;
+$drawer-width: 300px;
+$menu-icon-width: 35px;
+$menu-icon-height: 25px;
+$logo-height: 50px;
+$branding-width: 60%;
+
+//PADDING & MARGIN
+$content-padding: 40px;
+$regular-thickness: 1px;
+$breadcrumb-margin: 20px;
+$img-counter-margin: 10px;
+
+$paddings: (x-large: 30px, large: 20px, medium: 10px, small: 5px, x-small: 3px);
+$margins: (large: 40px, medium: 30px, small: 20px, x-small: 5px);
+$title-sizes: (x-large: 3rem, large: 2.4rem, medium: 2.2rem, small: 1.8rem, x-small: 1.2rem, xx-small: 1rem);
+$radius: (x-large: 30px, medium: 8px, regular: 4px);
+
+//SANDBOX FORM
+$color-invalid-email: red;
+$color-form-title: #2B2B2B;
+$color-form-background: white;
+$color-border-form-element: #999;
+$color-focus-form-element: black;
+$color-separator: #A2A2A2;
+$color-button-text: white;
+$width-sandbox-form: 70%;
+$width-sandbox-icon: 18px;
+$height-separator: 500px;
+$redirect-image-width: 50%;
