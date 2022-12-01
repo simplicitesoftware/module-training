@@ -27,7 +27,7 @@ Vue.use(vClickOutside);
 function setSimplicitePublicSession(){
   var deploymentType = process.env.NODE_ENV;
   //console.log('Deployment type: ' + deploymentType);
-  let instanceUrl = deploymentType === 'remote' ? process.env.VUE_APP_SIM_INSTANCE_URL : window.location.origin;
+  let instanceUrl = deploymentType === 'remote' || deploymentType === 'local' ? process.env.VUE_APP_SIM_INSTANCE_URL : window.location.origin;
   console.log('instance url : ' + instanceUrl);
 
   const cfg = { url: instanceUrl, debug: false };
