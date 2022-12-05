@@ -134,10 +134,16 @@
       if (!lesson)
         await this.$router.push('/404');
       else
-        await this.$store.dispatch("lesson/openLesson", {
+        this.$store.dispatch("lesson/openLesson", {
           smp: this.$smp,
           lesson: lesson
-        });
+        }).then(() => {
+          if(this.$route.hash) {
+            const id = this.$route.hash.replace('#', '');
+            const el = document.getElementById(id);
+            el.scrollIntoView();
+          }
+        })
     },
     mounted() {
       this.addScrollListeners();
