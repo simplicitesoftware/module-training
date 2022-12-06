@@ -73,11 +73,11 @@ export default {
       let parentIndex = 0;
       let path = "/" + parents[parentIndex];
       let foundCat = undefined;
-      
+
       const recursiveCat = function(path, cursor) {
         if(foundCat) return;
         if(path === cursor.path) {
-          if(parentIndex === parents.length - 2) {
+          if(parentIndex === parents.length - 1) {
             foundCat = cursor;
             return;
           } else {
@@ -88,8 +88,6 @@ export default {
             }
           }
         }
-        
-        
       }
       // call recursion
       for(const cat of state.tree) {

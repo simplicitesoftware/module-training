@@ -123,29 +123,7 @@
         if (this.visualizationMode === 'tutorial') this.visualizationMode = 'linear'
         else this.visualizationMode = 'tutorial'
       },
-    },
-    async created() {
-      let splittedRoute = this.$router.currentRoute.path.split("lesson");
-      let lessonPath = splittedRoute[1] ? splittedRoute[1] : "";
-      if(lessonPath.includes(".md")){
-        var mdLessonPath = lessonPath.split(".md");
-        lessonPath = mdLessonPath[0];
-      }
-      let lesson = this.getLessonFromPath(lessonPath);
-      if (!lesson) {
-        // test if path is from a category
-        const cat = this.isCategoryFromPath(lessonPath);
-        console.log(cat);
-        if(cat) {
-          // maybe display the first lesson of the category
-          await this.$router.push('/');
-          this.$store.commit("tree/OPEN_NODE", lessonPath);
-        } else {
-          // if no lesson / cat
-          await this.$router.push('/404');
-        }
-      }
-      else
+      openLesson(lesson) {
         this.$store.dispatch("lesson/openLesson", {
           smp: this.$smp,
           lesson: lesson
@@ -156,6 +134,38 @@
             el.scrollIntoView();
           }
         })
+      }
+    },
+    async created() {
+      let splittedRoute = this.$router.currentRoute.path.split("lesson");
+      let lessonPath = splittedRoute[1] ? splittedRoute[1] : "";
+      if(lessonPath.includes(".md")){
+        var mdLessonPath = lessonPath.split(".md");
+        lessonPath = mdLessonPath[0];
+      }
+      let lesson = this.getLessonFromPath(lessonPath);
+      console.log(lesson);
+      if (!lesson || lesson.is_category) {
+        // test if path is from a category
+        const cat = this.isCategoryFromPath(lessonPath);
+        
+        if(cat) {
+          console.log(cat);
+          if(cat.lessons.length > 0) {
+            lesson = this.getLessonFromPath(cat.lessons[0].path);
+            this.openLesson(lesson);
+          } else {
+            await this.$router.push('/');
+            this.$store.commit("tree/OPEN_NODE", cat.path);
+          }
+        } else {
+          // if no lesson / cat
+          await this.$router.push('/404');
+        }
+      }
+      else {
+        this.openLesson(lesson);
+      }
     },
     mounted() {
       this.addScrollListeners();
