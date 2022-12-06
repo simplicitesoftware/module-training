@@ -65,7 +65,38 @@ export default {
           }
         });
         return foundLsn;
+      },
+    isCategoryFromPath:
+      state => catPath => {
+      let parents = catPath.split('/');
+      parents.splice(0, 1);
+      let parentIndex = 0;
+      let path = "/" + parents[parentIndex];
+      let foundCat = undefined;
+      
+      const recursiveCat = function(path, cursor) {
+        if(foundCat) return;
+        if(path === cursor.path) {
+          if(parentIndex === parents.length - 2) {
+            foundCat = cursor;
+            return;
+          } else {
+            parentIndex++;
+            path += "/" + parents[parentIndex];
+            for(const cat of cursor.categories) {
+              recursiveCat(path, cat);
+            }
+          }
+        }
+        
+        
       }
+      // call recursion
+      for(const cat of state.tree) {
+        recursiveCat(path, cat);  
+      }
+      return foundCat;
+    }
   },
   actions: {
     async fetchTree({commit, rootGetters}, payload) {

@@ -85,6 +85,7 @@
       ...mapGetters({
         breadCrumbItems: 'tree/breadCrumbItems',
         getLessonFromPath: 'tree/getLessonFromPath',
+        isCategoryFromPath: 'tree/isCategoryFromPath'
       }),
 
     },
@@ -131,8 +132,19 @@
         lessonPath = mdLessonPath[0];
       }
       let lesson = this.getLessonFromPath(lessonPath);
-      if (!lesson)
-        await this.$router.push('/404');
+      if (!lesson) {
+        // test if path is from a category
+        const cat = this.isCategoryFromPath(lessonPath);
+        console.log(cat);
+        if(cat) {
+          // maybe display the first lesson of the category
+          await this.$router.push('/');
+          this.$store.commit("tree/OPEN_NODE", lessonPath);
+        } else {
+          // if no lesson / cat
+          await this.$router.push('/404');
+        }
+      }
       else
         this.$store.dispatch("lesson/openLesson", {
           smp: this.$smp,
