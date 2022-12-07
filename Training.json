@@ -10404,21 +10404,21 @@
       "res_cached": false,
       "res_file": {
        "path": "resources/ObjectInternal/TrnCategory/SCRIPT.js",
-       "size": 1252,
+       "size": 1327,
        "field": "res_file",
        "mime": "text/javascript",
        "name": "SCRIPT.js",
-       "id": "10054",
+       "id": "10154",
        "object": "Resource",
        "rowid": "278"
       },
       "res_file_compiled": {
        "path": "resources/ObjectInternal/TrnCategory/SCRIPT.min.js",
-       "size": 937,
+       "size": 1019,
        "field": "res_file_compiled",
        "mime": "text/javascript",
        "name": "SCRIPT.min.js",
-       "id": "10071",
+       "id": "10155",
        "object": "Resource",
        "rowid": "278"
       },
@@ -10444,21 +10444,21 @@
       "res_cached": false,
       "res_file": {
        "path": "resources/ObjectInternal/TrnLesson/SCRIPT.js",
-       "size": 1603,
+       "size": 1665,
        "field": "res_file",
        "mime": "text/javascript",
        "name": "SCRIPT.js",
-       "id": "10052",
+       "id": "10178",
        "object": "Resource",
        "rowid": "279"
       },
       "res_file_compiled": {
        "path": "resources/ObjectInternal/TrnLesson/SCRIPT.min.js",
-       "size": 1149,
+       "size": 1235,
        "field": "res_file_compiled",
        "mime": "text/javascript",
        "name": "SCRIPT.min.js",
-       "id": "10072",
+       "id": "10179",
        "object": "Resource",
        "rowid": "279"
       },
