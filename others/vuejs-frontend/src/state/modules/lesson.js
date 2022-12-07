@@ -1,4 +1,4 @@
-import {SET_LESSON, SET_LESSON_IMAGES, UNSET_LESSON, SET_LESSON_TAGS} from "../mutation-types";
+import {SET_LESSON, SET_LESSON_IMAGES, UNSET_LESSON, SET_LESSON_TAGS, SET_LESSON_HTML} from "../mutation-types";
 
 export default {
   namespaced: true,
@@ -13,6 +13,21 @@ export default {
       await dispatch("fetchLessonTag", payload);
       await dispatch("fetchLessonContent", payload);
       await dispatch("fetchLessonImages", payload);
+      if(payload.lesson.viz === 'LINEAR') dispatch("setLinearImgSrc");
+    },
+
+    setLinearImgSrc({commit, state}) {
+      const imgRegex = new RegExp('src\\s*=\\s*"(.+?)"', 'g');
+      let match = imgRegex.exec(state.lesson.html);
+      let newHtml = state.lesson.html;
+      while (match != null) {
+        const foundImg = state.lessonImages.find((img) => img.filename === match[1].replace('./', ''));
+        if(foundImg) {
+          newHtml = newHtml.replace(match[1], foundImg.filesrc);
+        }
+        match = imgRegex.exec(state.lesson.html);
+      }
+      commit(SET_LESSON_HTML, newHtml);
     },
 
     async fetchLessonContent({commit, rootGetters}, payload) {
@@ -28,6 +43,8 @@ export default {
         })
       })
     },
+
+    
 
     async fetchLessonImages({commit}, payload) {  
       return new Promise((resolve, reject) => {
@@ -72,6 +89,9 @@ export default {
   mutations: {
     [SET_LESSON](state, lesson) {
       state.lesson = lesson;
+    },
+    [SET_LESSON_HTML](state, html) {
+      state.lesson.html = html;
     },
     [SET_LESSON_IMAGES](state, images) {
       state.lessonImages = images;

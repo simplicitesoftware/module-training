@@ -144,13 +144,11 @@
         lessonPath = mdLessonPath[0];
       }
       let lesson = this.getLessonFromPath(lessonPath);
-      console.log(lesson);
       if (!lesson || lesson.is_category) {
         // test if path is from a category
         const cat = this.isCategoryFromPath(lessonPath);
         
         if(cat) {
-          console.log(cat);
           if(cat.lessons.length > 0) {
             lesson = this.getLessonFromPath(cat.lessons[0].path);
             this.openLesson(lesson);
