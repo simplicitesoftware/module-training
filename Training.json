@@ -63,8 +63,8 @@
      "userkey": "TRN_CONFIG",
      "item": {
       "sys_code": "TRN_CONFIG",
-      "sys_value": "{\n\t\"edition_type\": \"FILESYSTEM\",\n\t\"filesystem_contentdir\": \"/home/trainingrec/training-content/content\",\n\t\"index_type\": \"simplicite\"\n}",
-      "sys_value2": null,
+      "sys_value": "{\n\t\"edition_type\": \"UI\",\n\t\"index_type\": \"simplicite\"\n}",
+      "sys_value2": "{\n\t\"filesystem_contentdir\": \"/home/trainingrec/training-content/content\",\n}",
       "sys_type": "PRV",
       "sys_desc": "Examples : \n\nSimple usecase\n---------------------------\n\nEditing through UI, using Simplicité indexing\n\n```json\n{\n\t\"edition_type\": \"UI\",\n\t\"index_type\": \"simplicite\"\n}\n```\n\nAdvanced usecase\n---------------------------\n\nEditing through Filesystem (possible git repo), using ElasticSearch indexing\n\n```json\n{\n\t\"edition_type\": \"FILESYSTEM\",\n\t\"filesystem_contentdir\": \"/path/to/directory/to/sync/with\",\n\t\"index_type\": \"elasticsearch\",\n\t\"esi_config\": {\n\t\t\"instance\": \"https://elasticsearchinstance.mydomain.not\",\n\t\t\"index\": \"docs_myinstance\",\n\t\t\"credentials\":\"user:password\"\n\t}\n}\n```",
       "row_module_id__mdl_name": "Training"
@@ -474,8 +474,8 @@
            "item": {
             "fld_name": "trnCatPath",
             "fld_dbname": "trn_cat_path",
-            "fld_visible": "3",
-            "fld_updatable": "0",
+            "fld_visible": "2",
+            "fld_updatable": "1",
             "fld_required": false,
             "fld_fonctid": true,
             "fld_research": "1",
@@ -2365,7 +2365,7 @@
            "item": {
             "fld_name": "trnLsnPath",
             "fld_dbname": "trn_lsn_path",
-            "fld_visible": "3",
+            "fld_visible": "2",
             "fld_updatable": "0",
             "fld_required": false,
             "fld_fonctid": true,
@@ -2772,7 +2772,7 @@
                "tsl_typeField": "F",
                "tsl_id__fld_name": "trnLsnVisualization",
                "tsl_lang": "ENU",
-               "tsl_value": "VIsualization",
+               "tsl_value": "Visualization",
                "tsl_simplehelp": null,
                "tsl_short_value": null,
                "tsl_placeholder": null,
@@ -10418,7 +10418,7 @@
        "field": "res_file_compiled",
        "mime": "text/javascript",
        "name": "SCRIPT.min.js",
-       "id": "10055",
+       "id": "10071",
        "object": "Resource",
        "rowid": "278"
       },
@@ -10458,7 +10458,7 @@
        "field": "res_file_compiled",
        "mime": "text/javascript",
        "name": "SCRIPT.min.js",
-       "id": "10053",
+       "id": "10072",
        "object": "Resource",
        "rowid": "279"
       },
