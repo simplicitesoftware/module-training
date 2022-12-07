@@ -8,9 +8,7 @@
 			var p = o.locals.ui;
 			if (p && o.isMainInstance()) {
 				p.list.onload = function(ctn, obj, params) {
-					const div = $('div');
-					const aj = $('a');
-					const elements = $('[data-field="trnLsnFrontPath"]').find(div).find(aj);
+					const elements = $('[data-field="trnLsnFrontPath"]').find($('div')).find($('a'));
 					for(const el of elements) {
 						const a = document.createElement('a');
 						a.title = el.innerText;
@@ -20,6 +18,11 @@
 						a.appendChild(span);
 						el.parentNode.replaceChild(a, el);
 					}
+					const wiredElements = $('[data-field="trnLsnFrontPath"]').find($('div')).find($('a'));
+					wiredElements.on('click', function(event) {
+						event.preventDefault();
+						window.open(event.currentTarget.href);
+					})
 				};
 				p.form.onload = function(ctn, obj, params) {
 					const btn = $('[data-action="burl_field_trnLsnFrontPath"]');

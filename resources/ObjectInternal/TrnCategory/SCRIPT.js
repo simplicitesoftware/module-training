@@ -9,9 +9,7 @@
 			var p = o.locals.ui;
 			if (p && o.isMainInstance()) {
 				p.list.onload = function(ctn, obj, params) {
-					const div = $('div');
-					const aj = $('a');
-					const elements = $('[data-field="trnCatFrontPath"]').find(div).find(aj);
+					const elements = $('[data-field="trnCatFrontPath"]').find($('div')).find($('a'));
 					console.log(elements);
 					for(const el of elements) {
 						const a = document.createElement('a');
@@ -22,6 +20,11 @@
 						a.appendChild(span);
 						el.parentNode.replaceChild(a, el);
 					}
+					const wiredElements = $('[data-field="trnCatFrontPath"]').find($('div')).find($('a'));
+					wiredElements.on('click', function(event) {
+						event.preventDefault();
+						window.open(event.currentTarget.href);
+					})
 				};
 			}
 			//...
