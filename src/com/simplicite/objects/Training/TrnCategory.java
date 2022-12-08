@@ -43,7 +43,7 @@ public class TrnCategory extends TrnObject {
 	
 	private String getPath(){
 		ObjectField parent = getField("trnCatId.trnCatPath");
-		String parentPath = parent.isEmpty() ? "" : parent.getValue() + "/";
+		String parentPath = parent.isEmpty() ? "/" : parent.getValue() + "/";
 		return parentPath+"CTG_"+getFieldValue("trnCatOrder")+"_"+TrnTools.toSnake(getFieldValue("trnCatCode"));
 	}
 	

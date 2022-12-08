@@ -63,8 +63,8 @@
      "userkey": "TRN_CONFIG",
      "item": {
       "sys_code": "TRN_CONFIG",
-      "sys_value": "{\n\t\"edition_type\": \"UI\",\n\t\"index_type\": \"simplicite\"\n}",
-      "sys_value2": "{\n\t\"filesystem_contentdir\": \"/home/trainingrec/training-content/content\",\n}",
+      "sys_value": "{\n    \"edition_type\": \"UI\",\n    \"index_type\": \"simplicite\"\n}",
+      "sys_value2": "{\n\t\"edition_type\": \"UI\",\n\t\"filesystem_contentdir\": \"/usr/local/training-content/content\",\n\t\"index_type\": \"simplicite\"\n}",
       "sys_type": "PRV",
       "sys_desc": "Examples : \n\nSimple usecase\n---------------------------\n\nEditing through UI, using Simplicité indexing\n\n```json\n{\n\t\"edition_type\": \"UI\",\n\t\"index_type\": \"simplicite\"\n}\n```\n\nAdvanced usecase\n---------------------------\n\nEditing through Filesystem (possible git repo), using ElasticSearch indexing\n\n```json\n{\n\t\"edition_type\": \"FILESYSTEM\",\n\t\"filesystem_contentdir\": \"/path/to/directory/to/sync/with\",\n\t\"index_type\": \"elasticsearch\",\n\t\"esi_config\": {\n\t\t\"instance\": \"https://elasticsearchinstance.mydomain.not\",\n\t\t\"index\": \"docs_myinstance\",\n\t\t\"credentials\":\"user:password\"\n\t}\n}\n```",
       "row_module_id__mdl_name": "Training"
@@ -203,11 +203,11 @@
       "obo_class": null,
       "obo_script_id": {
        "path": "src/com/simplicite/objects/Training/TrnCategory.java",
-       "size": 4481,
+       "size": 4482,
        "field": "obo_script_id",
        "mime": "text/plain",
        "name": "TrnCategory.java",
-       "id": "9867",
+       "id": "7910",
        "object": "ObjectInternal",
        "rowid": "2005"
       },
@@ -10587,7 +10587,7 @@
        "field": "scr_file",
        "mime": "text/plain",
        "name": "TrnTests.java",
-       "id": "9888",
+       "id": "7913",
        "object": "Script",
        "rowid": "3"
       },
@@ -10862,15 +10862,15 @@
       "dt_name": "Test-data",
       "dt_file": {
        "path": "data/Test-data.zip",
-       "size": 6335226,
+       "size": 6335436,
        "field": "dt_file",
        "mime": "application/zip",
-       "name": "Test-data.zip",
-       "id": "9891",
+       "name": "Training-data-20221208111159.zip",
+       "id": "7911",
        "object": "Dataset",
-       "rowid": "6"
+       "rowid": "7"
       },
-      "dt_desc": "Created by module's data export on 2022-12-07 14:28:55"
+      "dt_desc": "Created by module's data export on 2022-12-08 11:11:59"
      }
     },
     {
