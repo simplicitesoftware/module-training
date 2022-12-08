@@ -139,6 +139,9 @@ components:
         trnPicLsnId:
           description: Lesson ID
           type: string
+        trnPicId:
+          description: Trn pic id
+          type: string
         row_id:
           description: Unique technical row ID
           type: string
@@ -993,6 +996,12 @@ paths:
         in: query
         name: _indexsearch
         description: Index search query
+        required: false
+      - schema:
+          type: string
+        in: query
+        name: trnPicId
+        description: Search filter for Trn pic id
         required: false
       - schema:
           type: string

@@ -525,6 +525,11 @@ paths:
         type: string
         required: false
       - in: query
+        name: trnPicId
+        description: Search filter for Trn pic id
+        type: string
+        required: false
+      - in: query
         name: trnPicLang
         description: Search filter for Language
         type: string
@@ -2388,6 +2393,9 @@ definitions:
         type: string
       trnPicLsnId:
         description: Lesson ID
+        type: string
+      trnPicId:
+        description: Trn pic id
         type: string
       row_id:
         description: Unique technical row ID

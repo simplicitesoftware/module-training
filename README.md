@@ -135,9 +135,10 @@ The picture object for the lessons. Used for the multilanguage support.
 
 | Name                                                         | Type                                     | Required | Updatable | Personal | Description                                                                      |
 |--------------------------------------------------------------|------------------------------------------|----------|-----------|----------|----------------------------------------------------------------------------------|
-| `trnPicLang`                                                 | enum(100) using `LANG_ALL` list          | yes*     | yes       |          | -                                                                                |
-| `trnPicImage`                                                | image                                    | yes*     | yes       |          | -                                                                                |
-| `trnPicLsnId` link to **`TrnLesson`**                        | id                                       | yes*     | yes       |          | -                                                                                |
+| `trnPicId`                                                   | id                                       | *        | yes       |          | -                                                                                |
+| `trnPicLang`                                                 | enum(100) using `LANG_ALL` list          | yes      | yes       |          | -                                                                                |
+| `trnPicImage`                                                | image                                    | yes      | yes       |          | -                                                                                |
+| `trnPicLsnId` link to **`TrnLesson`**                        | id                                       | yes      | yes       |          | -                                                                                |
 | _Ref. `trnPicLsnId.trnLsnPath`_                              | _text(400)_                              |          |           |          | -                                                                                |
 
 ### Lists
