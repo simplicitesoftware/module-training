@@ -13,6 +13,34 @@
 
 The module for the Simplciité Training platform
 
+`TrnPage` business object definition
+------------------------------------
+
+
+
+### Fields
+
+| Name                                                         | Type                                     | Required | Updatable | Personal | Description                                                                      |
+|--------------------------------------------------------------|------------------------------------------|----------|-----------|----------|----------------------------------------------------------------------------------|
+| `trnLsnPublish`                                              | boolean                                  |          | yes       |          | Determines if the lesson is visible on the front-end application.                |
+| `trnLsnPath`                                                 | text(400)                                | *        |           |          | -                                                                                |
+| `trnLsnOrder`                                                | int(100)                                 | yes      | yes       |          | -                                                                                |
+| `trnLsnCode`                                                 | char(255)                                | yes      | yes       |          | -                                                                                |
+| `trnPageType`                                                | enum(10) using `TRN_PAGE_TYPE` list      | yes      | yes       |          | -                                                                                |
+| `trnLsnVisualization`                                        | enum(6) using `TRNLSNVISUALIZATION` list |          | yes       |          | Describes the visualization mode to be used in the front-end application.        |
+| `trnLsnFrontPath`                                            | url(400)                                 |          |           |          | -                                                                                |
+| `trnLsnCatId` link to **`TrnCategory`**                      | id                                       | yes      | yes       |          | -                                                                                |
+| _Ref. `trnLsnCatId.trnCatPath`_                              | _text(400)_                              |          |           |          | -                                                                                |
+
+### Lists
+
+* `TRN_PAGE_TYPE`
+    - `homepage` 
+    - `others` 
+* `TRNLSNVISUALIZATION`
+    - `TUTO` Tutorial
+    - `LINEAR` Linear
+
 `TrnSiteContent` business object definition
 -------------------------------------------
 

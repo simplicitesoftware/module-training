@@ -26,6 +26,7 @@ public class TrnLesson extends TrnObject {
 
 	@Override
 	public List<String> postValidate() {
+		boolean test = isPanelInstance();
 		if(!isSyncInstance())
 			setFieldValue("trnLsnPath", getPath());
 		
