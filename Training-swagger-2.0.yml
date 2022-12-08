@@ -476,7 +476,12 @@ paths:
         required: false
       - in: query
         name: trnCtrCatId
-        description: Search filter for Category ID
+        description: Search filter for Category|Categories
+        type: string
+        required: false
+      - in: query
+        name: trnCtrCatId__trnCatPath
+        description: Search filter for Category|Categories Category Path
         type: string
         required: false
       tags:
@@ -545,12 +550,12 @@ paths:
         required: false
       - in: query
         name: trnPicLsnId
-        description: Search filter for Lesson ID
+        description: Search filter for Lesson|Lessons
         type: string
         required: false
       - in: query
         name: trnPicLsnId__trnLsnPath
-        description: Search filter for Lesson Path
+        description: Search filter for Lesson|Lessons Path
         type: string
         required: false
       tags:
@@ -2360,10 +2365,13 @@ definitions:
         description: Category Translate Description
         type: string
       trnCtrCatId:
-        description: Category ID
+        description: Category|Categories
         type: string
       row_id:
         description: Unique technical row ID
+        type: string
+      trnCtrCatId__trnCatPath:
+        description: Category|Categories Category Path
         type: string
       trnCtrLang:
         description: Category translate language
@@ -2389,10 +2397,10 @@ definitions:
         description: Image
         type: object
       trnPicLsnId__trnLsnPath:
-        description: Lesson Path
+        description: Lesson|Lessons Path
         type: string
       trnPicLsnId:
-        description: Lesson ID
+        description: Lesson|Lessons
         type: string
       trnPicId:
         description: Trn pic id

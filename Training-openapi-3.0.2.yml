@@ -105,10 +105,13 @@ components:
           description: Category Translate Description
           type: string
         trnCtrCatId:
-          description: Category ID
+          description: Category|Categories
           type: string
         row_id:
           description: Unique technical row ID
+          type: string
+        trnCtrCatId__trnCatPath:
+          description: Category|Categories Category Path
           type: string
         trnCtrLang:
           description: Category translate language
@@ -134,10 +137,10 @@ components:
           description: Image
           type: object
         trnPicLsnId__trnLsnPath:
-          description: Lesson Path
+          description: Lesson|Lessons Path
           type: string
         trnPicLsnId:
-          description: Lesson ID
+          description: Lesson|Lessons
           type: string
         trnPicId:
           description: Trn pic id
@@ -942,7 +945,13 @@ paths:
           type: string
         in: query
         name: trnCtrCatId
-        description: Search filter for Category ID
+        description: Search filter for Category|Categories
+        required: false
+      - schema:
+          type: string
+        in: query
+        name: trnCtrCatId__trnCatPath
+        description: Search filter for Category|Categories Category Path
         required: false
       tags:
       - TrnCategoryTranslate
@@ -1023,13 +1032,13 @@ paths:
           type: string
         in: query
         name: trnPicLsnId
-        description: Search filter for Lesson ID
+        description: Search filter for Lesson|Lessons
         required: false
       - schema:
           type: string
         in: query
         name: trnPicLsnId__trnLsnPath
-        description: Search filter for Lesson Path
+        description: Search filter for Lesson|Lessons Path
         required: false
       tags:
       - TrnPicture

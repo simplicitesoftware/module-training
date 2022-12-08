@@ -1120,7 +1120,7 @@
          "item": {
           "obf_ref_object_id__obo_name": "TrnCategory",
           "obf_order": 100,
-          "obf_ref_order": 10,
+          "obf_ref_order": null,
           "obf_object_id__obj_name": "TrnCategoryTranslate",
           "obf_field_id__fld_name": "trnCtrCatId",
           "obf_field_id__fld_dbname": "trn_ctr_cat_id",
@@ -1904,7 +1904,7 @@
           "obf_visible": true,
           "obf_ref_export": true,
           "obf_copy": false,
-          "obf_ref_order": 10,
+          "obf_ref_order": null,
           "obf_fld_visible": null,
           "obf_fld_required": null,
           "obf_fld_updatable": null,
@@ -1976,7 +1976,7 @@
                "tsl_typeField": "F",
                "tsl_id__fld_name": "trnCtrCatId",
                "tsl_lang": "ENU",
-               "tsl_value": "Category ID",
+               "tsl_value": "Category|Categories",
                "tsl_simplehelp": null,
                "tsl_short_value": null,
                "tsl_placeholder": null,
@@ -1992,7 +1992,7 @@
                "tsl_typeField": "F",
                "tsl_id__fld_name": "trnCtrCatId",
                "tsl_lang": "FRA",
-               "tsl_value": "ID de la Catégorie",
+               "tsl_value": "Catégorie|Catégories",
                "tsl_simplehelp": null,
                "tsl_short_value": null,
                "tsl_placeholder": null,
@@ -2005,6 +2005,39 @@
            }]
           }]
          }]
+        },
+        {
+         "object": "ObjectFieldSystem",
+         "userkey": "TrnCategoryTranslate~trnCatPath~110",
+         "item": {
+          "obf_object_id__obo_name": "TrnCategoryTranslate",
+          "obf_field_id__fld_name": "trnCatPath",
+          "obf_field_id__fld_type": "13",
+          "obf_order": 110,
+          "obf_group_by": null,
+          "obf_dfault_order": null,
+          "obf_input": null,
+          "obf_ref_field_id__fld_name": "trnCtrCatId",
+          "obf_ref_object_id__obo_name": "TrnCategory",
+          "obf_cascad": null,
+          "obf_card": null,
+          "obf_visible": null,
+          "obf_ref_export": true,
+          "obf_copy": null,
+          "obf_ref_order": null,
+          "obf_fld_visible": null,
+          "obf_fld_required": null,
+          "obf_fld_updatable": null,
+          "obf_fld_research": null,
+          "obf_fld_more": null,
+          "obf_fld_listmore": null,
+          "obf_fld_researchreq": null,
+          "obf_fld_dfault": null,
+          "obf_field_id__fld_dfault": null,
+          "obf_area_id__ofa_name": "TrnCategoryTranslate-1",
+          "obf_area_id__ofa_position": 1,
+          "row_module_id__mdl_name": "Training"
+         }
         }
        ]
       },
@@ -3275,6 +3308,34 @@
         },
         {
          "object": "Link",
+         "userkey": "100~TrnPicture~trnPicLsnId",
+         "item": {
+          "obf_ref_object_id__obo_name": "TrnLesson",
+          "obf_order": 100,
+          "obf_ref_order": null,
+          "obf_object_id__obj_name": "TrnPicture",
+          "obf_field_id__fld_name": "trnPicLsnId",
+          "obf_field_id__fld_dbname": "trn_pic_lsn_id",
+          "obf_field_id__fld_updatable": "1",
+          "obf_field_id__fld_required": true,
+          "obf_field_id__fld_fonctid": false,
+          "obf_cascad": "C",
+          "obf_card": "0,n",
+          "obf_query": null,
+          "obf_visible": true,
+          "obf_ref_export": true,
+          "obf_copy": false,
+          "obf_associate": null,
+          "obf_inline": false,
+          "obf_rendering": null,
+          "obf_treedepth": null,
+          "obf_area_id__ofa_name": "TrnPicture-1",
+          "obf_area_id__ofa_position": 1,
+          "row_module_id__mdl_name": "Training"
+         }
+        },
+        {
+         "object": "Link",
          "userkey": "100~TrnLsnTranslate~trnLtrLsnId",
          "item": {
           "obf_ref_object_id__obo_name": "TrnLesson",
@@ -3297,34 +3358,6 @@
           "obf_rendering": null,
           "obf_treedepth": null,
           "obf_area_id__ofa_name": "TrnLsnTranslate-1",
-          "obf_area_id__ofa_position": 1,
-          "row_module_id__mdl_name": "Training"
-         }
-        },
-        {
-         "object": "Link",
-         "userkey": "100~TrnPicture~trnPicLsnId",
-         "item": {
-          "obf_ref_object_id__obo_name": "TrnLesson",
-          "obf_order": 100,
-          "obf_ref_order": 20,
-          "obf_object_id__obj_name": "TrnPicture",
-          "obf_field_id__fld_name": "trnPicLsnId",
-          "obf_field_id__fld_dbname": "trn_pic_lsn_id",
-          "obf_field_id__fld_updatable": "1",
-          "obf_field_id__fld_required": true,
-          "obf_field_id__fld_fonctid": false,
-          "obf_cascad": "C",
-          "obf_card": "0,n",
-          "obf_query": null,
-          "obf_visible": true,
-          "obf_ref_export": true,
-          "obf_copy": false,
-          "obf_associate": null,
-          "obf_inline": false,
-          "obf_rendering": null,
-          "obf_treedepth": null,
-          "obf_area_id__ofa_name": "TrnPicture-1",
           "obf_area_id__ofa_position": 1,
           "row_module_id__mdl_name": "Training"
          }
@@ -5115,7 +5148,7 @@
           "obf_visible": true,
           "obf_ref_export": true,
           "obf_copy": false,
-          "obf_ref_order": 20,
+          "obf_ref_order": null,
           "obf_fld_visible": null,
           "obf_fld_required": null,
           "obf_fld_updatable": null,
@@ -5187,7 +5220,7 @@
                "tsl_typeField": "F",
                "tsl_id__fld_name": "trnPicLsnId",
                "tsl_lang": "ENU",
-               "tsl_value": "Lesson ID",
+               "tsl_value": "Lesson|Lessons",
                "tsl_simplehelp": null,
                "tsl_short_value": null,
                "tsl_placeholder": null,
@@ -5203,7 +5236,7 @@
                "tsl_typeField": "F",
                "tsl_id__fld_name": "trnPicLsnId",
                "tsl_lang": "FRA",
-               "tsl_value": "ID de la Leçon",
+               "tsl_value": "Leçon|Leçons",
                "tsl_simplehelp": null,
                "tsl_short_value": null,
                "tsl_placeholder": null,
@@ -5248,49 +5281,7 @@
           "obf_area_id__ofa_name": "TrnPicture-1",
           "obf_area_id__ofa_position": 1,
           "row_module_id__mdl_name": "Training"
-         },
-         "links": [{
-          "object": "TranslateObjectField",
-          "label": "Object field translation",
-          "icon": "img/system/translation",
-          "field": "tsl_id",
-          "list": [
-           {
-            "object": "TranslateObjectField",
-            "userkey": "L~TrnPicture~trnLsnPath~110~ENU",
-            "item": {
-             "tsl_typeObjectField": "L",
-             "tsl_id__obf_object_id__obo_name": "TrnPicture",
-             "tsl_id__obf_field_id__fld_name": "trnLsnPath",
-             "tsl_id__obf_order": 110,
-             "tsl_lang": "ENU",
-             "tsl_value": "Lesson Path",
-             "tsl_simplehelp": null,
-             "tsl_short_value": null,
-             "tsl_listhelp": null,
-             "tsl_placeholder": null,
-             "row_module_id__mdl_name": "Training"
-            }
-           },
-           {
-            "object": "TranslateObjectField",
-            "userkey": "L~TrnPicture~trnLsnPath~110~FRA",
-            "item": {
-             "tsl_typeObjectField": "L",
-             "tsl_id__obf_object_id__obo_name": "TrnPicture",
-             "tsl_id__obf_field_id__fld_name": "trnLsnPath",
-             "tsl_id__obf_order": 110,
-             "tsl_lang": "FRA",
-             "tsl_value": "Chemin de la Leçon",
-             "tsl_simplehelp": null,
-             "tsl_short_value": null,
-             "tsl_listhelp": null,
-             "tsl_placeholder": null,
-             "row_module_id__mdl_name": "Training"
-            }
-           }
-          ]
-         }]
+         }
         }
        ]
       },
@@ -10598,22 +10589,22 @@
      "mod_template_id__mtp_name": "ModelBusinessObject",
      "mod_doc": {
       "path": "files/Model/TrainingModel.svg",
-      "size": 52486,
+      "size": 56072,
       "field": "mod_doc",
       "mime": "image/svg+xml",
-      "name": "TrainingModel.svg",
-      "id": "7229",
+      "name": "model.svg",
+      "id": "7347",
       "object": "Model",
       "rowid": "9"
      },
      "mod_json": null,
      "mod_image": {
       "path": "files/Model/TrainingModel.png",
-      "size": 230823,
+      "size": 154470,
       "field": "mod_image",
       "mime": "image/png",
       "name": "TrainingModel.png",
-      "id": "7230",
+      "id": "7348",
       "object": "Model",
       "rowid": "9"
      },
@@ -10723,7 +10714,7 @@
        "field": "scr_file",
        "mime": "text/plain",
        "name": "TrnTests.java",
-       "id": "7336",
+       "id": "7362",
        "object": "Script",
        "rowid": "4"
       },
@@ -10988,6 +10979,25 @@
        "rowid": "1"
       },
       "dt_desc": "Created by module's data export on 2022-12-08 11:11:59"
+     }
+    },
+    {
+     "object": "Dataset",
+     "userkey": "Training~Test-fixed",
+     "item": {
+      "row_module_id__mdl_name": "Training",
+      "dt_name": "Test-fixed",
+      "dt_file": {
+       "path": "data/Test-fixed.zip",
+       "size": 6335415,
+       "field": "dt_file",
+       "mime": "application/zip",
+       "name": "Training-data-20221208142818.zip",
+       "id": "7373",
+       "object": "Dataset",
+       "rowid": "5"
+      },
+      "dt_desc": "Created by module's data export on 2022-12-08 14:28:18"
      }
     },
     {

@@ -67,6 +67,7 @@ This object contains the translation of a category object
 | `trnCtrTitle`                                                | char(200)                                | yes      | yes       |          | -                                                                                |
 | `trnCtrDescription`                                          | text(1000)                               |          | yes       |          | -                                                                                |
 | `trnCtrCatId` link to **`TrnCategory`**                      | id                                       | *        | yes       |          | -                                                                                |
+| _Ref. `trnCtrCatId.trnCatPath`_                              | _text(400)_                              |          |           |          | -                                                                                |
 
 ### Lists
 
