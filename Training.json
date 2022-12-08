@@ -64,7 +64,7 @@
      "item": {
       "sys_code": "TRN_CONFIG",
       "sys_value": "{\n    \"edition_type\": \"UI\",\n    \"index_type\": \"simplicite\"\n}",
-      "sys_value2": "{\n\t\"edition_type\": \"UI\",\n\t\"filesystem_contentdir\": \"/usr/local/training-content/content\",\n\t\"index_type\": \"simplicite\"\n}",
+      "sys_value2": "{\n\t\"edition_type\": \"UI\",\n\t\"filesystem_contentdir\": \"/home/trainingrec/training-content/content\",\n\t\"index_type\": \"simplicite\"\n}",
       "sys_type": "PRV",
       "sys_desc": "Examples : \n\nSimple usecase\n---------------------------\n\nEditing through UI, using Simplicité indexing\n\n```json\n{\n\t\"edition_type\": \"UI\",\n\t\"index_type\": \"simplicite\"\n}\n```\n\nAdvanced usecase\n---------------------------\n\nEditing through Filesystem (possible git repo), using ElasticSearch indexing\n\n```json\n{\n\t\"edition_type\": \"FILESYSTEM\",\n\t\"filesystem_contentdir\": \"/path/to/directory/to/sync/with\",\n\t\"index_type\": \"elasticsearch\",\n\t\"esi_config\": {\n\t\t\"instance\": \"https://elasticsearchinstance.mydomain.not\",\n\t\t\"index\": \"docs_myinstance\",\n\t\t\"credentials\":\"user:password\"\n\t}\n}\n```",
       "row_module_id__mdl_name": "Training"
@@ -207,9 +207,9 @@
        "field": "obo_script_id",
        "mime": "text/plain",
        "name": "TrnCategory.java",
-       "id": "7238",
+       "id": "10280",
        "object": "ObjectInternal",
-       "rowid": "2009"
+       "rowid": "2005"
       },
       "obo_usets": "1",
       "obo_nosearch": "1",
@@ -1422,9 +1422,9 @@
        "field": "obo_script_id",
        "mime": "text/plain",
        "name": "TrnCategoryTranslate.java",
-       "id": "7236",
+       "id": "10282",
        "object": "ObjectInternal",
-       "rowid": "2007"
+       "rowid": "2006"
       },
       "obo_usets": "1",
       "obo_nosearch": "1",
@@ -2131,9 +2131,9 @@
        "field": "obo_script_id",
        "mime": "text/plain",
        "name": "TrnLesson.java",
-       "id": "7242",
+       "id": "10287",
        "object": "ObjectInternal",
-       "rowid": "2013"
+       "rowid": "2007"
       },
       "obo_usets": "1",
       "obo_nosearch": "0",
@@ -3280,34 +3280,6 @@
        "list": [
         {
          "object": "Link",
-         "userkey": "200~TrnTagLsn~trnTaglsnLsnId",
-         "item": {
-          "obf_ref_object_id__obo_name": "TrnLesson",
-          "obf_order": 200,
-          "obf_ref_order": null,
-          "obf_object_id__obj_name": "TrnTagLsn",
-          "obf_field_id__fld_name": "trnTaglsnLsnId",
-          "obf_field_id__fld_dbname": "trn_taglsn_lsn_id",
-          "obf_field_id__fld_updatable": "1",
-          "obf_field_id__fld_required": true,
-          "obf_field_id__fld_fonctid": true,
-          "obf_cascad": "C",
-          "obf_card": "0,n",
-          "obf_query": null,
-          "obf_visible": true,
-          "obf_ref_export": true,
-          "obf_copy": false,
-          "obf_associate": null,
-          "obf_inline": false,
-          "obf_rendering": "P",
-          "obf_treedepth": null,
-          "obf_area_id__ofa_name": "TrnTagLsn-1",
-          "obf_area_id__ofa_position": 1,
-          "row_module_id__mdl_name": "Training"
-         }
-        },
-        {
-         "object": "Link",
          "userkey": "100~TrnPicture~trnPicLsnId",
          "item": {
           "obf_ref_object_id__obo_name": "TrnLesson",
@@ -3330,6 +3302,34 @@
           "obf_rendering": null,
           "obf_treedepth": null,
           "obf_area_id__ofa_name": "TrnPicture-1",
+          "obf_area_id__ofa_position": 1,
+          "row_module_id__mdl_name": "Training"
+         }
+        },
+        {
+         "object": "Link",
+         "userkey": "200~TrnTagLsn~trnTaglsnLsnId",
+         "item": {
+          "obf_ref_object_id__obo_name": "TrnLesson",
+          "obf_order": 200,
+          "obf_ref_order": null,
+          "obf_object_id__obj_name": "TrnTagLsn",
+          "obf_field_id__fld_name": "trnTaglsnLsnId",
+          "obf_field_id__fld_dbname": "trn_taglsn_lsn_id",
+          "obf_field_id__fld_updatable": "1",
+          "obf_field_id__fld_required": true,
+          "obf_field_id__fld_fonctid": true,
+          "obf_cascad": "C",
+          "obf_card": "0,n",
+          "obf_query": null,
+          "obf_visible": true,
+          "obf_ref_export": true,
+          "obf_copy": false,
+          "obf_associate": null,
+          "obf_inline": false,
+          "obf_rendering": "P",
+          "obf_treedepth": null,
+          "obf_area_id__ofa_name": "TrnTagLsn-1",
           "obf_area_id__ofa_position": 1,
           "row_module_id__mdl_name": "Training"
          }
@@ -3454,9 +3454,9 @@
        "field": "obo_script_id",
        "mime": "text/plain",
        "name": "TrnLsnTranslate.java",
-       "id": "7240",
+       "id": "10281",
        "object": "ObjectInternal",
-       "rowid": "2011"
+       "rowid": "2008"
       },
       "obo_usets": "1",
       "obo_nosearch": "1",
@@ -4666,9 +4666,9 @@
        "field": "obo_script_id",
        "mime": "text/plain",
        "name": "TrnPicture.java",
-       "id": "7313",
+       "id": "10286",
        "object": "ObjectInternal",
-       "rowid": "2008"
+       "rowid": "2009"
       },
       "obo_usets": "1",
       "obo_nosearch": "1",
@@ -5881,7 +5881,10 @@
      "object": "ObjectInternal",
      "userkey": "TrnTag",
      "item": {
-      "obo_name": "TrnTag",
+      "obo_name": {
+       "value": "TrnTag",
+       "oldvalue": "TrnTag"
+      },
       "obo_dbtable": "trn_tag",
       "obo_role": "OBJ",
       "obo_class": null,
@@ -5891,9 +5894,9 @@
        "field": "obo_script_id",
        "mime": "text/plain",
        "name": "TrnTag.java",
-       "id": "7241",
+       "id": "10283",
        "object": "ObjectInternal",
-       "rowid": "2012"
+       "rowid": "2013"
       },
       "obo_usets": "1",
       "obo_nosearch": "1",
@@ -6127,20 +6130,20 @@
        "list": [
         {
          "object": "Link",
-         "userkey": "200~TrnLesson~trnTagLsnVirtual",
+         "userkey": "100~TrnTagTranslate~trnTaglangTagId",
          "item": {
           "obf_ref_object_id__obo_name": "TrnTag",
-          "obf_order": 200,
+          "obf_order": 100,
           "obf_ref_order": null,
-          "obf_object_id__obj_name": "TrnLesson",
-          "obf_field_id__fld_name": "trnTagLsnVirtual",
-          "obf_field_id__fld_dbname": null,
+          "obf_object_id__obj_name": "TrnTagTranslate",
+          "obf_field_id__fld_name": "trnTaglangTagId",
+          "obf_field_id__fld_dbname": "trn_taglang_tag_id",
           "obf_field_id__fld_updatable": "1",
           "obf_field_id__fld_required": false,
           "obf_field_id__fld_fonctid": false,
-          "obf_cascad": "Z",
+          "obf_cascad": "C",
           "obf_card": "0,n",
-          "obf_query": "t.row_id in (\n\tselect trn_taglsn_lsn_id\n\tfrom trn_tag_lsn\n\twhere trn_taglsn_tag_id=[row_id]\n)",
+          "obf_query": null,
           "obf_visible": true,
           "obf_ref_export": true,
           "obf_copy": false,
@@ -6148,8 +6151,8 @@
           "obf_inline": false,
           "obf_rendering": null,
           "obf_treedepth": null,
-          "obf_area_id__ofa_name": "TrnLesson-1",
-          "obf_area_id__ofa_position": 1,
+          "obf_area_id__ofa_name": null,
+          "obf_area_id__ofa_position": null,
           "row_module_id__mdl_name": "Training"
          }
         },
@@ -6183,20 +6186,20 @@
         },
         {
          "object": "Link",
-         "userkey": "100~TrnTagTranslate~trnTaglangTagId",
+         "userkey": "200~TrnLesson~trnTagLsnVirtual",
          "item": {
           "obf_ref_object_id__obo_name": "TrnTag",
-          "obf_order": 100,
+          "obf_order": 200,
           "obf_ref_order": null,
-          "obf_object_id__obj_name": "TrnTagTranslate",
-          "obf_field_id__fld_name": "trnTaglangTagId",
-          "obf_field_id__fld_dbname": "trn_taglang_tag_id",
+          "obf_object_id__obj_name": "TrnLesson",
+          "obf_field_id__fld_name": "trnTagLsnVirtual",
+          "obf_field_id__fld_dbname": null,
           "obf_field_id__fld_updatable": "1",
           "obf_field_id__fld_required": false,
           "obf_field_id__fld_fonctid": false,
-          "obf_cascad": "C",
+          "obf_cascad": "Z",
           "obf_card": "0,n",
-          "obf_query": null,
+          "obf_query": "t.row_id in (\n\tselect trn_taglsn_lsn_id\n\tfrom trn_tag_lsn\n\twhere trn_taglsn_tag_id=[row_id]\n)",
           "obf_visible": true,
           "obf_ref_export": true,
           "obf_copy": false,
@@ -6204,8 +6207,8 @@
           "obf_inline": false,
           "obf_rendering": null,
           "obf_treedepth": null,
-          "obf_area_id__ofa_name": null,
-          "obf_area_id__ofa_position": null,
+          "obf_area_id__ofa_name": "TrnLesson-1",
+          "obf_area_id__ofa_position": 1,
           "row_module_id__mdl_name": "Training"
          }
         }
@@ -6301,9 +6304,9 @@
        "field": "obo_script_id",
        "mime": "text/plain",
        "name": "TrnTagLsn.java",
-       "id": "7239",
+       "id": "10284",
        "object": "ObjectInternal",
-       "rowid": "2010"
+       "rowid": "2016"
       },
       "obo_usets": "1",
       "obo_nosearch": "1",
@@ -6854,9 +6857,9 @@
        "field": "obo_script_id",
        "mime": "text/plain",
        "name": "TrnTagTranslate.java",
-       "id": "7243",
+       "id": "10285",
        "object": "ObjectInternal",
-       "rowid": "2015"
+       "rowid": "2014"
       },
       "obo_usets": "1",
       "obo_nosearch": "1",
@@ -7453,9 +7456,9 @@
        "field": "obe_script_id",
        "mime": "text/plain",
        "name": "TrnFront.java",
-       "id": "7232",
+       "id": "10275",
        "object": "ObjectExternal",
-       "rowid": "2002"
+       "rowid": "2001"
       },
       "obe_icon": null,
       "row_module_id__mdl_name": "Training"
@@ -7550,9 +7553,9 @@
        "field": "obe_script_id",
        "mime": "text/plain",
        "name": "TrnPublicService.java",
-       "id": "7234",
+       "id": "10276",
        "object": "ObjectExternal",
-       "rowid": "2004"
+       "rowid": "2018"
       },
       "obe_icon": null,
       "row_module_id__mdl_name": "Training"
@@ -7647,7 +7650,7 @@
        "field": "obe_script_id",
        "mime": "text/plain",
        "name": "TrnSyncService.java",
-       "id": "7231",
+       "id": "10277",
        "object": "ObjectExternal",
        "rowid": "2003"
       },
@@ -7744,9 +7747,9 @@
        "field": "obe_script_id",
        "mime": "text/plain",
        "name": "TrnTagService.java",
-       "id": "7233",
+       "id": "10278",
        "object": "ObjectExternal",
-       "rowid": "2005"
+       "rowid": "2017"
       },
       "obe_icon": null,
       "row_module_id__mdl_name": "Training"
@@ -7841,9 +7844,9 @@
        "field": "obe_script_id",
        "mime": "text/plain",
        "name": "TrnTreeService.java",
-       "id": "7235",
+       "id": "10279",
        "object": "ObjectExternal",
-       "rowid": "2006"
+       "rowid": "2004"
       },
       "obe_icon": null,
       "row_module_id__mdl_name": "Training"
@@ -10471,7 +10474,7 @@
        "item": {"obe_name": "TrnFront"},
        "icon": "img/system/external_object",
        "label": "External object",
-       "row_id": "2002",
+       "row_id": "2001",
        "userkeylabel": "TrnFront",
        "object": "ObjectExternal"
       },
@@ -10485,7 +10488,7 @@
        "field": "res_file",
        "mime": "application/zip",
        "name": "SITE.zip",
-       "id": "7245",
+       "id": "10290",
        "object": "Resource",
        "rowid": "277"
       },
@@ -10502,7 +10505,7 @@
        "item": {"obo_name": "TrnCategory"},
        "icon": "img/system/business_object",
        "label": "Business object",
-       "row_id": "2009",
+       "row_id": "2005",
        "userkeylabel": "TrnCategory",
        "object": "ObjectInternal"
       },
@@ -10516,9 +10519,9 @@
        "field": "res_file",
        "mime": "text/javascript",
        "name": "SCRIPT.js",
-       "id": "7246",
+       "id": "10289",
        "object": "Resource",
-       "rowid": "276"
+       "rowid": "278"
       },
       "res_file_compiled": {
        "path": "resources/ObjectInternal/TrnCategory/SCRIPT.min.js",
@@ -10526,9 +10529,9 @@
        "field": "res_file_compiled",
        "mime": "text/javascript",
        "name": "SCRIPT.min.js",
-       "id": "7333",
+       "id": "10357",
        "object": "Resource",
-       "rowid": "276"
+       "rowid": "278"
       },
       "res_image": null,
       "row_module_id__mdl_name": "Training"
@@ -10542,7 +10545,7 @@
        "item": {"obo_name": "TrnLesson"},
        "icon": "img/system/business_object",
        "label": "Business object",
-       "row_id": "2013",
+       "row_id": "2007",
        "userkeylabel": "TrnLesson",
        "object": "ObjectInternal"
       },
@@ -10556,9 +10559,9 @@
        "field": "res_file",
        "mime": "text/javascript",
        "name": "SCRIPT.js",
-       "id": "7244",
+       "id": "10288",
        "object": "Resource",
-       "rowid": "275"
+       "rowid": "279"
       },
       "res_file_compiled": {
        "path": "resources/ObjectInternal/TrnLesson/SCRIPT.min.js",
@@ -10566,9 +10569,9 @@
        "field": "res_file_compiled",
        "mime": "text/javascript",
        "name": "SCRIPT.min.js",
-       "id": "7334",
+       "id": "10358",
        "object": "Resource",
-       "rowid": "275"
+       "rowid": "279"
       },
       "res_image": null,
       "row_module_id__mdl_name": "Training"
@@ -10592,8 +10595,8 @@
       "size": 56072,
       "field": "mod_doc",
       "mime": "image/svg+xml",
-      "name": "model.svg",
-      "id": "7347",
+      "name": "TrainingModel.svg",
+      "id": "10273",
       "object": "Model",
       "rowid": "9"
      },
@@ -10604,7 +10607,7 @@
       "field": "mod_image",
       "mime": "image/png",
       "name": "TrainingModel.png",
-      "id": "7348",
+      "id": "10274",
       "object": "Model",
       "rowid": "9"
      },
@@ -10632,9 +10635,9 @@
       "field": "adp_script_id",
       "mime": "text/plain",
       "name": "TrainingContentAdapter.java",
-      "id": "7249",
+      "id": "10293",
       "object": "Adapter",
-      "rowid": "14"
+      "rowid": "13"
      },
      "row_module_id__mdl_name": "Training"
     }
@@ -10648,101 +10651,6 @@
    "list": [
     {
      "object": "Script",
-     "userkey": "TrnIndexer",
-     "item": {
-      "scr_code": "TrnIndexer",
-      "scr_file": {
-       "path": "src/com/simplicite/commons/Training/TrnIndexer.java",
-       "size": 1485,
-       "field": "scr_file",
-       "mime": "text/plain",
-       "name": "TrnIndexer.java",
-       "id": "7251",
-       "object": "Script",
-       "rowid": "1"
-      },
-      "scr_type": "JSR",
-      "row_module_id__mdl_name": "Training"
-     }
-    },
-    {
-     "object": "Script",
-     "userkey": "TrnTestMarkdownTool2",
-     "item": {
-      "scr_code": "TrnTestMarkdownTool2",
-      "scr_file": {
-       "path": "test/src/com/simplicite/tests/Training/TrnTestMarkdownTool2.java",
-       "size": 2426,
-       "field": "scr_file",
-       "mime": "text/plain",
-       "name": "TrnTestMarkdownTool2.java",
-       "id": "7250",
-       "object": "Script",
-       "rowid": "2"
-      },
-      "scr_type": "TST",
-      "row_module_id__mdl_name": "Training"
-     }
-    },
-    {
-     "object": "Script",
-     "userkey": "TrnObject",
-     "item": {
-      "scr_code": "TrnObject",
-      "scr_file": {
-       "path": "src/com/simplicite/commons/Training/TrnObject.java",
-       "size": 1147,
-       "field": "scr_file",
-       "mime": "text/plain",
-       "name": "TrnObject.java",
-       "id": "7252",
-       "object": "Script",
-       "rowid": "3"
-      },
-      "scr_type": "JSR",
-      "row_module_id__mdl_name": "Training"
-     }
-    },
-    {
-     "object": "Script",
-     "userkey": "TrnTests",
-     "item": {
-      "scr_code": "TrnTests",
-      "scr_file": {
-       "path": "test/src/com/simplicite/tests/Training/TrnTests.java",
-       "size": 833,
-       "field": "scr_file",
-       "mime": "text/plain",
-       "name": "TrnTests.java",
-       "id": "7362",
-       "object": "Script",
-       "rowid": "4"
-      },
-      "scr_type": "TST",
-      "row_module_id__mdl_name": "Training"
-     }
-    },
-    {
-     "object": "Script",
-     "userkey": "TrnEsiHelper",
-     "item": {
-      "scr_code": "TrnEsiHelper",
-      "scr_file": {
-       "path": "src/com/simplicite/commons/Training/TrnEsiHelper.java",
-       "size": 2808,
-       "field": "scr_file",
-       "mime": "text/plain",
-       "name": "TrnEsiHelper.java",
-       "id": "7254",
-       "object": "Script",
-       "rowid": "5"
-      },
-      "scr_type": "JSR",
-      "row_module_id__mdl_name": "Training"
-     }
-    },
-    {
-     "object": "Script",
      "userkey": "TrnTools",
      "item": {
       "scr_code": "TrnTools",
@@ -10752,9 +10660,9 @@
        "field": "scr_file",
        "mime": "text/plain",
        "name": "TrnTools.java",
-       "id": "7255",
+       "id": "10296",
        "object": "Script",
-       "rowid": "6"
+       "rowid": "1"
       },
       "scr_type": "JSR",
       "row_module_id__mdl_name": "Training"
@@ -10771,7 +10679,64 @@
        "field": "scr_file",
        "mime": "text/plain",
        "name": "TrnFsSyncTool.java",
-       "id": "7257",
+       "id": "10301",
+       "object": "Script",
+       "rowid": "2"
+      },
+      "scr_type": "JSR",
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "Script",
+     "userkey": "TrnTests",
+     "item": {
+      "scr_code": "TrnTests",
+      "scr_file": {
+       "path": "test/src/com/simplicite/tests/Training/TrnTests.java",
+       "size": 833,
+       "field": "scr_file",
+       "mime": "text/plain",
+       "name": "TrnTests.java",
+       "id": "10511",
+       "object": "Script",
+       "rowid": "3"
+      },
+      "scr_type": "TST",
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "Script",
+     "userkey": "TrnObject",
+     "item": {
+      "scr_code": "TrnObject",
+      "scr_file": {
+       "path": "src/com/simplicite/commons/Training/TrnObject.java",
+       "size": 1147,
+       "field": "scr_file",
+       "mime": "text/plain",
+       "name": "TrnObject.java",
+       "id": "10298",
+       "object": "Script",
+       "rowid": "6"
+      },
+      "scr_type": "JSR",
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "Script",
+     "userkey": "TrnIndexer",
+     "item": {
+      "scr_code": "TrnIndexer",
+      "scr_file": {
+       "path": "src/com/simplicite/commons/Training/TrnIndexer.java",
+       "size": 1485,
+       "field": "scr_file",
+       "mime": "text/plain",
+       "name": "TrnIndexer.java",
+       "id": "10294",
        "object": "Script",
        "rowid": "7"
       },
@@ -10790,9 +10755,47 @@
        "field": "scr_file",
        "mime": "text/plain",
        "name": "MarkdownTool2.java",
-       "id": "7256",
+       "id": "10300",
        "object": "Script",
        "rowid": "8"
+      },
+      "scr_type": "JSR",
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "Script",
+     "userkey": "TrnTestMarkdownTool2",
+     "item": {
+      "scr_code": "TrnTestMarkdownTool2",
+      "scr_file": {
+       "path": "test/src/com/simplicite/tests/Training/TrnTestMarkdownTool2.java",
+       "size": 2426,
+       "field": "scr_file",
+       "mime": "text/plain",
+       "name": "TrnTestMarkdownTool2.java",
+       "id": "10299",
+       "object": "Script",
+       "rowid": "9"
+      },
+      "scr_type": "TST",
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "Script",
+     "userkey": "TrnEsiHelper",
+     "item": {
+      "scr_code": "TrnEsiHelper",
+      "scr_file": {
+       "path": "src/com/simplicite/commons/Training/TrnEsiHelper.java",
+       "size": 2808,
+       "field": "scr_file",
+       "mime": "text/plain",
+       "name": "TrnEsiHelper.java",
+       "id": "10297",
+       "object": "Script",
+       "rowid": "10"
       },
       "scr_type": "JSR",
       "row_module_id__mdl_name": "Training"
@@ -10945,6 +10948,25 @@
    "list": [
     {
      "object": "Dataset",
+     "userkey": "Training~Display-test-data",
+     "item": {
+      "row_module_id__mdl_name": "Training",
+      "dt_name": "Display-test-data",
+      "dt_file": {
+       "path": "data/Display-test-data.zip",
+       "size": 6335230,
+       "field": "dt_file",
+       "mime": "application/zip",
+       "name": "Training-data-20221208154818.zip",
+       "id": "10510",
+       "object": "Dataset",
+       "rowid": "11"
+      },
+      "dt_desc": "Created by module's data export on 2022-12-08 15:48:18"
+     }
+    },
+    {
+     "object": "Dataset",
      "userkey": "Training~Technical-passwords",
      "item": {
       "row_module_id__mdl_name": "Training",
@@ -10955,68 +10977,11 @@
        "field": "dt_file",
        "mime": "text/xml",
        "name": "Technical-passwords.xml",
-       "id": "7259",
-       "object": "Dataset",
-       "rowid": "2"
-      },
-      "dt_desc": "Resets technical user's passwords (training-sync & training-front)"
-     }
-    },
-    {
-     "object": "Dataset",
-     "userkey": "Training~Test-data",
-     "item": {
-      "row_module_id__mdl_name": "Training",
-      "dt_name": "Test-data",
-      "dt_file": {
-       "path": "data/Test-data.zip",
-       "size": 6335436,
-       "field": "dt_file",
-       "mime": "application/zip",
-       "name": "Test-data.zip",
-       "id": "7258",
-       "object": "Dataset",
-       "rowid": "1"
-      },
-      "dt_desc": "Created by module's data export on 2022-12-08 11:11:59"
-     }
-    },
-    {
-     "object": "Dataset",
-     "userkey": "Training~Test-fixed",
-     "item": {
-      "row_module_id__mdl_name": "Training",
-      "dt_name": "Test-fixed",
-      "dt_file": {
-       "path": "data/Test-fixed.zip",
-       "size": 6335415,
-       "field": "dt_file",
-       "mime": "application/zip",
-       "name": "Training-data-20221208142818.zip",
-       "id": "7373",
-       "object": "Dataset",
-       "rowid": "5"
-      },
-      "dt_desc": "Created by module's data export on 2022-12-08 14:28:18"
-     }
-    },
-    {
-     "object": "Dataset",
-     "userkey": "Training~test-import",
-     "item": {
-      "row_module_id__mdl_name": "Training",
-      "dt_name": "test-import",
-      "dt_file": {
-       "path": "data/test-import.zip",
-       "size": 6335226,
-       "field": "dt_file",
-       "mime": "application/zip",
-       "name": "test-import.zip",
-       "id": "7261",
+       "id": "10305",
        "object": "Dataset",
        "rowid": "4"
       },
-      "dt_desc": null
+      "dt_desc": "Resets technical user's passwords (training-sync & training-front)"
      }
     },
     {
@@ -11031,9 +10996,9 @@
        "field": "dt_file",
        "mime": "text/xml",
        "name": "trigger-forceDirSync.xml",
-       "id": "7260",
+       "id": "10306",
        "object": "Dataset",
-       "rowid": "3"
+       "rowid": "5"
       },
       "dt_desc": "For CI/CD purposes in FileSystem mode, to trigger synchronization right after module import.\n\nSee https://community.simplicite.io/t/execution-post-importspec/4918/6"
      }
