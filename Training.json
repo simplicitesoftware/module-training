@@ -57,32 +57,18 @@
    "label": "System parameters",
    "icon": "img/system/system_param",
    "field": "row_module_id",
-   "list": [
-    {
-     "object": "SystemParam",
-     "userkey": "TRN_CONFIG",
-     "item": {
-      "sys_code": "TRN_CONFIG",
-      "sys_value": "{\n    \"edition_type\": \"UI\",\n    \"index_type\": \"simplicite\"\n}",
-      "sys_value2": "{\n\t\"edition_type\": \"UI\",\n\t\"filesystem_contentdir\": \"/home/trainingrec/training-content/content\",\n\t\"index_type\": \"simplicite\"\n}",
-      "sys_type": "PRV",
-      "sys_desc": "Examples : \n\nSimple usecase\n---------------------------\n\nEditing through UI, using Simplicité indexing\n\n```json\n{\n\t\"edition_type\": \"UI\",\n\t\"index_type\": \"simplicite\"\n}\n```\n\nAdvanced usecase\n---------------------------\n\nEditing through Filesystem (possible git repo), using ElasticSearch indexing\n\n```json\n{\n\t\"edition_type\": \"FILESYSTEM\",\n\t\"filesystem_contentdir\": \"/path/to/directory/to/sync/with\",\n\t\"index_type\": \"elasticsearch\",\n\t\"esi_config\": {\n\t\t\"instance\": \"https://elasticsearchinstance.mydomain.not\",\n\t\t\"index\": \"docs_myinstance\",\n\t\t\"credentials\":\"user:password\"\n\t}\n}\n```",
-      "row_module_id__mdl_name": "Training"
-     }
-    },
-    {
-     "object": "SystemParam",
-     "userkey": "URI_MAPPINGS",
-     "item": {
-      "sys_code": "URI_MAPPINGS",
-      "sys_value": "[]",
-      "sys_value2": "[\n\t{ \"source\": \"^(.*)$\", \"destination\": \"/ext/TrnFront$1\" }\n]",
-      "sys_type": "PRV",
-      "sys_desc": "Optional custom URI mappings, e.g.\n\n```json\n[\n\t{ \"source\": \"^/v1(.+)$\", \"destination\": \"/api/ext/MyAPIv1$1\" },\n\t{ \"source\": \"^/site$\",   \"destination\": \"/ext/MyWebSiteSite\" }\n]\n```",
-      "row_module_id__mdl_name": "Training"
-     }
+   "list": [{
+    "object": "SystemParam",
+    "userkey": "TRN_CONFIG",
+    "item": {
+     "sys_code": "TRN_CONFIG",
+     "sys_value": "{\n    \"edition_type\": \"UI\",\n    \"index_type\": \"simplicite\"\n}",
+     "sys_value2": "{\n\t\"edition_type\": \"UI\",\n\t\"filesystem_contentdir\": \"/home/trainingrec/training-content/content\",\n\t\"index_type\": \"simplicite\"\n}",
+     "sys_type": "PRV",
+     "sys_desc": "Examples : \n\nSimple usecase\n---------------------------\n\nEditing through UI, using Simplicité indexing\n\n```json\n{\n\t\"edition_type\": \"UI\",\n\t\"index_type\": \"simplicite\"\n}\n```\n\nAdvanced usecase\n---------------------------\n\nEditing through Filesystem (possible git repo), using ElasticSearch indexing\n\n```json\n{\n\t\"edition_type\": \"FILESYSTEM\",\n\t\"filesystem_contentdir\": \"/path/to/directory/to/sync/with\",\n\t\"index_type\": \"elasticsearch\",\n\t\"esi_config\": {\n\t\t\"instance\": \"https://elasticsearchinstance.mydomain.not\",\n\t\t\"index\": \"docs_myinstance\",\n\t\t\"credentials\":\"user:password\"\n\t}\n}\n```",
+     "row_module_id__mdl_name": "Training"
     }
-   ]
+   }]
   },
   {
    "object": "UserSysParam",
@@ -2155,11 +2141,11 @@
       "obo_class": null,
       "obo_script_id": {
        "path": "src/com/simplicite/objects/Training/TrnLesson.java",
-       "size": 3238,
+       "size": 3202,
        "field": "obo_script_id",
        "mime": "text/plain",
        "name": "TrnLesson.java",
-       "id": "10551",
+       "id": "10625",
        "object": "ObjectInternal",
        "rowid": "2007"
       },
@@ -4690,11 +4676,11 @@
       "obo_class": null,
       "obo_script_id": {
        "path": "src/com/simplicite/objects/Training/TrnPage.java",
-       "size": 341,
+       "size": 1051,
        "field": "obo_script_id",
        "mime": "text/plain",
        "name": "TrnPage.java",
-       "id": "10623",
+       "id": "10813",
        "object": "ObjectInternal",
        "rowid": "2019"
       },
@@ -4761,7 +4747,7 @@
       "obo_minrows": null,
       "obo_maxrows": null,
       "obo_sortable": true,
-      "obo_list_areas": null
+      "obo_list_areas": true
      },
      "links": [
       {
@@ -4896,7 +4882,7 @@
           "obf_ref_export": true,
           "obf_copy": null,
           "obf_ref_order": null,
-          "obf_fld_visible": null,
+          "obf_fld_visible": "0",
           "obf_fld_required": null,
           "obf_fld_updatable": null,
           "obf_fld_research": null,
@@ -5225,6 +5211,39 @@
           "obf_field_id__fld_dfault": null,
           "obf_area_id__ofa_name": "TrnPage-3",
           "obf_area_id__ofa_position": 3,
+          "row_module_id__mdl_name": "Training"
+         }
+        },
+        {
+         "object": "ObjectFieldSystem",
+         "userkey": "TrnPage~trnCatCode~130",
+         "item": {
+          "obf_object_id__obo_name": "TrnPage",
+          "obf_field_id__fld_name": "trnCatCode",
+          "obf_field_id__fld_type": "3",
+          "obf_order": 130,
+          "obf_group_by": null,
+          "obf_dfault_order": null,
+          "obf_input": null,
+          "obf_ref_field_id__fld_name": "trnLsnCatId",
+          "obf_ref_object_id__obo_name": "TrnCategory",
+          "obf_cascad": null,
+          "obf_card": null,
+          "obf_visible": null,
+          "obf_ref_export": true,
+          "obf_copy": null,
+          "obf_ref_order": null,
+          "obf_fld_visible": null,
+          "obf_fld_required": null,
+          "obf_fld_updatable": null,
+          "obf_fld_research": null,
+          "obf_fld_more": null,
+          "obf_fld_listmore": null,
+          "obf_fld_researchreq": null,
+          "obf_fld_dfault": null,
+          "obf_field_id__fld_dfault": null,
+          "obf_area_id__ofa_name": null,
+          "obf_area_id__ofa_position": null,
           "row_module_id__mdl_name": "Training"
          }
         }
@@ -11112,7 +11131,7 @@
       "ofa_name": "TrnPage-3",
       "ofa_position": 3,
       "ofa_title": false,
-      "ofa_ui": "<div>\n  <div class=\"row\">\n    <div class=\"col-sm-3\">\n      <div class=\"field\" data-field=\"trnLsnPublish\"><\/div>\n    <\/div>\n    <div class=\"col-sm-3\">\n      <div class=\"field\" data-field=\"trnLsnOrder\"><\/div>\n    <\/div>\n    <div class=\"col-sm-3\">\n      <div class=\"field\" data-field=\"trnLsnCode\"><\/div>\n    <\/div>\n    <div class=\"col-sm-3\">\n      <div class=\"field\" data-field=\"trnLsnVisualization\"><\/div>\n    <\/div>\n  <\/div>\n  <div class=\"row\">\n    <div class=\"col-sm-4\">\n      <div class=\"area\" data-area=\"TrnTagLsn;trnTaglsnLsnId\"><\/div>\n    <\/div>\n    <div class=\"col-sm-4\">\n      <div class=\"field\" data-field=\"trnPageType\"><\/div>\n    <\/div>\n    <div class=\"col-sm-4\">\n      <div class=\"field\" data-field=\"trnLsnCatId\"><\/div>\n      <div class=\"field\" data-field=\"trnLsnCatId__trnCatPath\"><\/div>\n    <\/div>\n  <\/div>\n  <div class=\"row\">\n    <div class=\"col-sm-6\">\n      <div class=\"field\" data-field=\"trnLsnPath\"><\/div>\n    <\/div>\n    <div class=\"col-sm-6\">\n      <div class=\"field\" data-field=\"trnLsnFrontPath\"><\/div>\n    <\/div>\n  <\/div>\n<\/div>",
+      "ofa_ui": "<div>\n  <div class=\"row\">\n    <div class=\"col-sm-3\">\n      <div class=\"field\" data-field=\"trnLsnPublish\"><\/div>\n    <\/div>\n    <div class=\"col-sm-3\">\n      <div class=\"field\" data-field=\"trnLsnOrder\"><\/div>\n    <\/div>\n    <div class=\"col-sm-3\">\n      <div class=\"field\" data-field=\"trnLsnCode\"><\/div>\n    <\/div>\n    <div class=\"col-sm-3\">\n      <div class=\"field\" data-field=\"trnLsnVisualization\"><\/div>\n    <\/div>\n  <\/div>\n  <div class=\"row\">\n    <div class=\"col-sm-7\">\n      <div class=\"area\" data-area=\"TrnTagLsn;trnTaglsnLsnId\"><\/div>\n    <\/div>\n    <div class=\"col-sm-5\">\n      <div class=\"field\" data-field=\"trnPageType\"><\/div>\n    <\/div>\n  <\/div>\n  <div class=\"row\">\n    <div class=\"col-sm-6\">\n      <div class=\"field\" data-field=\"trnLsnCatId\"><\/div>\n      <div class=\"field\" data-field=\"trnLsnCatId__trnCatPath\"><\/div>\n    <\/div>\n    <div class=\"col-sm-6\">\n      <div class=\"field\" data-field=\"trnLsnFrontPath\"><\/div>\n    <\/div>\n  <\/div>\n  <div class=\"row\">\n    <div class=\"col-sm-6\">\n      <div class=\"field\" data-field=\"trnLsnPath\"><\/div>\n    <\/div>\n    <div class=\"col-sm-6\"><\/div>\n  <\/div>\n<\/div>",
       "ofa_icon": "star",
       "row_module_id__mdl_name": "Training"
      },
@@ -11498,7 +11517,7 @@
        "field": "res_file_compiled",
        "mime": "text/javascript",
        "name": "SCRIPT.min.js",
-       "id": "10618",
+       "id": "10801",
        "object": "Resource",
        "rowid": "278"
       },
@@ -11538,9 +11557,49 @@
        "field": "res_file_compiled",
        "mime": "text/javascript",
        "name": "SCRIPT.min.js",
-       "id": "10619",
+       "id": "10802",
        "object": "Resource",
        "rowid": "279"
+      },
+      "res_image": null,
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "Resource",
+     "userkey": "ObjectInternal(TrnPage)~ANY~SCRIPT",
+     "item": {
+      "res_object": {
+       "item": {"obo_name": "TrnPage"},
+       "icon": "img/system/business_object",
+       "label": "Business object",
+       "row_id": "2019",
+       "userkeylabel": "TrnPage",
+       "object": "ObjectInternal"
+      },
+      "res_type": "JS",
+      "res_lang": "ANY",
+      "res_code": "SCRIPT",
+      "res_cached": false,
+      "res_file": {
+       "path": "resources/ObjectInternal/TrnPage/SCRIPT.js",
+       "size": 1586,
+       "field": "res_file",
+       "mime": "text/javascript",
+       "name": "script.js",
+       "id": "10806",
+       "object": "Resource",
+       "rowid": "280"
+      },
+      "res_file_compiled": {
+       "path": "resources/ObjectInternal/TrnPage/SCRIPT.min.js",
+       "size": 1165,
+       "field": "res_file_compiled",
+       "mime": "text/javascript",
+       "name": "script.min.js",
+       "id": "10807",
+       "object": "Resource",
+       "rowid": "280"
       },
       "res_image": null,
       "row_module_id__mdl_name": "Training"
@@ -11561,22 +11620,22 @@
      "mod_template_id__mtp_name": "ModelBusinessObject",
      "mod_doc": {
       "path": "files/Model/TrainingModel.svg",
-      "size": 56072,
+      "size": 58706,
       "field": "mod_doc",
       "mime": "image/svg+xml",
-      "name": "TrainingModel.svg",
-      "id": "10273",
+      "name": "model.svg",
+      "id": "10808",
       "object": "Model",
       "rowid": "9"
      },
      "mod_json": null,
      "mod_image": {
       "path": "files/Model/TrainingModel.png",
-      "size": 154470,
+      "size": 187143,
       "field": "mod_image",
       "mime": "image/png",
       "name": "TrainingModel.png",
-      "id": "10274",
+      "id": "10809",
       "object": "Model",
       "rowid": "9"
      },

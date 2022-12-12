@@ -313,6 +313,9 @@ components:
         trnLsnCatId__trnCatPath:
           description: Category ID Category Path
           type: string
+        trnLsnCatId__trnCatCode:
+          description: Category ID Code
+          type: string
         trnLsnCode:
           description: Code
           type: string
@@ -2678,6 +2681,12 @@ paths:
         in: query
         name: trnLsnCatId__trnCatPath
         description: Search filter for Category ID Category Path
+        required: false
+      - schema:
+          type: string
+        in: query
+        name: trnLsnCatId__trnCatCode
+        description: Search filter for Category ID Code
         required: false
       - schema:
           type: string

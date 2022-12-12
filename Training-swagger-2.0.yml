@@ -1894,6 +1894,11 @@ paths:
         type: string
         required: false
       - in: query
+        name: trnLsnCatId__trnCatCode
+        description: Search filter for Category ID Code
+        type: string
+        required: false
+      - in: query
         name: trnTagLsnVirtual
         description: Search filter for Trn tag lsn virtual
         type: string
@@ -2832,6 +2837,9 @@ definitions:
         type: integer
       trnLsnCatId__trnCatPath:
         description: Category ID Category Path
+        type: string
+      trnLsnCatId__trnCatCode:
+        description: Category ID Code
         type: string
       trnLsnCode:
         description: Code

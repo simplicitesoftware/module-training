@@ -31,6 +31,7 @@ The module for the Simplciité Training platform
 | `trnLsnFrontPath`                                            | url(400)                                 |          |           |          | -                                                                                |
 | `trnLsnCatId` link to **`TrnCategory`**                      | id                                       | yes      | yes       |          | -                                                                                |
 | _Ref. `trnLsnCatId.trnCatPath`_                              | _text(400)_                              |          |           |          | -                                                                                |
+| _Ref. `trnLsnCatId.trnCatCode`_                              | _char(100)_                              |          |           |          | -                                                                                |
 
 ### Lists
 
