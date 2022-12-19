@@ -10,19 +10,20 @@ import com.simplicite.commons.Training.*;
 /**
  * Business object TrnPage
  */
-public class TrnPage extends TrnLesson {
+public class TrnPage extends TrnObject {
 	private static final long serialVersionUID = 1L;
 
 	@Override
 	public List<String> preValidate() {
 	    List<String> msgs = new ArrayList<String>();
-		if(getFieldValue("trnPageType").equals("homepage")) { // if new page is a homepage check if one does not already exists
+		String value = getFieldValue("trnPageType");
+		if(value.equals("homepage") && isNew()) { // if new page is a homepage check if one does not already exists
 			ObjectDB page = getGrant().getTmpObject("TrnPage");
 			page.resetFilters();
 			page.setFieldFilter("trnPageType", "homepage");
 			if(page.count() == 1) {
-				msgs.add(Message.formatError("You already have a homepage", "Message", "trnPageType"));
-			}	
+				msgs.add(Message.formatError("You already have a homepage", null, "trnPageType"));
+			}
 		}
 	    return msgs; // Return a list of messages
 	}

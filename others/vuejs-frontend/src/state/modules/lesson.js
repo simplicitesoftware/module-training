@@ -10,6 +10,23 @@ export default {
   actions: {
     async openLesson({dispatch, commit} , payload) {
       commit('tree/OPEN_NODE', payload.lesson.path, { root: true });
+      await dispatch("fetchLesson", payload);
+    },
+
+    async openHomePage({dispatch}, payload) {
+      let homePage = payload.smp.getBusinessObject("TrnPage");
+      homePage.search(
+        {'trnPageType': "homepage"}, {inlineDocs: 'infos'}
+      ).then(async array => {
+        payload.lesson.row_id = array[0].TrnPage_TrnLesson_id;
+        payload.lesson.viz = array[0].TrnPage_TrnLesson_id__trnLsnVisualization;
+        await dispatch("fetchLesson", payload);
+      }).catch(e => {
+        console.log(e);
+      });
+    },
+
+    async fetchLesson({dispatch}, payload) {
       await dispatch("fetchLessonTag", payload);
       await dispatch("fetchLessonContent", payload);
       await dispatch("fetchLessonImages", payload);
@@ -43,8 +60,6 @@ export default {
         })
       })
     },
-
-    
 
     async fetchLessonImages({commit}, payload) {  
       return new Promise((resolve, reject) => {
