@@ -9,8 +9,7 @@
     "build-remote": "vue-cli-service build --mode remote",
     "lint": "vue-cli-service lint",
     "zip": "jar -cfM ../../resources/ObjectExternal/TrnFront/site.zip -C ./dist/ .",
-    "sim-deploy": "npm run build && npm run zip",
-    "sim-deploy-local": "npm run build-local && npm run zip"
+    "sim-deploy": "npm run build && npm run zip"
   },
   "dependencies": {
     "@appbaseio/reactivesearch-vue": "^1.16.0",
