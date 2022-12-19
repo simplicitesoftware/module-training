@@ -22,16 +22,13 @@ The module for the Simplciité Training platform
 
 | Name                                                         | Type                                     | Required | Updatable | Personal | Description                                                                      |
 |--------------------------------------------------------------|------------------------------------------|----------|-----------|----------|----------------------------------------------------------------------------------|
-| `trnLsnPublish`                                              | boolean                                  |          | yes       |          | Determines if the lesson is visible on the front-end application.                |
-| `trnLsnPath`                                                 | text(400)                                | *        |           |          | -                                                                                |
-| `trnLsnOrder`                                                | int(100)                                 | yes      | yes       |          | -                                                                                |
-| `trnLsnCode`                                                 | char(255)                                | yes      | yes       |          | -                                                                                |
+| `trnPageCode`                                                | char(255)                                | yes*     | yes       |          | -                                                                                |
 | `trnPageType`                                                | enum(10) using `TRN_PAGE_TYPE` list      | yes      | yes       |          | -                                                                                |
-| `trnLsnVisualization`                                        | enum(6) using `TRNLSNVISUALIZATION` list |          | yes       |          | Describes the visualization mode to be used in the front-end application.        |
-| `trnLsnFrontPath`                                            | url(400)                                 |          |           |          | -                                                                                |
-| `trnLsnCatId` link to **`TrnCategory`**                      | id                                       | yes      | yes       |          | -                                                                                |
-| _Ref. `trnLsnCatId.trnCatPath`_                              | _text(400)_                              |          |           |          | -                                                                                |
-| _Ref. `trnLsnCatId.trnCatCode`_                              | _char(100)_                              |          |           |          | -                                                                                |
+| `TrnPage_TrnLesson_id` link to **`TrnLesson`**               | id                                       |          | yes       |          | -                                                                                |
+| _Ref. `TrnPage_TrnLesson_id.trnLsnPath`_                     | _text(400)_                              |          |           |          | -                                                                                |
+| _Ref. `TrnPage_TrnLesson_id.trnLsnFrontPath`_                | _url(400)_                               |          |           |          | -                                                                                |
+| _Ref. `TrnPage_TrnLesson_id.trnLsnPublish`_                  | _boolean_                                |          |           |          | _Determines if the lesson is visible on the front-end application._              |
+| _Ref. `TrnPage_TrnLesson_id.trnLsnVisualization`_            | _enum(6) using `TRNLSNVISUALIZATION` list_ |          |           |          | _Describes the visualization mode to be used in the front-end application._      |
 
 ### Lists
 
@@ -165,7 +162,7 @@ The picture object for the lessons. Used for the multilanguage support.
 
 | Name                                                         | Type                                     | Required | Updatable | Personal | Description                                                                      |
 |--------------------------------------------------------------|------------------------------------------|----------|-----------|----------|----------------------------------------------------------------------------------|
-| `trnPicId`                                                   | id                                       | *        | yes       |          | -                                                                                |
+| `trnPicId`                                                   | id                                       | yes*     | yes       |          | -                                                                                |
 | `trnPicLang`                                                 | enum(100) using `LANG_ALL` list          | yes      | yes       |          | -                                                                                |
 | `trnPicImage`                                                | image                                    | yes      | yes       |          | -                                                                                |
 | `trnPicLsnId` link to **`TrnLesson`**                        | id                                       | yes      | yes       |          | -                                                                                |

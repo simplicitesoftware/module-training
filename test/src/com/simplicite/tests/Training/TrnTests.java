@@ -18,7 +18,7 @@ public class TrnTests {
 		try {
 			TrnFsSyncTool.dropDbData();
 			TrnFsSyncTool.deleteStore();
-			TrnFsSyncTool.triggerSync();
+			//TrnFsSyncTool.triggerSync();
 		} catch (Exception e) {
 			AppLog.error(getClass(), "testSync", e.getMessage(), e, Grant.getSystemAdmin());
 			fail(e.getMessage());

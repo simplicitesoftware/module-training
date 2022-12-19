@@ -1841,23 +1841,7 @@ paths:
         type: boolean
         required: false
       - in: query
-        name: trnLsnPublish
-        description: Search filter for Determines if the lesson is visible on the
-          front-end application.
-        type: boolean
-        required: false
-      - in: query
-        name: trnLsnPath
-        description: Search filter for Path
-        type: string
-        required: false
-      - in: query
-        name: trnLsnOrder
-        description: Search filter for Order
-        type: integer
-        required: false
-      - in: query
-        name: trnLsnCode
+        name: trnPageCode
         description: Search filter for Code
         type: string
         required: false
@@ -1870,7 +1854,28 @@ paths:
         - homepage
         - others
       - in: query
-        name: trnLsnVisualization
+        name: TrnPage_TrnLesson_id
+        description: Search filter for Lesson|Lessons
+        type: string
+        required: false
+      - in: query
+        name: TrnPage_TrnLesson_id__trnLsnPath
+        description: Search filter for Path
+        type: string
+        required: false
+      - in: query
+        name: TrnPage_TrnLesson_id__trnLsnFrontPath
+        description: Search filter for Front path
+        type: string
+        required: false
+      - in: query
+        name: TrnPage_TrnLesson_id__trnLsnPublish
+        description: Search filter for Determines if the lesson is visible on the
+          front-end application.
+        type: boolean
+        required: false
+      - in: query
+        name: TrnPage_TrnLesson_id__trnLsnVisualization
         description: Search filter for Describes the visualization mode to be used
           in the front-end application.
         type: string
@@ -1878,31 +1883,6 @@ paths:
         enum:
         - TUTO
         - LINEAR
-      - in: query
-        name: trnLsnFrontPath
-        description: Search filter for Front path
-        type: string
-        required: false
-      - in: query
-        name: trnLsnCatId
-        description: Search filter for Category ID
-        type: string
-        required: false
-      - in: query
-        name: trnLsnCatId__trnCatPath
-        description: Search filter for Category ID Category Path
-        type: string
-        required: false
-      - in: query
-        name: trnLsnCatId__trnCatCode
-        description: Search filter for Category ID Code
-        type: string
-        required: false
-      - in: query
-        name: trnTagLsnVirtual
-        description: Search filter for Trn tag lsn virtual
-        type: string
-        required: false
       tags:
       - TrnPage
   /rest/TrnSiteContent/{row_id}:
@@ -2829,36 +2809,11 @@ definitions:
   TrnPage:
     type: object
     properties:
-      trnLsnPath:
-        description: Path
-        type: string
-      trnLsnOrder:
-        description: Order
-        type: integer
-      trnLsnCatId__trnCatPath:
-        description: Category ID Category Path
-        type: string
-      trnLsnCatId__trnCatCode:
-        description: Category ID Code
-        type: string
-      trnLsnCode:
-        description: Code
-        type: string
-      trnLsnVisualization:
-        description: Describes the visualization mode to be used in the front-end
-          application.
-        type: string
-        enum:
-        - TUTO
-        - LINEAR
-      trnTagLsnVirtual:
-        description: Trn tag lsn virtual
-        type: string
-      trnLsnPublish:
+      TrnPage_TrnLesson_id__trnLsnPublish:
         description: Determines if the lesson is visible on the front-end application.
         type: boolean
-      trnLsnFrontPath:
-        description: Front path
+      trnPageCode:
+        description: Code
         type: string
       trnPageType:
         description: Type
@@ -2866,11 +2821,24 @@ definitions:
         enum:
         - homepage
         - others
+      TrnPage_TrnLesson_id__trnLsnPath:
+        description: Path
+        type: string
       row_id:
         description: Unique technical row ID
         type: string
-      trnLsnCatId:
-        description: Category ID
+      TrnPage_TrnLesson_id__trnLsnFrontPath:
+        description: Front path
+        type: string
+      TrnPage_TrnLesson_id__trnLsnVisualization:
+        description: Describes the visualization mode to be used in the front-end
+          application.
+        type: string
+        enum:
+        - TUTO
+        - LINEAR
+      TrnPage_TrnLesson_id:
+        description: Lesson|Lessons
         type: string
   ArrayOfTrnSiteContent:
     type: array
