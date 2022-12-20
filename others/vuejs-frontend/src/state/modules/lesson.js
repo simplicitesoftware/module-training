@@ -29,7 +29,7 @@ export default {
     async openPage({dispatch}, payload) {
       return new Promise((resolve, reject) => {
         let page = payload.smp.getBusinessObject("TrnPage");
-        page.search({"TrnPage_TrnLesson_id__trnLsnFrontPath": payload.path}, {inlineDocs: 'infos'})
+        page.search({"TrnPage_TrnLesson_id__trnLsnFrontPath": payload.path, "TrnPage_TrnLesson_id__trnLsnPublish": true}, {inlineDocs: 'infos'})
         .then(async array => {
           console.log("test");
           if(array[0]) {
