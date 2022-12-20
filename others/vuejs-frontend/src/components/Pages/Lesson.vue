@@ -85,7 +85,7 @@
       ...mapGetters({
         breadCrumbItems: 'tree/breadCrumbItems',
         getLessonFromPath: 'tree/getLessonFromPath',
-        isCategoryFromPath: 'tree/isCategoryFromPath'
+        getCategoryFromPath: 'tree/getCategoryFromPath'
       }),
 
     },
@@ -136,33 +136,41 @@
         })
       }
     },
-    async created() {
-      let splittedRoute = this.$router.currentRoute.path.split("lesson");
-      let lessonPath = splittedRoute[1] ? splittedRoute[1] : "";
-      if(lessonPath.includes(".md")){
-        var mdLessonPath = lessonPath.split(".md");
-        lessonPath = mdLessonPath[0];
-      }
-      let lesson = this.getLessonFromPath(lessonPath);
-      if (!lesson || lesson.is_category) {
-        // test if path is from a category
-        const cat = this.isCategoryFromPath(lessonPath);
-        
+    async created() {      
+      // Can't disable no-prototype-builtins for all the file, need to apply on every line using hasOwnProperty
+      // eslint-disable-next-line no-prototype-builtins
+      if(this.$router.currentRoute.params.hasOwnProperty("lessonPath")) {
+        console.log(this.$router.currentRoute.params.lessonPath);
+        let lessonPath = "/" + this.$router.currentRoute.params.lessonPath;
+        if(lessonPath.includes(".md")){
+          var mdLessonPath = lessonPath.split(".md");
+          lessonPath = mdLessonPath[0];
+        }
+        const lesson = this.getLessonFromPath(lessonPath);
+        if(!lesson) await this.$router.push('/404');
+        else this.openLesson(lesson); 
+
+      // eslint-disable-next-line no-prototype-builtins
+      } else if(this.$router.currentRoute.params.hasOwnProperty("pagePath")) {
+        this.$store.dispatch("lesson/openPage", {
+          smp: this.$smp,
+          lesson: {row_id: undefined, viz: undefined},
+          path: "/" + this.$router.currentRoute.params.pagePath
+        }).catch(async e => {
+          await this.$router.push('/404');
+        }); 
+      // eslint-disable-next-line no-prototype-builtins
+      } else if(this.$router.currentRoute.params.hasOwnProperty("categoryPath")) {
+        const cat = this.getCategoryFromPath("/" + this.$router.currentRoute.params.categoryPath);
         if(cat) {
           if(cat.lessons.length > 0) {
-            lesson = this.getLessonFromPath(cat.lessons[0].path);
+            const lesson = this.getLessonFromPath(cat.lessons[0].path);
             this.openLesson(lesson);
           } else {
             await this.$router.push('/');
             this.$store.commit("tree/OPEN_NODE", cat.path);
           }
-        } else {
-          // if no lesson / cat
-          await this.$router.push('/404');
-        }
-      }
-      else {
-        this.openLesson(lesson);
+        } else await this.$router.push('/404');
       }
     },
     mounted() {

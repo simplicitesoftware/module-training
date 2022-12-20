@@ -66,7 +66,7 @@ export default {
         });
         return foundLsn;
       },
-    isCategoryFromPath:
+    getCategoryFromPath:
       state => catPath => {
       let parents = catPath.split('/');
       parents.splice(0, 1);
