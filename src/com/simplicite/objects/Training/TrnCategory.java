@@ -140,4 +140,13 @@ public class TrnCategory extends TrnObject {
 			AppLog.error(getClass(), "reIndexAll", e.getMessage(), e, Grant.getSystemAdmin());
 		}
 	}
+	
+	public void generateSitemapAction() {
+		Grant g = getGrant();
+		try {
+			TrnSitemapGenerator.generateSitemap(g);	
+		} catch(TrnSitemapGenerator.TrnSitemapGeneratorException e) {
+			AppLog.error(getClass(), "generateSitemap", e.getMessage(), e, g);
+		}
+	}
 }

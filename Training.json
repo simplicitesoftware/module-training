@@ -189,11 +189,11 @@
       "obo_class": null,
       "obo_script_id": {
        "path": "src/com/simplicite/objects/Training/TrnCategory.java",
-       "size": 4482,
+       "size": 4740,
        "field": "obo_script_id",
        "mime": "text/plain",
        "name": "TrnCategory.java",
-       "id": "10280",
+       "id": "11281",
        "object": "ObjectInternal",
        "rowid": "2005"
       },
@@ -1389,6 +1389,102 @@
            }
           }]
          }]
+        },
+        {
+         "object": "Function",
+         "userkey": "TRN_CAT_SITEMAP_GENERATOR_A",
+         "item": {
+          "fct_name": "TRN_CAT_SITEMAP_GENERATOR_A",
+          "fct_object_id__obj_type": "O",
+          "fct_object_id__obj_name": "TrnCategory",
+          "fct_function": "A",
+          "fct_action_id__act_name": "sitemapGenerator",
+          "fct_view_id__viw_name": null,
+          "row_module_id__mdl_name": "Training"
+         },
+         "links": [
+          {
+           "object": "Grant",
+           "label": "Grant",
+           "icon": "img/system/grant",
+           "field": "grt_function_id",
+           "list": [{
+            "object": "Grant",
+            "userkey": "TRN_ADMIN~TRN_CAT_SITEMAP_GENERATOR_A~TrnCategory~sitemapGenerator",
+            "item": {
+             "grt_group_id__grp_name": "TRN_ADMIN",
+             "grt_function_id__fct_name": "TRN_CAT_SITEMAP_GENERATOR_A",
+             "grt_function_id__fct_object_id__obj_type": "O",
+             "grt_function_id__fct_object_id__obj_name": "TrnCategory",
+             "grt_function_id__fct_action_id__act_name": "sitemapGenerator",
+             "grt_function_id__fct_function": "A",
+             "grt_activ": true,
+             "row_module_id__mdl_name": "Training"
+            }
+           }]
+          },
+          {
+           "object": "Action",
+           "label": "Action",
+           "icon": "img/system/action",
+           "field": "",
+           "list": [{
+            "object": "Action",
+            "userkey": "sitemapGenerator",
+            "item": {
+             "act_name": "sitemapGenerator",
+             "act_type": "L",
+             "act_async": "0",
+             "act_job_depth": null,
+             "act_method": "generateSitemapAction",
+             "act_script": null,
+             "act_url": null,
+             "act_image": "img/color/analyse",
+             "act_confirm": true,
+             "act_confirm_expr": null,
+             "act_confirm_ui": null,
+             "act_plus": false,
+             "act_comment": null,
+             "row_module_id__mdl_name": "Training",
+             "act_exec": "BCK",
+             "act_count": null,
+             "act_order": 20
+            },
+            "links": [{
+             "object": "TranslateAction",
+             "label": "Action translation",
+             "icon": "img/system/translation",
+             "field": "tsl_id",
+             "list": [
+              {
+               "object": "TranslateAction",
+               "userkey": "A~sitemapGenerator~ENU",
+               "item": {
+                "tsl_typeAction": "A",
+                "tsl_id__act_name": "sitemapGenerator",
+                "tsl_lang": "ENU",
+                "tsl_value": "Sitemap generator",
+                "tsl_simplehelp": null,
+                "row_module_id__mdl_name": "Training"
+               }
+              },
+              {
+               "object": "TranslateAction",
+               "userkey": "A~sitemapGenerator~FRA",
+               "item": {
+                "tsl_typeAction": "A",
+                "tsl_id__act_name": "sitemapGenerator",
+                "tsl_lang": "FRA",
+                "tsl_value": "Sitemap generator",
+                "tsl_simplehelp": null,
+                "row_module_id__mdl_name": "Training"
+               }
+              }
+             ]
+            }]
+           }]
+          }
+         ]
         }
        ]
       }
@@ -1408,7 +1504,7 @@
        "field": "obo_script_id",
        "mime": "text/plain",
        "name": "TrnCategoryTranslate.java",
-       "id": "10282",
+       "id": "11200",
        "object": "ObjectInternal",
        "rowid": "2006"
       },
@@ -2117,7 +2213,7 @@
        "field": "obo_script_id",
        "mime": "text/plain",
        "name": "TrnLesson.java",
-       "id": "10625",
+       "id": "11194",
        "object": "ObjectInternal",
        "rowid": "2007"
       },
@@ -3468,7 +3564,7 @@
        "field": "obo_script_id",
        "mime": "text/plain",
        "name": "TrnLsnTranslate.java",
-       "id": "10281",
+       "id": "11196",
        "object": "ObjectInternal",
        "rowid": "2008"
       },
@@ -4676,11 +4772,11 @@
       "obo_class": null,
       "obo_script_id": {
        "path": "src/com/simplicite/objects/Training/TrnPage.java",
-       "size": 871,
+       "size": 900,
        "field": "obo_script_id",
        "mime": "text/plain",
        "name": "TrnPage.java",
-       "id": "11104",
+       "id": "11195",
        "object": "ObjectInternal",
        "rowid": "2020"
       },
@@ -5540,7 +5636,7 @@
        "field": "obo_script_id",
        "mime": "text/plain",
        "name": "TrnPicture.java",
-       "id": "11029",
+       "id": "11197",
        "object": "ObjectInternal",
        "rowid": "2009"
       },
@@ -6768,7 +6864,7 @@
        "field": "obo_script_id",
        "mime": "text/plain",
        "name": "TrnTag.java",
-       "id": "10283",
+       "id": "11198",
        "object": "ObjectInternal",
        "rowid": "2013"
       },
@@ -7178,7 +7274,7 @@
        "field": "obo_script_id",
        "mime": "text/plain",
        "name": "TrnTagLsn.java",
-       "id": "10284",
+       "id": "11199",
        "object": "ObjectInternal",
        "rowid": "2016"
       },
@@ -7731,7 +7827,7 @@
        "field": "obo_script_id",
        "mime": "text/plain",
        "name": "TrnTagTranslate.java",
-       "id": "10285",
+       "id": "11201",
        "object": "ObjectInternal",
        "rowid": "2014"
       },
@@ -8330,7 +8426,7 @@
        "field": "obe_script_id",
        "mime": "text/plain",
        "name": "TrnFront.java",
-       "id": "10275",
+       "id": "11189",
        "object": "ObjectExternal",
        "rowid": "2001"
       },
@@ -8427,7 +8523,7 @@
        "field": "obe_script_id",
        "mime": "text/plain",
        "name": "TrnPublicService.java",
-       "id": "10276",
+       "id": "11190",
        "object": "ObjectExternal",
        "rowid": "2018"
       },
@@ -8524,7 +8620,7 @@
        "field": "obe_script_id",
        "mime": "text/plain",
        "name": "TrnSyncService.java",
-       "id": "10277",
+       "id": "11188",
        "object": "ObjectExternal",
        "rowid": "2003"
       },
@@ -8621,7 +8717,7 @@
        "field": "obe_script_id",
        "mime": "text/plain",
        "name": "TrnTagService.java",
-       "id": "10278",
+       "id": "11192",
        "object": "ObjectExternal",
        "rowid": "2017"
       },
@@ -8718,7 +8814,7 @@
        "field": "obe_script_id",
        "mime": "text/plain",
        "name": "TrnTreeService.java",
-       "id": "10279",
+       "id": "11191",
        "object": "ObjectExternal",
        "rowid": "2004"
       },
@@ -11531,11 +11627,11 @@
       "res_cached": false,
       "res_file": {
        "path": "resources/ObjectExternal/TrnFront/SITE.zip",
-       "size": 2275213,
+       "size": 2151908,
        "field": "res_file",
        "mime": "application/zip",
        "name": "SITE.zip",
-       "id": "10290",
+       "id": "11206",
        "object": "Resource",
        "rowid": "277"
       },
@@ -11562,21 +11658,21 @@
       "res_cached": false,
       "res_file": {
        "path": "resources/ObjectInternal/TrnCategory/SCRIPT.js",
-       "size": 1327,
+       "size": 1308,
        "field": "res_file",
        "mime": "text/javascript",
        "name": "SCRIPT.js",
-       "id": "10289",
+       "id": "11283",
        "object": "Resource",
        "rowid": "278"
       },
       "res_file_compiled": {
        "path": "resources/ObjectInternal/TrnCategory/SCRIPT.min.js",
-       "size": 1019,
+       "size": 958,
        "field": "res_file_compiled",
        "mime": "text/javascript",
        "name": "SCRIPT.min.js",
-       "id": "11078",
+       "id": "11284",
        "object": "Resource",
        "rowid": "278"
       },
@@ -11606,7 +11702,7 @@
        "field": "res_file",
        "mime": "text/javascript",
        "name": "SCRIPT.js",
-       "id": "10288",
+       "id": "11202",
        "object": "Resource",
        "rowid": "279"
       },
@@ -11616,9 +11712,49 @@
        "field": "res_file_compiled",
        "mime": "text/javascript",
        "name": "SCRIPT.min.js",
-       "id": "11079",
+       "id": "11271",
        "object": "Resource",
        "rowid": "279"
+      },
+      "res_image": null,
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "Resource",
+     "userkey": "ObjectInternal(TrnPage)~ANY~SCRIPT",
+     "item": {
+      "res_object": {
+       "item": {"obo_name": "TrnPage"},
+       "icon": "img/system/business_object",
+       "label": "Business object",
+       "row_id": "2020",
+       "userkeylabel": "TrnPage",
+       "object": "ObjectInternal"
+      },
+      "res_type": "JS",
+      "res_lang": "ANY",
+      "res_code": "SCRIPT",
+      "res_cached": false,
+      "res_file": {
+       "path": "resources/ObjectInternal/TrnPage/SCRIPT.js",
+       "size": 1327,
+       "field": "res_file",
+       "mime": "text/javascript",
+       "name": "script.js",
+       "id": "11230",
+       "object": "Resource",
+       "rowid": "280"
+      },
+      "res_file_compiled": {
+       "path": "resources/ObjectInternal/TrnPage/SCRIPT.min.js",
+       "size": 1023,
+       "field": "res_file_compiled",
+       "mime": "text/javascript",
+       "name": "script.min.js",
+       "id": "11272",
+       "object": "Resource",
+       "rowid": "280"
       },
       "res_image": null,
       "row_module_id__mdl_name": "Training"
@@ -11642,8 +11778,8 @@
       "size": 58706,
       "field": "mod_doc",
       "mime": "image/svg+xml",
-      "name": "model.svg",
-      "id": "10808",
+      "name": "TrainingModel.svg",
+      "id": "11186",
       "object": "Model",
       "rowid": "9"
      },
@@ -11654,7 +11790,7 @@
       "field": "mod_image",
       "mime": "image/png",
       "name": "TrainingModel.png",
-      "id": "10809",
+      "id": "11187",
       "object": "Model",
       "rowid": "9"
      },
@@ -11682,7 +11818,7 @@
       "field": "adp_script_id",
       "mime": "text/plain",
       "name": "TrainingContentAdapter.java",
-      "id": "10293",
+      "id": "11207",
       "object": "Adapter",
       "rowid": "13"
      },
@@ -11707,7 +11843,7 @@
        "field": "scr_file",
        "mime": "text/plain",
        "name": "TrnTools.java",
-       "id": "10296",
+       "id": "11210",
        "object": "Script",
        "rowid": "1"
       },
@@ -11726,7 +11862,7 @@
        "field": "scr_file",
        "mime": "text/plain",
        "name": "TrnFsSyncTool.java",
-       "id": "10301",
+       "id": "11209",
        "object": "Script",
        "rowid": "2"
       },
@@ -11745,7 +11881,7 @@
        "field": "scr_file",
        "mime": "text/plain",
        "name": "TrnTests.java",
-       "id": "10882",
+       "id": "11208",
        "object": "Script",
        "rowid": "3"
       },
@@ -11764,7 +11900,7 @@
        "field": "scr_file",
        "mime": "text/plain",
        "name": "TrnObject.java",
-       "id": "10298",
+       "id": "11212",
        "object": "Script",
        "rowid": "6"
       },
@@ -11783,7 +11919,7 @@
        "field": "scr_file",
        "mime": "text/plain",
        "name": "TrnIndexer.java",
-       "id": "10294",
+       "id": "11211",
        "object": "Script",
        "rowid": "7"
       },
@@ -11802,7 +11938,7 @@
        "field": "scr_file",
        "mime": "text/plain",
        "name": "MarkdownTool2.java",
-       "id": "10300",
+       "id": "11214",
        "object": "Script",
        "rowid": "8"
       },
@@ -11821,7 +11957,7 @@
        "field": "scr_file",
        "mime": "text/plain",
        "name": "TrnTestMarkdownTool2.java",
-       "id": "10299",
+       "id": "11213",
        "object": "Script",
        "rowid": "9"
       },
@@ -11840,9 +11976,28 @@
        "field": "scr_file",
        "mime": "text/plain",
        "name": "TrnEsiHelper.java",
-       "id": "10297",
+       "id": "11215",
        "object": "Script",
        "rowid": "10"
+      },
+      "scr_type": "JSR",
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "Script",
+     "userkey": "TrnSitemapGenerator",
+     "item": {
+      "scr_code": "TrnSitemapGenerator",
+      "scr_file": {
+       "path": "src/com/simplicite/commons/Training/TrnSitemapGenerator.java",
+       "size": 930,
+       "field": "scr_file",
+       "mime": "text/plain",
+       "name": "TrnSitemapGenerator.java",
+       "id": "11290",
+       "object": "Script",
+       "rowid": "11"
       },
       "scr_type": "JSR",
       "row_module_id__mdl_name": "Training"
@@ -12004,8 +12159,8 @@
        "size": 6335230,
        "field": "dt_file",
        "mime": "application/zip",
-       "name": "Training-data-20221208154818.zip",
-       "id": "10510",
+       "name": "Display-test-data.zip",
+       "id": "11216",
        "object": "Dataset",
        "rowid": "11"
       },
@@ -12024,7 +12179,7 @@
        "field": "dt_file",
        "mime": "text/xml",
        "name": "Technical-passwords.xml",
-       "id": "10305",
+       "id": "11217",
        "object": "Dataset",
        "rowid": "4"
       },
@@ -12043,7 +12198,7 @@
        "field": "dt_file",
        "mime": "text/xml",
        "name": "trigger-forceDirSync.xml",
-       "id": "10306",
+       "id": "11218",
        "object": "Dataset",
        "rowid": "5"
       },
@@ -12051,6 +12206,25 @@
      }
     }
    ]
+  },
+  {
+   "object": "Function",
+   "label": "Functions",
+   "icon": "img/system/function",
+   "field": "row_module_id",
+   "list": [{
+    "object": "Function",
+    "userkey": "_SITEMAP_GENERATOR_A",
+    "item": {
+     "fct_name": "_SITEMAP_GENERATOR_A",
+     "fct_object_id__obj_type": null,
+     "fct_object_id__obj_name": null,
+     "fct_function": "A",
+     "fct_action_id__act_name": "sitemapGenerator",
+     "fct_view_id__viw_name": null,
+     "row_module_id__mdl_name": "Training"
+    }
+   }]
   }
  ]
 }
