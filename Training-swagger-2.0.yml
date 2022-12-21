@@ -232,6 +232,40 @@ paths:
       - TrnLesson
       consumes:
       - application/json
+  /rest/TrnCategory/{row_id}/publication:TrnSitemapGenerator:
+    get:
+      summary: Call a custom publication for a TrnCategory business object record
+        or for all records
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-trncategory-publication-trnsitemapgenerator
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/PublicationResult'
+          description: Success in calling the custom publication
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      tags:
+      - TrnCategory
   /rest/TrnCategoryTranslate:
     get:
       summary: Search TrnCategoryTranslate business object records or get contextualized
@@ -1304,6 +1338,56 @@ paths:
       - TrnTag
       consumes:
       - application/json
+  /rest/TrnSitemap:
+    get:
+      summary: Search TrnSitemap business object records or get contextualized metadata
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-trnsitemap-search
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/ArrayOfTrnSitemap'
+          description: Success in searching business object records (or in getting
+            contextualized business object metadata, documentation, ...)
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+      parameters:
+      - in: query
+        name: _metadata
+        description: Metadata?
+        type: boolean
+        required: false
+      - in: query
+        name: _count
+        description: Count?
+        type: boolean
+        required: false
+      - in: query
+        name: _doc
+        description: Documentation?
+        type: boolean
+        required: false
+      - in: query
+        name: trnSitemapCode
+        description: Search filter for Trn sitemap code
+        type: integer
+        required: false
+      - in: query
+        name: trnSitemapDoc
+        description: Search filter for Trn sitemap doc
+        type: string
+        required: false
+      tags:
+      - TrnSitemap
   /rest/TrnTagLsn:
     get:
       summary: Search TrnTagLsn business object records or get contextualized metadata
@@ -1543,6 +1627,168 @@ paths:
           description: Unauthorized
       tags:
       - session
+  /rest/TrnSitemap/{row_id}:
+    post:
+      summary: Create a new TrnSitemapbusiness object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-trnsitemap-create
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/TrnSitemap'
+          description: Success in creating a new business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - schema:
+          $ref: '#/definitions/TrnSitemap'
+        in: body
+        name: body
+      tags:
+      - TrnSitemap
+      consumes:
+      - application/json
+    get:
+      summary: Get a TrnSitemap business object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-trnsitemap-get
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/TrnSitemap'
+          description: Success in getting a single business object record
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - in: query
+        name: _inline_documents
+        description: Inline documents?
+        type: boolean
+        required: false
+      - in: query
+        name: _inline_thumbnails
+        description: Inline documents' thumbnails?
+        type: boolean
+        required: false
+      - in: query
+        name: _inline_objects
+        description: Inline objects?
+        type: boolean
+        required: false
+      tags:
+      - TrnSitemap
+    delete:
+      summary: Delete a TrnSitemap business object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-trnsitemap-delete
+      responses:
+        '200':
+          description: Success in deleting a business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      tags:
+      - TrnSitemap
+    put:
+      summary: Update a TrnSitemapbusiness object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-trnsitemap-update
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/TrnSitemap'
+          description: Success in updating a business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - schema:
+          $ref: '#/definitions/TrnSitemap'
+        in: body
+        name: body
+      tags:
+      - TrnSitemap
+      consumes:
+      - application/json
   /rest/TrnPicture:
     get:
       summary: Search TrnPicture business object records or get contextualized metadata
@@ -2290,44 +2536,6 @@ paths:
       - TrnTagLsn
       consumes:
       - application/json
-  /rest/TrnCategory/{row_id}/action:sitemapGenerator:
-    get:
-      summary: Call a custom action for a TrnCategory business object record or for
-        all records
-      security:
-      - bearerAuth: []
-      produces:
-      - application/json
-      operationId: obj-trncategory-action-sitemapgenerator
-      responses:
-        '200':
-          schema:
-            $ref: '#/definitions/ActionResult'
-          description: Success in calling the custom action
-        '400':
-          schema:
-            $ref: '#/definitions/Error400'
-          description: Bad request
-        '401':
-          schema:
-            $ref: '#/definitions/Error401'
-          description: Unauthorized
-        '500':
-          schema:
-            $ref: '#/definitions/Error500'
-          description: Internal server error
-        '404':
-          schema:
-            $ref: '#/definitions/Error404'
-          description: Not found
-      parameters:
-      - in: path
-        name: row_id
-        description: Row ID (or empty or _ for all row IDs)
-        type: string
-        required: true
-      tags:
-      - TrnCategory
   /rest/TrnTag:
     get:
       summary: Search TrnTag business object records or get contextualized metadata
@@ -2695,6 +2903,10 @@ definitions:
       row_id:
         description: Unique technical row ID
         type: string
+  ArrayOfTrnSitemap:
+    type: array
+    items:
+      $ref: '#/definitions/TrnSitemap'
   Error400:
     type: object
     properties:
@@ -2951,6 +3163,18 @@ definitions:
     type: array
     items:
       $ref: '#/definitions/TrnLsnTranslate'
+  TrnSitemap:
+    type: object
+    properties:
+      trnSitemapCode:
+        description: Trn sitemap code
+        type: integer
+      trnSitemapDoc:
+        description: Trn sitemap doc
+        type: object
+      row_id:
+        description: Unique technical row ID
+        type: string
 swagger: '2.0'
 info:
   license:
@@ -2978,6 +3202,8 @@ tags:
   description: Picture
 - name: TrnSiteContent
   description: Site Contents
+- name: TrnSitemap
+  description: Sitemap
 - name: TrnTag
   description: Tags
 - name: TrnTagLsn
