@@ -141,12 +141,14 @@ public class TrnCategory extends TrnObject {
 		}
 	}
 	
-	public void generateSitemapAction() {
+	public String generateSitemap(PrintTemplate pt) {
 		Grant g = getGrant();
 		try {
-			TrnSitemapGenerator.generateSitemap(g);	
+			pt.setFilename("sitemap.txt");
+			return TrnSitemapGenerator.generateSitemap(g);	
 		} catch(TrnSitemapGenerator.TrnSitemapGeneratorException e) {
 			AppLog.error(getClass(), "generateSitemap", e.getMessage(), e, g);
 		}
+		return "";
 	}
 }
