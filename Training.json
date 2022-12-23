@@ -12235,21 +12235,21 @@
       "res_cached": false,
       "res_file": {
        "path": "resources/ObjectInternal/TrnCategory/SCRIPT.js",
-       "size": 1351,
+       "size": 1583,
        "field": "res_file",
        "mime": "text/javascript",
        "name": "SCRIPT.js",
-       "id": "11692",
+       "id": "11808",
        "object": "Resource",
        "rowid": "278"
       },
       "res_file_compiled": {
        "path": "resources/ObjectInternal/TrnCategory/SCRIPT.min.js",
-       "size": 999,
+       "size": 1235,
        "field": "res_file_compiled",
        "mime": "text/javascript",
        "name": "SCRIPT.min.js",
-       "id": "11693",
+       "id": "11809",
        "object": "Resource",
        "rowid": "278"
       },
@@ -12275,21 +12275,21 @@
       "res_cached": false,
       "res_file": {
        "path": "resources/ObjectInternal/TrnLesson/SCRIPT.js",
-       "size": 1708,
+       "size": 1721,
        "field": "res_file",
        "mime": "text/javascript",
        "name": "SCRIPT.js",
-       "id": "11694",
+       "id": "11814",
        "object": "Resource",
        "rowid": "279"
       },
       "res_file_compiled": {
        "path": "resources/ObjectInternal/TrnLesson/SCRIPT.min.js",
-       "size": 1276,
+       "size": 1352,
        "field": "res_file_compiled",
        "mime": "text/javascript",
        "name": "SCRIPT.min.js",
-       "id": "11695",
+       "id": "11815",
        "object": "Resource",
        "rowid": "279"
       },
@@ -12315,21 +12315,21 @@
       "res_cached": false,
       "res_file": {
        "path": "resources/ObjectInternal/TrnPage/SCRIPT.js",
-       "size": 1370,
+       "size": 1630,
        "field": "res_file",
        "mime": "text/javascript",
        "name": "script.js",
-       "id": "11696",
+       "id": "11806",
        "object": "Resource",
        "rowid": "280"
       },
       "res_file_compiled": {
        "path": "resources/ObjectInternal/TrnPage/SCRIPT.min.js",
-       "size": 1064,
+       "size": 1286,
        "field": "res_file_compiled",
        "mime": "text/javascript",
        "name": "script.min.js",
-       "id": "11697",
+       "id": "11807",
        "object": "Resource",
        "rowid": "280"
       },
