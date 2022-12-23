@@ -66,6 +66,7 @@ public class TrnSitemapGenerator implements java.io.Serializable {
 			for (String[] p : page.search()) {
 				fileContent += baseUrl + "page" + p[5] + "\n";
 			}
+			Files.write(temp, fileContent.getBytes(StandardCharsets.UTF_8));
 			AppLog.info("Sitemap created at " + temp, g);	
 			return fileContent;
 		} catch(java.io.IOException e) {

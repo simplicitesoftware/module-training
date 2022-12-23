@@ -20,7 +20,8 @@
 		wiredElements.on('click', function(event) {
 			event.preventDefault();
 			window.open(event.currentTarget.href);
-		});	
+		});
+		wiredElements.closest("td").off("click");
 	}
 	
 	

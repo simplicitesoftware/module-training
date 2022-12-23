@@ -91,6 +91,7 @@ The object that serves as container for lessons, or other categories (reflexivit
 ### Custom actions
 
 * `forceDirSync`: 
+* `sitemapGeneration`: 
 
 `TrnCategoryTranslate` business object definition
 -------------------------------------------------

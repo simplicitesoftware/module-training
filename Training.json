@@ -189,11 +189,11 @@
       "obo_class": null,
       "obo_script_id": {
        "path": "src/com/simplicite/objects/Training/TrnCategory.java",
-       "size": 4806,
+       "size": 4756,
        "field": "obo_script_id",
        "mime": "text/plain",
        "name": "TrnCategory.java",
-       "id": "11503",
+       "id": "11552",
        "object": "ObjectInternal",
        "rowid": "2005"
       },
@@ -1389,6 +1389,102 @@
            }
           }]
          }]
+        },
+        {
+         "object": "Function",
+         "userkey": "TRN_CAT_SITEMAP_GENERATION_A",
+         "item": {
+          "fct_name": "TRN_CAT_SITEMAP_GENERATION_A",
+          "fct_object_id__obj_type": "O",
+          "fct_object_id__obj_name": "TrnCategory",
+          "fct_function": "A",
+          "fct_action_id__act_name": "sitemapGeneration",
+          "fct_view_id__viw_name": null,
+          "row_module_id__mdl_name": "Training"
+         },
+         "links": [
+          {
+           "object": "Grant",
+           "label": "Grant",
+           "icon": "img/system/grant",
+           "field": "grt_function_id",
+           "list": [{
+            "object": "Grant",
+            "userkey": "TRN_ADMIN~TRN_CAT_SITEMAP_GENERATION_A~TrnCategory~sitemapGeneration",
+            "item": {
+             "grt_group_id__grp_name": "TRN_ADMIN",
+             "grt_function_id__fct_name": "TRN_CAT_SITEMAP_GENERATION_A",
+             "grt_function_id__fct_object_id__obj_type": "O",
+             "grt_function_id__fct_object_id__obj_name": "TrnCategory",
+             "grt_function_id__fct_action_id__act_name": "sitemapGeneration",
+             "grt_function_id__fct_function": "A",
+             "grt_activ": true,
+             "row_module_id__mdl_name": "Training"
+            }
+           }]
+          },
+          {
+           "object": "Action",
+           "label": "Action",
+           "icon": "img/system/action",
+           "field": "",
+           "list": [{
+            "object": "Action",
+            "userkey": "sitemapGeneration",
+            "item": {
+             "act_name": "sitemapGeneration",
+             "act_type": "L",
+             "act_async": "0",
+             "act_job_depth": null,
+             "act_method": "generateSitemap",
+             "act_script": null,
+             "act_url": null,
+             "act_image": null,
+             "act_confirm": true,
+             "act_confirm_expr": null,
+             "act_confirm_ui": null,
+             "act_plus": false,
+             "act_comment": null,
+             "row_module_id__mdl_name": "Training",
+             "act_exec": "BCK",
+             "act_count": null,
+             "act_order": 10
+            },
+            "links": [{
+             "object": "TranslateAction",
+             "label": "Action translation",
+             "icon": "img/system/translation",
+             "field": "tsl_id",
+             "list": [
+              {
+               "object": "TranslateAction",
+               "userkey": "A~sitemapGeneration~ENU",
+               "item": {
+                "tsl_typeAction": "A",
+                "tsl_id__act_name": "sitemapGeneration",
+                "tsl_lang": "ENU",
+                "tsl_value": "Sitemap generation",
+                "tsl_simplehelp": null,
+                "row_module_id__mdl_name": "Training"
+               }
+              },
+              {
+               "object": "TranslateAction",
+               "userkey": "A~sitemapGeneration~FRA",
+               "item": {
+                "tsl_typeAction": "A",
+                "tsl_id__act_name": "sitemapGeneration",
+                "tsl_lang": "FRA",
+                "tsl_value": "Sitemap generation",
+                "tsl_simplehelp": null,
+                "row_module_id__mdl_name": "Training"
+               }
+              }
+             ]
+            }]
+           }]
+          }
+         ]
         }
        ]
       },
@@ -8919,11 +9015,11 @@
       "obe_class": null,
       "obe_script_id": {
        "path": "src/com/simplicite/extobjects/Training/TrnSiteMapExt.java",
-       "size": 1014,
+       "size": 2114,
        "field": "obe_script_id",
        "mime": "text/plain",
        "name": "TrnSiteMapExt.java",
-       "id": "11526",
+       "id": "11591",
        "object": "ObjectExternal",
        "rowid": "2022"
       },
@@ -12139,21 +12235,21 @@
       "res_cached": false,
       "res_file": {
        "path": "resources/ObjectInternal/TrnCategory/SCRIPT.js",
-       "size": 1308,
+       "size": 1351,
        "field": "res_file",
        "mime": "text/javascript",
        "name": "SCRIPT.js",
-       "id": "11283",
+       "id": "11692",
        "object": "Resource",
        "rowid": "278"
       },
       "res_file_compiled": {
        "path": "resources/ObjectInternal/TrnCategory/SCRIPT.min.js",
-       "size": 958,
+       "size": 999,
        "field": "res_file_compiled",
        "mime": "text/javascript",
        "name": "SCRIPT.min.js",
-       "id": "11519",
+       "id": "11693",
        "object": "Resource",
        "rowid": "278"
       },
@@ -12179,21 +12275,21 @@
       "res_cached": false,
       "res_file": {
        "path": "resources/ObjectInternal/TrnLesson/SCRIPT.js",
-       "size": 1665,
+       "size": 1708,
        "field": "res_file",
        "mime": "text/javascript",
        "name": "SCRIPT.js",
-       "id": "11202",
+       "id": "11694",
        "object": "Resource",
        "rowid": "279"
       },
       "res_file_compiled": {
        "path": "resources/ObjectInternal/TrnLesson/SCRIPT.min.js",
-       "size": 1235,
+       "size": 1276,
        "field": "res_file_compiled",
        "mime": "text/javascript",
        "name": "SCRIPT.min.js",
-       "id": "11520",
+       "id": "11695",
        "object": "Resource",
        "rowid": "279"
       },
@@ -12219,21 +12315,21 @@
       "res_cached": false,
       "res_file": {
        "path": "resources/ObjectInternal/TrnPage/SCRIPT.js",
-       "size": 1327,
+       "size": 1370,
        "field": "res_file",
        "mime": "text/javascript",
        "name": "script.js",
-       "id": "11230",
+       "id": "11696",
        "object": "Resource",
        "rowid": "280"
       },
       "res_file_compiled": {
        "path": "resources/ObjectInternal/TrnPage/SCRIPT.min.js",
-       "size": 1023,
+       "size": 1064,
        "field": "res_file_compiled",
        "mime": "text/javascript",
        "name": "script.min.js",
-       "id": "11521",
+       "id": "11697",
        "object": "Resource",
        "rowid": "280"
       },
@@ -12472,11 +12568,11 @@
       "scr_code": "TrnSitemapGenerator",
       "scr_file": {
        "path": "src/com/simplicite/commons/Training/TrnSitemapGenerator.java",
-       "size": 2152,
+       "size": 2220,
        "field": "scr_file",
        "mime": "text/plain",
        "name": "TrnSitemapGenerator.java",
-       "id": "11502",
+       "id": "11553",
        "object": "Script",
        "rowid": "11"
       },
@@ -12730,6 +12826,26 @@
      }
     }
    ]
+  },
+  {
+   "object": "Grant",
+   "label": "Grant",
+   "icon": "img/system/grant",
+   "field": "row_module_id",
+   "list": [{
+    "object": "Grant",
+    "userkey": "TRN_ADMIN~~~",
+    "item": {
+     "grt_group_id__grp_name": "TRN_ADMIN",
+     "grt_function_id__fct_name": null,
+     "grt_function_id__fct_object_id__obj_type": null,
+     "grt_function_id__fct_object_id__obj_name": null,
+     "grt_function_id__fct_action_id__act_name": null,
+     "grt_function_id__fct_function": null,
+     "grt_activ": true,
+     "row_module_id__mdl_name": "Training"
+    }
+   }]
   }
  ]
 }
