@@ -18,27 +18,32 @@
 		wiredElements.on('click', function(event) {
 			event.preventDefault();
 			window.open(event.currentTarget.href);
-		});	
+		});
+		wiredElements.closest("td").off("click");
 	}
 	
 	// Hook called by each object instance
 	Simplicite.UI.hooks.TrnCategory = function(o, cbk) {
 		try {
-			console.log("TrnCategory hooks loading...");
 			var p = o.locals.ui;
 			if (p && o.isMainInstance()) {
 				p.list.onload = function(ctn, obj, params) {
 					setWiredUriTag('[data-field="trnCatFrontPath"]');
 				};
-				/*p.form.onload = function(ctn, obj, params) {
-					
-				};*/
+				p.form.onload = function(ctn, obj, params) {
+					const btn = $('[data-action="burl_field_trnCatFrontPath"]');
+					btn.on("click", function(event) {
+						event.stopPropagation();
+						event.preventDefault();
+						const frontPath = $('#field_trnCatFrontPath');
+						window.open(event.currentTarget.baseURI.replace('ui', 'category') + frontPath.get()[0].defaultValue);
+					})
+				};
 			}
 			//...
 		} catch (e) {
 			app.error("Error in Simplicite.UI.hooks.TrnCategory: " + e.message);
 		} finally {
-			console.log("TrnCategory hooks loaded.");
 			cbk && cbk(); // final callback
 		}
 	};

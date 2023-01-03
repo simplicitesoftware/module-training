@@ -5,7 +5,6 @@
 	
 	function setWiredUriTag(attribute) {
 		const elements = $(attribute).find($('div')).find($('a'));
-		console.log(elements);
 		for(const el of elements) {
 			const a = document.createElement('a');
 			a.title = el.innerText;
@@ -19,7 +18,8 @@
 		wiredElements.on('click', function(event) {
 			event.preventDefault();
 			window.open(event.currentTarget.href);
-		});	
+		});
+		wiredElements.closest("td").off("click");
 	}
 	
 	// Hook called by each object instance
@@ -32,18 +32,18 @@
 				};
 				p.form.onload = function(ctn, obj, params) {
 					const btn = $('[data-action="burl_field_trnLsnFrontPath"]');
-					console.log(btn);
-					const frontPath = $('[id="field_trnLsnFrontPath"]')[0].defaultValue;
-					/*btn.addEventListener('click', function() {
-						console.log('please');
-					})*/
+					btn.on("click", function(event) {
+						event.stopPropagation();
+						event.preventDefault();
+						const frontPath = $('#field_trnLsnFrontPath');
+						window.open(event.currentTarget.baseURI.replace('ui', 'lesson') + frontPath.get()[0].defaultValue);
+					})
 				};
 			}
 			//...
 		} catch (e) {
 			app.error("Error in Simplicite.UI.hooks.TrnLesson: " + e.message);
 		} finally {
-			console.log("TrnLesson hooks loaded.");
 			cbk && cbk(); // final callback
 		}
 	};

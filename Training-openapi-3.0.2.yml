@@ -152,10 +152,6 @@ components:
         row_id:
           description: Unique technical row ID
           type: string
-    ArrayOfTrnSitemap:
-      type: array
-      items:
-        $ref: '#/components/schemas/TrnSitemap'
     Error400:
       type: object
       properties:
@@ -412,18 +408,6 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/TrnLsnTranslate'
-    TrnSitemap:
-      type: object
-      properties:
-        trnSitemapCode:
-          description: Trn sitemap code
-          type: integer
-        trnSitemapDoc:
-          description: Trn sitemap doc
-          type: object
-        row_id:
-          description: Unique technical row ID
-          type: string
   securitySchemes:
     basicAuth:
       scheme: basic
@@ -707,47 +691,6 @@ paths:
         required: true
       tags:
       - TrnLesson
-  /rest/TrnCategory/{row_id}/publication:TrnSitemapGenerator:
-    get:
-      summary: Call a custom publication for a TrnCategory business object record
-        or for all records
-      security:
-      - bearerAuth: []
-      operationId: obj-trncategory-publication-trnsitemapgenerator
-      responses:
-        '200':
-          description: Success in calling the custom publication
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PublicationResult'
-        '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error401'
-        '500':
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error500'
-        '404':
-          description: Not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error404'
-      parameters:
-      - schema:
-          type: string
-        in: path
-        name: row_id
-        description: Row ID (or empty or _ for all row IDs)
-        required: true
-      tags:
-      - TrnCategory
   /rest/TrnCategoryTranslate:
     get:
       summary: Search TrnCategoryTranslate business object records or get contextualized
@@ -2027,65 +1970,6 @@ paths:
         required: true
       tags:
       - TrnTag
-  /rest/TrnSitemap:
-    get:
-      summary: Search TrnSitemap business object records or get contextualized metadata
-      security:
-      - bearerAuth: []
-      operationId: obj-trnsitemap-search
-      responses:
-        '200':
-          description: Success in searching business object records (or in getting
-            contextualized business object metadata, documentation, ...)
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ArrayOfTrnSitemap'
-        '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error401'
-        '500':
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error500'
-      parameters:
-      - schema:
-          type: boolean
-        in: query
-        name: _metadata
-        description: Metadata?
-        required: false
-      - schema:
-          type: boolean
-        in: query
-        name: _count
-        description: Count?
-        required: false
-      - schema:
-          type: boolean
-        in: query
-        name: _doc
-        description: Documentation?
-        required: false
-      - schema:
-          type: integer
-        in: query
-        name: trnSitemapCode
-        description: Search filter for Trn sitemap code
-        required: false
-      - schema:
-          type: string
-        in: query
-        name: trnSitemapDoc
-        description: Search filter for Trn sitemap doc
-        required: false
-      tags:
-      - TrnSitemap
   /rest/TrnTagLsn:
     get:
       summary: Search TrnTagLsn business object records or get contextualized metadata
@@ -2371,201 +2255,6 @@ paths:
                 $ref: '#/components/schemas/Error401'
       tags:
       - session
-  /rest/TrnSitemap/{row_id}:
-    post:
-      summary: Create a new TrnSitemapbusiness object record
-      security:
-      - bearerAuth: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/TrnSitemap'
-      operationId: obj-trnsitemap-create
-      responses:
-        '200':
-          description: Success in creating a new business object record
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TrnSitemap'
-        '400':
-          description: Bad request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error400'
-        '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error401'
-        '500':
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error500'
-      parameters:
-      - schema:
-          type: string
-        in: path
-        name: row_id
-        description: Row ID (or empty or _ for all row IDs)
-        required: true
-      tags:
-      - TrnSitemap
-    get:
-      summary: Get a TrnSitemap business object record
-      security:
-      - bearerAuth: []
-      operationId: obj-trnsitemap-get
-      responses:
-        '200':
-          description: Success in getting a single business object record
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TrnSitemap'
-        '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error401'
-        '500':
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error500'
-        '404':
-          description: Not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error404'
-      parameters:
-      - schema:
-          type: string
-        in: path
-        name: row_id
-        description: Row ID (or empty or _ for all row IDs)
-        required: true
-      - schema:
-          type: boolean
-        in: query
-        name: _inline_documents
-        description: Inline documents?
-        required: false
-      - schema:
-          type: boolean
-        in: query
-        name: _inline_thumbnails
-        description: Inline documents' thumbnails?
-        required: false
-      - schema:
-          type: boolean
-        in: query
-        name: _inline_objects
-        description: Inline objects?
-        required: false
-      tags:
-      - TrnSitemap
-    delete:
-      summary: Delete a TrnSitemap business object record
-      security:
-      - bearerAuth: []
-      operationId: obj-trnsitemap-delete
-      responses:
-        '200':
-          description: Success in deleting a business object record
-          content:
-            application/json: {}
-        '400':
-          description: Bad request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error400'
-        '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error401'
-        '500':
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error500'
-        '404':
-          description: Not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error404'
-      parameters:
-      - schema:
-          type: string
-        in: path
-        name: row_id
-        description: Row ID (or empty or _ for all row IDs)
-        required: true
-      tags:
-      - TrnSitemap
-    put:
-      summary: Update a TrnSitemapbusiness object record
-      security:
-      - bearerAuth: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/TrnSitemap'
-      operationId: obj-trnsitemap-update
-      responses:
-        '200':
-          description: Success in updating a business object record
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TrnSitemap'
-        '400':
-          description: Bad request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error400'
-        '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error401'
-        '500':
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error500'
-        '404':
-          description: Not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error404'
-      parameters:
-      - schema:
-          type: string
-        in: path
-        name: row_id
-        description: Row ID (or empty or _ for all row IDs)
-        required: true
-      tags:
-      - TrnSitemap
   /rest/TrnPicture:
     get:
       summary: Search TrnPicture business object records or get contextualized metadata
@@ -3737,8 +3426,6 @@ tags:
   description: Picture
 - name: TrnSiteContent
   description: Site Contents
-- name: TrnSitemap
-  description: Sitemap
 - name: TrnTag
   description: Tags
 - name: TrnTagLsn
