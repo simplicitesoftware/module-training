@@ -197,6 +197,9 @@
   
   position: relative
 .linear
+  img
+    width: 100%
+    height: auto
   .video-block, .slider-block
     display: none
   .lesson-block
@@ -367,7 +370,7 @@ table
     img
       width: 100%
       max-width: 100%
-      max-height: 250px
+      max-height: 450px
       object-fit: contain
       margin: 5px auto
 
