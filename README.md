@@ -59,18 +59,6 @@ This object will hold the static contents of the front-end application
     - `ENU` English language
     - `FRA` French language
 
-`TrnSitemap` business object definition
----------------------------------------
-
-
-
-### Fields
-
-| Name                                                         | Type                                     | Required | Updatable | Personal | Description                                                                      |
-|--------------------------------------------------------------|------------------------------------------|----------|-----------|----------|----------------------------------------------------------------------------------|
-| `trnSitemapCode`                                             | int(11)                                  | yes*     | yes       |          | -                                                                                |
-| `trnSitemapDoc`                                              | document                                 | yes      | yes       |          | -                                                                                |
-
 `TrnCategory` business object definition
 ----------------------------------------
 
@@ -91,7 +79,6 @@ The object that serves as container for lessons, or other categories (reflexivit
 ### Custom actions
 
 * `forceDirSync`: 
-* `sitemapGeneration`: 
 
 `TrnCategoryTranslate` business object definition
 -------------------------------------------------
@@ -246,8 +233,8 @@ Translation of tag object.
 
 
 
-`TrnSiteMapExt` external object definition
-------------------------------------------
+`TrnSitemap` external object definition
+---------------------------------------
 
 Serves the sitemap on an endpoint
 

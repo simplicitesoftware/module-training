@@ -18,9 +18,9 @@ import com.simplicite.util.exceptions.*;
 import com.simplicite.util.tools.*;
 
 /**
- * External object TrnSiteMapExt
+ * External object TrnSitemap
  */
-public class TrnSiteMapExt extends ExternalObject { 
+public class TrnSitemap extends ExternalObject { 
 	
 	private static final long serialVersionUID = 1L;
 	
