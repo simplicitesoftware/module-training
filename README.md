@@ -13,52 +13,6 @@
 
 The module for the Simplciité Training platform
 
-`TrnPage` business object definition
-------------------------------------
-
-
-
-### Fields
-
-| Name                                                         | Type                                     | Required | Updatable | Personal | Description                                                                      |
-|--------------------------------------------------------------|------------------------------------------|----------|-----------|----------|----------------------------------------------------------------------------------|
-| `trnPageCode`                                                | char(255)                                | yes*     | yes       |          | -                                                                                |
-| `trnPageType`                                                | enum(10) using `TRN_PAGE_TYPE` list      | yes      | yes       |          | -                                                                                |
-| `TrnPage_TrnLesson_id` link to **`TrnLesson`**               | id                                       |          | yes       |          | -                                                                                |
-| _Ref. `TrnPage_TrnLesson_id.trnLsnPath`_                     | _text(400)_                              |          |           |          | -                                                                                |
-| _Ref. `TrnPage_TrnLesson_id.trnLsnFrontPath`_                | _url(400)_                               |          |           |          | -                                                                                |
-| _Ref. `TrnPage_TrnLesson_id.trnLsnPublish`_                  | _boolean_                                |          |           |          | _Determines if the lesson is visible on the front-end application._              |
-| _Ref. `TrnPage_TrnLesson_id.trnLsnVisualization`_            | _enum(6) using `TRNLSNVISUALIZATION` list_ |          |           |          | _Describes the visualization mode to be used in the front-end application._      |
-
-### Lists
-
-* `TRN_PAGE_TYPE`
-    - `homepage` 
-    - `others` 
-* `TRNLSNVISUALIZATION`
-    - `TUTO` Tutorial
-    - `LINEAR` Linear
-
-`TrnSiteContent` business object definition
--------------------------------------------
-
-This object will hold the static contents of the front-end application
-
-### Fields
-
-| Name                                                         | Type                                     | Required | Updatable | Personal | Description                                                                      |
-|--------------------------------------------------------------|------------------------------------------|----------|-----------|----------|----------------------------------------------------------------------------------|
-| `trnSitCode`                                                 | char(50)                                 | yes*     | yes       |          | A code identifying the TrnSiteContent object                                     |
-| `trnSitLanguage`                                             | enum(5) using `LANG_ALL` list            | yes*     | yes       |          | -                                                                                |
-| `trnSitContent`                                              | text(100000)                             |          | yes       |          | -                                                                                |
-
-### Lists
-
-* `LANG_ALL`
-    - `ANY` All languages
-    - `ENU` English language
-    - `FRA` French language
-
 `TrnCategory` business object definition
 ----------------------------------------
 
@@ -220,6 +174,52 @@ Translation of tag object.
 | _Ref. `trnTaglsnTagId.trnTagCode`_                           | _char(255)_                              |          |           |          | -                                                                                |
 | `trnTaglsnLsnId` link to **`TrnLesson`**                     | id                                       | yes*     | yes       |          | -                                                                                |
 | _Ref. `trnTaglsnLsnId.trnLsnPath`_                           | _text(400)_                              |          |           |          | -                                                                                |
+
+`TrnPage` business object definition
+------------------------------------
+
+
+
+### Fields
+
+| Name                                                         | Type                                     | Required | Updatable | Personal | Description                                                                      |
+|--------------------------------------------------------------|------------------------------------------|----------|-----------|----------|----------------------------------------------------------------------------------|
+| `trnPageCode`                                                | char(255)                                | yes*     | yes       |          | -                                                                                |
+| `trnPageType`                                                | enum(10) using `TRN_PAGE_TYPE` list      | yes      | yes       |          | -                                                                                |
+| `TrnPage_TrnLesson_id` link to **`TrnLesson`**               | id                                       |          | yes       |          | -                                                                                |
+| _Ref. `TrnPage_TrnLesson_id.trnLsnPath`_                     | _text(400)_                              |          |           |          | -                                                                                |
+| _Ref. `TrnPage_TrnLesson_id.trnLsnFrontPath`_                | _url(400)_                               |          |           |          | -                                                                                |
+| _Ref. `TrnPage_TrnLesson_id.trnLsnPublish`_                  | _boolean_                                |          |           |          | _Determines if the lesson is visible on the front-end application._              |
+| _Ref. `TrnPage_TrnLesson_id.trnLsnVisualization`_            | _enum(6) using `TRNLSNVISUALIZATION` list_ |          |           |          | _Describes the visualization mode to be used in the front-end application._      |
+
+### Lists
+
+* `TRN_PAGE_TYPE`
+    - `homepage` 
+    - `others` 
+* `TRNLSNVISUALIZATION`
+    - `TUTO` Tutorial
+    - `LINEAR` Linear
+
+`TrnSiteContent` business object definition
+-------------------------------------------
+
+This object will hold the static contents of the front-end application
+
+### Fields
+
+| Name                                                         | Type                                     | Required | Updatable | Personal | Description                                                                      |
+|--------------------------------------------------------------|------------------------------------------|----------|-----------|----------|----------------------------------------------------------------------------------|
+| `trnSitCode`                                                 | char(50)                                 | yes*     | yes       |          | A code identifying the TrnSiteContent object                                     |
+| `trnSitLanguage`                                             | enum(5) using `LANG_ALL` list            | yes*     | yes       |          | -                                                                                |
+| `trnSitContent`                                              | text(100000)                             |          | yes       |          | -                                                                                |
+
+### Lists
+
+* `LANG_ALL`
+    - `ANY` All languages
+    - `ENU` English language
+    - `FRA` French language
 
 `TrnFront` external object definition
 -------------------------------------

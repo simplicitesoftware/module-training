@@ -4690,7 +4690,7 @@
       "obo_type": "O",
       "obo_searchspec": null,
       "obo_delspec": null,
-      "obo_exportorder": null,
+      "obo_exportorder": 100,
       "obo_distinct": false,
       "obo_indexable": false,
       "obo_groupby": false,
@@ -6250,7 +6250,7 @@
       "obo_type": "O",
       "obo_searchspec": null,
       "obo_delspec": null,
-      "obo_exportorder": null,
+      "obo_exportorder": 110,
       "obo_distinct": false,
       "obo_indexable": false,
       "obo_groupby": false,
@@ -12182,11 +12182,11 @@
       "scr_code": "TrnTests",
       "scr_file": {
        "path": "test/src/com/simplicite/tests/Training/TrnTests.java",
-       "size": 835,
+       "size": 833,
        "field": "scr_file",
        "mime": "text/plain",
        "name": "TrnTests.java",
-       "id": "11208",
+       "id": "12018",
        "object": "Script",
        "rowid": "3"
       },
@@ -12504,15 +12504,15 @@
       "dt_name": "Docs-homepage",
       "dt_file": {
        "path": "data/Docs-homepage.zip",
-       "size": 2282719,
+       "size": 2282791,
        "field": "dt_file",
        "mime": "application/zip",
-       "name": "Training-data-20230104151928.zip",
-       "id": "12008",
+       "name": "Training-data-20230104153057.zip",
+       "id": "12017",
        "object": "Dataset",
-       "rowid": "12"
+       "rowid": "13"
       },
-      "dt_desc": "Created by module's data export on 2023-01-04 15:19:28"
+      "dt_desc": "Created by module's data export on 2023-01-04 15:30:57"
      }
     },
     {
