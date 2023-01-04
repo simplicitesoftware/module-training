@@ -15,10 +15,7 @@ public class TrnPicture extends TrnObject {
 	public List<String> preValidate() {
 		List<String> msgs = new ArrayList<>();
 		ObjectField f = getField("trnPicId");
-		AppLog.info("testtestest", getGrant());
 		if (isNew()||isCopied()) {
-			AppLog.info(getTable() + " : " + f.getDBName(), getGrant());
-			AppLog.info(getGrant().getNextIdForColumn(getTable(),f.getDBName()), getGrant());
 			f.setValue(getGrant().getNextIdForColumn(getTable(),f.getDBName()));
 		}
 		return msgs;
