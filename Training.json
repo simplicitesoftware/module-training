@@ -3333,7 +3333,7 @@
           "obf_field_id__fld_updatable": "1",
           "obf_field_id__fld_required": false,
           "obf_field_id__fld_fonctid": false,
-          "obf_cascad": "R",
+          "obf_cascad": "C",
           "obf_card": "0,1",
           "obf_query": null,
           "obf_visible": true,
@@ -5041,7 +5041,7 @@
           "obf_input": null,
           "obf_ref_field_id__fld_name": null,
           "obf_ref_object_id__obo_name": "TrnLesson",
-          "obf_cascad": "R",
+          "obf_cascad": "C",
           "obf_card": "0,1",
           "obf_visible": true,
           "obf_ref_export": true,
@@ -12080,22 +12080,22 @@
      "mod_template_id__mtp_name": "ModelBusinessObject",
      "mod_doc": {
       "path": "files/Model/TrainingModel.svg",
-      "size": 58706,
+      "size": 62578,
       "field": "mod_doc",
       "mime": "image/svg+xml",
-      "name": "TrainingModel.svg",
-      "id": "11186",
+      "name": "model.svg",
+      "id": "12009",
       "object": "Model",
       "rowid": "9"
      },
      "mod_json": null,
      "mod_image": {
       "path": "files/Model/TrainingModel.png",
-      "size": 187143,
+      "size": 180931,
       "field": "mod_image",
       "mime": "image/png",
       "name": "TrainingModel.png",
-      "id": "11187",
+      "id": "12010",
       "object": "Model",
       "rowid": "9"
      },
@@ -12498,6 +12498,25 @@
     },
     {
      "object": "Dataset",
+     "userkey": "Training~Docs-homepage",
+     "item": {
+      "row_module_id__mdl_name": "Training",
+      "dt_name": "Docs-homepage",
+      "dt_file": {
+       "path": "data/Docs-homepage.zip",
+       "size": 2282719,
+       "field": "dt_file",
+       "mime": "application/zip",
+       "name": "Training-data-20230104151928.zip",
+       "id": "12008",
+       "object": "Dataset",
+       "rowid": "12"
+      },
+      "dt_desc": "Created by module's data export on 2023-01-04 15:19:28"
+     }
+    },
+    {
+     "object": "Dataset",
      "userkey": "Training~Technical-passwords",
      "item": {
       "row_module_id__mdl_name": "Training",
@@ -12517,12 +12536,12 @@
     },
     {
      "object": "Dataset",
-     "userkey": "Training~trigger-forceDirSync",
+     "userkey": "Training~Trigger-forceDirSync",
      "item": {
       "row_module_id__mdl_name": "Training",
-      "dt_name": "trigger-forceDirSync",
+      "dt_name": "Trigger-forceDirSync",
       "dt_file": {
-       "path": "data/trigger-forceDirSync.xml",
+       "path": "data/Trigger-forceDirSync.xml",
        "size": 346,
        "field": "dt_file",
        "mime": "text/xml",
