@@ -2,7 +2,7 @@
   <div id="app" class="app">
     <Header/>
     <main>
-      <nav class="navigation-drawer" v-show="isDrawerOpen" :class="[ isUserOnLesson ? 'on-lesson' : '']">
+      <nav class="navigation-drawer" v-show="isDrawerOpen">
         <TreeViewNode v-for="(motherCategory, index) in tree" :key="index" :node="motherCategory" :depth="0"/>
       </nav>
       <div class="page-content">
@@ -99,9 +99,7 @@
         display: block
         background: linear-gradient($color-primary 40%, $color-secondary)
         transition: $duration-drawer-collapse ease-in-out
-
-        &.on-lesson
-          max-height: 100vh - $header-height
+        max-height: 100vh - $header-height
 
       .page-content
         width: 100%
