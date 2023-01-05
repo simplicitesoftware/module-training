@@ -13,6 +13,19 @@
 
 The module for the Simplciité Training platform
 
+`TrnSiteTheme` business object definition
+-----------------------------------------
+
+
+
+### Fields
+
+| Name                                                         | Type                                     | Required | Updatable | Personal | Description                                                                      |
+|--------------------------------------------------------------|------------------------------------------|----------|-----------|----------|----------------------------------------------------------------------------------|
+| `trnThemeColor`                                              | color                                    | yes*     | yes       |          | -                                                                                |
+| `trnThemeSecondaryColor`                                     | color                                    | yes*     | yes       |          | -                                                                                |
+| `trnThemeIcon`                                               | image                                    |          | yes       |          | -                                                                                |
+
 `TrnUrlRewriting` business object definition
 --------------------------------------------
 

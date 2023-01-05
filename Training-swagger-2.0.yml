@@ -631,6 +631,61 @@ paths:
       - TrnCategory
       consumes:
       - application/json
+  /rest/TrnSiteTheme:
+    get:
+      summary: Search TrnSiteTheme business object records or get contextualized metadata
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-trnsitetheme-search
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/ArrayOfTrnSiteTheme'
+          description: Success in searching business object records (or in getting
+            contextualized business object metadata, documentation, ...)
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+      parameters:
+      - in: query
+        name: _metadata
+        description: Metadata?
+        type: boolean
+        required: false
+      - in: query
+        name: _count
+        description: Count?
+        type: boolean
+        required: false
+      - in: query
+        name: _doc
+        description: Documentation?
+        type: boolean
+        required: false
+      - in: query
+        name: trnThemeColor
+        description: Search filter for Main color
+        type: string
+        required: false
+      - in: query
+        name: trnThemeSecondaryColor
+        description: Search filter for Secondary color
+        type: string
+        required: false
+      - in: query
+        name: trnThemeIcon
+        description: Search filter for Icon
+        type: string
+        required: false
+      tags:
+      - TrnSiteTheme
   /rest/TrnTagTranslate:
     get:
       summary: Search TrnTagTranslate business object records or get contextualized
@@ -2341,6 +2396,168 @@ paths:
         required: false
       tags:
       - TrnCategory
+  /rest/TrnSiteTheme/{row_id}:
+    post:
+      summary: Create a new TrnSiteThemebusiness object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-trnsitetheme-create
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/TrnSiteTheme'
+          description: Success in creating a new business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - schema:
+          $ref: '#/definitions/TrnSiteTheme'
+        in: body
+        name: body
+      tags:
+      - TrnSiteTheme
+      consumes:
+      - application/json
+    get:
+      summary: Get a TrnSiteTheme business object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-trnsitetheme-get
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/TrnSiteTheme'
+          description: Success in getting a single business object record
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - in: query
+        name: _inline_documents
+        description: Inline documents?
+        type: boolean
+        required: false
+      - in: query
+        name: _inline_thumbnails
+        description: Inline documents' thumbnails?
+        type: boolean
+        required: false
+      - in: query
+        name: _inline_objects
+        description: Inline objects?
+        type: boolean
+        required: false
+      tags:
+      - TrnSiteTheme
+    delete:
+      summary: Delete a TrnSiteTheme business object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-trnsitetheme-delete
+      responses:
+        '200':
+          description: Success in deleting a business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      tags:
+      - TrnSiteTheme
+    put:
+      summary: Update a TrnSiteThemebusiness object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-trnsitetheme-update
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/TrnSiteTheme'
+          description: Success in updating a business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - schema:
+          $ref: '#/definitions/TrnSiteTheme'
+        in: body
+        name: body
+      tags:
+      - TrnSiteTheme
+      consumes:
+      - application/json
   /rest/TrnTagLsn/{row_id}:
     post:
       summary: Create a new TrnTagLsnbusiness object record
@@ -2946,6 +3163,23 @@ definitions:
     type: array
     items:
       $ref: '#/definitions/TrnLesson'
+  TrnSiteTheme:
+    type: object
+    properties:
+      trnThemeIcon:
+        description: Icon
+        type: object
+      trnThemeColor:
+        description: Main color
+        type: string
+        example: '#RRGGBB'
+      row_id:
+        description: Unique technical row ID
+        type: string
+      trnThemeSecondaryColor:
+        description: Secondary color
+        type: string
+        example: '#RRGGBB'
   TrnCategory:
     type: object
     properties:
@@ -3021,6 +3255,10 @@ definitions:
       trnLsnCatId:
         description: Category ID
         type: string
+  ArrayOfTrnSiteTheme:
+    type: array
+    items:
+      $ref: '#/definitions/TrnSiteTheme'
   TreeviewData:
     type: object
     properties:
@@ -3169,6 +3407,8 @@ tags:
   description: Picture
 - name: TrnSiteContent
   description: Site Contents
+- name: TrnSiteTheme
+  description: Site theme
 - name: TrnTag
   description: Tags
 - name: TrnTagLsn

@@ -6753,6 +6753,540 @@
     },
     {
      "object": "ObjectInternal",
+     "userkey": "TrnSiteTheme",
+     "item": {
+      "obo_name": {
+       "value": "TrnSiteTheme",
+       "oldvalue": "TrnSiteStyle"
+      },
+      "obo_dbtable": "trn_site_theme",
+      "obo_role": "OBJ",
+      "obo_class": null,
+      "obo_script_id": null,
+      "obo_usets": "1",
+      "obo_nosearch": "1",
+      "obo_comment": null,
+      "obo_type": "O",
+      "obo_searchspec": null,
+      "obo_delspec": null,
+      "obo_exportorder": null,
+      "obo_distinct": false,
+      "obo_indexable": false,
+      "obo_groupby": false,
+      "obo_dfltref": null,
+      "obo_template_id__tpl_name": "Base",
+      "obo_cache": "D",
+      "obo_copy": true,
+      "obo_export": true,
+      "obo_pagine": true,
+      "obo_srh_predef": ["1"],
+      "obo_selrow": true,
+      "obo_updall": true,
+      "obo_delall": true,
+      "obo_listsearch": true,
+      "obo_list_edit": [
+       "N",
+       "L",
+       "E"
+      ],
+      "obo_useform": true,
+      "obo_title": null,
+      "obo_icon": "img/system/theme",
+      "obo_refcount": false,
+      "obo_tree": false,
+      "obo_viewmode": "T",
+      "obo_historic": null,
+      "obo_printable": true,
+      "obo_followlink": true,
+      "obo_mergeable": false,
+      "obo_social": ["1"],
+      "obo_rowid_id__fld_name": null,
+      "obo_extend_id__obj_name": null,
+      "row_module_id__mdl_name": "Training",
+      "obo_btn_reload": "P",
+      "obo_btn_prefs": "P",
+      "obo_btn_del": "P",
+      "obo_btn_copy": "P",
+      "obo_btn_export": "P",
+      "obo_btn_listadd": "1",
+      "obo_btn_listedit": "1",
+      "obo_btn_listupsert": "1",
+      "obo_btn_updall": "P",
+      "obo_btn_delall": "P",
+      "obo_btn_merge": "P",
+      "obo_btn_save": true,
+      "obo_btn_saveclose": true,
+      "obo_btn_savenew": true,
+      "obo_btn_savecopy": true,
+      "obo_btn_close": true,
+      "obo_tray": true,
+      "obo_dashboard": true,
+      "obo_prefix": null,
+      "obo_search_ts": null,
+      "obo_minrows": null,
+      "obo_maxrows": null,
+      "obo_sortable": true,
+      "obo_list_areas": null
+     },
+     "links": [
+      {
+       "object": "TranslateObject",
+       "label": "Object translation",
+       "icon": "img/system/translation",
+       "field": "tsl_id",
+       "list": [
+        {
+         "object": "TranslateObject",
+         "userkey": "O~TrnSiteTheme~ENU",
+         "item": {
+          "tsl_typeObject": "O",
+          "tsl_id__obo_name": "TrnSiteTheme",
+          "tsl_lang": "ENU",
+          "tsl_value": "Site theme",
+          "tsl_help": null,
+          "row_module_id__mdl_name": "Training"
+         }
+        },
+        {
+         "object": "TranslateObject",
+         "userkey": "O~TrnSiteTheme~FRA",
+         "item": {
+          "tsl_typeObject": "O",
+          "tsl_id__obo_name": "TrnSiteTheme",
+          "tsl_lang": "FRA",
+          "tsl_value": "Thème site",
+          "tsl_help": null,
+          "row_module_id__mdl_name": "Training"
+         }
+        }
+       ]
+      },
+      {
+       "object": "ObjectFieldSystem",
+       "label": "Object fields",
+       "icon": "img/system/object_field",
+       "field": "obf_object_id",
+       "list": [
+        {
+         "object": "ObjectFieldSystem",
+         "userkey": "TrnSiteTheme~trnThemeColor~10",
+         "item": {
+          "obf_object_id__obo_name": "TrnSiteTheme",
+          "obf_field_id__fld_name": "trnThemeColor",
+          "obf_field_id__fld_type": "23",
+          "obf_order": 10,
+          "obf_group_by": null,
+          "obf_dfault_order": null,
+          "obf_input": null,
+          "obf_ref_field_id__fld_name": null,
+          "obf_ref_object_id__obo_name": null,
+          "obf_cascad": null,
+          "obf_card": null,
+          "obf_visible": null,
+          "obf_ref_export": true,
+          "obf_copy": null,
+          "obf_ref_order": null,
+          "obf_fld_visible": null,
+          "obf_fld_required": null,
+          "obf_fld_updatable": null,
+          "obf_fld_research": null,
+          "obf_fld_more": null,
+          "obf_fld_listmore": null,
+          "obf_fld_researchreq": null,
+          "obf_fld_dfault": null,
+          "obf_field_id__fld_dfault": null,
+          "obf_area_id__ofa_name": null,
+          "obf_area_id__ofa_position": null,
+          "row_module_id__mdl_name": "Training"
+         },
+         "links": [{
+          "object": "Field",
+          "label": "Field",
+          "icon": "img/system/field",
+          "field": "",
+          "list": [{
+           "object": "Field",
+           "userkey": "trnThemeColor",
+           "item": {
+            "fld_name": "trnThemeColor",
+            "fld_dbname": "trn_theme_color",
+            "fld_visible": "3",
+            "fld_updatable": "1",
+            "fld_required": true,
+            "fld_fonctid": true,
+            "fld_research": null,
+            "fld_researchreq": "0",
+            "fld_sort": "C",
+            "fld_more": false,
+            "fld_listmore": false,
+            "fld_listsum": null,
+            "fld_tray": null,
+            "fld_type": "23",
+            "fld_type_id__flt_code": null,
+            "fld_list_id__lov_name": null,
+            "fld_copy": true,
+            "fld_size": 30,
+            "fld_minsize": null,
+            "fld_precision": null,
+            "fld_fromdate_id__fld_name": null,
+            "fld_dfault": null,
+            "fld_indexable": false,
+            "fld_autocomp": "0",
+            "fld_groupby": false,
+            "fld_updall": true,
+            "fld_case": null,
+            "fld_righttoleft": false,
+            "fld_rendering": null,
+            "fld_speech": null,
+            "fld_calc": null,
+            "fld_objlist": null,
+            "fld_comment": null,
+            "fld_classification": null,
+            "row_module_id__mdl_name": "Training"
+           },
+           "links": [{
+            "object": "TranslateField",
+            "label": "Field translation",
+            "icon": "img/system/translation",
+            "field": "tsl_id",
+            "list": [
+             {
+              "object": "TranslateField",
+              "userkey": "F~trnThemeColor~ENU",
+              "item": {
+               "tsl_typeField": "F",
+               "tsl_id__fld_name": "trnThemeColor",
+               "tsl_lang": "ENU",
+               "tsl_value": "Main color",
+               "tsl_simplehelp": null,
+               "tsl_short_value": null,
+               "tsl_placeholder": null,
+               "tsl_listhelp": null,
+               "row_module_id__mdl_name": "Training",
+               "tsl_tooltip": null
+              }
+             },
+             {
+              "object": "TranslateField",
+              "userkey": "F~trnThemeColor~FRA",
+              "item": {
+               "tsl_typeField": "F",
+               "tsl_id__fld_name": "trnThemeColor",
+               "tsl_lang": "FRA",
+               "tsl_value": "Couleur principale",
+               "tsl_simplehelp": null,
+               "tsl_short_value": null,
+               "tsl_placeholder": null,
+               "tsl_listhelp": null,
+               "row_module_id__mdl_name": "Training",
+               "tsl_tooltip": null
+              }
+             }
+            ]
+           }]
+          }]
+         }]
+        },
+        {
+         "object": "ObjectFieldSystem",
+         "userkey": "TrnSiteTheme~trnThemeSecondaryColor~20",
+         "item": {
+          "obf_object_id__obo_name": "TrnSiteTheme",
+          "obf_field_id__fld_name": "trnThemeSecondaryColor",
+          "obf_field_id__fld_type": "23",
+          "obf_order": 20,
+          "obf_group_by": null,
+          "obf_dfault_order": null,
+          "obf_input": null,
+          "obf_ref_field_id__fld_name": null,
+          "obf_ref_object_id__obo_name": null,
+          "obf_cascad": null,
+          "obf_card": null,
+          "obf_visible": null,
+          "obf_ref_export": true,
+          "obf_copy": null,
+          "obf_ref_order": null,
+          "obf_fld_visible": null,
+          "obf_fld_required": null,
+          "obf_fld_updatable": null,
+          "obf_fld_research": null,
+          "obf_fld_more": null,
+          "obf_fld_listmore": null,
+          "obf_fld_researchreq": null,
+          "obf_fld_dfault": null,
+          "obf_field_id__fld_dfault": null,
+          "obf_area_id__ofa_name": null,
+          "obf_area_id__ofa_position": null,
+          "row_module_id__mdl_name": "Training"
+         },
+         "links": [{
+          "object": "Field",
+          "label": "Field",
+          "icon": "img/system/field",
+          "field": "",
+          "list": [{
+           "object": "Field",
+           "userkey": "trnThemeSecondaryColor",
+           "item": {
+            "fld_name": "trnThemeSecondaryColor",
+            "fld_dbname": "trn_theme_secondary_color",
+            "fld_visible": "3",
+            "fld_updatable": "1",
+            "fld_required": true,
+            "fld_fonctid": true,
+            "fld_research": null,
+            "fld_researchreq": "0",
+            "fld_sort": "C",
+            "fld_more": false,
+            "fld_listmore": false,
+            "fld_listsum": null,
+            "fld_tray": null,
+            "fld_type": "23",
+            "fld_type_id__flt_code": null,
+            "fld_list_id__lov_name": null,
+            "fld_copy": true,
+            "fld_size": 30,
+            "fld_minsize": null,
+            "fld_precision": null,
+            "fld_fromdate_id__fld_name": null,
+            "fld_dfault": null,
+            "fld_indexable": false,
+            "fld_autocomp": "0",
+            "fld_groupby": false,
+            "fld_updall": true,
+            "fld_case": null,
+            "fld_righttoleft": false,
+            "fld_rendering": null,
+            "fld_speech": null,
+            "fld_calc": null,
+            "fld_objlist": null,
+            "fld_comment": null,
+            "fld_classification": null,
+            "row_module_id__mdl_name": "Training"
+           },
+           "links": [{
+            "object": "TranslateField",
+            "label": "Field translation",
+            "icon": "img/system/translation",
+            "field": "tsl_id",
+            "list": [
+             {
+              "object": "TranslateField",
+              "userkey": "F~trnThemeSecondaryColor~ENU",
+              "item": {
+               "tsl_typeField": "F",
+               "tsl_id__fld_name": "trnThemeSecondaryColor",
+               "tsl_lang": "ENU",
+               "tsl_value": "Secondary color",
+               "tsl_simplehelp": null,
+               "tsl_short_value": null,
+               "tsl_placeholder": null,
+               "tsl_listhelp": null,
+               "row_module_id__mdl_name": "Training",
+               "tsl_tooltip": null
+              }
+             },
+             {
+              "object": "TranslateField",
+              "userkey": "F~trnThemeSecondaryColor~FRA",
+              "item": {
+               "tsl_typeField": "F",
+               "tsl_id__fld_name": "trnThemeSecondaryColor",
+               "tsl_lang": "FRA",
+               "tsl_value": "Couleur secondaire",
+               "tsl_simplehelp": null,
+               "tsl_short_value": null,
+               "tsl_placeholder": null,
+               "tsl_listhelp": null,
+               "row_module_id__mdl_name": "Training",
+               "tsl_tooltip": null
+              }
+             }
+            ]
+           }]
+          }]
+         }]
+        },
+        {
+         "object": "ObjectFieldSystem",
+         "userkey": "TrnSiteTheme~trnThemeIcon~30",
+         "item": {
+          "obf_object_id__obo_name": "TrnSiteTheme",
+          "obf_field_id__fld_name": "trnThemeIcon",
+          "obf_field_id__fld_type": "20",
+          "obf_order": 30,
+          "obf_group_by": null,
+          "obf_dfault_order": null,
+          "obf_input": null,
+          "obf_ref_field_id__fld_name": null,
+          "obf_ref_object_id__obo_name": null,
+          "obf_cascad": null,
+          "obf_card": null,
+          "obf_visible": null,
+          "obf_ref_export": true,
+          "obf_copy": null,
+          "obf_ref_order": null,
+          "obf_fld_visible": null,
+          "obf_fld_required": null,
+          "obf_fld_updatable": null,
+          "obf_fld_research": null,
+          "obf_fld_more": null,
+          "obf_fld_listmore": null,
+          "obf_fld_researchreq": null,
+          "obf_fld_dfault": null,
+          "obf_field_id__fld_dfault": null,
+          "obf_area_id__ofa_name": null,
+          "obf_area_id__ofa_position": null,
+          "row_module_id__mdl_name": "Training"
+         },
+         "links": [{
+          "object": "Field",
+          "label": "Field",
+          "icon": "img/system/field",
+          "field": "",
+          "list": [{
+           "object": "Field",
+           "userkey": "trnThemeIcon",
+           "item": {
+            "fld_name": "trnThemeIcon",
+            "fld_dbname": "trn_theme_icon",
+            "fld_visible": "3",
+            "fld_updatable": "1",
+            "fld_required": false,
+            "fld_fonctid": false,
+            "fld_research": null,
+            "fld_researchreq": null,
+            "fld_sort": "C",
+            "fld_more": false,
+            "fld_listmore": false,
+            "fld_listsum": null,
+            "fld_tray": null,
+            "fld_type": "20",
+            "fld_type_id__flt_code": null,
+            "fld_list_id__lov_name": null,
+            "fld_copy": true,
+            "fld_size": 11,
+            "fld_minsize": null,
+            "fld_precision": null,
+            "fld_fromdate_id__fld_name": null,
+            "fld_dfault": null,
+            "fld_indexable": false,
+            "fld_autocomp": "0",
+            "fld_groupby": false,
+            "fld_updall": true,
+            "fld_case": null,
+            "fld_righttoleft": false,
+            "fld_rendering": null,
+            "fld_speech": null,
+            "fld_calc": null,
+            "fld_objlist": null,
+            "fld_comment": null,
+            "fld_classification": null,
+            "row_module_id__mdl_name": "Training"
+           },
+           "links": [{
+            "object": "TranslateField",
+            "label": "Field translation",
+            "icon": "img/system/translation",
+            "field": "tsl_id",
+            "list": [
+             {
+              "object": "TranslateField",
+              "userkey": "F~trnThemeIcon~ENU",
+              "item": {
+               "tsl_typeField": "F",
+               "tsl_id__fld_name": "trnThemeIcon",
+               "tsl_lang": "ENU",
+               "tsl_value": "Icon",
+               "tsl_simplehelp": null,
+               "tsl_short_value": null,
+               "tsl_placeholder": null,
+               "tsl_listhelp": null,
+               "row_module_id__mdl_name": "Training",
+               "tsl_tooltip": null
+              }
+             },
+             {
+              "object": "TranslateField",
+              "userkey": "F~trnThemeIcon~FRA",
+              "item": {
+               "tsl_typeField": "F",
+               "tsl_id__fld_name": "trnThemeIcon",
+               "tsl_lang": "FRA",
+               "tsl_value": "Icône",
+               "tsl_simplehelp": null,
+               "tsl_short_value": null,
+               "tsl_placeholder": null,
+               "tsl_listhelp": null,
+               "row_module_id__mdl_name": "Training",
+               "tsl_tooltip": null
+              }
+             }
+            ]
+           }]
+          }]
+         }]
+        }
+       ]
+      },
+      {
+       "object": "Function",
+       "label": "Function",
+       "icon": "img/system/function",
+       "field": "fct_object_id",
+       "list": [
+        {
+         "object": "Function",
+         "userkey": "TRN_SITE_STYLE_CRUD",
+         "item": {
+          "fct_name": "TRN_SITE_STYLE_CRUD",
+          "fct_object_id__obj_type": "O",
+          "fct_object_id__obj_name": "TrnSiteTheme",
+          "fct_function": "CMS",
+          "fct_action_id__act_name": null,
+          "fct_view_id__viw_name": null,
+          "row_module_id__mdl_name": "Training"
+         },
+         "links": [{
+          "object": "Grant",
+          "label": "Grant",
+          "icon": "img/system/grant",
+          "field": "grt_function_id",
+          "list": [{
+           "object": "Grant",
+           "userkey": "TRN_ADMIN~TRN_SITE_STYLE_CRUD~TrnSiteTheme~",
+           "item": {
+            "grt_group_id__grp_name": "TRN_ADMIN",
+            "grt_function_id__fct_name": "TRN_SITE_STYLE_CRUD",
+            "grt_function_id__fct_object_id__obj_type": "O",
+            "grt_function_id__fct_object_id__obj_name": "TrnSiteTheme",
+            "grt_function_id__fct_action_id__act_name": null,
+            "grt_function_id__fct_function": "CMS",
+            "grt_activ": true,
+            "row_module_id__mdl_name": "Training"
+           }
+          }]
+         }]
+        },
+        {
+         "object": "Function",
+         "userkey": "TRN_SITE_STYLE_R",
+         "item": {
+          "fct_name": "TRN_SITE_STYLE_R",
+          "fct_object_id__obj_type": "O",
+          "fct_object_id__obj_name": "TrnSiteTheme",
+          "fct_function": "L",
+          "fct_action_id__act_name": null,
+          "fct_view_id__viw_name": null,
+          "row_module_id__mdl_name": "Training"
+         }
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "object": "ObjectInternal",
      "userkey": "TrnTag",
      "item": {
       "obo_name": {
@@ -9475,6 +10009,18 @@
          "map_object_id__obj_name": "TrnUrlRewriting",
          "map_process_id__pcs_name": null,
          "map_order": 500,
+         "map_ext": false,
+         "row_module_id__mdl_name": "Training"
+        }
+       },
+       {
+        "object": "Map",
+        "userkey": "TrnDomain~600",
+        "item": {
+         "map_domain_id__obd_name": "TrnDomain",
+         "map_object_id__obj_name": "TrnSiteTheme",
+         "map_process_id__pcs_name": null,
+         "map_order": 600,
          "map_ext": false,
          "row_module_id__mdl_name": "Training"
         }
@@ -12454,7 +13000,7 @@
        "field": "res_file_compiled",
        "mime": "text/javascript",
        "name": "SCRIPT.min.js",
-       "id": "12294",
+       "id": "12348",
        "object": "Resource",
        "rowid": "278"
       },
@@ -12494,7 +13040,7 @@
        "field": "res_file_compiled",
        "mime": "text/javascript",
        "name": "SCRIPT.min.js",
-       "id": "12295",
+       "id": "12349",
        "object": "Resource",
        "rowid": "279"
       },
@@ -12534,9 +13080,49 @@
        "field": "res_file_compiled",
        "mime": "text/javascript",
        "name": "SCRIPT.min.js",
-       "id": "12296",
+       "id": "12350",
        "object": "Resource",
        "rowid": "280"
+      },
+      "res_image": null,
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "Resource",
+     "userkey": "ObjectInternal(TrnSiteTheme)~ANY~SCRIPT",
+     "item": {
+      "res_object": {
+       "item": {"obo_name": "TrnSiteTheme"},
+       "icon": "img/system/business_object",
+       "label": "Business object",
+       "row_id": "2025",
+       "userkeylabel": "TrnSiteTheme",
+       "object": "ObjectInternal"
+      },
+      "res_type": "JS",
+      "res_lang": "ANY",
+      "res_code": "SCRIPT",
+      "res_cached": false,
+      "res_file": {
+       "path": "resources/ObjectInternal/TrnSiteTheme/SCRIPT.js",
+       "size": 697,
+       "field": "res_file",
+       "mime": "text/javascript",
+       "name": "script.js",
+       "id": "12385",
+       "object": "Resource",
+       "rowid": "281"
+      },
+      "res_file_compiled": {
+       "path": "resources/ObjectInternal/TrnSiteTheme/SCRIPT.min.js",
+       "size": 452,
+       "field": "res_file_compiled",
+       "mime": "text/javascript",
+       "name": "script.min.js",
+       "id": "12386",
+       "object": "Resource",
+       "rowid": "281"
       },
       "res_image": null,
       "row_module_id__mdl_name": "Training"
@@ -12940,6 +13526,49 @@
          "tsl_id__din_name": "B-trnSitemapDoc",
          "tsl_lang": "FRA",
          "tsl_value": "B-trn sitemap doc",
+         "row_module_id__mdl_name": "Training"
+        }
+       }
+      ]
+     }]
+    },
+    {
+     "object": "DocIndex",
+     "userkey": "B-trnThemeIcon",
+     "item": {
+      "din_name": "B-trnThemeIcon",
+      "din_field_id__fld_name": null,
+      "din_path": null,
+      "din_min": null,
+      "din_max": null,
+      "din_grant": false,
+      "row_module_id__mdl_name": "Training"
+     },
+     "links": [{
+      "object": "TranslateDocIndex",
+      "label": "Document index translation",
+      "icon": "img/system/translation",
+      "field": "tsl_id",
+      "list": [
+       {
+        "object": "TranslateDocIndex",
+        "userkey": "B~B-trnThemeIcon~ENU",
+        "item": {
+         "tsl_typeDocIndex": "B",
+         "tsl_id__din_name": "B-trnThemeIcon",
+         "tsl_lang": "ENU",
+         "tsl_value": "B-trn theme icon",
+         "row_module_id__mdl_name": "Training"
+        }
+       },
+       {
+        "object": "TranslateDocIndex",
+        "userkey": "B~B-trnThemeIcon~FRA",
+        "item": {
+         "tsl_typeDocIndex": "B",
+         "tsl_id__din_name": "B-trnThemeIcon",
+         "tsl_lang": "FRA",
+         "tsl_value": "B-trn theme icon",
          "row_module_id__mdl_name": "Training"
         }
        }

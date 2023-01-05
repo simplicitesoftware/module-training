@@ -228,6 +228,23 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/TrnLesson'
+    TrnSiteTheme:
+      type: object
+      properties:
+        trnThemeIcon:
+          description: Icon
+          type: object
+        trnThemeColor:
+          description: Main color
+          type: string
+          example: '#RRGGBB'
+        row_id:
+          description: Unique technical row ID
+          type: string
+        trnThemeSecondaryColor:
+          description: Secondary color
+          type: string
+          example: '#RRGGBB'
     TrnCategory:
       type: object
       properties:
@@ -303,6 +320,10 @@ components:
         trnLsnCatId:
           description: Category ID
           type: string
+    ArrayOfTrnSiteTheme:
+      type: array
+      items:
+        $ref: '#/components/schemas/TrnSiteTheme'
     TreeviewData:
       type: object
       properties:
@@ -1185,6 +1206,71 @@ paths:
         required: true
       tags:
       - TrnCategory
+  /rest/TrnSiteTheme:
+    get:
+      summary: Search TrnSiteTheme business object records or get contextualized metadata
+      security:
+      - bearerAuth: []
+      operationId: obj-trnsitetheme-search
+      responses:
+        '200':
+          description: Success in searching business object records (or in getting
+            contextualized business object metadata, documentation, ...)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfTrnSiteTheme'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500'
+      parameters:
+      - schema:
+          type: boolean
+        in: query
+        name: _metadata
+        description: Metadata?
+        required: false
+      - schema:
+          type: boolean
+        in: query
+        name: _count
+        description: Count?
+        required: false
+      - schema:
+          type: boolean
+        in: query
+        name: _doc
+        description: Documentation?
+        required: false
+      - schema:
+          type: string
+        in: query
+        name: trnThemeColor
+        description: Search filter for Main color
+        required: false
+      - schema:
+          type: string
+        in: query
+        name: trnThemeSecondaryColor
+        description: Search filter for Secondary color
+        required: false
+      - schema:
+          type: string
+        in: query
+        name: trnThemeIcon
+        description: Search filter for Icon
+        required: false
+      tags:
+      - TrnSiteTheme
   /rest/TrnTagTranslate:
     get:
       summary: Search TrnTagTranslate business object records or get contextualized
@@ -3222,6 +3308,201 @@ paths:
         required: false
       tags:
       - TrnCategory
+  /rest/TrnSiteTheme/{row_id}:
+    post:
+      summary: Create a new TrnSiteThemebusiness object record
+      security:
+      - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrnSiteTheme'
+      operationId: obj-trnsitetheme-create
+      responses:
+        '200':
+          description: Success in creating a new business object record
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrnSiteTheme'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error400'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500'
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        required: true
+      tags:
+      - TrnSiteTheme
+    get:
+      summary: Get a TrnSiteTheme business object record
+      security:
+      - bearerAuth: []
+      operationId: obj-trnsitetheme-get
+      responses:
+        '200':
+          description: Success in getting a single business object record
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrnSiteTheme'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        required: true
+      - schema:
+          type: boolean
+        in: query
+        name: _inline_documents
+        description: Inline documents?
+        required: false
+      - schema:
+          type: boolean
+        in: query
+        name: _inline_thumbnails
+        description: Inline documents' thumbnails?
+        required: false
+      - schema:
+          type: boolean
+        in: query
+        name: _inline_objects
+        description: Inline objects?
+        required: false
+      tags:
+      - TrnSiteTheme
+    delete:
+      summary: Delete a TrnSiteTheme business object record
+      security:
+      - bearerAuth: []
+      operationId: obj-trnsitetheme-delete
+      responses:
+        '200':
+          description: Success in deleting a business object record
+          content:
+            application/json: {}
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error400'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        required: true
+      tags:
+      - TrnSiteTheme
+    put:
+      summary: Update a TrnSiteThemebusiness object record
+      security:
+      - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrnSiteTheme'
+      operationId: obj-trnsitetheme-update
+      responses:
+        '200':
+          description: Success in updating a business object record
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrnSiteTheme'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error400'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        required: true
+      tags:
+      - TrnSiteTheme
   /rest/TrnTagLsn/{row_id}:
     post:
       summary: Create a new TrnTagLsnbusiness object record
@@ -3697,6 +3978,8 @@ tags:
   description: Picture
 - name: TrnSiteContent
   description: Site Contents
+- name: TrnSiteTheme
+  description: Site theme
 - name: TrnTag
   description: Tags
 - name: TrnTagLsn
