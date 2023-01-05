@@ -140,7 +140,6 @@
       // Can't disable no-prototype-builtins for all the file, need to apply on every line using hasOwnProperty
       // eslint-disable-next-line no-prototype-builtins
       if(this.$router.currentRoute.params.hasOwnProperty("lessonPath")) {
-        console.log(this.$router.currentRoute.params.lessonPath);
         let lessonPath = "/" + this.$router.currentRoute.params.lessonPath;
         if(lessonPath.includes(".md")){
           var mdLessonPath = lessonPath.split(".md");

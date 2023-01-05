@@ -14,16 +14,20 @@ export default {
     },
 
     async openHomePage({dispatch}, payload) {
-      let page = payload.smp.getBusinessObject("TrnPage");
-      page.search(
-        {"trnPageType": "homepage", "TrnPage_TrnLesson_id__trnLsnPublish": true}, {inlineDocs: 'infos'}
-      ).then(async array => {
-        if(array[0]) {
-          payload.lesson.row_id = array[0].TrnPage_TrnLesson_id;
-          payload.lesson.viz = array[0].TrnPage_TrnLesson_id__trnLsnVisualization;
-          await dispatch("fetchLesson", payload);
-        }
-      }).catch(e => console.log(e));
+      return new Promise((resolve, reject) => {
+        let page = payload.smp.getBusinessObject("TrnPage");
+        page.search(
+          {"trnPageType": "homepage", "TrnPage_TrnLesson_id__trnLsnPublish": true}, {inlineDocs: 'infos'}
+        ).then(async array => {
+          if(array[0]) {
+            payload.lesson.row_id = array[0].TrnPage_TrnLesson_id;
+            payload.lesson.viz = array[0].TrnPage_TrnLesson_id__trnLsnVisualization;
+            await dispatch("fetchLesson", payload);
+            resolve();
+          }
+          reject('Unable to fetch homepage from backend');
+        });
+      });  
     },
 
     async openPage({dispatch}, payload) {
@@ -73,7 +77,6 @@ export default {
             getLesson:payload.lesson.row_id
           }
         ).then(function(res){
-          console.log(res);
           commit(SET_LESSON, res);
           resolve();
         })

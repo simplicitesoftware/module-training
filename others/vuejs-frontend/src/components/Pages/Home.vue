@@ -6,10 +6,11 @@
 					<div v-if="lesson.row_id">
 						<div class="lesson-html-content" v-if="lesson.html" v-html="lesson.html"></div>
 					</div>
-					<div v-else>
-						<h1>Welcome !</h1> 				
+					<div v-else-if="gotServerResponse && !lesson.html">
+						<h1>Welcome !</h1>	
 						<h2>This is the default home page of the module docs, here's all you need to know to set your own documentation</h2>
 					</div>
+					<Spinner v-else/>
 				</div>
 			</div>
 		</div>			
@@ -18,18 +19,26 @@
 
 <script>
 import {mapState} from "vuex";
+import Spinner from "../UI/Spinner";
 export default {
-  components: {},
+	components: {Spinner},
 		name: "HomePage",
 		metaInfo: {
 			// Children can override the title.
 			title: "Home",
 		},
+		data: () => ({
+			// set to true when server has responded to the homepage request
+			// avoid getting a blink of the default page when waiting for a potential homepage
+			gotServerResponse: false,  
+		}),
 		async created() {
 			this.$store.dispatch("lesson/openHomePage", {
 				smp: this.$smp,
 				lesson: {row_id: undefined, viz: undefined},
-			});
+			}).then(() => {
+				this.gotServerResponse = true;
+			}).catch((e) => console.log(e));
 		},
 		computed: {
 			...mapState({
