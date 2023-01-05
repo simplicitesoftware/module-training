@@ -38,13 +38,23 @@
     name: "TreeViewNode",
     computed: {
       ...mapState({
-        lesson: state => state.lesson.lesson
+        lesson: state => state.lesson.lesson,
+        themeValues: state => state.ui.themeValues,
       }),
       indent() {
-        if (this.depth === 0) return {'padding-left': `10px`}; // Root elements
-        else if (this.node.title ) return {'padding-left': `${(this.depth + 1) * 20}px`}; // Lessons elements. +5 is here because of the margin on the span element. This way it is more clean
-        else return {'padding-left': `${this.depth * 20}px`}
-      }
+        if (this.depth === 0) return {
+          'padding-left': `10px`,
+          '--background-color': this.themeValues.primaryColor,  
+        } // Root elements
+        else if (this.node.title) return {
+          'padding-left': `${(this.depth + 1) * 20}px`,
+          '--background-color': this.themeValues.primaryColor,
+        } // Lessons elements. +5 is here because of the margin on the span element. This way it is more clean
+        else return {
+          'padding-left': `${this.depth * 20}px`,
+          '--background-color': this.themeValues.primaryColor,
+        }
+      },
     },
     methods: {
       nodeClicked(node) {
@@ -78,10 +88,12 @@
     margin: 0
     @include rounded-right-corners($tree-border-radius, $tree-border-radius)
     &:hover
-      background-color: $color-tree-hover
       cursor: pointer
+      background-color: var(--background-color)
+      filter: brightness(170%)
     &.active
-      background-color: $color-tree-hover
+      background-color: var(--background-color)
+      filter: brightness(170%)
     span
       margin-left: map-get($margins, x-small)
     .tree__arrow

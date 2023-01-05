@@ -1,4 +1,4 @@
-import {SET_DRAWER_STATE, SET_LIGHT_BOX_IMAGE, SET_LIGHT_BOX_VISIBILITY, TOGGLE_LANG, TOGGLE_MODAL_STATE, SET_TAG_LIST, TOGGLE_TAG_UI_SELECTION, SET_TAG_LIST_SELECTION, DEFAULT_TAG_LIST, TAG_MODAL_CANCELLATION} from "../mutation-types";
+import {SET_DRAWER_STATE, SET_LIGHT_BOX_IMAGE, SET_LIGHT_BOX_VISIBILITY, TOGGLE_LANG, TOGGLE_MODAL_STATE, SET_TAG_LIST, TOGGLE_TAG_UI_SELECTION, SET_TAG_LIST_SELECTION, DEFAULT_TAG_LIST, TAG_MODAL_CANCELLATION, SET_STYLE} from "../mutation-types";
 
 export default {
   namespaced: true,
@@ -10,7 +10,8 @@ export default {
     langList: ['FRA', 'ENU'],
     tagList: [],
     tagCache: [], // cache used to apply correct values after toggle lang
-    isModalOpen: false
+    isModalOpen: false,
+    themeValues: {primaryColor: "#20477a", secondaryColor: "#387ED1", iconUrl: "../../../public/Logo_Simplicite_Noir.png"}
   },
   actions: {
     toggleDrawer({commit, state}){
@@ -60,6 +61,24 @@ export default {
         })
       })
     },
+    // eslint-disable-next-line no-unused-vars
+    async fetchStyle({commit}, payload) {
+      return new Promise((resolve) => {
+        const siteTheme = payload.smp.getBusinessObject('TrnSiteTheme')
+        siteTheme.search().then(async (res) => {
+          if(res[0]) {
+            const iconUrl = siteTheme.getFieldDocumentURL("trnThemeIcon", res[0]);
+            const themeValues = {
+              primaryColor: res[0].trnThemeColor,
+              secondaryColor: res[0].trnThemeSecondaryColor,
+              iconUrl: iconUrl
+            }
+            commit(SET_STYLE, themeValues)
+          }
+          resolve();
+        }).catch(e => console.log(e));
+      });
+    }
   },
   getters:{
     lang: state => state.langList[state.langIndex],
@@ -120,6 +139,9 @@ export default {
         tag.selected = false;
       })
       state.tagCache = [];
+    },
+    [SET_STYLE](state, themeValues) {
+      state.themeValues = themeValues;
     }
   }
 }

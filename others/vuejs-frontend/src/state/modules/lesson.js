@@ -31,7 +31,7 @@ export default {
     },
 
     async openPage({dispatch}, payload) {
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         let page = payload.smp.getBusinessObject("TrnPage");
         page.search({"TrnPage_TrnLesson_id__trnLsnFrontPath": payload.path, "TrnPage_TrnLesson_id__trnLsnPublish": true}, {inlineDocs: 'infos'})
         .then(async array => {
@@ -41,8 +41,6 @@ export default {
             payload.lesson.viz = array[0].TrnPage_TrnLesson_id__trnLsnVisualization;
             await dispatch("fetchLesson", payload);
             resolve();
-          } else {
-            reject();
           }
         }).catch(e => console.log(e));
       })

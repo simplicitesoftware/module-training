@@ -38,7 +38,7 @@ export default {
 				lesson: {row_id: undefined, viz: undefined},
 			}).then(() => {
 				this.gotServerResponse = true;
-			}).catch((e) => console.log(e));
+			});
 		},
 		computed: {
 			...mapState({

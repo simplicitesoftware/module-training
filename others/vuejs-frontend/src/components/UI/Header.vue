@@ -1,10 +1,11 @@
 <template>
-  <header id="top-menu">
+  <header id="top-menu" :style="{background: `linear-gradient(to right, ${themeValues.primaryColor} 40%, ${themeValues.secondaryColor})`}">
     <div class="menu-icon" @click="toggleMenu">
       <i class="material-icons menu-icon__image">menu</i>
     </div>
-    <div class="logo" @click="goToHome"></div>
-    <SearchBar ref="searchbaritem" class="search-bar" v-show="searchbarVisible"/>
+    <div class="logo" :style="{backgroundImage:`url(${themeValues.iconUrl})`}" @click="goToHome">
+    </div>
+    <SearchBar ref="searchbaritem" class="search-bar" v-show="searchbarVisible" v-bind:themeValues="themeValues"/>
     <nav class="header-buttons">
       
       <i id="previous-button" class="material-icons header-buttons__button" @click="arrowNavigationClicked(-1)"
@@ -35,14 +36,16 @@
     name: "Header",
     data: () => ({
       searchbarVisible: true,
-      navigationArrowVisible: false
+      navigationArrowVisible: false,
+      defaultLogoUrl: "../../../public/Logo_Simplicite_Noir.png"
     }),
     components: { SearchBar, TagSelector },
     computed: {
       ...mapState({
         lesson: state => state.lesson.lesson,
         isDrawerOpen: state => state.ui.isDrawerOpen, // remove ?
-        isModalOpen: state => state.ui.isModalOpen
+        isModalOpen: state => state.ui.isModalOpen,
+        themeValues: state => state.ui.themeValues,
       }),
       ...mapGetters({
         getLessonFromPath: 'tree/getLessonFromPath',
@@ -108,10 +111,8 @@ header
   flex: 0 1 0
   align-items: center
   padding: $header-padding
-  background: linear-gradient(to right, $color-primary 40%, $color-secondary)
   color: white
   .logo
-    background-image: url("../../../public/Logo_Simplicite_Noir.png")
     background-repeat: no-repeat
     background-size: contain
     z-index: 200

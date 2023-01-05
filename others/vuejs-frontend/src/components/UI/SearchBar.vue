@@ -1,8 +1,8 @@
 <template>
     <div id="SearchBar"  v-click-outside="hideSuggestions">
         <div class="searchElement">
-          <input class="searchbar" @input="queryIndex" v-model="inputValue" type="text" name="" value="" :placeholder="searchbarPlaceHolder" />
-          <div @click="searchIconClick" class="searchbar-logo-container">
+          <input class="searchbar" @input="queryIndex" v-model="inputValue" type="text" name="" value="" :placeholder="searchbarPlaceHolder"/>
+          <div @click="searchIconClick" class="searchbar-logo-container" :style="{[`background-color`]: `${themeValues.primaryColor}`}">
               <span class="material-icons searchbar-logo">
                   search
               </span>
@@ -67,6 +67,9 @@ export default {
   name: "SearchBar",
   components :{
     SuggestionItem
+  },
+  props: {
+    themeValues: Object
   },
   data: function() {
     return {
@@ -287,18 +290,12 @@ export default {
   padding-left: 10px
   font-size: 1rem
 
-
-
 .searchbar-logo-container
   display: flex
   justify-content: center
   align-items: center
   flex-direction: column
   padding: .5rem
-  border-right: 1px solid #ccc
-  border-top: 1px solid #ccc
-  border-bottom: 1px solid #ccc
-  background-color: #20477a
 
   &:hover
     background-color: transparentize(white, 0.9)

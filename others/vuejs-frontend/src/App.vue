@@ -2,7 +2,7 @@
   <div id="app" class="app">
     <Header/>
     <main>
-      <nav class="navigation-drawer" v-show="isDrawerOpen">
+      <nav class="navigation-drawer" v-show="isDrawerOpen" :style="{background: `linear-gradient(${themeValues.primaryColor} 30%, ${themeValues.secondaryColor})`}">
         <TreeViewNode v-for="(motherCategory, index) in tree" :key="index" :node="motherCategory" :depth="0"/>
       </nav>
       <div class="page-content">
@@ -34,6 +34,7 @@
       ...mapState({
         tree: state => state.tree.tree,
         isDrawerOpen: state => state.ui.isDrawerOpen,
+        themeValues: state => state.ui.themeValues,
       }),
       ...mapGetters({
         isSortedByTag: "ui/isSortedByTag",
@@ -43,6 +44,7 @@
       if (this.$router.currentRoute.name === 'Lesson') this.isUserOnLesson = true;
       this.$store.dispatch('ui/fetchTags', {smp: this.$smp});
       this.$store.dispatch('tree/fetchTree', {smp: this.$smp});
+      this.$store.dispatch('ui/fetchStyle', {smp : this.$smp});
     },
     watch: {
       $route(to) {
@@ -97,7 +99,6 @@
         z-index: 1000
         overflow: auto
         display: block
-        background: linear-gradient($color-primary 40%, $color-secondary)
         transition: $duration-drawer-collapse ease-in-out
         max-height: 100vh - $header-height
 
