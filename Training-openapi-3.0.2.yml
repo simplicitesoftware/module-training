@@ -57,6 +57,10 @@ components:
         row_id:
           description: Unique technical row ID
           type: string
+    ArrayOfTrnUrlRewriting:
+      type: array
+      items:
+        $ref: '#/components/schemas/TrnUrlRewriting'
     PublicationResult:
       type: object
       properties:
@@ -204,6 +208,18 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/TrnTagTranslate'
+    TrnUrlRewriting:
+      type: object
+      properties:
+        trnUrlOld:
+          description: Old URL
+          type: string
+        trnUrlCurrent:
+          description: Current URL
+          type: string
+        row_id:
+          description: Unique technical row ID
+          type: string
     ArrayOfTrnCategory:
       type: array
       items:
@@ -779,6 +795,201 @@ paths:
         required: false
       tags:
       - TrnCategoryTranslate
+  /rest/TrnUrlRewriting/{row_id}:
+    post:
+      summary: Create a new TrnUrlRewritingbusiness object record
+      security:
+      - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrnUrlRewriting'
+      operationId: obj-trnurlrewriting-create
+      responses:
+        '200':
+          description: Success in creating a new business object record
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrnUrlRewriting'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error400'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500'
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        required: true
+      tags:
+      - TrnUrlRewriting
+    get:
+      summary: Get a TrnUrlRewriting business object record
+      security:
+      - bearerAuth: []
+      operationId: obj-trnurlrewriting-get
+      responses:
+        '200':
+          description: Success in getting a single business object record
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrnUrlRewriting'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        required: true
+      - schema:
+          type: boolean
+        in: query
+        name: _inline_documents
+        description: Inline documents?
+        required: false
+      - schema:
+          type: boolean
+        in: query
+        name: _inline_thumbnails
+        description: Inline documents' thumbnails?
+        required: false
+      - schema:
+          type: boolean
+        in: query
+        name: _inline_objects
+        description: Inline objects?
+        required: false
+      tags:
+      - TrnUrlRewriting
+    delete:
+      summary: Delete a TrnUrlRewriting business object record
+      security:
+      - bearerAuth: []
+      operationId: obj-trnurlrewriting-delete
+      responses:
+        '200':
+          description: Success in deleting a business object record
+          content:
+            application/json: {}
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error400'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        required: true
+      tags:
+      - TrnUrlRewriting
+    put:
+      summary: Update a TrnUrlRewritingbusiness object record
+      security:
+      - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrnUrlRewriting'
+      operationId: obj-trnurlrewriting-update
+      responses:
+        '200':
+          description: Success in updating a business object record
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrnUrlRewriting'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error400'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        required: true
+      tags:
+      - TrnUrlRewriting
   /rest/TrnCategory/{row_id}:
     post:
       summary: Create a new TrnCategorybusiness object record
@@ -2342,6 +2553,66 @@ paths:
         required: false
       tags:
       - TrnPicture
+  /rest/TrnUrlRewriting:
+    get:
+      summary: Search TrnUrlRewriting business object records or get contextualized
+        metadata
+      security:
+      - bearerAuth: []
+      operationId: obj-trnurlrewriting-search
+      responses:
+        '200':
+          description: Success in searching business object records (or in getting
+            contextualized business object metadata, documentation, ...)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfTrnUrlRewriting'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500'
+      parameters:
+      - schema:
+          type: boolean
+        in: query
+        name: _metadata
+        description: Metadata?
+        required: false
+      - schema:
+          type: boolean
+        in: query
+        name: _count
+        description: Count?
+        required: false
+      - schema:
+          type: boolean
+        in: query
+        name: _doc
+        description: Documentation?
+        required: false
+      - schema:
+          type: string
+        in: query
+        name: trnUrlOld
+        description: Search filter for Old URL
+        required: false
+      - schema:
+          type: string
+        in: query
+        name: trnUrlCurrent
+        description: Search filter for Current URL
+        required: false
+      tags:
+      - TrnUrlRewriting
   /rest/TrnPicture/{row_id}:
     post:
       summary: Create a new TrnPicturebusiness object record
@@ -3432,3 +3703,5 @@ tags:
   description: Tags
 - name: TrnTagTranslate
   description: Translations
+- name: TrnUrlRewriting
+  description: URL rewriting

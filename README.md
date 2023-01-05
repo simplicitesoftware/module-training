@@ -13,6 +13,18 @@
 
 The module for the Simplciité Training platform
 
+`TrnUrlRewriting` business object definition
+--------------------------------------------
+
+
+
+### Fields
+
+| Name                                                         | Type                                     | Required | Updatable | Personal | Description                                                                      |
+|--------------------------------------------------------------|------------------------------------------|----------|-----------|----------|----------------------------------------------------------------------------------|
+| `trnUrlOld`                                                  | url(10)                                  | yes*     | yes       |          | -                                                                                |
+| `trnUrlCurrent`                                              | url(10)                                  | yes*     | yes       |          | -                                                                                |
+
 `TrnCategory` business object definition
 ----------------------------------------
 
