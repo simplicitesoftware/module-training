@@ -1,17 +1,22 @@
 <template>
   <div id="app" class="app">
-    <Header/>
-    <main>
-      <nav class="navigation-drawer" v-show="isDrawerOpen" :style="{background: `linear-gradient(${themeValues.primaryColor} 30%, ${themeValues.secondaryColor})`}">
-        <TreeViewNode v-for="(motherCategory, index) in tree" :key="index" :node="motherCategory" :depth="0"/>
-      </nav>
-      <div class="page-content">
-        <router-view class="page-content__router-view" :key="$route.fullPath" v-if="tree.length"/>
-        <TagNoContent v-else-if="isSortedByTag"/>
-        <Spinner v-else/>
-      </div>
-    </main>
-    <LightBox/>
+    <div v-if="isStyleLoaded">
+      <Header/>
+      <main>
+        <nav class="navigation-drawer" v-show="isDrawerOpen" :style="{background: `linear-gradient(${themeValues.primaryColor} 30%, ${themeValues.secondaryColor})`}">
+          <TreeViewNode v-for="(motherCategory, index) in tree" :key="index" :node="motherCategory" :depth="0"/>
+        </nav>
+        <div class="page-content">
+          <router-view class="page-content__router-view" :key="$route.fullPath" v-if="tree.length"/>
+          <TagNoContent v-else-if="isSortedByTag"/>
+          <Spinner v-else/>
+        </div>
+      </main>
+      <LightBox/>
+    </div>
+    <div v-else>
+      <Spinner/>
+    </div>
 
   </div>
 </template>
@@ -28,7 +33,8 @@
     name: 'App',
     components: {LightBox, Header, TreeViewNode, Spinner, TagNoContent},
     data: () => ({
-      isUserOnLesson: false
+      isUserOnLesson: false,
+      isStyleLoaded: false,
     }),
     computed: {
       ...mapState({
@@ -42,9 +48,11 @@
     },
     created() {
       if (this.$router.currentRoute.name === 'Lesson') this.isUserOnLesson = true;
+      this.$store.dispatch('ui/fetchStyle', {smp : this.$smp}).finally(() => {
+        this.isStyleLoaded = true;
+      });
       this.$store.dispatch('ui/fetchTags', {smp: this.$smp});
       this.$store.dispatch('tree/fetchTree', {smp: this.$smp});
-      this.$store.dispatch('ui/fetchStyle', {smp : this.$smp});
     },
     watch: {
       $route(to) {

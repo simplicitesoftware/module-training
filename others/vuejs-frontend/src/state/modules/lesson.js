@@ -35,7 +35,6 @@ export default {
         let page = payload.smp.getBusinessObject("TrnPage");
         page.search({"TrnPage_TrnLesson_id__trnLsnFrontPath": payload.path, "TrnPage_TrnLesson_id__trnLsnPublish": true}, {inlineDocs: 'infos'})
         .then(async array => {
-          console.log("test");
           if(array[0]) {
             payload.lesson.row_id = array[0].TrnPage_TrnLesson_id;
             payload.lesson.viz = array[0].TrnPage_TrnLesson_id__trnLsnVisualization;
