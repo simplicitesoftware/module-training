@@ -13,31 +13,6 @@
 
 The module for the Simplciité Training platform
 
-`TrnSiteTheme` business object definition
------------------------------------------
-
-
-
-### Fields
-
-| Name                                                         | Type                                     | Required | Updatable | Personal | Description                                                                      |
-|--------------------------------------------------------------|------------------------------------------|----------|-----------|----------|----------------------------------------------------------------------------------|
-| `trnThemeColor`                                              | color                                    | yes*     | yes       |          | -                                                                                |
-| `trnThemeSecondaryColor`                                     | color                                    | yes*     | yes       |          | -                                                                                |
-| `trnThemeIcon`                                               | image                                    |          | yes       |          | -                                                                                |
-
-`TrnUrlRewriting` business object definition
---------------------------------------------
-
-
-
-### Fields
-
-| Name                                                         | Type                                     | Required | Updatable | Personal | Description                                                                      |
-|--------------------------------------------------------------|------------------------------------------|----------|-----------|----------|----------------------------------------------------------------------------------|
-| `trnUrlOld`                                                  | url(10)                                  | yes*     | yes       |          | -                                                                                |
-| `trnUrlCurrent`                                              | url(10)                                  | yes*     | yes       |          | -                                                                                |
-
 `TrnCategory` business object definition
 ----------------------------------------
 
@@ -245,6 +220,37 @@ This object will hold the static contents of the front-end application
     - `ANY` All languages
     - `ENU` English language
     - `FRA` French language
+
+`TrnSiteTheme` business object definition
+-----------------------------------------
+
+
+
+### Fields
+
+| Name                                                         | Type                                     | Required | Updatable | Personal | Description                                                                      |
+|--------------------------------------------------------------|------------------------------------------|----------|-----------|----------|----------------------------------------------------------------------------------|
+| `trnThemeColor`                                              | color                                    | yes*     | yes       |          | -                                                                                |
+| `trnThemeSecondaryColor`                                     | color                                    | yes*     | yes       |          | -                                                                                |
+| `trnThemeIcon`                                               | image                                    |          | yes       |          | -                                                                                |
+
+`TrnUrlRewriting` business object definition
+--------------------------------------------
+
+
+
+### Fields
+
+| Name                                                         | Type                                     | Required | Updatable | Personal | Description                                                                      |
+|--------------------------------------------------------------|------------------------------------------|----------|-----------|----------|----------------------------------------------------------------------------------|
+| `trnSourceUrl`                                               | url(255)                                 | yes*     | yes       |          | -                                                                                |
+| `trnDestinationUrl`                                          | url(255)                                 | yes*     | yes       |          | -                                                                                |
+
+`TrnExtUrlRedirector` external object definition
+------------------------------------------------
+
+
+
 
 `TrnFront` external object definition
 -------------------------------------

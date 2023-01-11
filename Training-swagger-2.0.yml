@@ -1874,13 +1874,13 @@ paths:
         type: boolean
         required: false
       - in: query
-        name: trnUrlOld
-        description: Search filter for Old URL
+        name: trnSourceUrl
+        description: Search filter for URL Source
         type: string
         required: false
       - in: query
-        name: trnUrlCurrent
-        description: Search filter for Current URL
+        name: trnDestinationUrl
+        description: Search filter for URL Destination
         type: string
         required: false
       tags:
@@ -3146,14 +3146,14 @@ definitions:
   TrnUrlRewriting:
     type: object
     properties:
-      trnUrlOld:
-        description: Old URL
-        type: string
-      trnUrlCurrent:
-        description: Current URL
+      trnDestinationUrl:
+        description: URL Destination
         type: string
       row_id:
         description: Unique technical row ID
+        type: string
+      trnSourceUrl:
+        description: URL Source
         type: string
   ArrayOfTrnCategory:
     type: array
