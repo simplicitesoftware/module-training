@@ -7,8 +7,29 @@
 						<div class="lesson-html-content" v-if="lesson.html" v-html="lesson.html"></div>
 					</div>
 					<div v-else-if="gotServerResponse && !lesson.html">
-						<h1>Welcome !</h1>	
-						<h2>This is the default home page of the module docs, here's all you need to know to set your own documentation</h2>
+						<h1>Welcome</h1>
+						<h2>To the default page of the Simplicité documentation module</h2>
+							<p>Here's all you need to know in order to set your own documentation</p>
+						<h3>Goal</h3>
+							<p>Easy to deploy and easy to use</p>
+							<p>Customisable points such as logo, main color, homepage</p>
+						<h3>Project architecture</h3>
+							<h4>Backend</h4>
+								<p>Simplicite instance serving a SPA with Vue.js</p>
+								<p>The backend is a Category / Lesson / Translations model.</p>
+								<p>stack + architecture</p>
+						<h3>Features</h3>
+							<p>Content trough UI</p>
+							<p>
+								Pages: the page object aims to dispose pages that do not necessarily appear in the tree view.
+								In order to hide a page from the tree view, unpublish the category linked to the lesson.
+								Pages are served on the "/page/&lt;category-name&gt;/&lt;page-name&gt;" url. 
+								You can also unpublish pages through the linked lesson publish option in which case it won't be saved anymore.
+							</p>
+							<p>Tags, can set tags on lessons, </p>
+							<p>Url rewriting</p>
+							<p>Site theme</p>
+							<p>Tags</p>
 					</div>
 					<Spinner v-else/>
 				</div>
@@ -38,7 +59,10 @@ export default {
 				lesson: {row_id: undefined, viz: undefined},
 			}).then(() => {
 				this.gotServerResponse = true;
-			});
+			}).catch(() => {
+				console.log('Unable to fetch home page from server. Site will display the default page');
+				this.gotServerResponse = true;
+			})
 		},
 		computed: {
 			...mapState({

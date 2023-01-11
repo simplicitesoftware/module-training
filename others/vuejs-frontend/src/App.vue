@@ -1,23 +1,17 @@
 <template>
   <div id="app" class="app">
-    <div v-if="isStyleLoaded">
-      <Header/>
-      <main>
-        <nav class="navigation-drawer" v-show="isDrawerOpen" :style="{background: `linear-gradient(${themeValues.primaryColor} 30%, ${themeValues.secondaryColor})`}">
-          <TreeViewNode v-for="(motherCategory, index) in tree" :key="index" :node="motherCategory" :depth="0"/>
-        </nav>
-        <div class="page-content">
-          <router-view class="page-content__router-view" :key="$route.fullPath" v-if="tree.length"/>
-          <TagNoContent v-else-if="isSortedByTag"/>
-          <Spinner v-else/>
-        </div>
-      </main>
-      <LightBox/>
-    </div>
-    <div v-else>
-      <Spinner/>
-    </div>
-
+    <Header v-if="isStyleLoaded"/>
+    <main>
+      <nav class="navigation-drawer" v-show="isDrawerOpen" :style="{background: `linear-gradient(${themeValues.primaryColor} 30%, ${themeValues.secondaryColor})`}">
+        <TreeViewNode v-for="(motherCategory, index) in tree" :key="index" :node="motherCategory" :depth="0"/>
+      </nav>
+      <div class="page-content">
+        <router-view class="page-content__router-view" :key="$route.fullPath" v-if="tree.length"/>
+        <TagNoContent v-else-if="isSortedByTag"/>
+        <Spinner v-else/>
+      </div>
+    </main>
+    <LightBox/>
   </div>
 </template>
 
