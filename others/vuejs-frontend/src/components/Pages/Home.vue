@@ -9,27 +9,40 @@
 					<div v-else-if="gotServerResponse && !lesson.html">
 						<h1>Welcome</h1>
 						<h2>To the default page of the Simplicité documentation module</h2>
-							<p>Here's all you need to know in order to set your own documentation</p>
-						<h3>Goal</h3>
-							<p>Easy to deploy and easy to use</p>
-							<p>Customisable points such as logo, main color, homepage</p>
+							<p>You'll find on this page all the informations needed to help you set your own documentation</p>
+							<p>Is a great example of a simplicité instance serving a Vue.js frontend ???</p>
+						<h3>Main features</h3>
+							<ul>
+								<li>
+									<p>Categories / Lessons :</p>
+									Create categories, assign them lessons, set the lessons content in one or more langages.
+									Both categories and lessons can be published / unpublished.
+								</li>
+								<li></li>
+							</ul>
+							<p></p>
+							<p>
+								Pages: the page object aims to dispose pages that do not necessarily appear in the tree view.
+								A page must be linked with a lesson (lesson handles the content), the page responsibility is to
+								serve the content either as page on the following url "/page/&lt;category-name&gt;/&lt;page-name&gt;"
+								or as a homepage (limited to 1)
+								In order to hide a page from the tree view, unpublish the category linked to the lesson.
+								You can also unpublish pages through the linked lesson publish option in which case it won't be served anymore.
+							</p>
+						<h4>Tags</h4>
+							<p>
+								You can set tags on your lessons. These tags give your users the ability to sort the lessons on the frontend.
+							</p>
+						<h4>Site theme</h4>
+							<p>
+								Customize the frontend appearence using the Site theme object. 
+								This object gives you the possiblity to change the primary / secondary colors and also the logo of your documentation. 
+							</p>
 						<h3>Project architecture</h3>
 							<h4>Backend</h4>
 								<p>Simplicite instance serving a SPA with Vue.js</p>
 								<p>The backend is a Category / Lesson / Translations model.</p>
 								<p>stack + architecture</p>
-						<h3>Features</h3>
-							<p>Content trough UI</p>
-							<p>
-								Pages: the page object aims to dispose pages that do not necessarily appear in the tree view.
-								In order to hide a page from the tree view, unpublish the category linked to the lesson.
-								Pages are served on the "/page/&lt;category-name&gt;/&lt;page-name&gt;" url. 
-								You can also unpublish pages through the linked lesson publish option in which case it won't be saved anymore.
-							</p>
-							<p>Tags, can set tags on lessons, </p>
-							<p>Url rewriting</p>
-							<p>Site theme</p>
-							<p>Tags</p>
 					</div>
 					<Spinner v-else/>
 				</div>
