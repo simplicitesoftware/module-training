@@ -4,6 +4,7 @@ import java.util.*;
 
 import com.simplicite.objects.Training.TrnTagLsn;
 import com.simplicite.objects.Training.TrnTagTranslate;
+import com.simplicite.objects.Training.TrnUrlRewriting;
 import com.simplicite.util.*;
 import com.simplicite.util.exceptions.*;
 import com.simplicite.util.tools.*;
@@ -32,7 +33,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	private final String[] LANG_CODES;
 	private final String DEFAULT_LANG_CODE;
 	
-	private ObjectDB category, categoryContent, lesson, lessonContent, picture, tag, translateTag;
+	private ObjectDB category, categoryContent, lesson, lessonContent, picture, tag, translateTag, trnUrlRewriting;
 	
 	private HashMap<String, String> hashStore;
 	private ArrayList<String> foundPaths;
@@ -355,6 +356,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		picture = g.getObject("sync_TrnPicture", "TrnPicture");
 		tag = g.getObject("sync_TrnTag", "TrnTag");
 		translateTag = g.getObject("sync_TrnTagTranslate", "TrnTagTranslate");
+		trnUrlRewriting = g.getObject("sync_TrnUrlRewriting", "TrnUrlRewriting");
 	}
 	
 	private void syncPath(String relativePath) throws TrnSyncException{
@@ -370,7 +372,10 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		}
 		
 		if(oldHash==null || !oldHash.equals(newHash))
-			if("/".equals(relativePath)) upsertTags(dir);
+			if("/".equals(relativePath)) {
+				upsertTags(dir);
+				upsertUrlsRewriting(dir);
+			}
 			else updateDbWithDir(dir);
 		
 		hashStore.put(relativePath, newHash);
@@ -395,6 +400,15 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		try {
 			JSONArray json = new JSONArray(FileTool.readFile(dir.getPath()+"/tags.json"));
 			TrnTagTranslate tagTranslate = (TrnTagTranslate) g.getObject("sync_TrnTagTranslate", "TrnTagTranslate");
+			// delete all tags
+			BusinessObjectTool bot = new BusinessObjectTool(tag);
+			synchronized(tag){
+				tag.resetFilters();
+				for(String[] row: tag.search()){
+					tag.setValues(row);
+					bot.delete();
+				}
+			}
 			for (int i = 0; i < json.length(); i++) {
 				JSONObject tagObject = json.getJSONObject(i);
 				String tagCode = tagObject.optString("code");
@@ -405,7 +419,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 				}
 
 				// clean translation records
-				if(!Tool.isEmpty(getTagTranslateRowId(rowId))) deleteTagTranslation(rowId, tagTranslate); 
+				//if(!Tool.isEmpty(getTagTranslateRowId(rowId))) deleteTagTranslation(rowId, tagTranslate); 
 				// loop on the translate object
 				JSONObject tradObj = tagObject.optJSONObject("translation");
 				for(String lang : LANG_CODES) {
@@ -448,6 +462,47 @@ public class TrnFsSyncTool implements java.io.Serializable {
 			}
 		} catch(Exception e) {
 			throw new TrnSyncException("TRN_SYNC_UPSERT_TAG", e.getMessage()+" "+ code);
+		}
+	}
+
+	private void upsertUrlsRewriting(File dir)throws TrnSyncException {
+		try {
+			JSONArray json = new JSONArray(FileTool.readFile(dir.getPath()+"/url_rewriting.json"));
+			TrnUrlRewriting urlRewriting = (TrnUrlRewriting) g.getObject("sync_TrnUrlRewriting", "TrnUrlRewriting");
+			// delete all records of TrnUrlRewriting
+			BusinessObjectTool bot = new BusinessObjectTool(urlRewriting);
+			synchronized(urlRewriting){
+				urlRewriting.resetFilters();
+				for(String[] row: urlRewriting.search()){
+					urlRewriting.setValues(row);
+					bot.delete();
+				}
+			}
+			// test
+			for (int i = 0; i < json.length(); i++) {
+				JSONObject jsonRecord = json.getJSONObject(i);
+				String sourceUrl = jsonRecord.optString("sourceUrl");
+				String destination = jsonRecord.optString("destinationUrl");
+				upsertUrlRewriting(sourceUrl, destination);
+			}
+		} catch(Exception e) {
+			AppLog.error(getClass(), "upsertTags", e.getMessage(), e, g);
+			throw new TrnSyncException("TRN_SYNC_UPSERT_URLS_REWRITING_FROM_JSON");
+		}    
+	}
+
+	private void upsertUrlRewriting(String sourceUrl, String destinationUrl) throws TrnSyncException {
+		try {
+			BusinessObjectTool bot = new BusinessObjectTool(trnUrlRewriting);
+			synchronized(trnUrlRewriting) {
+				trnUrlRewriting.resetValues();
+				trnUrlRewriting.setFieldValue("trnSourceUrl", sourceUrl);
+				trnUrlRewriting.setFieldValue("trnDestinationUrl", sourceUrl);
+
+				bot.validateAndSave();
+			}
+		} catch(Exception e) {
+			throw new TrnSyncException("TRN_SYNC_UPSERT_URL_REWRITING", e.getMessage());
 		}
 	}
 	

@@ -207,7 +207,7 @@
        "field": "obo_script_id",
        "mime": "text/plain",
        "name": "TrnCategory.java",
-       "id": "12416",
+       "id": "12689",
        "object": "ObjectInternal",
        "rowid": "2005"
       },
@@ -1422,7 +1422,7 @@
        "field": "obo_script_id",
        "mime": "text/plain",
        "name": "TrnCategoryTranslate.java",
-       "id": "12417",
+       "id": "12693",
        "object": "ObjectInternal",
        "rowid": "2006"
       },
@@ -2131,7 +2131,7 @@
        "field": "obo_script_id",
        "mime": "text/plain",
        "name": "TrnLesson.java",
-       "id": "12423",
+       "id": "12697",
        "object": "ObjectInternal",
        "rowid": "2007"
       },
@@ -3482,7 +3482,7 @@
        "field": "obo_script_id",
        "mime": "text/plain",
        "name": "TrnLsnTranslate.java",
-       "id": "12420",
+       "id": "12695",
        "object": "ObjectInternal",
        "rowid": "2008"
       },
@@ -4694,7 +4694,7 @@
        "field": "obo_script_id",
        "mime": "text/plain",
        "name": "TrnPage.java",
-       "id": "12418",
+       "id": "12694",
        "object": "ObjectInternal",
        "rowid": "2020"
       },
@@ -5554,7 +5554,7 @@
        "field": "obo_script_id",
        "mime": "text/plain",
        "name": "TrnPicture.java",
-       "id": "12425",
+       "id": "12692",
        "object": "ObjectInternal",
        "rowid": "2009"
       },
@@ -6840,7 +6840,7 @@
       "obo_minrows": null,
       "obo_maxrows": null,
       "obo_sortable": true,
-      "obo_list_areas": null
+      "obo_list_areas": true
      },
      "links": [
       {
@@ -6950,7 +6950,7 @@
             "fld_updall": true,
             "fld_case": null,
             "fld_righttoleft": false,
-            "fld_rendering": null,
+            "fld_rendering": "HEX",
             "fld_speech": null,
             "fld_calc": null,
             "fld_objlist": null,
@@ -7070,7 +7070,7 @@
             "fld_updall": true,
             "fld_case": null,
             "fld_righttoleft": false,
-            "fld_rendering": null,
+            "fld_rendering": "HEX",
             "fld_speech": null,
             "fld_calc": null,
             "fld_objlist": null,
@@ -7336,7 +7336,7 @@
        "field": "obo_script_id",
        "mime": "text/plain",
        "name": "TrnTag.java",
-       "id": "12421",
+       "id": "12698",
        "object": "ObjectInternal",
        "rowid": "2013"
       },
@@ -7746,7 +7746,7 @@
        "field": "obo_script_id",
        "mime": "text/plain",
        "name": "TrnTagLsn.java",
-       "id": "12419",
+       "id": "12691",
        "object": "ObjectInternal",
        "rowid": "2016"
       },
@@ -8299,7 +8299,7 @@
        "field": "obo_script_id",
        "mime": "text/plain",
        "name": "TrnTagTranslate.java",
-       "id": "12424",
+       "id": "12690",
        "object": "ObjectInternal",
        "rowid": "2014"
       },
@@ -8888,7 +8888,7 @@
        "field": "obo_script_id",
        "mime": "text/plain",
        "name": "TrnUrlRewriting.java",
-       "id": "12422",
+       "id": "12696",
        "object": "ObjectInternal",
        "rowid": "2023"
       },
@@ -8955,7 +8955,7 @@
       "obo_minrows": null,
       "obo_maxrows": null,
       "obo_sortable": true,
-      "obo_list_areas": null
+      "obo_list_areas": true
      },
      "links": [
       {
@@ -9347,7 +9347,7 @@
        "field": "obe_script_id",
        "mime": "text/plain",
        "name": "TrnExtUrlRedirector.java",
-       "id": "12678",
+       "id": "12682",
        "object": "ObjectExternal",
        "rowid": "2026"
       },
@@ -9444,7 +9444,7 @@
        "field": "obe_script_id",
        "mime": "text/plain",
        "name": "TrnFront.java",
-       "id": "12411",
+       "id": "12688",
        "object": "ObjectExternal",
        "rowid": "2001"
       },
@@ -9541,7 +9541,7 @@
        "field": "obe_script_id",
        "mime": "text/plain",
        "name": "TrnPublicService.java",
-       "id": "12410",
+       "id": "12684",
        "object": "ObjectExternal",
        "rowid": "2018"
       },
@@ -9638,7 +9638,7 @@
        "field": "obe_script_id",
        "mime": "text/plain",
        "name": "TrnSitemap.java",
-       "id": "12412",
+       "id": "12687",
        "object": "ObjectExternal",
        "rowid": "2022"
       },
@@ -9735,7 +9735,7 @@
        "field": "obe_script_id",
        "mime": "text/plain",
        "name": "TrnSyncService.java",
-       "id": "12414",
+       "id": "12685",
        "object": "ObjectExternal",
        "rowid": "2003"
       },
@@ -9832,7 +9832,7 @@
        "field": "obe_script_id",
        "mime": "text/plain",
        "name": "TrnTagService.java",
-       "id": "12413",
+       "id": "12686",
        "object": "ObjectExternal",
        "rowid": "2017"
       },
@@ -9929,7 +9929,7 @@
        "field": "obe_script_id",
        "mime": "text/plain",
        "name": "TrnTreeService.java",
-       "id": "12415",
+       "id": "12683",
        "object": "ObjectExternal",
        "rowid": "2004"
       },
@@ -13115,7 +13115,7 @@
        "field": "res_file",
        "mime": "application/zip",
        "name": "SITE.zip",
-       "id": "12428",
+       "id": "12699",
        "object": "Resource",
        "rowid": "277"
       },
@@ -13146,7 +13146,7 @@
        "field": "res_file",
        "mime": "text/javascript",
        "name": "SCRIPT.js",
-       "id": "12426",
+       "id": "12703",
        "object": "Resource",
        "rowid": "278"
       },
@@ -13156,7 +13156,7 @@
        "field": "res_file_compiled",
        "mime": "text/javascript",
        "name": "SCRIPT.min.js",
-       "id": "12659",
+       "id": "12896",
        "object": "Resource",
        "rowid": "278"
       },
@@ -13186,7 +13186,7 @@
        "field": "res_file",
        "mime": "text/javascript",
        "name": "SCRIPT.js",
-       "id": "12427",
+       "id": "12705",
        "object": "Resource",
        "rowid": "279"
       },
@@ -13196,7 +13196,7 @@
        "field": "res_file_compiled",
        "mime": "text/javascript",
        "name": "SCRIPT.min.js",
-       "id": "12660",
+       "id": "12897",
        "object": "Resource",
        "rowid": "279"
       },
@@ -13226,7 +13226,7 @@
        "field": "res_file",
        "mime": "text/javascript",
        "name": "SCRIPT.js",
-       "id": "12430",
+       "id": "12701",
        "object": "Resource",
        "rowid": "280"
       },
@@ -13236,7 +13236,7 @@
        "field": "res_file_compiled",
        "mime": "text/javascript",
        "name": "SCRIPT.min.js",
-       "id": "12661",
+       "id": "12898",
        "object": "Resource",
        "rowid": "280"
       },
@@ -13266,7 +13266,7 @@
        "field": "res_file",
        "mime": "text/javascript",
        "name": "SCRIPT.js",
-       "id": "12429",
+       "id": "12700",
        "object": "Resource",
        "rowid": "281"
       },
@@ -13276,7 +13276,7 @@
        "field": "res_file_compiled",
        "mime": "text/javascript",
        "name": "SCRIPT.min.js",
-       "id": "12662",
+       "id": "12899",
        "object": "Resource",
        "rowid": "281"
       },
@@ -13303,7 +13303,7 @@
       "field": "mod_doc",
       "mime": "image/svg+xml",
       "name": "TrainingModel.svg",
-      "id": "12408",
+      "id": "12680",
       "object": "Model",
       "rowid": "9"
      },
@@ -13314,7 +13314,7 @@
       "field": "mod_image",
       "mime": "image/png",
       "name": "TrainingModel.png",
-      "id": "12409",
+      "id": "12681",
       "object": "Model",
       "rowid": "9"
      },
@@ -13342,7 +13342,7 @@
       "field": "adp_script_id",
       "mime": "text/plain",
       "name": "TrainingContentAdapter.java",
-      "id": "12435",
+      "id": "12708",
       "object": "Adapter",
       "rowid": "13"
      },
@@ -13367,7 +13367,7 @@
        "field": "scr_file",
        "mime": "text/plain",
        "name": "TrnTools.java",
-       "id": "12438",
+       "id": "12710",
        "object": "Script",
        "rowid": "1"
       },
@@ -13382,11 +13382,11 @@
       "scr_code": "TrnFsSyncTool",
       "scr_file": {
        "path": "src/com/simplicite/commons/Training/TrnFsSyncTool.java",
-       "size": 25717,
+       "size": 27668,
        "field": "scr_file",
        "mime": "text/plain",
        "name": "TrnFsSyncTool.java",
-       "id": "12443",
+       "id": "12709",
        "object": "Script",
        "rowid": "2"
       },
@@ -13405,7 +13405,7 @@
        "field": "scr_file",
        "mime": "text/plain",
        "name": "TrnTests.java",
-       "id": "12436",
+       "id": "12711",
        "object": "Script",
        "rowid": "3"
       },
@@ -13424,7 +13424,7 @@
        "field": "scr_file",
        "mime": "text/plain",
        "name": "TrnObject.java",
-       "id": "12437",
+       "id": "12716",
        "object": "Script",
        "rowid": "6"
       },
@@ -13443,7 +13443,7 @@
        "field": "scr_file",
        "mime": "text/plain",
        "name": "TrnIndexer.java",
-       "id": "12439",
+       "id": "12713",
        "object": "Script",
        "rowid": "7"
       },
@@ -13462,7 +13462,7 @@
        "field": "scr_file",
        "mime": "text/plain",
        "name": "MarkdownTool2.java",
-       "id": "12440",
+       "id": "12715",
        "object": "Script",
        "rowid": "8"
       },
@@ -13481,7 +13481,7 @@
        "field": "scr_file",
        "mime": "text/plain",
        "name": "TrnTestMarkdownTool2.java",
-       "id": "12441",
+       "id": "12714",
        "object": "Script",
        "rowid": "9"
       },
@@ -13500,7 +13500,7 @@
        "field": "scr_file",
        "mime": "text/plain",
        "name": "TrnEsiHelper.java",
-       "id": "12442",
+       "id": "12712",
        "object": "Script",
        "rowid": "10"
       },
@@ -13751,7 +13751,7 @@
        "field": "dt_file",
        "mime": "application/zip",
        "name": "Display-test-data.zip",
-       "id": "12445",
+       "id": "12717",
        "object": "Dataset",
        "rowid": "11"
       },
@@ -13770,7 +13770,7 @@
        "field": "dt_file",
        "mime": "application/zip",
        "name": "Docs-homepage.zip",
-       "id": "12444",
+       "id": "12720",
        "object": "Dataset",
        "rowid": "13"
       },
@@ -13789,7 +13789,7 @@
        "field": "dt_file",
        "mime": "text/xml",
        "name": "Technical-passwords.xml",
-       "id": "12446",
+       "id": "12719",
        "object": "Dataset",
        "rowid": "4"
       },
@@ -13808,7 +13808,7 @@
        "field": "dt_file",
        "mime": "text/xml",
        "name": "Trigger-forceDirSync.xml",
-       "id": "12447",
+       "id": "12718",
        "object": "Dataset",
        "rowid": "5"
       },
