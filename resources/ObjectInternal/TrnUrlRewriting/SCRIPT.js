@@ -15,7 +15,6 @@
 			a.appendChild(span);
 			el.parentNode.replaceChild(a, el);
 		}
-		const wiredElements = $(attribute).find($('div')).find($('a'));
 	}
 
 	Simplicite.UI.hooks.TrnUrlRewriting = function(o, cbk) {
