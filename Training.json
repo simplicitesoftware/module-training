@@ -13246,6 +13246,46 @@
     },
     {
      "object": "Resource",
+     "userkey": "ObjectInternal(TrnUrlRewriting)~ANY~SCRIPT",
+     "item": {
+      "res_object": {
+       "item": {"obo_name": "TrnUrlRewriting"},
+       "icon": "img/system/business_object",
+       "label": "Business object",
+       "row_id": "2023",
+       "userkeylabel": "TrnUrlRewriting",
+       "object": "ObjectInternal"
+      },
+      "res_type": "JS",
+      "res_lang": "ANY",
+      "res_code": "SCRIPT",
+      "res_cached": false,
+      "res_file": {
+       "path": "resources/ObjectInternal/TrnUrlRewriting/SCRIPT.js",
+       "size": 605,
+       "field": "res_file",
+       "mime": "text/javascript",
+       "name": "script.js",
+       "id": "13327",
+       "object": "Resource",
+       "rowid": "282"
+      },
+      "res_file_compiled": {
+       "path": "resources/ObjectInternal/TrnUrlRewriting/SCRIPT.min.js",
+       "size": 402,
+       "field": "res_file_compiled",
+       "mime": "text/javascript",
+       "name": "script.min.js",
+       "id": "13328",
+       "object": "Resource",
+       "rowid": "282"
+      },
+      "res_image": null,
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "Resource",
      "userkey": "ObjectInternal(TrnSiteTheme)~ANY~SCRIPT",
      "item": {
       "res_object": {
