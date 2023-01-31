@@ -497,7 +497,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 			synchronized(trnUrlRewriting) {
 				trnUrlRewriting.resetValues();
 				trnUrlRewriting.setFieldValue("trnSourceUrl", sourceUrl);
-				trnUrlRewriting.setFieldValue("trnDestinationUrl", sourceUrl);
+				trnUrlRewriting.setFieldValue("trnDestinationUrl", destinationUrl);
 
 				bot.validateAndSave();
 			}
