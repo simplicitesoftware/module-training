@@ -2,21 +2,42 @@
 (function(ui) {
 	if (!ui) return;
 	var app = ui.getAjax();
-	// Hook called by each object instance
+
+	function setWiredUriTag(attribute) {
+		const elements = $(attribute).find($('div')).find($('a'));
+		console.log(elements);
+		for(const el of elements) {
+			const a = document.createElement('a');
+			a.title = el.innerText;
+			a.href = el.href.replace('/ui', '') + el.innerText;	
+			const span = document.createElement('span');
+			span.innerText = el.innerText;
+			a.appendChild(span);
+			el.parentNode.replaceChild(a, el);
+		}
+		const wiredElements = $(attribute).find($('div')).find($('a'));
+	}
+
 	Simplicite.UI.hooks.TrnUrlRewriting = function(o, cbk) {
 		try {
-			console.log("TrnUrlRewriting hooks loading...");
 			var p = o.locals.ui;
 			if (p && o.isMainInstance()) {
+				p.list.onload = function(ctn, obj, params) {
+					setWiredUriTag('[data-field="trnSourceUrl"]');
+					setWiredUriTag('[data-field="trnDestinationUrl"]');
+				};
 				p.form.onload = function(ctn, obj, params) {
-					//...
+					const btn = $('[data-action="burl_field_trnLsnFrontPath"]');
+					btn.on("click", function(event) {
+						const frontPath = $('#field_trnLsnFrontPath');
+						window.open(event.currentTarget.baseURI.replace('/ui', '') + frontPath.get()[0].defaultValue);
+					})
 				};
 			}
 			//...
 		} catch (e) {
 			app.error("Error in Simplicite.UI.hooks.TrnUrlRewriting: " + e.message);
 		} finally {
-			console.log("TrnUrlRewriting hooks loaded.");
 			cbk && cbk(); // final callback
 		}
 	};

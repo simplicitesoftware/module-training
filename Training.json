@@ -13262,21 +13262,21 @@
       "res_cached": false,
       "res_file": {
        "path": "resources/ObjectInternal/TrnUrlRewriting/SCRIPT.js",
-       "size": 605,
+       "size": 1383,
        "field": "res_file",
        "mime": "text/javascript",
        "name": "script.js",
-       "id": "13327",
+       "id": "13353",
        "object": "Resource",
        "rowid": "282"
       },
       "res_file_compiled": {
        "path": "resources/ObjectInternal/TrnUrlRewriting/SCRIPT.min.js",
-       "size": 402,
+       "size": 1103,
        "field": "res_file_compiled",
        "mime": "text/javascript",
        "name": "script.min.js",
-       "id": "13328",
+       "id": "13354",
        "object": "Resource",
        "rowid": "282"
       },
