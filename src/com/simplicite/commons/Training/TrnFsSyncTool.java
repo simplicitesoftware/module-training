@@ -177,7 +177,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	
 	private void validateRootContent(File dir) throws TrnSyncException{
 		for(File child : dir.listFiles())
-			if(!isCategory(child) && !child.getName().equals("tags.json"))
+			if(!isCategory(child) && !child.getName().equals("tags.json") && !child.getName().equals("url_rewriting.json"))
 				throw new TrnSyncException("TRN_SYNC_ROOT_NON_CONFORMITY", child);
 			else if (child.getName().equals("tags.json")) {
 				// check if tags.json has a correct structure
