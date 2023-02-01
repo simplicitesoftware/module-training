@@ -11,7 +11,16 @@
 `Training` module definition
 ============================
 
-The module for the Simplciité Training platform
+The module for the Simplicité Training platform.
+
+This module objective is to offer an easy way to deploy a custom documentation.
+It's a *Category* / *Lesson* / *Translations* model with a few additions such as *tags* or *pages*.
+
+The training module not only gives the ability to manage content, but it also serves a Vue.js front end (see the external object *TrnFront*).
+<br>
+The front end is served on the root url of your instance. For further details on the site mapping, see system parameter *URI_MAPPING*.
+
+More info available on the front end default home page.
 
 `TrnCategory` business object definition
 ----------------------------------------
