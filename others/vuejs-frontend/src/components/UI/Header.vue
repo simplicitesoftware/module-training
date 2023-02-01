@@ -108,7 +108,6 @@ header
   width: 100%
   display: flex
   flex-flow: row
-  flex: 0 1 0
   align-items: center
   padding: $header-padding
   color: white
