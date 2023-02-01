@@ -14,55 +14,64 @@
 						</div>
 						<div class="content-flex">
 							<div class="content-wrapper">
-								<div class="text-content" id="left-content">
+								<div class="ui-button">
+									
+									<a href="/ui" class="ui-link">
+									<button class="button-text">Go to Simplicité UI</button>
+								</a>
+								</div>
+								<div class="text-content">
 									<h2 class="text-title">Main features</h2>
 									<ul>
 										<li>
-											<h4>Categories / Lessons :</h4>
-											<p>
-											Create categories, assign them lessons in one or more langages.
-											Both categories and lessons can be published / unpublished.
-											</p>
+											<h4 class="sub-title">Categories / Lessons :</h4>
+											<p class="text-block">Create categories, assign them lessons, in one or more langages.</p>
+											<p class="text-block">Both categories and lessons can be published / unpublished.</p>
 										</li>
 										<li>
-											<p>
-											Pages: the page object aims to dispose pages that do not necessarily appear in the tree view.
+											<h4 class="sub-title">Pages : </h4>
+											<p class="text-block">This object aims to dispose pages that do not necessarily appear in the tree view.</p>
+											<p class="text-block">
 											A page must be linked with a lesson (lesson handles the content), its responsibility is to
-											serve the content either as page on the following url "/page/&lt;category-name&gt;/&lt;page-name&gt;"
-											or as a homepage (limited to 1)
+											serve the content either as a page on the following url <span class="italic">/page/&lt;category-name&gt;/&lt;page-name&gt;</span>
+											or as a homepage (limited to 1).
+											</p>
+											<p class="text-block">
 											In order to hide a page from the tree view, unpublish the category linked to the lesson.
 											You can also unpublish pages through the linked lesson publish option in which case it won't be served anymore.
 											</p>
 										</li>
 										<li>
-											<h4>Tags</h4>
-											<p>
-											You can set tags on your lessons. These tags give your users the ability to sort the lessons on the frontend.
+											<h4 class="sub-title">Tags :</h4>
+											<p class="text-block">
+											You can set tags on your lessons. These tags give your users the ability to sort lessons on the frontend.
 											</p>
 										</li>
 										<li>
-											<h4>Site theme</h4>
-											<p>
-											Customize the frontend appearence using the Site theme object. 
-											This object gives you the possiblity to change the primary / secondary colors and also the logo of your documentation. 
-											</p>
+											<h4 class="sub-title">Site theme :</h4>
+											<p class="text-block">Customize the frontend appearence using the Site theme object.</p>
+											<p class="text-block">This object gives you the possiblity to change the primary / secondary colors and also the logo of your documentation.</p> 
 										</li>
 									</ul>
-								</div>
-							</div>
-							<div class="content-wrapper">
-								<div class="text-content">
-									<h2 class="text-title">Project architecture</h2>
+									<!-- <h2 class="text-title">Project architecture</h2>
+									<p class="text-block"></p>
 									<ul>
 										<il>
-											<h4>Backend</h4>
-											<p>
-											Simplicite instance serving a SPA with Vue.js. Good example of an appstorable module
+											<h4 class="sub-title">Backend :</h4>
+											<p class="text-block">
 											The backend is a Category / Lesson / Translations model.
+
+											Simplicité instance serves a Vue.js frontend 
 											stack + architecture
 											</p>
 										</il>
-									</ul>
+										<il>
+											<h4 class="sub-title">Fronted</h4>
+											<p class="text-block">
+											Simplicite instance serving a SPA with Vue.js
+											</p>
+										</il>
+									</ul> -->
 								</div>
 							</div>
 						</div>
@@ -118,6 +127,7 @@ export default {
 @import "../../assets/sass/variables"
 @import "../../assets/sass/mixins"
 
+
 .home
 	position: relative
 	.placeholder
@@ -144,36 +154,68 @@ export default {
 
 .default-content
 	padding: map_get($paddings, "medium")
-	font-size: 1.3rem
+	font-size: 1.1rem
 	
 	.header
 		text-align: center
 		background-color: #d8d8d8
-		border-radius: map-get($radius, "x-large")
+		border-radius: map-get($radius, "medium")
 		margin-bottom: 0.9rem
 		.subtitle-text
-			padding: map_get($paddings, "small")
+			padding-bottom: map_get($paddings, "medium")
+			padding-top: map_get($paddings, "small")
 	
 	.content-flex
 		line-height: 1.5
-		padding-top: 1rem
 		display: flex
 		flex-direction: row
 		flex-warp: wrap 
+		@include box-shadow
+		border-radius: map-get($radius, "medium")
 		ul
 			list-style-type: none
 
 		.content-wrapper
-			width: 50%
-			@include box-shadow
-			border-radius: 10px
-			margin-left: 10px
-			margin-right: 10px
+			.ui-button
+				float: right
+				padding: map_get($paddings, "medium")
+				margin-top: map_get($margins, "medium")
+				margin-right: map_get($margins, "medium")
+
+				.ui-link
+					@include box-shadow
+					border: none
+					border-radius: 10px
+					background-color: #479eff
+					//text-align: center
+					padding: 15px
+					
+					&:hover
+						background-color: #2859fa
+						
+					
+					.button-text
+						font-size: 1.2rem
+						color: white
+						vertical-align: middle
+						cursor: pointer
+						
+						
 			.text-content
 				padding: map_get($paddings, "large")
 				text-align: justify
 				.text-title
 					padding-bottom: 5px
+				.sub-title
+					padding-bottom: map_get($paddings, "small")
+					color: #387ED1
+				.text-block
+					padding-bottom: map_get($paddings, "medium")
+					margin-left: 8px
+				.italic
+					font-style: italic
+					color: #4a4a4a
+
 	
 
 </style>
