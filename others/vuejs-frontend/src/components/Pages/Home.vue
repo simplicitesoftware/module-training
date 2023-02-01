@@ -157,6 +157,7 @@ export default {
 			list-style-type: none
 
 		.content-wrapper
+			width: 100%
 			.ui-button
 				float: right
 				padding: map_get($paddings, "medium")

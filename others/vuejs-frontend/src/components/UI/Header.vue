@@ -3,7 +3,8 @@
     <div class="menu-icon" @click="toggleMenu">
       <i class="material-icons menu-icon__image">menu</i>
     </div>
-    <div class="logo" :style="{backgroundImage:`url(${themeValues.iconUrl})`}" @click="goToHome">
+    <div class="logo-warning" v-if="themeValues.iconUrl === undefined" @click="goToHome">Icone missing (upload it in Site theme)</div>
+    <div v-else class="logo" :style="{backgroundImage:`url(${themeValues.iconUrl})`}" @click="goToHome">
     </div>
     <SearchBar ref="searchbaritem" class="search-bar" v-show="searchbarVisible" v-bind:themeValues="themeValues"/>
     <nav class="header-buttons">
@@ -121,6 +122,15 @@ header
     filter: invert(100%)
     &:hover
       cursor: pointer
+
+  .logo-warning
+    width: $header-logo-width
+    height: $header-logo-height
+    margin-top: map-get($margins, small)
+    text-align: center
+    &:hover
+      cursor: pointer
+
 
   .menu-icon
     padding: $header-menu-icon-padding

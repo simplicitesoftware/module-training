@@ -11,7 +11,7 @@ export default {
     tagList: [],
     tagCache: [], // cache used to apply correct values after toggle lang
     isModalOpen: false,
-    themeValues: {primaryColor: "#20477a", secondaryColor: "#387ED1", iconUrl: "../../../public/Logo_Simplicite_Noir.png"}
+    themeValues: {primaryColor: "#274E13", secondaryColor: "#6AA84F", iconUrl: undefined}
   },
   actions: {
     toggleDrawer({commit, state}){
