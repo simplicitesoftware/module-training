@@ -7,7 +7,7 @@
       </nav>
       <div class="page-content">
         <router-view class="page-content__router-view" :key="$route.fullPath" v-if="tree.length"/>
-        <TagNoContent v-else-if="isSortedByTag"/>
+        <TagNoContent v-else-if="isSortedByTag && tree.length === 0"/>
         <Spinner v-else/>
       </div>
     </main>

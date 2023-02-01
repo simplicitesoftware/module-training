@@ -82,15 +82,6 @@ export default {
       this.$store.commit("ui/SET_TAG_LIST_SELECTION");
       this.$store.commit("ui/TOGGLE_MODAL_STATE");
       this.$store.dispatch("tree/fetchTree", { smp: this.$smp })
-      .then(() => this.checkForLessonInTree("/"+this.$router.currentRoute.params.lessonPath));
-    },
-    // checks if lesson is in tree, if true open node, of false goes back to home 
-    checkForLessonInTree(lessonPath) {
-      if(this.getLessonFromPath(lessonPath)) {
-          this.$store.commit("tree/OPEN_NODE", lessonPath);
-      } else {
-        this.$router.push('/');
-      }
     },
     showAll() {
       this.$store.commit("ui/DEFAULT_TAG_LIST");
