@@ -475,7 +475,7 @@
             "fld_name": "trnCatPath",
             "fld_dbname": "trn_cat_path",
             "fld_visible": "2",
-            "fld_updatable": "1",
+            "fld_updatable": "0",
             "fld_required": false,
             "fld_fonctid": true,
             "fld_research": "1",
