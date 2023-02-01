@@ -25,7 +25,7 @@
 									<ul>
 										<li>
 											<h4 class="sub-title">Categories / Lessons :</h4>
-											<p class="text-block">Create categories, assign them lessons, in one or more langages.</p>
+											<p class="text-block">Assign lessons to categories, and set the content in one or more langages.</p>
 											<p class="text-block">Both categories and lessons can be published / unpublished.</p>
 										</li>
 										<li>
@@ -53,25 +53,6 @@
 											<p class="text-block">This object gives you the possiblity to change the primary / secondary colors and also the logo of your documentation.</p> 
 										</li>
 									</ul>
-									<!-- <h2 class="text-title">Project architecture</h2>
-									<p class="text-block"></p>
-									<ul>
-										<il>
-											<h4 class="sub-title">Backend :</h4>
-											<p class="text-block">
-											The backend is a Category / Lesson / Translations model.
-
-											Simplicité instance serves a Vue.js frontend 
-											stack + architecture
-											</p>
-										</il>
-										<il>
-											<h4 class="sub-title">Fronted</h4>
-											<p class="text-block">
-											Simplicite instance serving a SPA with Vue.js
-											</p>
-										</il>
-									</ul> -->
 								</div>
 							</div>
 						</div>
