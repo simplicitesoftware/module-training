@@ -93,7 +93,12 @@ export default {
       this.$store.commit("ui/DEFAULT_TAG_LIST");
       this.$store.commit("ui/TOGGLE_MODAL_STATE");
       this.$store.dispatch("tree/fetchTree", { smp: this.$smp })
-      .then(() => this.$store.commit("tree/OPEN_NODE", "/"+this.$router.currentRoute.params.lessonPath));
+      .then(() => {
+        this.$store.commit("tree/OPEN_NODE", "/"+this.$router.currentRoute.params.lessonPath)
+        if(this.$router.currentRoute.name === 'TagNoContent') {
+          this.$router.push('/');
+        }
+      });
     },
     cancelUiSelection() {
       this.$store.commit("ui/TAG_MODAL_CANCELLATION");
