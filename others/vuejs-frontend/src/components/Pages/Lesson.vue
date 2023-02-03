@@ -81,6 +81,7 @@
         lesson: state => state.lesson.lesson,
         lessonImages: state => state.lesson.lessonImages,
         lessonTags: state => state.lesson.lessonTags,
+        tree: state => state.tree.tree,
       }),
       ...mapGetters({
         breadCrumbItems: 'tree/breadCrumbItems',
@@ -137,9 +138,8 @@
       }
     },
     async created() {      
-      // Can't disable no-prototype-builtins for all the file, need to apply on every line using hasOwnProperty
       // eslint-disable-next-line no-prototype-builtins
-      if(this.$router.currentRoute.params.hasOwnProperty("lessonPath")) {
+      if(this.$router.currentRoute.params.hasOwnProperty("lessonPath") && this.tree.length) {
         let lessonPath = "/" + this.$router.currentRoute.params.lessonPath;
         if(lessonPath.includes(".md")){
           var mdLessonPath = lessonPath.split(".md");
