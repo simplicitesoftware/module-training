@@ -48,7 +48,8 @@ export default {
     }),
     ...mapGetters({
       lang: "ui/lang",
-      getLessonFromPath: 'tree/getLessonFromPath'
+      getLessonFromPath: 'tree/getLessonFromPath',
+      isSortedByTag: "ui/isSortedByTag",
     }),
     // replace with server translation ?
     titleTranslation() {
@@ -81,7 +82,12 @@ export default {
     confirmChoice() {
       this.$store.commit("ui/SET_TAG_LIST_SELECTION");
       this.$store.commit("ui/TOGGLE_MODAL_STATE");
-      this.$store.dispatch("tree/fetchTree", { smp: this.$smp })
+      this.$store.dispatch("tree/fetchTree", { smp: this.$smp }).then((tree) => {
+        if(this.isSortedByTag && tree.length === 0) {
+          this.$router.push('/tag-no-content')
+        }
+      });
+
     },
     showAll() {
       this.$store.commit("ui/DEFAULT_TAG_LIST");

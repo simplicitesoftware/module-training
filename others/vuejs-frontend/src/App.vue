@@ -6,9 +6,8 @@
         <TreeViewNode v-for="(motherCategory, index) in tree" :key="index" :node="motherCategory" :depth="0"/>
       </nav>
       <div class="page-content">
-        <router-view class="page-content__router-view" :key="$route.fullPath" v-if="tree.length"/>
-        <TagNoContent v-else-if="isSortedByTag && tree.length === 0"/>
-        <Spinner v-else/>
+        <router-view class="page-content__router-view" :key="$route.fullPath"/>
+        <!-- <Spinner v-else/> -->
       </div>
     </main>
     <LightBox/>
@@ -17,15 +16,14 @@
 
 <script>
   import {mapGetters, mapState} from "vuex";
-  import Spinner from "./components/UI/Spinner";
+  //import Spinner from "./components/UI/Spinner";
   import Header from "./components/UI/Header";
   import LightBox from "./components/UI/LightBox";
   import TreeViewNode from "./components/UI/TreeViewNode";
-  import TagNoContent from "./components/UI/TagNoContent";
 
   export default {
     name: 'App',
-    components: {LightBox, Header, TreeViewNode, Spinner, TagNoContent},
+    components: {LightBox, Header, TreeViewNode},
     data: () => ({
       isUserOnLesson: false,
       isStyleLoaded: false,
