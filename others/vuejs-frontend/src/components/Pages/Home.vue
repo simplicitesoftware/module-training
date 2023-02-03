@@ -30,7 +30,7 @@
 										</li>
 										<li>
 											<h4 class="sub-title">Pages : </h4>
-											<p class="text-block">This object aims to dispose pages that do not necessarily appear in the tree view.</p>
+											<p class="text-block">This object serves pages that do not necessarily appear in the tree view.</p>
 											<p class="text-block">
 											A page must be linked with a lesson (lesson handles the content), its responsibility is to
 											serve the content either as a page on the following url <span class="italic">/page/&lt;category-name&gt;/&lt;page-name&gt;</span>
