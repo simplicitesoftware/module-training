@@ -6,8 +6,8 @@
         <TreeViewNode v-for="(motherCategory, index) in tree" :key="index" :node="motherCategory" :depth="0"/>
       </nav>
       <div class="page-content">
-        <router-view class="page-content__router-view" :key="$route.fullPath"/>
-        <!-- <Spinner v-else/> -->
+        <router-view v-if="!isFetching" class="page-content__router-view" :key="$route.fullPath"/>
+        <Spinner v-else/>
       </div>
     </main>
     <LightBox/>
@@ -16,16 +16,16 @@
 
 <script>
   import {mapGetters, mapState} from "vuex";
-  //import Spinner from "./components/UI/Spinner";
+  import Spinner from "./components/UI/Spinner";
   import Header from "./components/UI/Header";
   import LightBox from "./components/UI/LightBox";
   import TreeViewNode from "./components/UI/TreeViewNode";
 
   export default {
     name: 'App',
-    components: {LightBox, Header, TreeViewNode},
+    components: {LightBox, Header, TreeViewNode, Spinner},
     data: () => ({
-      isUserOnLesson: false,
+      isFetching: true,
       isStyleLoaded: false,
     }),
     computed: {
@@ -44,7 +44,7 @@
         this.isStyleLoaded = true;
       });
       this.$store.dispatch('ui/fetchTags', {smp: this.$smp});
-      this.$store.dispatch('tree/fetchTree', {smp: this.$smp});
+      this.$store.dispatch('tree/fetchTree', {smp: this.$smp}).then(() => this.isFetching = false);
     },
     watch: {
       $route(to) {
