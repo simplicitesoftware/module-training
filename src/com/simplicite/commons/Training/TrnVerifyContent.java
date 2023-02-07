@@ -2,10 +2,10 @@ package com.simplicite.commons.Training;
 
 import com.simplicite.util.*;
 import com.simplicite.util.tools.*;
-
 import java.util.*;
 import java.io.File;
 import java.util.regex.Pattern;
+import org.apache.commons.io.FilenameUtils;
 import org.json.JSONObject;
 import org.json.JSONArray;
 
@@ -20,9 +20,9 @@ public class TrnVerifyContent implements java.io.Serializable {
 		verifyFolderStructure(contentDir, true);
 	}
 	
-	private static void verifyFolderStructure(File dir, boolean isRoot) throws TrnFsSyncTool.TrnSyncException{
+	private static void verifyFolderStructure(File dir, boolean isRoot) throws TrnSyncException{
 		if(!dir.isDirectory())
-			throw new TrnFsSyncTool.TrnSyncException("TRN_SYNC_NOT_DIR", dir);
+			throw new TrnSyncException("TRN_SYNC_NOT_DIR", dir);
 			
 		if(isRoot)
 			validateRootContent(dir);
@@ -31,7 +31,7 @@ public class TrnVerifyContent implements java.io.Serializable {
 		else if(isCategory(dir))
 			validateCategoryContent(dir);
 		else
-			throw new TrnFsSyncTool.TrnSyncException("TRN_SYNC_UNKNOWN_DIR_TYPE", dir);
+			throw new TrnSyncException("TRN_SYNC_UNKNOWN_DIR_TYPE", dir);
 		
 		if(isRoot || isCategory(dir))	
 			for(File child : dir.listFiles())
@@ -39,10 +39,10 @@ public class TrnVerifyContent implements java.io.Serializable {
 					verifyFolderStructure(child, false);
 	}
 	
-	private static void validateRootContent(File dir) throws TrnFsSyncTool.TrnSyncException{
+	private static void validateRootContent(File dir) throws TrnSyncException{
 		for(File child : dir.listFiles()) {
 			if(!isCategory(child) && !child.getName().equals("tags.json") && !child.getName().equals("url_rewriting.json"))
-				throw new TrnFsSyncTool.TrnSyncException("TRN_SYNC_ROOT_NON_CONFORMITY", child);
+				throw new TrnSyncException("TRN_SYNC_ROOT_NON_CONFORMITY", child);
 			else if (child.getName().equals("tags.json")) {
 				// check if tags.json has a correct structure
 				try {
@@ -54,41 +54,41 @@ public class TrnVerifyContent implements java.io.Serializable {
 						}
 					}
 				} catch(Exception e) {
-					throw new TrnFsSyncTool.TrnSyncException("TRN_SYNC_ROOT_TAGS_JSON_NON_CONFORMITY", dir);
+					throw new TrnSyncException("TRN_SYNC_ROOT_TAGS_JSON_NON_CONFORMITY", dir);
 				}
 			}
 		}
 	}
 	
-	private static void validateCategoryContent(File dir) throws TrnFsSyncTool.TrnSyncException{
+	private static void validateCategoryContent(File dir) throws TrnSyncException{
 		boolean hasJson = false;
 		for(File child : dir.listFiles()){
 			if("category.json".equals(child.getName()))
 				hasJson = true;
 			else if(!isCategory(child) && !isLesson(child))
-				throw new TrnFsSyncTool.TrnSyncException("TRN_SYNC_CATEGORY_NON_CONFORMITY", child);
+				throw new TrnSyncException("TRN_SYNC_CATEGORY_NON_CONFORMITY", child);
 		}
 		if(!hasJson)
-			throw new TrnFsSyncTool.TrnSyncException("TRN_SYNC_CATEGORY_JSON_MISSING", dir);
+			throw new TrnSyncException("TRN_SYNC_CATEGORY_JSON_MISSING", dir);
 	}
 	
-	private static void validateLessonContent(File dir) throws TrnFsSyncTool.TrnSyncException{
+	private static void validateLessonContent(File dir) throws TrnSyncException{
 		String lessonCode = getLsnCode(dir);
 		boolean hasJson = false;
 		for(File child : dir.listFiles()){
 			if("lesson.json".equals(child.getName()))
 				hasJson = true;
 			else if(child.isDirectory())
-				throw new TrnFsSyncTool.TrnSyncException("TRN_SYNC_LESSON_CONTAINING_FOLDER", child);
+				throw new TrnSyncException("TRN_SYNC_LESSON_CONTAINING_FOLDER", child);
 			else if(isMarkdown(child) && !lessonCode.equals(getLocaleStrippedBaseName(child)))
-				throw new TrnFsSyncTool.TrnSyncException("TRN_SYNC_LESSON_MARDOWN_NAME_INCONSISTENT", child);
+				throw new TrnSyncException("TRN_SYNC_LESSON_MARDOWN_NAME_INCONSISTENT", child);
 			else if(isVideo(child) && !lessonCode.equals(getLocaleStrippedBaseName(child)))	
-				throw new TrnFsSyncTool.TrnSyncException("TRN_SYNC_LESSON_VIDEO_NAME_INCONSISTENT", child);
+				throw new TrnSyncException("TRN_SYNC_LESSON_VIDEO_NAME_INCONSISTENT", child);
 			else if(!isPic(child) && !isMarkdown(child) && !isVideo(child))
-				throw new TrnFsSyncTool.TrnSyncException("TRN_SYNC_FILETYPE_NOT_ALLOWED", child);
+				throw new TrnSyncException("TRN_SYNC_FILETYPE_NOT_ALLOWED", child);
 		}
 		if(!hasJson)
-			throw new TrnFsSyncTool.TrnSyncException("TRN_SYNC_LESSON_JSON_MISSING", dir);
+			throw new TrnSyncException("TRN_SYNC_LESSON_JSON_MISSING", dir);
 	}
 	
 	private static boolean isMarkdown(File f){
