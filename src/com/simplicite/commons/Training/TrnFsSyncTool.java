@@ -5,6 +5,7 @@ import java.util.*;
 import com.simplicite.objects.Training.TrnTagLsn;
 import com.simplicite.objects.Training.TrnTagTranslate;
 import com.simplicite.objects.Training.TrnUrlRewriting;
+//import com.simplicite.commons.Training.TrnVerifyContent;
 import com.simplicite.util.*;
 import com.simplicite.util.exceptions.*;
 import com.simplicite.util.tools.*;
@@ -153,7 +154,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	}
 	
 	public void verifyContentStructure() throws TrnSyncException{
-		verifyFolderStructure(contentDir, true);
+		TrnVerifyContent.verifyContentStructure(contentDir, g);
 	}
 	
 	private void verifyFolderStructure(File dir, boolean isRoot) throws TrnSyncException{
