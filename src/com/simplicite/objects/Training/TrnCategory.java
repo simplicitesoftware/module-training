@@ -126,7 +126,7 @@ public class TrnCategory extends TrnObject {
 	public void forceDirSync(){
 		try {
 			TrnFsSyncTool.triggerSync();
-		} catch (TrnFsSyncTool.TrnSyncException e) {
+		} catch (TrnSyncException e) {
 			AppLog.error(getClass(), "forceDirSync", e.getMessage(), e, Grant.getSystemAdmin());
 		}
 	}
