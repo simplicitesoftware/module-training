@@ -104,7 +104,6 @@
 @import "../../assets/sass/mixins"
 
 header
-  height: $header-height
   box-sizing: border-box
   width: 100%
   display: flex
