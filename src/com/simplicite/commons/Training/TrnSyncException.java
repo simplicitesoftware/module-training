@@ -1,11 +1,6 @@
 package com.simplicite.commons.Training;
 
 import java.io.File;
-import java.util.*;
-
-import com.simplicite.util.*;
-import com.simplicite.util.exceptions.*;
-import com.simplicite.util.tools.*;
 
 /**
  * Shared code TrnSyncException

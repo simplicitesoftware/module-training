@@ -117,7 +117,7 @@ header
     background-size: contain
     z-index: 200
     width: $header-logo-width
-    height: $header-logo-height
+    height: 50px
     margin: 5px 5px 5px 16px
     filter: invert(100%)
     &:hover
