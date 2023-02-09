@@ -135,88 +135,10 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		TrnVerifyContent.verifyContentStructure(contentDir, g);
 	}
 	
-	// private void verifyFolderStructure(File dir, boolean isRoot) throws TrnSyncException{
-	// 	if(!dir.isDirectory())
-	// 		throw new TrnSyncException("TRN_SYNC_NOT_DIR", dir);
-			
-	// 	if(isRoot)
-	// 		validateRootContent(dir);
-	// 	else if(isLesson(dir))
-	// 		validateLessonContent(dir);
-	// 	else if(isCategory(dir))
-	// 		validateCategoryContent(dir);
-	// 	else
-	// 		throw new TrnSyncException("TRN_SYNC_UNKNOWN_DIR_TYPE", dir);
-		
-	// 	if(isRoot || isCategory(dir))	
-	// 		for(File child : dir.listFiles())
-	// 			if(child.isDirectory())
-	// 				verifyFolderStructure(child, false);
-	// }
-	
-	// private void validateRootContent(File dir) throws TrnSyncException{
-	// 	for(File child : dir.listFiles())
-	// 		if(!isCategory(child) && !child.getName().equals("tags.json") && !child.getName().equals("url_rewriting.json"))
-	// 			throw new TrnSyncException("TRN_SYNC_ROOT_NON_CONFORMITY", child);
-	// 		else if (child.getName().equals("tags.json")) {
-	// 			// check if tags.json has a correct structure
-	// 			try {
-	// 				JSONArray tags = new JSONArray(FileTool.readFile(dir.getPath()+"/tags.json"));
-	// 				for(int i = 0; i < tags.length(); i++) {
-	// 					JSONObject tag = tags.getJSONObject(i);
-	// 					if(Tool.isEmpty(tag.getString("code")) && Tool.isEmpty(tag.getJSONObject("translation"))) {
-	// 						throw new Exception();
-	// 					}
-	// 				}
-	// 			} catch(Exception e) {
-	// 				throw new TrnSyncException("TRN_SYNC_ROOT_TAGS_JSON_NON_CONFORMITY", dir);
-	// 			}
-	// 		}
-	// }
-	
-	// private void validateCategoryContent(File dir) throws TrnSyncException{
-	// 	boolean hasJson = false;
-	// 	for(File child : dir.listFiles()){
-	// 		if("category.json".equals(child.getName()))
-	// 			hasJson = true;
-	// 		else if(!isCategory(child) && !isLesson(child))
-	// 			throw new TrnSyncException("TRN_SYNC_CATEGORY_NON_CONFORMITY", child);
-	// 	}
-	// 	if(!hasJson)
-	// 		throw new TrnSyncException("TRN_SYNC_CATEGORY_JSON_MISSING", dir);
-	// }
-	
-	// private void validateLessonContent(File dir) throws TrnSyncException{
-	// 	String lessonCode = getLsnCode(dir);
-	// 	boolean hasJson = false;
-	// 	for(File child : dir.listFiles()){
-	// 		if("lesson.json".equals(child.getName()))
-	// 			hasJson = true;
-	// 		else if(child.isDirectory())
-	// 			throw new TrnSyncException("TRN_SYNC_LESSON_CONTAINING_FOLDER", child);
-	// 		else if(isMarkdown(child) && !lessonCode.equals(getLocaleStrippedBaseName(child)))
-	// 			throw new TrnSyncException("TRN_SYNC_LESSON_MARDOWN_NAME_INCONSISTENT", child);
-	// 		else if(isVideo(child) && !lessonCode.equals(getLocaleStrippedBaseName(child)))	
-	// 			throw new TrnSyncException("TRN_SYNC_LESSON_VIDEO_NAME_INCONSISTENT", child);
-	// 		else if(!isPic(child) && !isMarkdown(child) && !isVideo(child))
-	// 			throw new TrnSyncException("TRN_SYNC_FILETYPE_NOT_ALLOWED", child);
-	// 	}
-	// 	if(!hasJson)
-	// 		throw new TrnSyncException("TRN_SYNC_LESSON_JSON_MISSING", dir);
-	// }
-	
-	// private boolean isMarkdown(File f){
-	// 	return FileTool.getExtension(f.getName()).toLowerCase().equals("md");
-	// }
-	
 	private boolean isPic(File f){
 		String extension = FilenameUtils.getExtension(f.getName()).toLowerCase();
 		return "png".equals(extension) || "jpg".equals(extension);
 	}
-	
-	// private boolean isVideo(File f){
-	// 	return FileTool.getExtension(f.getName()).toLowerCase().equals("webm");
-	// }
 	
 	private boolean isCategory(File dir){
 		return dir.isDirectory() && isCategory(dir.getName());
@@ -263,20 +185,6 @@ public class TrnFsSyncTool implements java.io.Serializable {
 			AppLog.warning(getClass(), "deleteTag", "TRN_WARN_TAG_NOT_EXISTANT_IN_DB", e, g);
 		}
 	}
-
-	// private void deleteTagTranslation(String rowId, TrnTagTranslate tagLsnTranslateObject) {
-	// 	BusinessObjectTool trnTagTranslate = new BusinessObjectTool(translateTag);
-	// 	try {
-	// 		synchronized(trnTagTranslate.getObject()) {
-	// 			for(String[] row : tagLsnTranslateObject.getTranslatesFromTagId(rowId)) {
-	// 				trnTagTranslate.getForDelete(row[0]);
-	// 				trnTagTranslate.delete();
-	// 			}
-	// 		}
-	// 	} catch(Exception e) {
-	// 		AppLog.warning(getClass(), "deleteTagTranslation", "TRN_WARN_TAG_TRANSLATION_NOT_EXISTANT_IN_DB", e, g);
-	// 	}
-	// } 
 	
 	private void deleteForPath(String path){
 		BusinessObjectTool bot;
