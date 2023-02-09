@@ -5,7 +5,6 @@
 
 	function setWiredUriTag(attribute) {
 		const elements = $(attribute).find($('div')).find($('a'));
-		console.log(elements);
 		for(const el of elements) {
 			const a = document.createElement('a');
 			a.title = el.innerText;
