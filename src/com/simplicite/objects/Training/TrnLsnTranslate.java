@@ -1,7 +1,6 @@
 package com.simplicite.objects.Training;
 
-import java.util.*;
-import com.simplicite.util.*;
+import com.simplicite.util.tools.MarkdownTool;
 import com.simplicite.commons.Training.*;
 import org.jsoup.Jsoup;
 
@@ -14,7 +13,7 @@ public class TrnLsnTranslate extends TrnObject {
 	@Override
 	public String preSave() {
 		String md = getFieldValue("trnLtrContent");
-		String html = MarkdownTool2.toHTMLWithAnchors(md);
+		String html = MarkdownTool.toHTML(md);
 
 		setFieldValue("trnLtrHtmlContent", html);
 		// Remove HTML tags (https://stackoverflow.com/a/9036849/1612642)
@@ -32,10 +31,4 @@ public class TrnLsnTranslate extends TrnObject {
 		}
 		return null;
 	}
-
-	// private String fixAnchorId(String html) {
-	// 	Document doc = Jsoup.parse(html);
-	// 	Elements elementWithIds = 
-	// 	return html;
-	// }
 }
