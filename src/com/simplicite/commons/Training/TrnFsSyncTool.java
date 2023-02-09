@@ -38,7 +38,8 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	
 	private HashMap<String, String> hashStore;
 	private ArrayList<String> foundPaths;
-	private ArrayList<String> existingTags;
+	private ArrayList<String> addedTags;
+	private ArrayList<String> addedUrls;
 	
 	Grant g;
 	
@@ -120,7 +121,8 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		verifyContentStructure();
 		// initialize some usefull objects
 		foundPaths = new ArrayList<>();
-		existingTags = new ArrayList<>();
+		addedTags = new ArrayList<>();
+		addedUrls = new ArrayList();
 		loadTrnObjects();
 		// injects contents at `contentDir` into DB, sets new hashes (recursive)
 		syncPath("/");
@@ -161,15 +163,18 @@ public class TrnFsSyncTool implements java.io.Serializable {
 			if(!foundPaths.contains(path))
 				deleteForPath(path);
 		deleteDeletedTags();
+		deleteDeletedUrls();
 	}
 
 	private void deleteDeletedTags() {
 		BusinessObjectTool trnTag = new BusinessObjectTool(tag);
 		tag.resetFilters();
 		for(String[] row : tag.search()) {
-			String rowId = row[0];
-			String code = row[1];
-			if(!existingTags.contains(code)) {
+			tag.resetValues();
+			tag.setValues(row);
+			String rowId = tag.getRowId();
+			String code = tag.getFieldValue("trnTagCode");
+			if(!addedTags.contains(code)) {
 				deleteTag(rowId, trnTag);
 			}
 		}
@@ -183,6 +188,32 @@ public class TrnFsSyncTool implements java.io.Serializable {
 			}
 		} catch(Exception e) {
 			AppLog.warning(getClass(), "deleteTag", "TRN_WARN_TAG_NOT_EXISTANT_IN_DB", e, g);
+		}
+	}
+
+	private void deleteDeletedUrls() {
+		BusinessObjectTool trnUrl = new BusinessObjectTool(trnUrlRewriting);
+		trnUrlRewriting.resetFilters();
+		for(String[] row : trnUrlRewriting.search()) {
+			trnUrlRewriting.resetValues();
+			trnUrlRewriting.setValues(row);
+			String rowId = trnUrlRewriting.getRowId();
+			String destination = trnUrlRewriting.getFieldValue("trnDestinationUrl");
+			if(!addedUrls.contains(destination)) {
+				deleteUrl(rowId, trnUrl);
+			}
+		}
+	}
+
+	private void deleteUrl(String rowId, BusinessObjectTool trnUrlRewriting) {
+		try {
+			synchronized(trnUrlRewriting.getObject()) {
+				trnUrlRewriting.getForDelete(rowId);
+				trnUrlRewriting.delete();
+			}
+		} catch(Exception e) {
+			AppLog.warning(getClass(), "deleteTag", "TRN_WARN_URL_REWRITING_NOT_EXISTANT_IN_DB", e, g);
+			
 		}
 	}
 	
@@ -298,7 +329,6 @@ public class TrnFsSyncTool implements java.io.Serializable {
 						upsertTranslate(rowId, lang, translation);
 					}
 				}
-				existingTags.add(tagCode);
 			}
 		} catch(Exception e) {
 			AppLog.error(getClass(), "upsertTags", e.getMessage(), e, g);
@@ -341,6 +371,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 				tag.resetValues();
 				tag.setFieldValue("trnTagCode", code);
 				bot.validateAndSave();
+				addedTags.add(code);
 				return tag.getRowId();
 			}
 		} catch(Exception e) {
@@ -351,17 +382,6 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	private void upsertUrlsRewriting(File dir)throws TrnSyncException {
 		try {
 			JSONArray json = new JSONArray(FileTool.readFile(dir.getPath()+"/url_rewriting.json"));
-			TrnUrlRewriting urlRewriting = (TrnUrlRewriting) g.getObject("sync_TrnUrlRewriting", "TrnUrlRewriting");
-			// delete all records of TrnUrlRewriting
-			BusinessObjectTool bot = new BusinessObjectTool(urlRewriting);
-			synchronized(urlRewriting){
-				urlRewriting.resetFilters();
-				for(String[] row: urlRewriting.search()){
-					urlRewriting.setValues(row);
-					bot.delete();
-				}
-			}
-			// test
 			for (int i = 0; i < json.length(); i++) {
 				JSONObject jsonRecord = json.getJSONObject(i);
 				String sourceUrl = jsonRecord.optString("sourceUrl");
@@ -377,12 +397,19 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	private void upsertUrlRewriting(String sourceUrl, String destinationUrl) throws TrnSyncException {
 		try {
 			BusinessObjectTool bot = new BusinessObjectTool(trnUrlRewriting);
+			String rowId = getUrlRewritingRowId(sourceUrl, destinationUrl);
 			synchronized(trnUrlRewriting) {
 				trnUrlRewriting.resetValues();
+				if(Tool.isEmpty(rowId)) {
+					bot.selectForCreate();
+				} else {
+					bot.selectForUpdate(rowId);
+				}
 				trnUrlRewriting.setFieldValue("trnSourceUrl", sourceUrl);
 				trnUrlRewriting.setFieldValue("trnDestinationUrl", destinationUrl);
 
 				bot.validateAndSave();
+				addedUrls.add(destinationUrl);
 			}
 		} catch(Exception e) {
 			throw new TrnSyncException("TRN_SYNC_UPSERT_URL_REWRITING", e.getMessage());
@@ -471,6 +498,10 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	
 	private String getCatRowIdFromPath(String path){
 		return Tool.isEmpty(path) ? "" : g.simpleQuery("select row_id from trn_category where trn_cat_path='"+path+"'");
+	}
+
+	private String getUrlRewritingRowId(String source, String destination) {
+		return Tool.isEmpty(source) || Tool.isEmpty(destination) ? "" : g.simpleQuery("select row_id from trn_url_rewriting where trn_source_url='"+source+"' AND trn_destination_url='"+destination+"'");
 	}
 	
 	private String getLsnRowIdFromPath(String path){
