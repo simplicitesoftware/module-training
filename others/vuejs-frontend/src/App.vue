@@ -84,6 +84,7 @@
     height: 100%
     display: flex
     flex-direction: column
+    overflow: hidden
 
     main
       flex: 1 1 // So the main content extends to the bottom of the page
