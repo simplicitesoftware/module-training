@@ -341,8 +341,8 @@ public class TrnFsSyncTool implements java.io.Serializable {
 				tag.resetValues();
 				tag.setFieldValue("trnTagCode", code);
 				bot.validateAndSave();
+				return tag.getRowId();
 			}
-			return rowId;
 		} catch(Exception e) {
 			throw new TrnSyncException("TRN_SYNC_UPSERT_TAG", e.getMessage()+" "+ code);
 		}
