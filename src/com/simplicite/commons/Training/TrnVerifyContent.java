@@ -9,6 +9,8 @@ import org.apache.commons.io.FilenameUtils;
 import org.json.JSONObject;
 import org.json.JSONArray;
 
+// This code is also used in the content migration script. 
+// see CheckDocs2.java -> https://github.com/simplicitesoftware/migdocs2
 public class TrnVerifyContent implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;	
 	private static final Pattern PATTERN_CATEGORY = Pattern.compile("^CTG_[0-9]+_[a-z0-9\\-]+$");
@@ -55,6 +57,17 @@ public class TrnVerifyContent implements java.io.Serializable {
 					}
 				} catch(Exception e) {
 					throw new TrnSyncException("TRN_SYNC_ROOT_TAGS_JSON_NON_CONFORMITY", dir);
+				}
+				try {
+					JSONArray urlRewriting = new JSONArray(FileTool.readFile(dir.getPath()));
+					for(int i = 0; i < urlRewriting.length(); i++) {
+						JSONObject record = urlRewriting.getJSONObject(i);
+						if(Tool.isEmpty(record.getString("sourceUrl")) && Tool.isEmpty(record.getString("destinationUrl"))) {
+							throw new Exception();
+						}
+					}
+				} catch(Exception e) {
+					throw new TrnSyncException("TRN_SYNC_ROOT_URL_REWRITING_JSON_NON_CONFORMITY", dir);
 				}
 			}
 		}
