@@ -167,6 +167,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	}
 
 	private void deleteDeletedTags() {
+		if(addedTags.size() == 0) return;
 		BusinessObjectTool trnTag = new BusinessObjectTool(tag);
 		tag.resetFilters();
 		for(String[] row : tag.search()) {
@@ -192,6 +193,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	}
 
 	private void deleteDeletedUrls() {
+		if(addedUrls.size() == 0) return;
 		BusinessObjectTool trnUrl = new BusinessObjectTool(trnUrlRewriting);
 		trnUrlRewriting.resetFilters();
 		for(String[] row : trnUrlRewriting.search()) {
