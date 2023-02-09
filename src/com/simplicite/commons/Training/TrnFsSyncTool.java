@@ -342,7 +342,6 @@ public class TrnFsSyncTool implements java.io.Serializable {
 			String translateRowId = getTagTranslateRowId(tagRowId);
 			synchronized(translateTag) {
 				translateTag.resetValues();
-				translateTag.resetValues();
 				if(Tool.isEmpty(translateRowId))
 					bot.selectForCreate();
 				else
