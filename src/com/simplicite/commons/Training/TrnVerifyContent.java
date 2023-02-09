@@ -59,7 +59,7 @@ public class TrnVerifyContent implements java.io.Serializable {
 					throw new TrnSyncException("TRN_SYNC_ROOT_TAGS_JSON_NON_CONFORMITY", dir);
 				}
 				try {
-					JSONArray urlRewriting = new JSONArray(FileTool.readFile(dir.getPath()));
+					JSONArray urlRewriting = new JSONArray(FileTool.readFile(dir.getPath()+"/url_rewriting.json"));
 					for(int i = 0; i < urlRewriting.length(); i++) {
 						JSONObject record = urlRewriting.getJSONObject(i);
 						if(Tool.isEmpty(record.getString("sourceUrl")) && Tool.isEmpty(record.getString("destinationUrl"))) {
