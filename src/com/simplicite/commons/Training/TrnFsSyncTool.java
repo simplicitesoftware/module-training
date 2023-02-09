@@ -286,27 +286,11 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	private void upsertTags(File dir) throws TrnSyncException {
 		try {
 			JSONArray json = new JSONArray(FileTool.readFile(dir.getPath()+"/tags.json"));
-			// delete all tags
-			BusinessObjectTool bot = new BusinessObjectTool(tag);
-			synchronized(tag){
-				tag.resetFilters();
-				for(String[] row: tag.search()){
-					tag.setValues(row);
-					bot.delete();
-				}
-			}
 			for (int i = 0; i < json.length(); i++) {
 				JSONObject tagObject = json.getJSONObject(i);
 				String tagCode = tagObject.optString("code");
-				String rowId = getTagRowIdFromCode(tagCode);
-				if(Tool.isEmpty(rowId)) {
-					upsertTag(tagCode);
-					rowId = tag.getRowId();
-				}
-
-				// clean translation records
-				//if(!Tool.isEmpty(getTagTranslateRowId(rowId))) deleteTagTranslation(rowId, tagTranslate); 
-				// loop on the translate object
+				String rowId = upsertTag(tagCode);
+				
 				JSONObject tradObj = tagObject.optJSONObject("translation");
 				for(String lang : LANG_CODES) {
 					if(tradObj.has(lang)) {
@@ -325,8 +309,14 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	private void upsertTranslate(String tagRowId, String lang, String translation) throws TrnSyncException {
 		try {
 			BusinessObjectTool bot = new BusinessObjectTool(translateTag);
+			String translateRowId = getTagTranslateRowId(tagRowId);
 			synchronized(translateTag) {
 				translateTag.resetValues();
+				translateTag.resetValues();
+				if(Tool.isEmpty(translateRowId))
+					bot.selectForCreate();
+				else
+					bot.selectForUpdate(translateRowId);
 				translateTag.setFieldValue("trnTagTranslateLang", lang);
 				translateTag.setFieldValue("trnTagTranslateTrad", translation);
 				translateTag.setFieldValue("trnTaglangTagId", tagRowId);
@@ -338,14 +328,21 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		}
 	}
 
-	private void upsertTag(String code) throws TrnSyncException {
+	private String upsertTag(String code) throws TrnSyncException {
 		try {
+			String rowId = getTagRowIdFromCode(code);
 			BusinessObjectTool bot = new BusinessObjectTool(tag);
 			synchronized(tag) {
+				tag.resetValues();
+				if(Tool.isEmpty(rowId))
+					bot.selectForCreate();
+				else
+					bot.selectForUpdate(rowId);
 				tag.resetValues();
 				tag.setFieldValue("trnTagCode", code);
 				bot.validateAndSave();
 			}
+			return rowId;
 		} catch(Exception e) {
 			throw new TrnSyncException("TRN_SYNC_UPSERT_TAG", e.getMessage()+" "+ code);
 		}
@@ -581,10 +578,10 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		return Tool.isEmpty(code) ? "" : g.simpleQuery("select row_id from trn_tag where trn_tag_code='"+code+"'");
 	}
 
-	// private String getTagTranslateRowId(String tagRowId) {
-	// 	if(Tool.isEmpty(tagRowId)) return "";
-	// 	return g.simpleQuery("select row_id from trn_tag_translate where trn_taglang_tag_id='"+tagRowId+"'");
-	// }
+	private String getTagTranslateRowId(String tagRowId) {
+		if(Tool.isEmpty(tagRowId)) return "";
+		return g.simpleQuery("select row_id from trn_tag_translate where trn_taglang_tag_id='"+tagRowId+"'");
+	}
 	
 	private File getLsnMdFile(File lsnDir, String lang){
 		return getLsnFile(lsnDir, lang, "md");
