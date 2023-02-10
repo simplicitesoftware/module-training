@@ -158,9 +158,9 @@ Translation of tag object.
 
 | Name                                                         | Type                                     | Required | Updatable | Personal | Description                                                                      |
 |--------------------------------------------------------------|------------------------------------------|----------|-----------|----------|----------------------------------------------------------------------------------|
-| `trnTagTranslateLang`                                        | enum(255) using `LANG_ALL` list          | yes*     | yes       |          | -                                                                                |
 | `trnTagTranslateTrad`                                        | char(255)                                | yes*     | yes       |          | Traduction content                                                               |
-| `trnTaglangTagId` link to **`TrnTag`**                       | id                                       |          | yes       |          | -                                                                                |
+| `trnTagTranslateLang`                                        | enum(255) using `LANG_ALL` list          | yes*     | yes       |          | -                                                                                |
+| `trnTaglangTagId` link to **`TrnTag`**                       | id                                       | *        | yes       |          | -                                                                                |
 | _Ref. `trnTaglangTagId.trnTagCode`_                          | _char(255)_                              |          |           |          | -                                                                                |
 
 ### Lists

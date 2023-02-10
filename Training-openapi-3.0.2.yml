@@ -1319,6 +1319,12 @@ paths:
         required: false
       - schema:
           type: string
+        in: query
+        name: trnTagTranslateTrad
+        description: Search filter for Traduction content
+        required: false
+      - schema:
+          type: string
           enum:
           - ANY
           - ENU
@@ -1326,12 +1332,6 @@ paths:
         in: query
         name: trnTagTranslateLang
         description: Search filter for Language
-        required: false
-      - schema:
-          type: string
-        in: query
-        name: trnTagTranslateTrad
-        description: Search filter for Traduction content
         required: false
       - schema:
           type: string

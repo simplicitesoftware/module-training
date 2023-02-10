@@ -343,7 +343,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	private void upsertTranslate(String tagRowId, String lang, String translation) throws TrnSyncException {
 		try {
 			BusinessObjectTool bot = new BusinessObjectTool(translateTag);
-			String translateRowId = getTagTranslateRowId(tagRowId);
+			String translateRowId = getTagTranslateRowId(tagRowId, lang, translation);
 			synchronized(translateTag) {
 				translateTag.resetValues();
 				if(Tool.isEmpty(translateRowId))
@@ -414,7 +414,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 				addedUrls.add(destinationUrl);
 			}
 		} catch(Exception e) {
-			throw new TrnSyncException("TRN_SYNC_UPSERT_URL_REWRITING", e.getMessage());
+			throw new TrnSyncException("TRN_SYNC_UPSERT_URL_REWRITING",  e.getMessage()+" "+trnUrlRewriting.toJSON());
 		}
 	}
 	
@@ -611,9 +611,9 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		return Tool.isEmpty(code) ? "" : g.simpleQuery("select row_id from trn_tag where trn_tag_code='"+code+"'");
 	}
 
-	private String getTagTranslateRowId(String tagRowId) {
-		if(Tool.isEmpty(tagRowId)) return "";
-		return g.simpleQuery("select row_id from trn_tag_translate where trn_taglang_tag_id='"+tagRowId+"'");
+	private String getTagTranslateRowId(String tagRowId, String lang, String translation) {
+		if(Tool.isEmpty(tagRowId) || Tool.isEmpty(lang) || Tool.isEmpty(translation)) return "";
+		return g.simpleQuery("select row_id from trn_tag_translate where trn_taglang_tag_id='"+tagRowId+"' AND trn_tag_translate_lang='"+lang+"' AND trn_tag_translate_trad='"+translation+"'");
 	}
 	
 	private File getLsnMdFile(File lsnDir, String lang){
