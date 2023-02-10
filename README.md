@@ -160,7 +160,7 @@ Translation of tag object.
 |--------------------------------------------------------------|------------------------------------------|----------|-----------|----------|----------------------------------------------------------------------------------|
 | `trnTagTranslateTrad`                                        | char(255)                                | yes*     | yes       |          | Traduction content                                                               |
 | `trnTagTranslateLang`                                        | enum(255) using `LANG_ALL` list          | yes*     | yes       |          | -                                                                                |
-| `trnTaglangTagId` link to **`TrnTag`**                       | id                                       |          | yes       |          | -                                                                                |
+| `trnTaglangTagId` link to **`TrnTag`**                       | id                                       | *        | yes       |          | -                                                                                |
 | _Ref. `trnTaglangTagId.trnTagCode`_                          | _char(255)_                              |          |           |          | -                                                                                |
 
 ### Lists
