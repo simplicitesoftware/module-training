@@ -142,6 +142,7 @@ header
 
   .header-buttons
     margin-left: auto
+    margin-right: 15px
     display: flex
     align-items: center
     &__button
