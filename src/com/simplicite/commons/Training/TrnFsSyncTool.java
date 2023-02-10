@@ -362,13 +362,13 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	private String upsertTag(String code) throws TrnSyncException {
 		try {
 			String rowId = getTagRowIdFromCode(code);
+			if(Tool.isEmpty(rowId)) {
+				return "";
+			}
 			BusinessObjectTool bot = new BusinessObjectTool(tag);
+			bot.selectForCreate();
 			synchronized(tag) {
 				tag.resetValues();
-				if(Tool.isEmpty(rowId))
-					bot.selectForCreate();
-				else
-					bot.selectForUpdate(rowId);
 				tag.resetValues();
 				tag.setFieldValue("trnTagCode", code);
 				bot.validateAndSave();
