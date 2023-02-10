@@ -20,10 +20,6 @@
       
       <!-- <button id="language-switch" class="button-nostyle"> -->
         <i class="material-icons header-buttons__button" @click="toggleLang">language</i> <span>{{lang}}</span>
-      <!-- </button> -->
-      <a href="https://github.com/simplicitesoftware" target="_blank">
-        <i id="github" class="material-icons header-buttons__button">code</i>
-      </a>
     </nav>
   </header>
 </template>
