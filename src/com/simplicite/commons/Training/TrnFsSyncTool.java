@@ -38,7 +38,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	
 	private HashMap<String, String> hashStore;
 	private ArrayList<String> foundPaths;
-	private ArrayList<String> addedTags;
+	private ArrayList<String> jsonTags;
 	private ArrayList<String> addedUrls;
 	
 	Grant g;
@@ -121,7 +121,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		verifyContentStructure();
 		// initialize some usefull objects
 		foundPaths = new ArrayList<>();
-		addedTags = new ArrayList<>();
+		jsonTags = new ArrayList<>();
 		addedUrls = new ArrayList();
 		loadTrnObjects();
 		// injects contents at `contentDir` into DB, sets new hashes (recursive)
@@ -167,7 +167,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	}
 
 	private void deleteDeletedTags() {
-		if(addedTags.size() == 0) return;
+		if(jsonTags.size() == 0) return;
 		BusinessObjectTool trnTag = new BusinessObjectTool(tag);
 		tag.resetFilters();
 		for(String[] row : tag.search()) {
@@ -175,7 +175,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 			tag.setValues(row);
 			String rowId = tag.getRowId();
 			String code = tag.getFieldValue("trnTagCode");
-			if(!addedTags.contains(code)) {
+			if(!jsonTags.contains(code)) {
 				deleteTag(rowId, trnTag);
 			}
 		}
@@ -323,12 +323,14 @@ public class TrnFsSyncTool implements java.io.Serializable {
 				JSONObject tagObject = json.getJSONObject(i);
 				String tagCode = tagObject.optString("code");
 				String rowId = upsertTag(tagCode);
-				
-				JSONObject tradObj = tagObject.optJSONObject("translation");
-				for(String lang : LANG_CODES) {
-					if(tradObj.has(lang)) {
-						String translation = tradObj.getString(lang);
-						upsertTranslate(rowId, lang, translation);
+				jsonTags.add(tagCode);
+				if(!Tool.isEmpty(rowId)) {
+					JSONObject tradObj = tagObject.optJSONObject("translation");
+					for(String lang : LANG_CODES) {
+						if(tradObj.has(lang)) {
+							String translation = tradObj.getString(lang);
+							upsertTranslate(rowId, lang, translation);
+						}
 					}
 				}
 			}
@@ -362,7 +364,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	private String upsertTag(String code) throws TrnSyncException {
 		try {
 			String rowId = getTagRowIdFromCode(code);
-			if(Tool.isEmpty(rowId)) {
+			if(!Tool.isEmpty(rowId)) {
 				return "";
 			}
 			BusinessObjectTool bot = new BusinessObjectTool(tag);
@@ -372,7 +374,6 @@ public class TrnFsSyncTool implements java.io.Serializable {
 				tag.resetValues();
 				tag.setFieldValue("trnTagCode", code);
 				bot.validateAndSave();
-				addedTags.add(code);
 				return tag.getRowId();
 			}
 		} catch(Exception e) {
