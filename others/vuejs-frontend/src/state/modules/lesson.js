@@ -1,3 +1,4 @@
+/* eslint-disable no-debugger */
 import {SET_LESSON, SET_LESSON_IMAGES, UNSET_LESSON, SET_LESSON_TAGS, SET_LESSON_HTML} from "../mutation-types";
 
 export default {
@@ -48,22 +49,11 @@ export default {
     async fetchLesson({dispatch}, payload) {
       await dispatch("fetchLessonTag", payload);
       await dispatch("fetchLessonContent", payload);
-      await dispatch("fetchLessonImages", payload);
-      if(payload.lesson.viz === 'LINEAR') dispatch("setLinearImgSrc");
-    },
-
-    setLinearImgSrc({commit, state}) {
-      const imgRegex = new RegExp('src\\s*=\\s*"(.+?)"', 'g');
-      let match = imgRegex.exec(state.lesson.html);
-      let newHtml = state.lesson.html;
-      while (match != null) {
-        const foundImg = state.lessonImages.find((img) => img.filename === match[1].replace('./', ''));
-        if(foundImg) {
-          newHtml = newHtml.replace(match[1], foundImg.filesrc);
-        }
-        match = imgRegex.exec(state.lesson.html);
+      // only fetch image on other than Linear mode
+      // See on Training module in TrnLesson.java -> setLinearPictureContent()
+      if(payload.lesson.viz !== 'LINEAR') {
+        await dispatch("fetchLessonImages", payload);
       }
-      commit(SET_LESSON_HTML, newHtml);
     },
 
     async fetchLessonContent({commit, rootGetters}, payload) {

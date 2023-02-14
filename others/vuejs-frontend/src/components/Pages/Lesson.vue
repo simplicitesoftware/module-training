@@ -15,17 +15,16 @@
               <span class="breadcrumb__divider" v-if="index !== breadCrumbItems.length-1"></span>
             </li>
           </ul>
-          <div class="lesson-html-content" v-if="lesson.html" v-html="lesson.html"
-               v-highlightjs></div>
+          <div class="lesson-html-content" v-highlightjs="" v-if="lesson.html" v-html="lesson.html"></div>
           <EmptyContent v-else/>
         </div>
         <Spinner v-else/>
       </div>
-      <div class="grid-item slider-block">
+      <div v-if="lesson.viz !== 'LINEAR'" class="grid-item slider-block">
         <Slider v-if="lessonImages.length" :slides="lessonImages" ref="slider"/>
         <EmptyContent v-else/>
       </div>
-      <div class="grid-item video-block">
+      <div v-if="lesson.viz !== 'LINEAR'" class="grid-item video-block">
         <div v-if="lesson" class="video-wrapper">
           <video v-if="videoUrl" class="video-player" controls muted poster="../../../public/media.svg"
                  :src="videoUrl" preload="none">

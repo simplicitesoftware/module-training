@@ -1,7 +1,12 @@
 package com.simplicite.objects.Training;
 
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import com.simplicite.util.*;
+import com.simplicite.util.tools.HTTPTool;
+import com.simplicite.util.tools.Parameters;
 import com.simplicite.commons.Training.*;
 import org.json.JSONObject;
 
@@ -10,6 +15,7 @@ import org.json.JSONObject;
  */
 public class TrnLesson extends TrnObject {
 	private static final long serialVersionUID = 1L;
+	private final Pattern PATTERN_LINEAR_PICS = Pattern.compile("src\\s*=\\s*\\\"(.+?)\\\"");
 
 	@Override
 	public String getUserKeyLabel(String[] row) {
@@ -101,14 +107,55 @@ public class TrnLesson extends TrnObject {
 				}
 				
 				f = content.getField("trnLtrHtmlContent");
-				if(includeHtml && !f.isEmpty() && !json.has("html"))
-					json.put("html", f.getValue());
+				if(includeHtml && !f.isEmpty() && !json.has("html")) {
+					String htmlContent = f.getValue();
+					// if LINEAR, then change content images link
+					if(json.get("viz").equals("LINEAR")) {
+						json.put("html", setLinearPictureContent(htmlContent));
+					} else {
+						json.put("html", htmlContent);
+					}
+				}
 				
 				f = content.getField("trnLtrRawContent");
 				if(includeRaw && !f.isEmpty() && !json.has("raw_content"))
 					json.put("raw_content", f.getValue());
 			}
 		}
+	}
+
+	// When fetching a linear lesson, converts pictures old urls to current 
+	private String setLinearPictureContent(String htmlContent) {
+		Matcher m = PATTERN_LINEAR_PICS.matcher(htmlContent);
+		ObjectDB picObject = getGrant().getTmpObject("TrnPicture");
+		picObject.resetFilters();
+		picObject.setFieldFilter("trnPicLsnId", getRowId());
+		List<String[]> pics = picObject.search();
+		// rebuilding string with StringBuilder
+		StringBuilder out = new StringBuilder();
+		int lastIndex = 0;
+		while(m.find()) {
+			String imgPath = m.group(1);
+			for(String[] pic : pics) {
+				picObject.setValues(pic);
+				String docId = picObject.getFieldValue("trnPicImage");
+				DocumentDB doc = DocumentDB.getDocument(docId, getGrant());
+				String frontUrl = getGrant().getContextURL() + doc.getURL("").replace("/ui", "");;
+				if(imgPath.contains(doc.getName())) {
+					// append the content of html from the lastIndex (beginning of string to copy) to start index (end of string to copy)
+					// in a nutshell add all the htmlContent before the match (match not included)
+					out.append(htmlContent, lastIndex, m.start())
+					// then append the new Url
+					.append("src=\""+frontUrl+"\"");
+				}
+			}
+			lastIndex = m.end();
+		}
+		if(lastIndex < htmlContent.length()) {
+			out.append(htmlContent, lastIndex, htmlContent.length());
+		}
+		String returnValue = out.toString();
+		return returnValue;
 	}
 	
 	
