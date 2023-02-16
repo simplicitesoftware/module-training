@@ -72,7 +72,6 @@
     font-family: 'Source Sans Pro', sans-serif
     box-sizing: border-box
     margin: 0
-    padding: 0
     outline: none
 
   button
@@ -101,7 +100,7 @@
         overflow: auto
         display: block
         transition: $duration-drawer-collapse ease-in-out
-        max-height: 100vh - $header-height
+        height: 100vh - $header-height
 
       .page-content
         width: 100%

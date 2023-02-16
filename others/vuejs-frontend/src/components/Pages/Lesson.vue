@@ -1,5 +1,5 @@
 <template>
-  <div class="lesson" :class="[lesson.viz === 'LINEAR' ? 'linear' : '']" @click="changeVisualization">
+  <div class="lesson" :class="[lesson.viz === 'LINEAR' ? 'linear' : 'default']" @click="changeVisualization">
     <div class="grid">
       <div class="grid-item lesson-block">
         <div v-if="lesson.row_id" class="lesson-wrapper">
@@ -9,7 +9,7 @@
               <span class="breadcrumb__divider" v-if="index !== breadCrumbItems.length-1">></span>
             </li>
           </ul>
-          <ul class="tag">
+          <ul v-if="lessonTags.length > 0" class="tag">
             <li class="tag__list" v-for="(tag, index) in lessonTags" :key="index">
               <span class="tag__item">{{tag}}</span>
               <span class="breadcrumb__divider" v-if="index !== breadCrumbItems.length-1"></span>
@@ -185,145 +185,126 @@
 <style lang="sass" scoped>
 @import "../../assets/sass/variables"
 @import "../../assets/sass/mixins"
+
+
 .lesson
-  
   position: relative
-.linear
-  img
-    width: 100%
-    height: auto
-  .video-block, .slider-block
-    display: none
-  .lesson-block
-    grid-column: 1/3
-
-pre
-    padding-bottom: 0.7rem
-table
-  padding-bottom: 0.7rem
-
-
-.grid
-  position: absolute
-  width: 100%
-  height: 100%
-  display: grid
-  grid-template-columns: repeat(2, 50%)
-  grid-template-rows: repeat(2, 50%)
-
-.grid-item
-  margin: 1em
-  background: white
-  border-radius: map-get($radius, regular)
-  @include box-shadow
-  overflow: auto
-
-.lesson-block
-  grid-column: 1
-  grid-row: 1 / 3
-  padding: 1em
-  border-bottom: 1px solid #eee
-  background-color: white
-  padding-bottom: 1em
-  .breadcrumb
-    list-style-type: none
-    display: flex
-    flex-wrap: wrap
-    padding: 0.75rem 1rem
-    margin-bottom: none
-    border-radius: 0.25rem
-    border-bottom: 1px solid #eee
-    &__item
-      text-transform: uppercase
-    &__divider
-      margin: $breadcrumb-divider-margin
-      text-transform: uppercase
   .lesson-wrapper
-    @include fillParent()
-  .tag
-    display: flex
-    flex-direction: row
-    list-style: none
-    padding-top: 0.5rem
-    &__item
-      background-color: #ddd
-      border: none
-      color: black
-      padding: 8px 13px
-      text-align: center
-      text-decoration: none
-      display: inline-block
-      margin: 4px 2px
-      border-radius: 10px
-
-
-.slider-block
-  grid-column: 2
-  grid-row: 1
-
-.video-block
-  overflow-y: hidden
-  grid-column: 2
-  grid-row: 2
-  .video-wrapper
-    @include fillParent()
-  .video-player
-    @include fillParent()
-    object-fit: contain
+    .breadcrumb
+      list-style-type: none
+      display: flex
+      flex-wrap: wrap
+      padding: 5px
+      padding-bottom: 0.8rem
+      border-radius: 0.25rem
+      border-bottom: 1px solid #eee
+      &__item
+        text-transform: uppercase
+      &__divider
+        margin: $breadcrumb-divider-margin
+        text-transform: uppercase
+    .tag
+      display: flex
+      flex-direction: row
+      list-style: none
+      margin: 15px 0 0 0
+      padding-left: 0
+      &__item
+        background-color: #ddd
+        border: none
+        color: black
+        padding: 8px 13px
+        text-align: center
+        text-decoration: none
+        display: inline-block
+        margin: 4px 2px
+        border-radius: 10px
 
 .lesson-html-content
-  margin-top: 0.7rem
-  line-height: 1.5
+  /* ::v-deep is used instead of >>> because we are using sass. It is a deep selector to apply styles to the v-html content*/
+  margin-top: 10px
   font-size: 1rem
   @include flex-column-nowrap
   overflow: hidden
-  /* ::v-deep is used instead of >>> because we are using sass. It is a deep selector to apply styles to the v-html content*/
   & ::v-deep
     :not(pre) code.hljs  // targets inline code
       display: inline
       padding: 3px
-    table
+      border-radius: 3px
+    
+    pre
+      code.hljs
+        border-radius: 10px
+
+    img
       width: 100%
-      padding: map_get($paddings, "large")
-      border-collapse: collapse
+      height: auto
+      overflow-clip-margin: content-box
+      overflow: clip
+    pre
+      margin-bottom: 10px
+    table
+      width: 100%      
+      margin: 8px 0 15px 10px
       color: $table-color-text
+      border-collapse: collapse
+      thead
+        padding-top: 10px
+        display: table-header-group
+        vertical-align: middle
       th
         font-size: map_get($title-sizes, "x-small")
         font-weight: bold
         background-color: $table-color-head-background
         padding: map_get($paddings, "medium")
-
       tr
-        border-top: 1px solid #dee2e6
         &:nth-child(odd)
           background-color: $table-color-row-background
-      th, td
+      td
         padding: map_get($paddings, "small")
+      // th, td
+      //   padding: map_get($paddings, "small")
+      th, td
+        border: solid 1px #E0E0E0
+
 
     h1, h2, h3, h4, h5, h6
-      font-weight: normal      
+      font-weight: normal
     h1
-      font-size: map-get($title-sizes, 4)
+      font-size: map-get($title-sizes, 1)
+      color: #5BC0DE
+      border-bottom: solid 1px #E0E0E0
+      margin: 0 0 15px 0
     h2
+      font-size: map-get($title-sizes, 2)
+      color: #5CB85C
+      border-bottom: solid 1px #E0E0E0
+      margin: 0 0 12px 0
+    h3
+      font-size: map-get($title-sizes, 3)
+      color: #F0AD4E
+      border-bottom: solid 1px #E0E0E0
+      margin: 0 0 8px 0
+    h4
+      font-size: map-get($title-sizes, 4)
+      color: $color-secondary
+      border-bottom: solid 1px #E0E0E0
+      margin: 0 0 7px 0
+    h5
       font-size: map-get($title-sizes, 5)
       color: $color-secondary
-    h3
-      font-size: map-get($title-sizes, 6)
-      color: $color-secondary
-    h4
-      font-size: map-get($title-sizes, 6)
-      color: $color-secondary
-    h5
-      font-size: map-get($title-sizes, 6)
-      color: $color-secondary
     h6
-      font-size: map-get($title-sizes, 6) - 0.1rem
+      font-size: map-get($title-sizes, 6)
       color: $color-secondary
     p
-      text-align: justify
-      padding-bottom: 0.6rem
-      padding-top: 0.4rem
-
+      margin-bottom: 10px
+    ul
+      margin-bottom: 10px
+    ol
+      list-style-type: decimal
+      padding-left: 40px //ol and ul require a certain amount of padding to display the style-type
+      //The use of the reset style in app is still to keep though, because it doesn't provoke other issues
+      padding-bottom: 10px
     .info, .success, .warning, .error
       border-radius: map-get($radius, regular)
       padding: 0.7rem
@@ -345,27 +326,6 @@ table
       font-style: italic
     strong
       text-decoration: underline
-    ol
-      list-style-type: decimal
-      padding-left: 25px //ol and ul require a certain amount of padding to display the style-type
-      //The use of the reset style in app is still to keep though, because it doesn't provoke other issues
-      padding-bottom: 0.4rem
-      padding-top: 0.4rem
-
-
-    ul
-      list-style-type: disc
-      padding-left: 25px
-      padding-bottom: 0.4rem
-      padding-top: 0.4rem
-
-    img
-      width: 100%
-      max-width: 100%
-      max-height: 450px
-      object-fit: contain
-      margin: 5px auto
-
     a
       color: #007bff
       text-decoration: none
@@ -373,4 +333,54 @@ table
       &:hover
         color: #0062ff
         text-decoration: underline
+
+.grid
+  position: absolute
+  width: 100%
+  height: 100%
+  display: grid
+  grid-template-columns: repeat(2, 50%)
+  grid-template-rows: repeat(2, 50%)
+
+.grid-item
+  margin: 1em
+  background: white
+  border-radius: map-get($radius, regular)
+  @include box-shadow
+  overflow: auto
+
+.lesson-block
+  grid-column: 1
+  grid-row: 1/3
+  padding: 1em
+  border-bottom: 1px solid #eee
+  background-color: #fff
+  padding-bottom: 1em
+
+.default
+  .slider-block
+    grid-column: 2
+    grid-row: 1
+  .video-block
+    overflow-y: hidden
+    grid-column: 2
+    grid-row: 2
+    .video-wrapper
+      @include fillParent()
+    .video-player
+      @include fillParent()
+      object-fit: contain
+  .lesson-html-content
+    line-height: 1.6
+
+.linear
+  .lesson-wrapper
+    //@include fillParent()
+    padding-right: 20%
+    padding-left: 2%
+  .lesson-block
+    grid-column: 1/3
+  .lesson-html-content
+    line-height: 1.7
+
 </style>
