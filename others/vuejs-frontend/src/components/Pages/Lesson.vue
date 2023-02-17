@@ -235,6 +235,7 @@
     pre
       code.hljs
         border-radius: 10px
+        margin-bottom: 8px
 
     img
       width: 100%
@@ -305,6 +306,8 @@
       padding-left: 40px //ol and ul require a certain amount of padding to display the style-type
       //The use of the reset style in app is still to keep though, because it doesn't provoke other issues
       padding-bottom: 10px
+    li
+      margin-bottom: 5px
     .info, .success, .warning, .error
       border-radius: map-get($radius, regular)
       padding: 0.7rem
