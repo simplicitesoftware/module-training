@@ -19,16 +19,15 @@
                           path: s._source.path,
                           titleHighlight: s.highlight.title,
                           excerptHighlight: s.highlight.raw_content,
-                          cat: s._source.trnCatTitle,
-                          catParent: s._source.trnCatId__trnCatTitle,
+                          cat: s._source.catPath,
                           key: s._id,
                           source : s._source
                       }))"
                       :key="suggestion._id"
                       @click="suggestionSelected(suggestion)"
                     >
-                        <suggestion-item :inputValue="inputValue" :suggestion="suggestion" />
-                    </div>
+                    <suggestion-item :inputValue="inputValue" :suggestion="suggestion" />
+                  </div>
                   </div>
                   <div  v-if="this.$SEARCH_TYPE=='simplicite'" class="">
                     <div v-for="suggestion in (suggestions || []).map(s => ({
@@ -78,7 +77,7 @@ export default {
       searchFields : ['title^3', 'raw_content^2'],
       highlightFields:{
         "title": {},
-        "raw_content": {}
+        "raw_content": {},
       },
       hover: false,
       isSugOpen:false,
@@ -91,7 +90,8 @@ export default {
   },
   computed:{
     ...mapGetters({
-      lang: 'ui/lang'
+      lang: 'ui/lang',
+      langEsFormat: 'ui/langEsFormat'
     }),
     es_index : function(){
       return process.env.VUE_APP_ES_INDEX+"_"+this.lang.toLowerCase()
@@ -182,15 +182,17 @@ export default {
       }
       else{
 
-        var myHeaders = new Headers();
+        const myHeaders = new Headers();
 
-        var authent = btoa(this.$ES_CREDENTIALS);
+        const authent = btoa(this.$ES_CREDENTIALS);
 
         myHeaders.append("Authorization", "Basic "+authent);
         myHeaders.append("Content-Type", "application/json");
+        // eslint-disable-next-line no-unused-vars
+        const esInstance = this.$ES_INSTANCE;
         myHeaders.append("Origin", this.$ES_INSTANCE);
-
-        var raw = JSON.stringify(
+ 
+        const raw = JSON.stringify(
           {
             "query": {
                 "multi_match": {
@@ -205,7 +207,7 @@ export default {
             },
             "size": 10
           }
-        )
+        );
 
         var requestOptions = {
           method: 'POST',
@@ -214,7 +216,9 @@ export default {
           redirect: 'follow'
         };
 
-        fetch(this.es_instance+"/"+this.$ES_INDEX+"/_search", requestOptions)
+        const searchUrl = this.$ES_INSTANCE+"/"+this.$ES_INDEX+"_"+this.langEsFormat+"/_search";
+
+        fetch(searchUrl, requestOptions)
         .then(response => response.json())
         .then(json => {
           var hits = json.hits.hits
@@ -229,22 +233,6 @@ export default {
         .catch(error => console.log('error', error));
 
       }
-        // this.suggestions = [
-        //   {
-        //     _id: "42",
-        //     _source: {
-        //       title: "test",
-        //       raw_content: "Lorem Ipsum content contentcontentcontentcontentcontentcontent",
-        //       path: "/docs/core/unit-testing",
-        //       trnCatTitle: "trn cat title",
-        //       trnCatId_trnCatTitle: "trnCatId_trnCatTitle"
-        //     },
-        //     highlight: {
-        //       title: "highlight title",
-        //       raw_content: "highlight raw content",
-        //     }
-        //   }, 
-        // ]
     },
     searchCommnuity(inputValue){
       console.log(inputValue)

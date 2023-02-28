@@ -6,7 +6,7 @@
         <div v-if="highlightedTitle" v-html="highlightedTitle"></div>
         <div v-else>{{suggestion.label}}</div>
       </div>
-      <div class="result-catgory">
+      <div class="result-category">
         {{suggestion.cat}}
       </div>
     </div>
@@ -52,7 +52,7 @@ export default {
           materialCode = "api"
           break;
         default:
-          materialCode = "settings"
+          materialCode = "book"
       }
       return materialCode
     },
@@ -129,7 +129,7 @@ export default {
   justify-content: space-between
   padding-bottom: .5rem
 
-.result-catgory
+.result-category
   padding: 0.3rem
   color: white
   background-color: grey
@@ -171,7 +171,7 @@ export default {
   margin: 1rem
   border-radius: 3px
   padding: .5rem
-  background: linear-gradient(to bottom, #ccc 18%, #ffefef)
+  background: linear-gradient(to bottom, #F2F2F2 18%, #E2E2E2)
 
 .result-item
   //border:solid black;

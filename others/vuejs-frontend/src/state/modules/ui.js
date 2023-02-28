@@ -82,6 +82,8 @@ export default {
   },
   getters:{
     lang: state => state.langList[state.langIndex],
+    // ElasticSearch research lang format
+    langEsFormat: state => state.langList[state.langIndex].toLowerCase(),
     selectedTagsRowId: state => state.tagList.filter(tag => tag.selected).map(filteredTag => {
       return {row_id: filteredTag.rowId};
     }),
