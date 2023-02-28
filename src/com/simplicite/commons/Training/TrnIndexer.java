@@ -49,4 +49,18 @@ public class TrnIndexer implements java.io.Serializable {
 				es.indexEsDoc(lsn.getRowId(), lsn.getLessonForIndex(lang));
 			}
 	}
+
+	public static void deleteLessonIndex(TrnLesson lsn) throws Exception {
+		deleteLessonIndex(getEsHelper(lsn.getGrant()) , lsn);
+	}
+
+	private static void deleteLessonIndex(TrnEsiHelper es, TrnLesson lsn) throws Exception {
+		if(es!=null) {
+			for(String lang: TrnTools.getLangs(lsn.getGrant(), false)) {
+				es.setIndex(es.getDefaultIndex()+"_"+lang);
+				es.deleteEsLesson(lsn.getRowId());
+			}
+		}
+
+	}
 }

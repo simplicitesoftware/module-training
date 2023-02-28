@@ -109,6 +109,17 @@ public class TrnCategory extends TrnObject {
 		return json;
 	}
 
+	public String getCatFrontPath(String catId) {
+		resetFilters();
+		setFieldFilter("row_id", catId);
+		List<String[]> res = search();
+		if(res.size() > 0) {
+			setValues(res.get(0));
+			return getFieldValue("trnCatFrontPath");
+		}
+		return null;
+	}
+
 	public Boolean categoryHasAtLeastOneLesson(String categoryId, String tagId) {
 		String res = getGrant().simpleQuery("select COUNT(*) FROM trn_lesson as lesson INNER JOIN trn_tag_lsn as ttl ON lesson.row_id = ttl.trn_taglsn_lsn_id where ttl.trn_taglsn_tag_id ='"+ tagId +"' AND lesson.trn_lsn_cat_id ='"+categoryId+"'");
 		if(Integer.parseInt(res) > 0) return true;

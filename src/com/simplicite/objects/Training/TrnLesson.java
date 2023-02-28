@@ -45,6 +45,16 @@ public class TrnLesson extends TrnObject {
 		index();
 		return null;
 	}
+
+	@Override
+	public String preDelete() {
+		try {
+			TrnIndexer.deleteLessonIndex(this);
+		} catch(Exception e) {
+			AppLog.error("Error removing index doc of lesson " + getFieldValue("trnLsnCode"), e, getGrant());
+		}
+		return null;
+	}
 	
 	public void index(){
 		try{
@@ -73,6 +83,9 @@ public class TrnLesson extends TrnObject {
 			.put("path", getFieldValue("trnLsnFrontPath"))
 			.put("viz", getFieldValue("trnLsnVisualization"));
 		
+		TrnCategory cat = (TrnCategory) getGrant().getTmpObject("TrnCategory");
+		json.put("catPath", cat.getCatFrontPath(getFieldValue("trnLsnCatId")));
+
 		ObjectDB content = getGrant().getTmpObject("TrnLsnTranslate");
 		synchronized(content){
 			content.resetFilters();
