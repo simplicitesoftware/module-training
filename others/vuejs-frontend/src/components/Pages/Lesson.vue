@@ -1,5 +1,5 @@
 <template>
-  <div class="lesson" :class="[lesson.viz === 'LINEAR' ? 'linear' : 'default']" @click="changeVisualization">
+  <div class="lesson" :class="lessonViz">
     <div class="grid">
       <div class="grid-item lesson-block">
         <div v-if="lesson.row_id" class="lesson-wrapper">
@@ -15,7 +15,7 @@
               <span class="breadcrumb__divider" v-if="index !== breadCrumbItems.length-1"></span>
             </li>
           </ul>
-          <div class="lesson-html-content" v-highlightjs="" v-if="lesson.html" v-html="lesson.html"></div>
+          <div class="lesson-html-content" v-highlightjs v-if="lesson.html" v-html="lesson.html"></div>
           <EmptyContent v-else/>
         </div>
         <Spinner v-else/>
@@ -64,9 +64,16 @@
     name: "Lesson",
     components: {Slider, Spinner, EmptyContent},
     data: () => ({
-      visualizationMode: 'tutorial',
       alreadyScrolledImages: [],
+      lessonViz: 'linear'
     }),
+    watch: {
+    lesson: function (newLesson, oldLesson) {
+      if(newLesson.viz === 'TUTO') {
+        this.lessonViz = 'default';
+      }
+    }
+  },
     asyncComputed: {
       async videoUrl() {
         if (this.lesson && this.lesson.video)
@@ -87,7 +94,6 @@
         getLessonFromPath: 'tree/getLessonFromPath',
         getCategoryFromPath: 'tree/getCategoryFromPath'
       }),
-
     },
     methods: {
       addScrollListeners() {
@@ -112,10 +118,6 @@
           // On affiche la dernière image dans le carousel
           if (potentialImages.length) this.$refs.slider.goToImage(potentialImages[potentialImages.length - 1]);
         });
-      },
-      changeVisualization() {
-        if (this.visualizationMode === 'tutorial') this.visualizationMode = 'linear'
-        else this.visualizationMode = 'tutorial'
       },
       openLesson(lesson) {
         this.$store.dispatch("lesson/openLesson", {
