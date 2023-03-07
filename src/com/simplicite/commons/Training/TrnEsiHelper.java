@@ -1,10 +1,7 @@
 package com.simplicite.commons.Training;
 
-
-import java.util.*;
 import com.simplicite.util.*;
 import com.simplicite.util.tools.*;
-import kong.unirest.Unirest;
 import org.json.JSONObject;
 
 /**
@@ -16,7 +13,6 @@ public class TrnEsiHelper implements java.io.Serializable {
 	private Grant g;
 	private String esInstance;
 	private String esIndex;
-	private String esIndexOverride;
 	private String esUser;
 	private String esPassword;
 	
@@ -33,21 +29,12 @@ public class TrnEsiHelper implements java.io.Serializable {
 		this.esPassword = esCredentials!=null ? esCredentials.split(":")[1] : null;
 	}
 	
-	public void setIndex(String index){
-		esIndexOverride = index.toLowerCase();
-	}
-	
-	public void setDefaultIndex(){
-		esIndexOverride = null;
-	}
-	
 	public String getDefaultIndex(){
 		return esIndex;
 	}
 	
-	public void indexEsDoc(String id, JSONObject doc){
-		String index = esIndexOverride!=null ? esIndexOverride : esIndex;
-		String url = esInstance+"/"+index+"/_doc/"+id;
+	public void indexEsDoc(String id, JSONObject doc) {
+		String url = esInstance+"/"+esIndex+"/_doc/"+id;
 		//AppLog.info("Indexing at "+url+" : "+doc.toString(), Grant.getSystemAdmin());
 		try{
 			String result = RESTTool.post(doc, "application/json", url);
@@ -86,8 +73,7 @@ public class TrnEsiHelper implements java.io.Serializable {
 	}
 
 	public void deleteEsLesson(String lsnId) {
-		String index = esIndexOverride!=null ? esIndexOverride : esIndex;
-		String url = esInstance+"/"+index+"/_doc/"+lsnId;
+		String url = esInstance+"/"+esIndex+"/_doc/"+lsnId;
 		try {
 			String result = RESTTool.delete(url);
 			AppLog.info("Deleted lesson index: " + url, Grant.getSystemAdmin());

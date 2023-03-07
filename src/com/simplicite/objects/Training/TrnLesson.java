@@ -8,8 +8,9 @@ import com.simplicite.util.*;
 import com.simplicite.util.tools.HTTPTool;
 import com.simplicite.util.tools.Parameters;
 import com.simplicite.commons.Training.*;
-import org.json.JSONObject;
 
+import org.jclouds.functions.ToLowerCase;
+import org.json.JSONObject;
 /**
  * Business object TrnLesson
  */
@@ -68,42 +69,67 @@ public class TrnLesson extends TrnObject {
 	private String getPath(){
 		return getFieldValue("trnLsnCatId.trnCatPath")+"/"+"LSN_"+getFieldValue("trnLsnOrder")+"_"+TrnTools.toSnake(getFieldValue("trnLsnCode"));
 	}
-	
-	public JSONObject getLessonForFront(String lang, boolean includeHtml) throws Exception{
-		return _getLessonAsJson(lang, includeHtml, false);
+
+	// set lang as null for index json
+	public JSONObject getLessonJSON(String lang, boolean includeHtml) throws Exception {
+		ObjectDB content = getGrant().getTmpObject("TrnLsnTranslate");
+		if(lang == null) return getLessonForIndex(content);
+		else return getLessonForFront(lang, content, includeHtml);
 	}
 	
-	public JSONObject getLessonForIndex(String lang) throws Exception{
-		return _getLessonAsJson(lang, false, true);
+	public JSONObject getLessonForFront(String lang, ObjectDB content, boolean includeHtml) throws Exception{
+		JSONObject json = initLessonJson();
+		fillJsonFront(json, lang, content, includeHtml);
+		return json;
 	}
 	
-	private JSONObject _getLessonAsJson(String lang, boolean includeHtml, boolean includeRaw) throws Exception{
+	public JSONObject getLessonForIndex(ObjectDB content) throws Exception{
+		JSONObject json = initLessonJson();
+		fillJsonIndex(json, content);
+		return json;
+	}
+	
+	private JSONObject initLessonJson() throws Exception {
 		JSONObject json = (new JSONObject())
 			.put("row_id", getRowId())
 			.put("path", getFieldValue("trnLsnFrontPath"))
 			.put("viz", getFieldValue("trnLsnVisualization"));
-		
+
 		TrnCategory cat = (TrnCategory) getGrant().getTmpObject("TrnCategory");
 		json.put("catPath", cat.getCatFrontPath(getFieldValue("trnLsnCatId")));
 
-		ObjectDB content = getGrant().getTmpObject("TrnLsnTranslate");
+
+		return json;
+	}
+
+	private void fillJsonIndex(JSONObject json, ObjectDB content) throws Exception {
+		synchronized(content) {
+			content.resetFilters();
+			content.setFieldFilter("trnLtrLsnId", getRowId());
+			for(String lang: TrnTools.getLangs(getGrant(), true)) {
+				// fill json with asked lang
+				String attributeLang = "_" + lang.toLowerCase();
+				content.setFieldFilter("trnLtrLang", lang);
+				if(content.getCount()==1){
+					content.setValues((content.search()).get(0));
+					ObjectField f;
+					f = content.getField("trnLtrTitle");
+					json.put("title"+attributeLang, f.getValue());
+
+					f = content.getField("trnLtrRawContent");
+					String htmlContent = f.getValue();
+					// if LINEAR, then change content images link
+					json.put("html"+attributeLang, htmlContent);	
+				}
+			}
+		}
+	}
+
+	private void fillJsonFront(JSONObject json, String lang, ObjectDB content, boolean includeHtml) throws Exception {
 		synchronized(content){
 			content.resetFilters();
 			content.setFieldFilter("trnLtrLsnId", getRowId());
-			
-			// fill json with asked lang
 			content.setFieldFilter("trnLtrLang", lang);
-			fillJsonLesson(json, content, includeHtml, includeRaw);
-			
-			// fill empty fields with default lang
-			content.setFieldFilter("trnLtrLang", "ANY");
-			fillJsonLesson(json, content, includeHtml, includeRaw);
-		}
-		return json;
-	}
-	
-	private void fillJsonLesson(JSONObject json, ObjectDB content, boolean includeHtml, boolean includeRaw){
-		if(!json.has("title") || !json.has("video") || (includeHtml && !json.has("html")) || (includeRaw && !json.has("raw_content"))){
 			if(content.getCount()==1){
 				content.setValues((content.search()).get(0));
 				
@@ -120,7 +146,7 @@ public class TrnLesson extends TrnObject {
 				}
 				
 				f = content.getField("trnLtrHtmlContent");
-				if(includeHtml && !f.isEmpty() && !json.has("html")) {
+				if(!f.isEmpty() && !json.has("html") && includeHtml) {
 					String htmlContent = f.getValue();
 					// if LINEAR, then change content images link
 					if(json.get("viz").equals("LINEAR")) {
@@ -129,10 +155,10 @@ public class TrnLesson extends TrnObject {
 						json.put("html", htmlContent);
 					}
 				}
-				
-				f = content.getField("trnLtrRawContent");
-				if(includeRaw && !f.isEmpty() && !json.has("raw_content"))
-					json.put("raw_content", f.getValue());
+			}
+			// if lang is not any and there is no content found from the language, try to add content from any
+			if(!lang.equals("ANY") && includeHtml && (!json.has("title") || !json.has("video") || !json.has("html"))) {
+				fillJsonFront(json, "ANY", content, includeHtml);
 			}
 		}
 	}

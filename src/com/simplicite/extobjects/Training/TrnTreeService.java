@@ -66,7 +66,7 @@ public class TrnTreeService extends RESTServiceExternalObject  {
 			tmpLesson.resetFilters();
 			if(!tmpLesson.select(lessonId))
 				throw new Exception("Lesson "+lessonId+" not found with user "+g().getLogin());
-			return tmpLesson.getLessonForFront(lang, true);
+			return tmpLesson.getLessonJSON(lang, true);
 		}
 	}
 
@@ -127,7 +127,7 @@ public class TrnTreeService extends RESTServiceExternalObject  {
 		for(int i=0; i<rows.size(); i++){
 			tmpLesson.setValues(rows.get(i));
 			try{
-				lsn = tmpLesson.getLessonForFront(lang, false);
+				lsn = tmpLesson.getLessonJSON(lang, false);
 				lsn.put("previous_path", i==0 ? previousLesson : rows.get(i-1)[INDEX_PATH]);
 				lsn.put("next_path", i==rows.size()-1 ? "" : rows.get(i+1)[INDEX_PATH]);
 				Boolean addLessonFlag = true;
@@ -135,7 +135,6 @@ public class TrnTreeService extends RESTServiceExternalObject  {
 				if(addLessonFlag) lessons.put(lsn);
 				if(i == rows.size()-1) lessonsNeedingNextPath.add(lsn);
 				if(i == 0) nextPaths.add(tmpLesson.getFieldValue("trnLsnFrontPath"));
-				
 			} catch(Exception e){
 				AppLog.error(getClass(), "getLessons2", "error getting front-oriented cat", e, g());
 			}

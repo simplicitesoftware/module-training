@@ -570,14 +570,18 @@ public class TrnFsSyncTool implements java.io.Serializable {
 						bot.selectForCreate();
 						lessonContent.setFieldValue("trnLtrLsnId", rowId);
 						lessonContent.setFieldValue("trnLtrLang", lang);
-						if(content.has("markdown"))
-							lessonContent.setFieldValue("trnLtrContent", FileTool.readFile(new File(content.getString("markdown"))));
+						String ltrContent = "Content is not set for this lesson";
+						String ltrTitle = "default";
+						if(content.has("markdown")  && content.has("title")) {
+							ltrContent = FileTool.readFile(new File(content.getString("markdown")));
+							ltrTitle = content.getString("title");
+						}
+						lessonContent.setFieldValue("trnLtrContent", ltrContent);
+						lessonContent.setFieldValue("trnLtrTitle", ltrTitle);
 						if(content.has("video")){
 							File video = new File(content.getString("video"));
 							lessonContent.getField("trnLtrVideo").setDocument(lessonContent, video.getName(), new FileInputStream(video));
 						}
-						if(content.has("title"))
-							lessonContent.setFieldValue("trnLtrTitle", content.getString("title"));
 						if(content.has("description"))
 							lessonContent.setFieldValue("trnLtrDescription", content.getString("description"));
 						bot.validateAndCreate();
@@ -669,6 +673,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		lsn.put("code", getLsnCode(dir));
 		
 		JSONObject json = new JSONObject(FileTool.readFile(dir.getPath()+"/lesson.json"));
+		if(!json.has("ANY")) json.put("ANY", new JSONObject());
 		lsn.put("published", json.optBoolean("published", true));
 		lsn.put("viz", json.optString("display", "TUTO"));
 		lsn.put("tags", json.optJSONArray("tags"));

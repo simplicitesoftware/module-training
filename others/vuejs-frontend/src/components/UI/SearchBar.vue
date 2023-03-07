@@ -74,11 +74,17 @@ export default {
     return {
       inputValue:'',
       searchUsed: false,
-      searchFields : ['title^3', 'raw_content^2'],
-      highlightFields:{
-        "title": {},
-        "raw_content": {},
-      },
+      searchFields : [
+        {
+          field: 'title',
+          weight: '3'
+        },
+        {
+          field: 'raw_content',
+          weight: '2'
+        }
+      ],
+      highlightFields: ["title", "raw_content"],
       hover: false,
       isSugOpen:false,
       queryInput:'',
@@ -93,6 +99,17 @@ export default {
       lang: 'ui/lang',
       langEsFormat: 'ui/langEsFormat'
     }),
+    getsearchFields : function() {
+      const test = this.searchFields.map((f) => f.field+"_"+this.langEsFormat+"^"+f.weight);
+      return test;
+    },
+    gethighlightFields : function() {
+      const obj = new Object();
+      for(const f of this.highlightFields) {
+        obj[f+"_"+this.langEsFormat] = {};
+      } 
+      return obj;
+    },
     es_index : function(){
       return process.env.VUE_APP_ES_INDEX+"_"+this.lang.toLowerCase()
     },
@@ -184,29 +201,33 @@ export default {
 
         const myHeaders = new Headers();
 
-        const authent = btoa(this.$ES_CREDENTIALS);
+        const test = this.$ES_CREDENTIALS;
+        console.log(test);
+        //const authent = btoa(this.$ES_CREDENTIALS);
 
-        myHeaders.append("Authorization", "Basic "+authent);
+        //myHeaders.append("Authorization", "Basic "+authent);
         myHeaders.append("Content-Type", "application/json");
         // eslint-disable-next-line no-unused-vars
         const esInstance = this.$ES_INSTANCE;
         myHeaders.append("Origin", this.$ES_INSTANCE);
  
+
+        const json = {
+          "query": {
+              "multi_match": {
+                  "type": "phrase_prefix",
+                  "query": inputValue,
+                  "fields": this.getsearchFields
+              }
+          },
+          "highlight": {
+              "fields": this.gethighlightFields,
+              "fragment_size":500
+          },
+          "size": 10
+        };
         const raw = JSON.stringify(
-          {
-            "query": {
-                "multi_match": {
-                    "type": "phrase_prefix",
-                    "query": inputValue,
-                    "fields": this.searchFields
-                }
-            },
-            "highlight": {
-                "fields": this.highlightFields,
-                "fragment_size":500
-            },
-            "size": 10
-          }
+          json
         );
 
         var requestOptions = {
@@ -216,7 +237,7 @@ export default {
           redirect: 'follow'
         };
 
-        const searchUrl = this.$ES_INSTANCE+"/"+this.$ES_INDEX+"_"+this.langEsFormat+"/_search";
+        const searchUrl = this.$ES_INSTANCE+"/"+this.$ES_INDEX+"/_search";
 
         fetch(searchUrl, requestOptions)
         .then(response => response.json())
@@ -224,7 +245,7 @@ export default {
           var hits = json.hits.hits
           console.log(hits)
           if(hits.length != 0){
-            this.suggestions = hits
+            this.suggestions = this.getSuggestion(hits); 
           }
           else{
             this.suggestions = null
@@ -252,6 +273,19 @@ export default {
           console.log(hits)
         })
         .catch(error => console.log('error', error));
+    },
+    getSuggestion(_hits) {
+      const _formatHits = {
+        // label: s._source.title,
+        // value: s._source.title,
+        // content: s._source.raw_content,
+        // path: s._source.path,
+        // titleHighlight: s.highlight.title,
+        // excerptHighlight: s.highlight.raw_content,
+        // cat: s._source.catPath,
+        // key: s._id,
+        // source : s._source
+      };
     }
   }
 };

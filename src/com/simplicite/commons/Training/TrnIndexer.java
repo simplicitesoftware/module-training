@@ -1,12 +1,8 @@
 package com.simplicite.commons.Training;
 
-import java.util.*;
 import com.simplicite.util.*;
-import com.simplicite.util.tools.*;
 import org.json.JSONObject;
-import com.simplicite.commons.Training.TrnEsiHelper;
 import com.simplicite.objects.Training.TrnLesson;
-import com.simplicite.commons.Training.TrnTools;
 
 /**
  * Shared code TrnIndexer
@@ -44,10 +40,7 @@ public class TrnIndexer implements java.io.Serializable {
 	
 	private static void indexLesson(TrnEsiHelper es, TrnLesson lsn) throws Exception{
 		if(es!=null)
-			for(String lang: TrnTools.getLangs(lsn.getGrant(), false)){
-				es.setIndex(es.getDefaultIndex()+"_"+lang);
-				es.indexEsDoc(lsn.getRowId(), lsn.getLessonForIndex(lang));
-			}
+			es.indexEsDoc(lsn.getRowId(), lsn.getLessonJSON(null, true));
 	}
 
 	public static void deleteLessonIndex(TrnLesson lsn) throws Exception {
@@ -55,12 +48,8 @@ public class TrnIndexer implements java.io.Serializable {
 	}
 
 	private static void deleteLessonIndex(TrnEsiHelper es, TrnLesson lsn) throws Exception {
-		if(es!=null) {
-			for(String lang: TrnTools.getLangs(lsn.getGrant(), false)) {
-				es.setIndex(es.getDefaultIndex()+"_"+lang);
-				es.deleteEsLesson(lsn.getRowId());
-			}
-		}
-
+		if(es!=null) 
+			es.deleteEsLesson(lsn.getRowId());
+		
 	}
 }
