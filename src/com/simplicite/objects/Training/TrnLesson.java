@@ -119,7 +119,7 @@ public class TrnLesson extends TrnObject {
 					f = content.getField("trnLtrRawContent");
 					String htmlContent = f.getValue();
 					// if LINEAR, then change content images link
-					json.put("html"+attributeLang, htmlContent);	
+					json.put("raw_content"+attributeLang, htmlContent);	
 				}
 			}
 		}

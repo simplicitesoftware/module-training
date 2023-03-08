@@ -12,17 +12,7 @@
           <div v-if="isSugOpen" class="result-list-container">
                 <div class="" v-if="suggestions">
                   <div v-if="this.$SEARCH_TYPE=='elasticsearch'" class="">
-                    <div v-for="suggestion in (suggestions || []).map(s => ({
-                          label: s._source.title,
-                          value: s._source.title,
-                          content: s._source.raw_content,
-                          path: s._source.path,
-                          titleHighlight: s.highlight.title,
-                          excerptHighlight: s.highlight.raw_content,
-                          cat: s._source.catPath,
-                          key: s._id,
-                          source : s._source
-                      }))"
+                    <div v-for="suggestion in suggestions || []"
                       :key="suggestion._id"
                       @click="suggestionSelected(suggestion)"
                     >
@@ -37,6 +27,7 @@
                           cat: s.key,
                           path: s.key,
                           key: s.row_id,
+                          excerptHighlight: s.content
                       }))"
                       :key="suggestion.row_id"
                       @click="suggestionSelected(suggestion)"
@@ -100,8 +91,7 @@ export default {
       langEsFormat: 'ui/langEsFormat'
     }),
     getsearchFields : function() {
-      const test = this.searchFields.map((f) => f.field+"_"+this.langEsFormat+"^"+f.weight);
-      return test;
+      return this.searchFields.map((f) => f.field+"_"+this.langEsFormat+"^"+f.weight);
     },
     gethighlightFields : function() {
       const obj = new Object();
@@ -180,9 +170,23 @@ export default {
       };
       fetch(this.$smp.parameters.url+"/api/rest/?_indexsearch="+inputValue, requestOptions)
         .then(response => response.json())
-        .then(json => {
+        .then(async (json) => {
           var hits = json.filter(elem => elem.object === "TrnLesson" || elem.object === "TrnCategory");
           if(hits.length != 0){
+            const obj = this.$smp.getBusinessObject("TrnLsnTranslate");
+            for(const hit of hits) {
+              const res = await obj.search({trnLtrLsnId: hit.row_id, trnLtrLang: this.lang});
+              if(res.length) {
+                hit.content = res[0].trnLtrRawContent;
+                hit.label = res[0].trnLtrTitle;
+              } else {
+                const anyRes = await obj.search({trnLtrLsnId: hit.row_id, trnLtrLang: "ANY"});
+                if(anyRes.length) {
+                  hit.content = anyRes[0].trnLtrRawContent;
+                  hit.label = anyRes[0].trnLtrTitle;
+                }
+              }
+            }
             this.suggestions = hits
           }
           else{
@@ -274,18 +278,23 @@ export default {
         })
         .catch(error => console.log('error', error));
     },
-    getSuggestion(_hits) {
-      const _formatHits = {
-        // label: s._source.title,
-        // value: s._source.title,
-        // content: s._source.raw_content,
-        // path: s._source.path,
-        // titleHighlight: s.highlight.title,
-        // excerptHighlight: s.highlight.raw_content,
-        // cat: s._source.catPath,
-        // key: s._id,
-        // source : s._source
-      };
+    getSuggestion(hits) {
+      const formatHits = [];
+      for(const hit of hits) {
+        formatHits.push({
+          label: hit._source["title_" + this.langEsFormat],
+          value: hit._source["title_" + this.langEsFormat],
+          content: hit._source["raw_content_" + this.langEsFormat],
+          path: hit._source.path,
+          titleHighlight: hit.highlight["title_" + this.langEsFormat],
+          excerptHighlight: hit.highlight["raw_content_" + this.langEsFormat],
+          cat: hit._source.catPath,
+          key: hit._id,
+          source: hit._source
+        })
+      }
+      return formatHits;
+      
     }
   }
 };

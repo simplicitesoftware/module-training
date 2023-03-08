@@ -85,7 +85,8 @@ export default {
           //return this.getHighlightedSuggestion(this.inputValue, this.suggestion.htmlContentHighlight[0])
           return highlightContent;
         }
-        return null
+        // to do
+        return esiExcerptHighlight;
     },
     highlightedHtml: function(){
       if(this.suggestion.htmlContentHighlight && Array.isArray(this.suggestion.htmlContentHighlight) && this.suggestion.htmlContentHighlight.length > 0){

@@ -1,4 +1,3 @@
-/* eslint-disable no-console,no-undef */
 import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from 'vue-router'
@@ -45,6 +44,7 @@ function fecthAppParams() {
     .then(res => {
       Vue.prototype.$SEARCH_TYPE = res.search_type;
       Vue.prototype.$ES_INSTANCE = res.es_instance;
+      //Vue.prototype.$ES_INSTANCE = "http://localhost:9200";
       Vue.prototype.$ES_INDEX = res.es_index;
       Vue.prototype.$ES_CREDENTIALS = res.es_credentials;
     }).catch((e) => {
