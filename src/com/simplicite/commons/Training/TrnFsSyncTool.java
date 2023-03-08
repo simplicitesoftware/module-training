@@ -562,9 +562,8 @@ public class TrnFsSyncTool implements java.io.Serializable {
 			
 			// create contents
 			for(String lang : LANG_CODES){
-				if(json.getJSONObject("contents").has(lang)){
+				if(json.getJSONObject("contents").has(lang)){					
 					JSONObject content = json.getJSONObject("contents").getJSONObject(lang);
-					
 					bot = new BusinessObjectTool(lessonContent);
 					synchronized(lessonContent){
 						bot.selectForCreate();
@@ -629,7 +628,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	}	
 	
 	private File getLsnFile(File lsnDir, String lang, String extension){
-		lang = DEFAULT_LANG_CODE.equals(lang) ? "" : "_"+lang;
+		lang = "_"+lang;
 		return new File(lsnDir.getPath()+"/"+getLsnCode(lsnDir)+lang+"."+extension);
 	}
 	

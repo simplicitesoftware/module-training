@@ -130,6 +130,9 @@ public class TrnLesson extends TrnObject {
 			content.resetFilters();
 			content.setFieldFilter("trnLtrLsnId", getRowId());
 			content.setFieldFilter("trnLtrLang", lang);
+			// if(getFieldValue("trnLsnFrontPath").equals("/docs/security")) {
+			// 	String debug = "";
+			// }
 			if(content.getCount()==1){
 				content.setValues((content.search()).get(0));
 				
@@ -157,7 +160,7 @@ public class TrnLesson extends TrnObject {
 				}
 			}
 			// if lang is not any and there is no content found from the language, try to add content from any
-			if(!lang.equals("ANY") && includeHtml && (!json.has("title") || !json.has("video") || !json.has("html"))) {
+			if(!lang.equals("ANY") && (!json.has("title") || !json.has("video") || !json.has("html"))) {
 				fillJsonFront(json, "ANY", content, includeHtml);
 			}
 		}
