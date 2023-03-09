@@ -628,7 +628,11 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	}	
 	
 	private File getLsnFile(File lsnDir, String lang, String extension){
-		lang = "_"+lang;
+		if(lang.equals("ANY")) {
+			lang = "";
+		} else {
+			lang = "_"+lang;
+		}
 		return new File(lsnDir.getPath()+"/"+getLsnCode(lsnDir)+lang+"."+extension);
 	}
 	
