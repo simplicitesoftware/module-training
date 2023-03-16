@@ -271,7 +271,7 @@ components:
           description: Front path
           type: string
         trnCatId__trnCatPath:
-          description: Parent Category Path
+          description: Parent category
           type: string
     ArrayOfTrnPicture:
       type: array
@@ -293,7 +293,7 @@ components:
           description: Order
           type: integer
         trnLsnCatId__trnCatPath:
-          description: Category Path
+          description: Parent category
           type: string
         trnLsnCode:
           description: Code
@@ -453,6 +453,8 @@ components:
       bearerFormat: Simplicite token
       scheme: bearer
       type: http
+servers:
+- url: /api
 openapi: 3.0.2
 paths:
   /rest/TrnCategory/{row_id}/action:forceDirSync:
@@ -1949,7 +1951,7 @@ paths:
           type: string
         in: query
         name: trnLsnCatId__trnCatPath
-        description: Search filter for Category Path
+        description: Search filter for Parent category
         required: false
       - schema:
           type: string
@@ -3304,7 +3306,7 @@ paths:
           type: string
         in: query
         name: trnCatId__trnCatPath
-        description: Search filter for Parent Category Path
+        description: Search filter for Parent category
         required: false
       tags:
       - TrnCategory

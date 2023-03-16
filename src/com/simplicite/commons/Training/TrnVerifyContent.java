@@ -1,11 +1,12 @@
 package com.simplicite.commons.Training;
 
-import com.simplicite.util.*;
-import com.simplicite.util.tools.*;
 import java.util.*;
+import java.io.IOException;
 import java.io.File;
 import java.util.regex.Pattern;
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 import org.json.JSONArray;
 
@@ -16,9 +17,10 @@ public class TrnVerifyContent implements java.io.Serializable {
 	private static final Pattern PATTERN_CATEGORY = Pattern.compile("^CTG_[0-9]+_[a-z0-9\\-]+$");
 	private static final Pattern PATTERN_LESSON = Pattern.compile("^LSN_[0-9]+_[a-z0-9\\-]+$");
 	private static String[] LANG_CODES;
+	private static final String CHARSET = "UTF-8";
 	
-	public static void verifyContentStructure(File contentDir, Grant g) throws TrnSyncException{
-		LANG_CODES = TrnTools.getLangs(g);
+	public static void verifyContentStructure(File contentDir, String[] lang) throws TrnSyncException{
+		LANG_CODES = lang;
 		verifyFolderStructure(contentDir, true);
 	}
 	
@@ -41,6 +43,15 @@ public class TrnVerifyContent implements java.io.Serializable {
 					verifyFolderStructure(child, false);
 	}
 	
+	private static String readFile(String filePath) throws TrnSyncException{
+		try{
+			return FileUtils.readFileToString(new File(filePath), CHARSET);
+		}
+		catch(IOException e){
+			throw new TrnSyncException("TRN_SYNC_READFILEERROR" + e.getMessage());
+		}
+	}
+	
 	private static void validateRootContent(File dir) throws TrnSyncException{
 		for(File child : dir.listFiles()) {
 			if(!isCategory(child) && !child.getName().equals("tags.json") && !child.getName().equals("url_rewriting.json"))
@@ -48,10 +59,10 @@ public class TrnVerifyContent implements java.io.Serializable {
 			else if (child.getName().equals("tags.json")) {
 				// check if tags.json has a correct structure
 				try {
-					JSONArray tags = new JSONArray(FileTool.readFile(dir.getPath()+"/tags.json"));
+					JSONArray tags = new JSONArray(readFile(dir.getPath()+"/tags.json"));
 					for(int i = 0; i < tags.length(); i++) {
 						JSONObject tag = tags.getJSONObject(i);
-						if(Tool.isEmpty(tag.getString("code")) && Tool.isEmpty(tag.getJSONObject("translation"))) {
+						if(StringUtils.isEmpty(tag.getString("code")) && StringUtils.isEmpty(tag.getJSONObject("translation").toString())) {
 							throw new Exception();
 						}
 					}
@@ -59,10 +70,10 @@ public class TrnVerifyContent implements java.io.Serializable {
 					throw new TrnSyncException("TRN_SYNC_ROOT_TAGS_JSON_NON_CONFORMITY", dir);
 				}
 				try {
-					JSONArray urlRewriting = new JSONArray(FileTool.readFile(dir.getPath()+"/url_rewriting.json"));
+					JSONArray urlRewriting = new JSONArray(readFile(dir.getPath()+"/url_rewriting.json"));
 					for(int i = 0; i < urlRewriting.length(); i++) {
 						JSONObject record = urlRewriting.getJSONObject(i);
-						if(Tool.isEmpty(record.getString("sourceUrl")) && Tool.isEmpty(record.getString("destinationUrl"))) {
+						if(StringUtils.isEmpty(record.getString("sourceUrl")) && StringUtils.isEmpty(record.getString("destinationUrl"))) {
 							throw new Exception();
 						}
 					}
@@ -105,7 +116,7 @@ public class TrnVerifyContent implements java.io.Serializable {
 	}
 	
 	private static boolean isMarkdown(File f){
-		return FileTool.getExtension(f.getName()).toLowerCase().equals("md");
+		return FilenameUtils.getExtension(f.getName()).toLowerCase().equals("md");
 	}
 	
 	private static boolean isPic(File f){
@@ -114,10 +125,10 @@ public class TrnVerifyContent implements java.io.Serializable {
 	}
 	
 	private static boolean isVideo(File f){
-		return FileTool.getExtension(f.getName()).toLowerCase().equals("webm");
+		return FilenameUtils.getExtension(f.getName()).toLowerCase().equals("webm");
 	}
 	
-	private static boolean isCategory(File dir){
+	public static boolean isCategory(File dir){
 		return dir.isDirectory() && isCategory(dir.getName());
 	}
 	
@@ -125,7 +136,7 @@ public class TrnVerifyContent implements java.io.Serializable {
 		return PATTERN_CATEGORY.matcher(path).matches();
 	}
 	
-	private static boolean isLesson(File dir){
+	public static boolean isLesson(File dir){
 		return dir.isDirectory() && isLesson(dir.getName());
 	}
 	

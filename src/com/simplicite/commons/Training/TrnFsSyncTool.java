@@ -134,7 +134,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	}
 	
 	public void verifyContentStructure() throws TrnSyncException{
-		TrnVerifyContent.verifyContentStructure(contentDir, g);
+		TrnVerifyContent.verifyContentStructure(contentDir, TrnTools.getLangs(g));
 	}
 	
 	private boolean isPic(File f){

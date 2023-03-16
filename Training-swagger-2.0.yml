@@ -3,6 +3,7 @@
 # \__ \ | '  \| '_ \ | / _| |  _/ -_)
 # |___/_|_|_|_| .__/_|_\__|_|\__\___|
 #             |_| Module: Training 2.8
+basePath: /api
 paths:
   /rest/TrnCategory/{row_id}/action:forceDirSync:
     get:
@@ -1253,7 +1254,7 @@ paths:
         required: false
       - in: query
         name: trnLsnCatId__trnCatPath
-        description: Search filter for Category Path
+        description: Search filter for Parent category
         type: string
         required: false
       - in: query
@@ -2391,7 +2392,7 @@ paths:
         required: false
       - in: query
         name: trnCatId__trnCatPath
-        description: Search filter for Parent Category Path
+        description: Search filter for Parent category
         type: string
         required: false
       tags:
@@ -3206,7 +3207,7 @@ definitions:
         description: Front path
         type: string
       trnCatId__trnCatPath:
-        description: Parent Category Path
+        description: Parent category
         type: string
   ArrayOfTrnPicture:
     type: array
@@ -3228,7 +3229,7 @@ definitions:
         description: Order
         type: integer
       trnLsnCatId__trnCatPath:
-        description: Category Path
+        description: Parent category
         type: string
       trnLsnCode:
         description: Code
