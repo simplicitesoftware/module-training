@@ -3771,20 +3771,8 @@
       "ofa_name": "TrnLesson-1",
       "ofa_position": 1,
       "ofa_title": false,
-      "ofa_ui": "<div>\n  <div class=\"row\">\n    <div class=\"col-sm-3\">\n      <div class=\"field\" data-field=\"trnLsnPublish\"><\/div>\n    <\/div>\n    <div class=\"col-sm-3\">\n      <div class=\"field\" data-field=\"trnLsnOrder\"><\/div>\n    <\/div>\n    <div class=\"col-sm-3\">\n      <div class=\"field\" data-field=\"trnLsnCode\"><\/div>\n    <\/div>\n    <div class=\"col-sm-3\">\n      <div class=\"field\" data-field=\"trnLsnVisualization\"><\/div>\n    <\/div>\n  <\/div>\n  <div class=\"row\">\n    <div class=\"col-sm-6\">\n      <div class=\"field\" data-field=\"trnLsnPath\"><\/div>\n    <\/div>\n    <div class=\"col-sm-6\">\n      <div class=\"field\" data-field=\"trnLsnFrontPath\"><\/div>\n    <\/div>\n  <\/div>\n  <div class=\"area\" data-area=\"TrnTagLsn;trnTaglsnLsnId\"><\/div>\n  <div class=\"field\" data-field=\"trnLsnCatId__trnCatPath\"><\/div>\n<\/div>",
+      "ofa_ui": "<div>\n  <div class=\"row\">\n    <div class=\"col-sm-3\">\n      <div class=\"field\" data-field=\"trnLsnPublish\"><\/div>\n    <\/div>\n    <div class=\"col-sm-3\">\n      <div class=\"field\" data-field=\"trnLsnOrder\"><\/div>\n    <\/div>\n    <div class=\"col-sm-3\">\n      <div class=\"field\" data-field=\"trnLsnCode\"><\/div>\n    <\/div>\n    <div class=\"col-sm-3\">\n      <div class=\"field\" data-field=\"trnLsnVisualization\"><\/div>\n    <\/div>\n  <\/div>\n  <div class=\"row\">\n    <div class=\"col-sm-6\">\n      <div class=\"field\" data-field=\"trnLsnPath\"><\/div>\n    <\/div>\n    <div class=\"col-sm-6\">\n      <div class=\"field\" data-field=\"trnLsnFrontPath\"><\/div>\n    <\/div>\n  <\/div>\n  <div class=\"area\" data-area=\"TrnTagLsn;trnTaglsnLsnId\"><\/div>\n  <div class=\"field\" data-field=\"trnLsnCatId\"><\/div>\n  <div class=\"field\" data-field=\"trnLsnCatId__trnCatPath\"><\/div>\n<\/div>",
       "ofa_icon": "[EXPR:[OBJECTICON:TrnLesson]]",
-      "row_module_id__mdl_name": "Training"
-     }
-    },
-    {
-     "object": "ObjectFieldArea",
-     "userkey": "TrnLesson-2",
-     "item": {
-      "ofa_name": "TrnLesson-2",
-      "ofa_position": 2,
-      "ofa_title": true,
-      "ofa_ui": "<div class=\"field\" data-field=\"trnLsnCatId\"><\/div>",
-      "ofa_icon": "[EXPR:[OBJECTICON:TrnCategory]]",
       "row_module_id__mdl_name": "Training"
      }
     },
@@ -5637,8 +5625,8 @@
       "obf_ref_object_id__obo_name": "TrnCategory",
       "obf_cascad": "C",
       "obf_card": "0,n",
-      "obf_visible": true,
-      "obf_ref_export": true,
+      "obf_visible": false,
+      "obf_ref_export": false,
       "obf_copy": false,
       "obf_ref_order": 30,
       "obf_fld_visible": null,
@@ -5653,8 +5641,8 @@
       "obf_fld_exportable": null,
       "obf_field_id__fld_exportable": true,
       "obf_fld_uk": null,
-      "obf_area_id__ofa_name": "TrnLesson-2",
-      "obf_area_id__ofa_position": 2,
+      "obf_area_id__ofa_name": "TrnLesson-1",
+      "obf_area_id__ofa_position": 1,
       "row_module_id__mdl_name": "Training"
      }
     },
@@ -7181,15 +7169,15 @@
       "obf_card": "0,n",
       "obf_query": null,
       "obf_filters": null,
-      "obf_visible": true,
-      "obf_ref_export": true,
+      "obf_visible": false,
+      "obf_ref_export": false,
       "obf_copy": false,
       "obf_associate": null,
       "obf_inline": false,
       "obf_rendering": null,
       "obf_treedepth": null,
-      "obf_area_id__ofa_name": "TrnLesson-2",
-      "obf_area_id__ofa_position": 2,
+      "obf_area_id__ofa_name": "TrnLesson-1",
+      "obf_area_id__ofa_position": 1,
       "row_module_id__mdl_name": "Training"
      }
     },
@@ -10837,17 +10825,6 @@
     },
     {
      "object": "TranslateFieldArea",
-     "userkey": "Z~TrnLesson-2~ENU",
-     "item": {
-      "tsl_typeFieldArea": "Z",
-      "tsl_id__ofa_name": "TrnLesson-2",
-      "tsl_lang": "ENU",
-      "tsl_value": "Category",
-      "row_module_id__mdl_name": "Training"
-     }
-    },
-    {
-     "object": "TranslateFieldArea",
      "userkey": "Z~TrnLsnTranslate-1~ENU",
      "item": {
       "tsl_typeFieldArea": "Z",
@@ -10997,17 +10974,6 @@
       "tsl_id__ofa_name": "TrnLesson-1",
       "tsl_lang": "FRA",
       "tsl_value": "Leçon",
-      "row_module_id__mdl_name": "Training"
-     }
-    },
-    {
-     "object": "TranslateFieldArea",
-     "userkey": "Z~TrnLesson-2~FRA",
-     "item": {
-      "tsl_typeFieldArea": "Z",
-      "tsl_id__ofa_name": "TrnLesson-2",
-      "tsl_lang": "FRA",
-      "tsl_value": "Infos Catégorie Mère",
       "row_module_id__mdl_name": "Training"
      }
     },
