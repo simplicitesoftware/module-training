@@ -35,9 +35,8 @@ public class TrnEsiHelper implements java.io.Serializable {
 	
 	public void indexEsDoc(String id, JSONObject doc) {
 		String url = esInstance+"/"+esIndex+"/_doc/"+id;
-		//AppLog.info("Indexing at "+url+" : "+doc.toString(), Grant.getSystemAdmin());
 		try{
-			String result = RESTTool.post(doc, "application/json", url);
+			String result = RESTTool.post(doc, "application/json", url, esUser, esPassword);
 			AppLog.info("Indexing at "+url+" : "+doc.getString("path"), Grant.getSystemAdmin());
 		}
 		catch(Exception e){
