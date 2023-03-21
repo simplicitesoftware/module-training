@@ -1,62 +1,44 @@
 <template>
-    <div id="SearchBar"  v-click-outside="hideSuggestions">
-        <div class="searchElement">
-          <input class="searchbar" @input="queryIndex" v-model="inputValue" type="text" name="" value="" :placeholder="searchbarPlaceHolder"/>
-          <div @click="searchIconClick" class="searchbar-logo-container" :style="{[`background-color`]: `${themeValues.primaryColor}`}">
-              <span class="material-icons searchbar-logo">
-                  search
-              </span>
-          </div>
-        </div>
-        <div class="suggestionRelative">
-          <div v-if="isSugOpen" class="result-list-container">
-                <div class="" v-if="suggestions">
-                  <div v-if="this.$SEARCH_TYPE=='elasticsearch'" class="">
-                    <div v-for="suggestion in suggestions || []"
-                      :key="suggestion._id"
-                      @click="suggestionSelected(suggestion)"
-                    >
-                    <suggestion-item :inputValue="inputValue" :suggestion="suggestion" />
-                  </div>
-                  </div>
-                  <div  v-if="this.$SEARCH_TYPE=='simplicite'" class="">
-                    <div v-for="suggestion in (suggestions || []).map(s => ({
-                          label: s.label,
-                          value: s.value,
-                          excerpt: s.value,
-                          cat: s.key,
-                          path: s.key,
-                          key: s.row_id,
-                          excerptHighlight: s.content
-                      }))"
-                      :key="suggestion.row_id"
-                      @click="suggestionSelected(suggestion)"
-                    >
-                        <suggestion-item :inputValue="inputValue" :suggestion="suggestion" />
-                    </div>
-                  </div>
-                </div>
-                <div class="result-list-empty" v-else>
-                  {{emptyResult}}
-                </div>
-
-
-          </div>
-        </div>
+  <div id="SearchBar"  v-click-outside="hideSuggestions">
+    <div class="searchElement">
+      <input class="searchbar" @input="queryIndex" v-model="inputValue" type="text" name="" value="" :placeholder="searchbarPlaceHolder"/>
+      <div @click="searchIconClick" class="searchbar-logo-container" :style="{[`background-color`]: `${themeValues.primaryColor}`}">
+        <span class="material-icons searchbar-logo">
+            search
+        </span>
+      </div>
     </div>
+    <div class="suggestionRelative">
+      <div v-if="isSugOpen" class="result-list-container">
+        <div class="" v-if="suggestions">
+          <div v-if="this.$SEARCH_TYPE=='elasticsearch'" class="">
+            <ElasticSuggestions :elasticHits="suggestions" :inputValue="inputValue" @suggestionSelected="suggestionSelected"/>
+          </div>
+          <div v-if="this.$SEARCH_TYPE=='simplicite'" class="">
+            <SimpliciteSuggestions :simpliciteHits="suggestions" :inputValue="inputValue" @suggestionSelected="suggestionSelected"/>
+          </div>
+        </div>
+        <div class="result-list-empty" v-else>
+          {{emptyResult}}
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 
 <script>
 
-import SuggestionItem from "./SuggestionItem";
+import ElasticSuggestions from "./SuggestionItem/ElasticSuggestions.vue";
+import SimpliciteSuggestions from "./SuggestionItem/SimpliciteSuggestions.vue";
 import {mapGetters} from "vuex";
 
 export default {
 
   name: "SearchBar",
   components :{
-    SuggestionItem
+    ElasticSuggestions,
+    SimpliciteSuggestions
   },
   props: {
     themeValues: Object
@@ -100,9 +82,6 @@ export default {
       } 
       return obj;
     },
-    es_index : function(){
-      return process.env.VUE_APP_ES_INDEX+"_"+this.lang.toLowerCase()
-    },
     searchbarPlaceHolder : function(){
       return "FRA" == this.lang ? "Rechercher" : "Search"
     },
@@ -117,21 +96,21 @@ export default {
     hideSuggestions(){
       this.isSugOpen = false;
     },
-    suggestionSelected(item){
-      this.isSugOpen = false
-      this.inputValue = ''
-      const lsn = this.getLessonFromPath(item.path);
-      if (lsn && !lsn.is_category) this.$router.push('/lesson' + item.path).catch(err => console.error(err))
-      else this.$store.commit("tree/OPEN_NODE", item.path);
-    },
     searchIconClick() {
-      this.isSugOpen = true
+      this.isSugOpen = true;
     },
     valueSelected(val, event, item) {
-      this.isSugOpen = false
+      this.isSugOpen = false;
       if(item !== undefined){
           this.$router.push('/lesson' + item.trnLsnFrontPath).catch(err => console.error(err));
       }
+    },
+    suggestionSelected(suggestion) {
+      this.isSugOpen = false;
+      this.inputValue = '';
+      const lsn = this.getLessonFromPath(suggestion.path);
+      if (lsn && !lsn.is_category) this.$router.push('/lesson' + suggestion.path).catch(err => console.error(err));
+      else this.$store.commit("tree/OPEN_NODE", suggestion.path);
     },
     queryIndex(){
 
@@ -173,20 +152,6 @@ export default {
         .then(async (json) => {
           var hits = json.filter(elem => elem.object === "TrnLesson" || elem.object === "TrnCategory");
           if(hits.length != 0){
-            const obj = this.$smp.getBusinessObject("TrnLsnTranslate");
-            for(const hit of hits) {
-              const res = await obj.search({trnLtrLsnId: hit.row_id, trnLtrLang: this.lang});
-              if(res.length) {
-                hit.content = res[0].trnLtrRawContent;
-                hit.label = res[0].trnLtrTitle;
-              } else {
-                const anyRes = await obj.search({trnLtrLsnId: hit.row_id, trnLtrLang: "ANY"});
-                if(anyRes.length) {
-                  hit.content = anyRes[0].trnLtrRawContent;
-                  hit.label = anyRes[0].trnLtrTitle;
-                }
-              }
-            }
             this.suggestions = hits
           }
           else{
@@ -205,8 +170,7 @@ export default {
 
         const myHeaders = new Headers();
 
-        const test = this.$ES_CREDENTIALS;
-        console.log(test);
+        //const test = this.$ES_CREDENTIALS;
         //const authent = btoa(this.$ES_CREDENTIALS);
 
         //myHeaders.append("Authorization", "Basic "+authent);
@@ -247,16 +211,14 @@ export default {
         .then(response => response.json())
         .then(json => {
           var hits = json.hits.hits
-          console.log(hits)
           if(hits.length != 0){
-            this.suggestions = this.getSuggestion(hits); 
+            this.suggestions = hits; 
           }
           else{
             this.suggestions = null
           }
         })
         .catch(error => console.log('error', error));
-
       }
     },
     searchCommnuity(inputValue){
@@ -278,24 +240,6 @@ export default {
         })
         .catch(error => console.log('error', error));
     },
-    getSuggestion(hits) {
-      const formatHits = [];
-      for(const hit of hits) {
-        formatHits.push({
-          label: hit._source["title_" + this.langEsFormat],
-          value: hit._source["title_" + this.langEsFormat],
-          content: hit._source["raw_content_" + this.langEsFormat],
-          path: hit._source.path,
-          titleHighlight: hit.highlight["title_" + this.langEsFormat],
-          excerptHighlight: hit.highlight["raw_content_" + this.langEsFormat],
-          cat: hit._source.catPath,
-          key: hit._id,
-          source: hit._source
-        })
-      }
-      return formatHits;
-      
-    }
   }
 };
 
@@ -334,7 +278,6 @@ export default {
 
 .searchbar-logo
 
-
 .suggestionRelative
   position: relative
 
@@ -359,39 +302,8 @@ export default {
   //width: 50%
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
 
-.result-container
-  &:hover
-    background-color: #EDF3FA
-    border-radius: .3rem
-    cursor: pointer
-
 .result-list-empty
   color: black
   padding: .5rem
-
-.result-title
-  font-weight: bold
-  font-size: 1.2rem
-
-
-.result-url
-  padding: .5rem 0 .5rem 0
-
-
-.result-body
-  height: 100%
-  font-size: 1rem
-
-
-.result-item
-  //border:solid black;
-  display: flex
-  flex-direction: column
-  width: 100%
-  padding: .5rem
-  height: 100%
-  min-height: 10em
-
-
 
 </style>
