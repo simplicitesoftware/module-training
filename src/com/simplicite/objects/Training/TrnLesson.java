@@ -5,11 +5,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.simplicite.util.*;
-import com.simplicite.util.tools.HTTPTool;
-import com.simplicite.util.tools.Parameters;
 import com.simplicite.commons.Training.*;
 
-import org.jclouds.functions.ToLowerCase;
 import org.json.JSONObject;
 /**
  * Business object TrnLesson
@@ -58,6 +55,8 @@ public class TrnLesson extends TrnObject {
 	}
 	
 	public void index(){
+    String published = getFieldValue("trnLsnPublish");
+    if(published.equals("0")) return; 
 		try{
 			TrnIndexer.indexLesson(this);
 		}
@@ -114,12 +113,14 @@ public class TrnLesson extends TrnObject {
 					content.setValues((content.search()).get(0));
 					ObjectField f;
 					f = content.getField("trnLtrTitle");
-					json.put("title"+attributeLang, f.getValue());
+					if(!f.getValue().equals("default")) {
+						json.put("title"+attributeLang, f.getValue());
 
-					f = content.getField("trnLtrRawContent");
-					String htmlContent = f.getValue();
-					// if LINEAR, then change content images link
-					json.put("raw_content"+attributeLang, htmlContent);	
+						f = content.getField("trnLtrRawContent");
+						String htmlContent = f.getValue();
+						// if LINEAR, then change content images link
+						json.put("raw_content"+attributeLang, htmlContent);
+					}
 				}
 			}
 		}
