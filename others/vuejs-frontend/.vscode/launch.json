@@ -11,13 +11,5 @@
         "webpack:///src/*": "${webRoot}/*"
       }
     },
-    {
-      "type": "firefox",
-      "request": "launch",
-      "name": "vuejs: firefox",
-      "url": "http://localhost:8081",
-      "webRoot": "${workspaceFolder}/src",
-      "pathMappings": [{ "url": "webpack:///src/", "path": "${webRoot}/" }]
-    }
   ]
 }

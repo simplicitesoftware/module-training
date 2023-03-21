@@ -25,7 +25,6 @@ Vue.use(vClickOutside);
 // Make Simplicité login as a promise
 function setSimplicitePublicSession(){
   var deploymentType = process.env.NODE_ENV;
-  //console.log('Deployment type: ' + deploymentType);
   let instanceUrl = deploymentType === 'remote' || deploymentType === 'local' ? process.env.VUE_APP_SIM_INSTANCE_URL : window.location.origin;
   console.log('instance url : ' + instanceUrl);
 
@@ -42,9 +41,9 @@ function fecthAppParams() {
     Vue.prototype.$smp.getExternalObject("TrnPublicService")
     .call()
     .then(res => {
-      Vue.prototype.$SEARCH_TYPE = res.search_type;
-      Vue.prototype.$ES_INSTANCE = res.es_instance;
-      //Vue.prototype.$ES_INSTANCE = "http://localhost:9200";
+      Vue.prototype.$SEARCH_TYPE = res.search_type;  
+      if(process.env.VUE_APP_ESI_URL) Vue.prototype.$ES_INSTANCE = process.env.VUE_APP_ESI_URL;
+      else Vue.prototype.$ES_INSTANCE = res.es_instance;  
       Vue.prototype.$ES_INDEX = res.es_index;
       Vue.prototype.$ES_CREDENTIALS = res.es_credentials;
     }).catch((e) => {
@@ -54,7 +53,6 @@ function fecthAppParams() {
 }
 
 (() => {
-
   Vue.prototype.$smp = setSimplicitePublicSession();
   fecthAppParams();
 

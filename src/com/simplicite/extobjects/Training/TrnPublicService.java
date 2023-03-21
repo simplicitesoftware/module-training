@@ -1,11 +1,8 @@
 package com.simplicite.extobjects.Training;
 
-import com.simplicite.util.*;
 import com.simplicite.util.tools.*;
 import com.simplicite.util.exceptions.*;
 import com.simplicite.webapp.services.RESTServiceExternalObject;
-import com.simplicite.commons.Training.TrnTools;
-import com.simplicite.objects.Training.TrnTag;
 import org.json.*;
 
 /**
