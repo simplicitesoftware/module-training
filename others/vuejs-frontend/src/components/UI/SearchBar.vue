@@ -169,11 +169,11 @@ export default {
       else{
 
         const myHeaders = new Headers();
+        if(process.env.NODE_ENV !== "local") {
+          const authent = btoa(this.$ES_CREDENTIALS);
+          myHeaders.append("Authorization", "Basic "+authent);
+        }
 
-        //const test = this.$ES_CREDENTIALS;
-        //const authent = btoa(this.$ES_CREDENTIALS);
-
-        //myHeaders.append("Authorization", "Basic "+authent);
         myHeaders.append("Content-Type", "application/json");
         // eslint-disable-next-line no-unused-vars
         const esInstance = this.$ES_INSTANCE;
