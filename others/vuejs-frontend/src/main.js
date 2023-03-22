@@ -43,10 +43,11 @@ function fecthAppParams() {
     .call()
     .then(res => {
       Vue.prototype.$SEARCH_TYPE = res.search_type;  
-      if(process.env.VUE_APP_ESI_URL) Vue.prototype.$ES_INSTANCE = process.env.VUE_APP_ESI_URL;
+      if(process.env.NODE_ENV === "local") Vue.prototype.$ES_INSTANCE = process.env.VUE_APP_ESI_URL;
       else Vue.prototype.$ES_INSTANCE = res.es_instance;  
       Vue.prototype.$ES_INDEX = res.es_index;
       Vue.prototype.$ES_CREDENTIALS = res.es_credentials;
+      console.log(res.es_credentials);
     }).catch((e) => {
       console.error("fetchAppParams has failed: " + JSON.stringify(e, null, 4));
     });
