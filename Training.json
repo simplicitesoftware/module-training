@@ -22,7 +22,7 @@
      "item": {
       "sys_code": "TRN_CONFIG",
       "sys_value": "{\n    \"edition_type\": \"UI\",\n    \"index_type\": \"simplicite\"\n}",
-      "sys_value2": "{\n\t\"edition_type\": \"UI\",\n\t\"filesystem_contentdir\": \"/home/trainingrec/training-content/content\",\n\t\"index_type\": \"simplicite\"\n}",
+      "sys_value2": "{\n\t\"edition_type\": \"UI\",\n\t\"filesystem_contentdir\": \"/home/trainingrec/training-content/content\",\n\t\"index_type\": \"simplicite\",\n}",
       "sys_type": "PRV",
       "sys_desc": "Examples : \n\nSimple usecase\n---------------------------\n\nEditing through UI, using Simplicité indexing\n\n```json\n{\n\t\"edition_type\": \"UI\",\n\t\"index_type\": \"simplicite\"\n}\n```\n\nAdvanced usecase\n---------------------------\n\nEditing through Filesystem (possible git repo), using ElasticSearch indexing\n\n```json\n{\n\t\"edition_type\": \"FILESYSTEM\",\n\t\"filesystem_contentdir\": \"/path/to/directory/to/sync/with\",\n\t\"index_type\": \"elasticsearch\",\n\t\"esi_config\": {\n\t\t\"instance\": \"https://elasticsearchinstance.mydomain.not\",\n\t\t\"index\": \"docs_myinstance\",\n\t\t\"public_credentials\":\"user:password\"\n\t}\n}\n```",
       "row_module_id__mdl_name": "Training"
@@ -8264,6 +8264,30 @@
    "icon": "img/system/resource",
    "field": "row_module_id",
    "list": [
+    {
+     "object": "Resource",
+     "userkey": "Disposition(default)~ANY~training-module",
+     "item": {
+      "res_object": {
+       "item": {"dis_code": "default"},
+       "icon": "img/system/disposition",
+       "label": "Disposition",
+       "userkeylabel": "default",
+       "object": "Disposition"
+      },
+      "res_type": "IMG",
+      "res_lang": "ANY",
+      "res_code": "training-module",
+      "res_cached": false,
+      "res_file": null,
+      "res_image": {
+       "path": "resources/Disposition/default/training-module.svg",
+       "mime": "image/svg+xml",
+       "name": "Documentation.svg"
+      },
+      "row_module_id__mdl_name": "Training"
+     }
+    },
     {
      "object": "Resource",
      "userkey": "ObjectExternal(TrnFront)~ANY~SITE",
