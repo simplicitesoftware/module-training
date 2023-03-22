@@ -106,7 +106,7 @@ header
   flex-flow: row
   align-items: center
   padding: $header-padding
-  height: $header-height
+  //height: $header-height
   color: white
   .logo
     background-repeat: no-repeat
