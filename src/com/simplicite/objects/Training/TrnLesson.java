@@ -49,7 +49,7 @@ public class TrnLesson extends TrnObject {
 		try {
 			TrnIndexer.deleteLessonIndex(this);
 		} catch(Exception e) {
-			AppLog.error("Error removing index doc of lesson " + getFieldValue("trnLsnCode"), e, getGrant());
+			AppLog.error("Error removing index doc of lesson " + getFieldValue("trnLsnCode") + " : " + e.getMessage(), e, getGrant());
 		}
 		return null;
 	}

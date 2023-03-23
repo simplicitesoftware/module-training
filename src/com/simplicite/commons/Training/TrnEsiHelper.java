@@ -77,7 +77,7 @@ public class TrnEsiHelper implements java.io.Serializable {
 			String result = RESTTool.delete(url);
 			AppLog.info("Deleted lesson index: " + url, Grant.getSystemAdmin());
 		} catch(Exception e) {
-			AppLog.error("Error deleting lesson: "+url, e, Grant.getSystemAdmin());
+			AppLog.error("Error deleting lesson: "+url + " : " + e.getMessage(), e, Grant.getSystemAdmin());
 		}
 	}
 	
