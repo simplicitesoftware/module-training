@@ -51,13 +51,16 @@ export default {
     async setSuggestionContent(obj, suggestion, rowId, lang) {
       const res = await obj.search({trnLtrLsnId: rowId, trnLtrLang: lang});
       if(res.length) {
-        suggestion.content = res[0].trnLtrRawContent;
-        suggestion.title = res[0].trnLtrTitle;
+        suggestion.content = this.higlightedContent(res[0].trnLtrRawContent);
+        suggestion.title = this.higlightedContent(res[0].trnLtrTitle);
         if(suggestion.content.length > 1000) suggestion.content = this.truncateContent(suggestion.content, this.contentMaxLength);
       } else { // if no content set in language, look for "ANY" content
         await this.setSuggestionContent(obj, suggestion, rowId, "ANY");
       }
       
+    },
+    higlightedContent(content) {
+        return content.replaceAll(this.inputValue, "<em>"+this.inputValue+"</em>");
     },
     truncateContent(content, index) {
       if(content[index] === " " || content[index] === "." || content[index] === "?" || content[index] === ";") {
