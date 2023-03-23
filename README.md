@@ -38,6 +38,8 @@ The object that serves as container for lessons, or other categories (reflexivit
 | `trnCatFrontPath`                                            | url(400)                                 |          |           |          | -                                                                                |
 | `trnCatId` link to **`TrnCategory`**                         | id                                       |          | yes       |          | -                                                                                |
 | _Ref. `trnCatId.trnCatPath`_                                 | _text(400)_                              |          |           |          | -                                                                                |
+| _Ref. `trnCatId.trnCatCode`_                                 | _char(100)_                              |          |           |          | -                                                                                |
+| _Ref. `trnCatId.trnCatFrontPath`_                            | _url(400)_                               |          |           |          | -                                                                                |
 
 ### Custom actions
 
@@ -82,6 +84,8 @@ The lesson object for the training, that will hold the content of a lesson.
 | `trnLsnFrontPath`                                            | url(400)                                 |          |           |          | -                                                                                |
 | `trnLsnCatId` link to **`TrnCategory`**                      | id                                       | yes      | yes       |          | -                                                                                |
 | _Ref. `trnLsnCatId.trnCatPath`_                              | _text(400)_                              |          |           |          | -                                                                                |
+| _Ref. `trnLsnCatId.trnCatFrontPath`_                         | _url(400)_                               |          |           |          | -                                                                                |
+| _Ref. `trnLsnCatId.trnCatPublish`_                           | _boolean_                                |          |           |          | _Determines if the category and its subcategories and lessons are available on the front-end application._ |
 | `trnTagLsnVirtual` link to **`TrnTag`**                      | id                                       |          | yes       |          | -                                                                                |
 
 ### Lists
@@ -101,12 +105,14 @@ The object used to translate the lesson objects, for multilingual transport.
 |--------------------------------------------------------------|------------------------------------------|----------|-----------|----------|----------------------------------------------------------------------------------|
 | `trnLtrLang`                                                 | enum(100) using `LANG_ALL` list          | yes*     | yes       |          | -                                                                                |
 | `trnLtrTitle`                                                | char(200)                                | yes      | yes       |          | -                                                                                |
-| `trnLtrDescription`                                          | text(1000)                               |          | yes       |          | -                                                                                |
 | `trnLtrContent`                                              | text(100000)                             |          | yes       |          | -                                                                                |
 | `trnLtrVideo`                                                | document                                 |          | yes       |          | -                                                                                |
 | `trnLtrHtmlContent`                                          | text(500000)                             |          |           |          | The HTML equivalent of the content attribute. It's this attribute that is displayed by the front-end application. |
 | `trnLtrLsnId` link to **`TrnLesson`**                        | id                                       | *        | yes       |          | -                                                                                |
 | _Ref. `trnLtrLsnId.trnLsnPath`_                              | _text(400)_                              |          |           |          | -                                                                                |
+| _Ref. `trnLtrLsnId.trnLsnCode`_                              | _char(255)_                              |          |           |          | -                                                                                |
+| _Ref. `trnLtrLsnId.trnLsnFrontPath`_                         | _url(400)_                               |          |           |          | -                                                                                |
+| _Ref. `trnLtrLsnId.trnLsnPublish`_                           | _boolean_                                |          |           |          | _Determines if the lesson is visible on the front-end application._              |
 | `trnLtrRawContent`                                           | text(10000)                              |          |           |          | -                                                                                |
 
 ### Lists
