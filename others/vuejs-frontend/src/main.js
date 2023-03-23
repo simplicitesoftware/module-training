@@ -47,7 +47,6 @@ function fecthAppParams() {
       else Vue.prototype.$ES_INSTANCE = res.es_instance;  
       Vue.prototype.$ES_INDEX = res.es_index;
       Vue.prototype.$ES_CREDENTIALS = res.es_credentials;
-      console.log(res.es_credentials);
     }).catch((e) => {
       console.error("fetchAppParams has failed: " + JSON.stringify(e, null, 4));
     });

@@ -17,10 +17,6 @@ export default {
   },
   props:{
       elasticHits: Array,
-      inputValue: {
-        type: String,
-        default: "",
-      },
   },
   computed:{
     ...mapGetters({

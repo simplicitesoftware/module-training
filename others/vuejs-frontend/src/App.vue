@@ -4,7 +4,7 @@
     <main>
       <nav class="navigation-drawer" v-show="isDrawerOpen" :style="{background: `linear-gradient(${themeValues.primaryColor} 65%, ${themeValues.secondaryColor})`}">
         <TreeViewNode v-for="(motherCategory, index) in tree" :key="index" :node="motherCategory" :depth="0"/>
-      </nav>
+      </nav>  
       <div class="page-content">
         <router-view v-if="!isFetching" class="page-content__router-view" :key="$route.fullPath"/>
         <Spinner v-else/>
@@ -91,16 +91,15 @@
       flex-direction: row
       width: 100%
       position: relative
-
       .navigation-drawer
         box-sizing: border-box
         min-width: max-content
-        height: 100%
+        max-height: 100vh - $header-height
         z-index: 1000
-        overflow: auto
+        overflow-y: scroll
         display: block
         transition: $duration-drawer-collapse ease-in-out
-        height: 100vh - $header-height
+        position: relative
 
       .page-content
         width: 100%
