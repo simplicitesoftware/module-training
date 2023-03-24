@@ -37,6 +37,28 @@ public class TrnCategory extends TrnObject {
 	}
 	
 	@Override
+	public void initCreate() {
+		setFieldValue("trnCatOrder", getNextOrder());
+	}
+	
+	@Override
+	public void initUpdate() {
+		//cf getNextOrder() & https://community.simplicite.io/t/getparentobject-dans-les-hooks-init/6080
+		getGrant().setParameter("LAST_VISITED_CATEGORY_ID", getRowId()); 
+	}
+	
+	private int getNextOrder(){
+		String ref = " is null";
+		if(getParentObject()!=null && "TrnCategory".equals(getParentObject().getName()) && !Tool.isEmpty(getGrant().getParameter("LAST_VISITED_CATEGORY_ID"))){
+			ref = "="+Tool.toSQL(getGrant().getParameter("LAST_VISITED_CATEGORY_ID"));
+		}
+		
+		String lastOrder = getGrant().simpleQuery("SELECT trn_cat_order FROM trn_category WHERE trn_cat_id"+ref+" ORDER BY trn_cat_order DESC");
+		AppLog.info("---"+Tool.parseInt(lastOrder, 0), Grant.getSystemAdmin());
+		return Tool.parseInt(lastOrder, 0) + 10;
+	}
+	
+	@Override
 	public String getUserKeyLabel(String[] row) {
 		return getFieldValue("trnCatFrontPath", row);
 	}
@@ -54,6 +76,25 @@ public class TrnCategory extends TrnObject {
 		} catch(Exception e){
 			AppLog.error(getClass(), "postSave", "Error updating children", e, getGrant());
 		}
+		return null;
+	}
+
+	@Override
+	public String postCreate() {
+		try{
+			ObjectDB tsl = getGrant().getTmpObject("TrnCategoryTranslate");
+			synchronized(tsl.getLock()){
+				tsl.resetValues();
+				tsl.setFieldValue("trnCtrLang", "ANY");
+				tsl.setFieldValue("trnCtrTitle", getFieldValue("trnCatCode"));
+				tsl.setFieldValue("trnCtrCatId", getRowId());
+				tsl.getTool().validateAndCreate();
+			}
+		}
+		catch(Exception e){
+			AppLog.error(e, getGrant());
+		}
+
 		return null;
 	}
 

@@ -31,15 +31,15 @@ The object that serves as container for lessons, or other categories (reflexivit
 
 | Name                                                         | Type                                     | Required | Updatable | Personal | Description                                                                      |
 |--------------------------------------------------------------|------------------------------------------|----------|-----------|----------|----------------------------------------------------------------------------------|
+| `trnCatCode`                                                 | char(100)                                | yes      | yes       |          | -                                                                                |
+| `trnCatOrder`                                                | int(100)                                 | yes      | yes       |          | -                                                                                |
 | `trnCatPublish`                                              | boolean                                  |          | yes       |          | Determines if the category and its subcategories and lessons are available on the front-end application. |
 | `trnCatPath`                                                 | text(400)                                | *        |           |          | -                                                                                |
-| `trnCatOrder`                                                | int(100)                                 | yes      | yes       |          | -                                                                                |
-| `trnCatCode`                                                 | char(100)                                | yes      | yes       |          | -                                                                                |
-| `trnCatFrontPath`                                            | url(400)                                 |          |           |          | -                                                                                |
+| `trnCatFrontPath`                                            | text(400)                                |          |           |          | -                                                                                |
 | `trnCatId` link to **`TrnCategory`**                         | id                                       |          | yes       |          | -                                                                                |
 | _Ref. `trnCatId.trnCatPath`_                                 | _text(400)_                              |          |           |          | -                                                                                |
 | _Ref. `trnCatId.trnCatCode`_                                 | _char(100)_                              |          |           |          | -                                                                                |
-| _Ref. `trnCatId.trnCatFrontPath`_                            | _url(400)_                               |          |           |          | -                                                                                |
+| _Ref. `trnCatId.trnCatFrontPath`_                            | _text(400)_                              |          |           |          | -                                                                                |
 
 ### Custom actions
 
@@ -56,7 +56,6 @@ This object contains the translation of a category object
 |--------------------------------------------------------------|------------------------------------------|----------|-----------|----------|----------------------------------------------------------------------------------|
 | `trnCtrLang`                                                 | enum(100) using `LANG_ALL` list          | yes*     | yes       |          | -                                                                                |
 | `trnCtrTitle`                                                | char(200)                                | yes      | yes       |          | -                                                                                |
-| `trnCtrDescription`                                          | text(1000)                               |          | yes       |          | -                                                                                |
 | `trnCtrCatId` link to **`TrnCategory`**                      | id                                       | *        | yes       |          | -                                                                                |
 | _Ref. `trnCtrCatId.trnCatPath`_                              | _text(400)_                              |          |           |          | -                                                                                |
 
@@ -76,16 +75,15 @@ The lesson object for the training, that will hold the content of a lesson.
 
 | Name                                                         | Type                                     | Required | Updatable | Personal | Description                                                                      |
 |--------------------------------------------------------------|------------------------------------------|----------|-----------|----------|----------------------------------------------------------------------------------|
+| `trnLsnCode`                                                 | char(255)                                | yes      | yes       |          | -                                                                                |
+| `trnLsnOrder`                                                | int(100)                                 | yes      | yes       |          | -                                                                                |
 | `trnLsnPublish`                                              | boolean                                  |          | yes       |          | Determines if the lesson is visible on the front-end application.                |
 | `trnLsnPath`                                                 | text(400)                                | *        |           |          | -                                                                                |
-| `trnLsnOrder`                                                | int(100)                                 | yes      | yes       |          | -                                                                                |
-| `trnLsnCode`                                                 | char(255)                                | yes      | yes       |          | -                                                                                |
 | `trnLsnVisualization`                                        | enum(6) using `TRNLSNVISUALIZATION` list |          | yes       |          | Describes the visualization mode to be used in the front-end application.        |
 | `trnLsnFrontPath`                                            | url(400)                                 |          |           |          | -                                                                                |
 | `trnLsnCatId` link to **`TrnCategory`**                      | id                                       | yes      | yes       |          | -                                                                                |
 | _Ref. `trnLsnCatId.trnCatPath`_                              | _text(400)_                              |          |           |          | -                                                                                |
-| _Ref. `trnLsnCatId.trnCatFrontPath`_                         | _url(400)_                               |          |           |          | -                                                                                |
-| _Ref. `trnLsnCatId.trnCatPublish`_                           | _boolean_                                |          |           |          | _Determines if the category and its subcategories and lessons are available on the front-end application._ |
+| _Ref. `trnLsnCatId.trnCatFrontPath`_                         | _text(400)_                              |          |           |          | -                                                                                |
 | `trnTagLsnVirtual` link to **`TrnTag`**                      | id                                       |          | yes       |          | -                                                                                |
 
 ### Lists
@@ -114,6 +112,7 @@ The object used to translate the lesson objects, for multilingual transport.
 | _Ref. `trnLtrLsnId.trnLsnFrontPath`_                         | _url(400)_                               |          |           |          | -                                                                                |
 | _Ref. `trnLtrLsnId.trnLsnPublish`_                           | _boolean_                                |          |           |          | _Determines if the lesson is visible on the front-end application._              |
 | `trnLtrRawContent`                                           | text(10000)                              |          |           |          | -                                                                                |
+| `trnLtrHasContent`                                           | boolean                                  |          |           |          | -                                                                                |
 
 ### Lists
 

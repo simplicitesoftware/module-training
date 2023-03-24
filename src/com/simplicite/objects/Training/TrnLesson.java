@@ -29,12 +29,47 @@ public class TrnLesson extends TrnObject {
 	}
 
 	@Override
+	public void initCreate() {
+		setFieldValue("trnLsnOrder", getNextOrder());
+	}
+	
+	private int getNextOrder(){
+		String ref = " is null";
+		if(getParentObject()!=null && "TrnCategory".equals(getParentObject().getName()) && !Tool.isEmpty(getGrant().getParameter("LAST_VISITED_CATEGORY_ID"))){
+			ref = "="+Tool.toSQL(getGrant().getParameter("LAST_VISITED_CATEGORY_ID"));
+			AppLog.info("====="+getParentObject().getRowId(), Grant.getSystemAdmin());
+		}
+		
+		String lastOrder = getGrant().simpleQuery("SELECT trn_lsn_order FROM trn_lesson WHERE trn_lsn_cat_id"+ref+" ORDER BY trn_lsn_order DESC");
+		return 10 + Tool.parseInt(lastOrder, 0);
+	}
+
+	@Override
 	public List<String> postValidate() {
 		if(!isSyncInstance())
 			setFieldValue("trnLsnPath", getPath());
 		
 		setFieldValue("trnLsnFrontPath", TrnTools.path2Front(getFieldValue("trnLsnPath")));
 		
+		return null;
+	}
+	
+	@Override
+	public String postCreate() {
+		try{
+			ObjectDB tsl = getGrant().getTmpObject("TrnLsnTranslate");
+			synchronized(tsl.getLock()){
+				tsl.resetValues();
+				tsl.setFieldValue("trnLtrLang", "ANY");
+				tsl.setFieldValue("trnLtrTitle", getFieldValue("trnLsnCode"));
+				tsl.setFieldValue("trnLtrLsnId", getRowId());
+				tsl.getTool().validateAndCreate();
+			}
+		}
+		catch(Exception e){
+			AppLog.error(e, getGrant());
+		}
+
 		return null;
 	}
 	

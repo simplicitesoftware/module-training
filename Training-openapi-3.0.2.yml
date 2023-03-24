@@ -265,7 +265,7 @@ components:
           description: Category Path
           type: string
         trnCatId__trnCatCode:
-          description: Code
+          description: Parent category
           type: string
         row_id:
           description: Unique technical row ID
@@ -312,7 +312,7 @@ components:
           - TUTO
           - LINEAR
         trnLsnCatId__trnCatFrontPath:
-          description: Front path
+          description: Parent category
           type: string
         trnTagLsnVirtual:
           description: Trn tag lsn virtual
@@ -321,12 +321,8 @@ components:
           description: Determines if the lesson is visible on the front-end application.
           type: boolean
         trnLsnFrontPath:
-          description: Front path
+          description: URL
           type: string
-        trnLsnCatId__trnCatPublish:
-          description: Determines if the category and its subcategories and lessons
-            are available on the front-end application.
-          type: boolean
         row_id:
           description: Unique technical row ID
           type: string
@@ -419,6 +415,16 @@ components:
     TrnLsnTranslate:
       type: object
       properties:
+        trnLtrHtmlContent:
+          description: The HTML equivalent of the content attribute. It's this attribute
+            that is displayed by the front-end application.
+          type: string
+        trnLtrRawContent:
+          description: trn ltr raw content
+          type: string
+        trnLtrLsnId__trnLsnPublish:
+          description: Determines if the lesson is visible on the front-end application.
+          type: boolean
         trnLtrLang:
           description: Language
           type: string
@@ -429,16 +435,15 @@ components:
         trnLtrLsnId__trnLsnPath:
           description: Original Lesson ID Path
           type: string
-        trnLtrHtmlContent:
-          description: The HTML equivalent of the content attribute. It's this attribute
-            that is displayed by the front-end application.
-          type: string
         trnLtrLsnId__trnLsnFrontPath:
           description: Front path
           type: string
         trnLtrContent:
           description: Content
           type: string
+        trnLtrHasContent:
+          description: Has Content
+          type: boolean
         row_id:
           description: Unique technical row ID
           type: string
@@ -448,15 +453,9 @@ components:
         trnLtrLsnId__trnLsnCode:
           description: Code
           type: string
-        trnLtrRawContent:
-          description: trn ltr raw content
-          type: string
         trnLtrLsnId:
           description: Original Lesson ID
           type: string
-        trnLtrLsnId__trnLsnPublish:
-          description: Determines if the lesson is visible on the front-end application.
-          type: boolean
         trnLtrVideo:
           description: Video
           type: object
@@ -1920,6 +1919,18 @@ paths:
         description: Index search query
         required: false
       - schema:
+          type: string
+        in: query
+        name: trnLsnCode
+        description: Search filter for Code
+        required: false
+      - schema:
+          type: integer
+        in: query
+        name: trnLsnOrder
+        description: Search filter for Order
+        required: false
+      - schema:
           type: boolean
         in: query
         name: trnLsnPublish
@@ -1931,18 +1942,6 @@ paths:
         in: query
         name: trnLsnPath
         description: Search filter for Path
-        required: false
-      - schema:
-          type: integer
-        in: query
-        name: trnLsnOrder
-        description: Search filter for Order
-        required: false
-      - schema:
-          type: string
-        in: query
-        name: trnLsnCode
-        description: Search filter for Code
         required: false
       - schema:
           type: string
@@ -1958,7 +1957,7 @@ paths:
           type: string
         in: query
         name: trnLsnFrontPath
-        description: Search filter for Front path
+        description: Search filter for URL
         required: false
       - schema:
           type: string
@@ -1976,14 +1975,7 @@ paths:
           type: string
         in: query
         name: trnLsnCatId__trnCatFrontPath
-        description: Search filter for Front path
-        required: false
-      - schema:
-          type: boolean
-        in: query
-        name: trnLsnCatId__trnCatPublish
-        description: Search filter for Determines if the category and its subcategories
-          and lessons are available on the front-end application.
+        description: Search filter for Parent category
         required: false
       - schema:
           type: string
@@ -2116,6 +2108,12 @@ paths:
         in: query
         name: trnLtrRawContent
         description: Search filter for trn ltr raw content
+        required: false
+      - schema:
+          type: boolean
+        in: query
+        name: trnLtrHasContent
+        description: Search filter for Has Content
         required: false
       tags:
       - TrnLsnTranslate
@@ -3311,6 +3309,18 @@ paths:
         description: Index search query
         required: false
       - schema:
+          type: string
+        in: query
+        name: trnCatCode
+        description: Search filter for Code
+        required: false
+      - schema:
+          type: integer
+        in: query
+        name: trnCatOrder
+        description: Search filter for Order
+        required: false
+      - schema:
           type: boolean
         in: query
         name: trnCatPublish
@@ -3322,18 +3332,6 @@ paths:
         in: query
         name: trnCatPath
         description: Search filter for Category Path
-        required: false
-      - schema:
-          type: integer
-        in: query
-        name: trnCatOrder
-        description: Search filter for Order
-        required: false
-      - schema:
-          type: string
-        in: query
-        name: trnCatCode
-        description: Search filter for Code
         required: false
       - schema:
           type: string
@@ -3357,7 +3355,7 @@ paths:
           type: string
         in: query
         name: trnCatId__trnCatCode
-        description: Search filter for Code
+        description: Search filter for Parent category
         required: false
       - schema:
           type: string
@@ -4026,7 +4024,7 @@ tags:
 - name: TrnCategory
   description: Category
 - name: TrnCategoryTranslate
-  description: Traduction
+  description: Category title
 - name: TrnLesson
   description: Lesson
 - name: TrnLsnTranslate

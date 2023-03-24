@@ -42,5 +42,4 @@ public class TrnTools implements java.io.Serializable {
 	public static String getDefaultLang(){
 		return "ANY";
 	}
-	
 }

@@ -1213,14 +1213,8 @@ paths:
         type: string
         required: false
       - in: query
-        name: trnLsnPublish
-        description: Search filter for Determines if the lesson is visible on the
-          front-end application.
-        type: boolean
-        required: false
-      - in: query
-        name: trnLsnPath
-        description: Search filter for Path
+        name: trnLsnCode
+        description: Search filter for Code
         type: string
         required: false
       - in: query
@@ -1229,8 +1223,14 @@ paths:
         type: integer
         required: false
       - in: query
-        name: trnLsnCode
-        description: Search filter for Code
+        name: trnLsnPublish
+        description: Search filter for Determines if the lesson is visible on the
+          front-end application.
+        type: boolean
+        required: false
+      - in: query
+        name: trnLsnPath
+        description: Search filter for Path
         type: string
         required: false
       - in: query
@@ -1244,7 +1244,7 @@ paths:
         - LINEAR
       - in: query
         name: trnLsnFrontPath
-        description: Search filter for Front path
+        description: Search filter for URL
         type: string
         required: false
       - in: query
@@ -1259,14 +1259,8 @@ paths:
         required: false
       - in: query
         name: trnLsnCatId__trnCatFrontPath
-        description: Search filter for Front path
+        description: Search filter for Parent category
         type: string
-        required: false
-      - in: query
-        name: trnLsnCatId__trnCatPublish
-        description: Search filter for Determines if the category and its subcategories
-          and lessons are available on the front-end application.
-        type: boolean
         required: false
       - in: query
         name: trnTagLsnVirtual
@@ -1379,6 +1373,11 @@ paths:
         name: trnLtrRawContent
         description: Search filter for trn ltr raw content
         type: string
+        required: false
+      - in: query
+        name: trnLtrHasContent
+        description: Search filter for Has Content
+        type: boolean
         required: false
       tags:
       - TrnLsnTranslate
@@ -2382,14 +2381,8 @@ paths:
         type: string
         required: false
       - in: query
-        name: trnCatPublish
-        description: Search filter for Determines if the category and its subcategories
-          and lessons are available on the front-end application.
-        type: boolean
-        required: false
-      - in: query
-        name: trnCatPath
-        description: Search filter for Category Path
+        name: trnCatCode
+        description: Search filter for Code
         type: string
         required: false
       - in: query
@@ -2398,8 +2391,14 @@ paths:
         type: integer
         required: false
       - in: query
-        name: trnCatCode
-        description: Search filter for Code
+        name: trnCatPublish
+        description: Search filter for Determines if the category and its subcategories
+          and lessons are available on the front-end application.
+        type: boolean
+        required: false
+      - in: query
+        name: trnCatPath
+        description: Search filter for Category Path
         type: string
         required: false
       - in: query
@@ -2419,7 +2418,7 @@ paths:
         required: false
       - in: query
         name: trnCatId__trnCatCode
-        description: Search filter for Code
+        description: Search filter for Parent category
         type: string
         required: false
       - in: query
@@ -3233,7 +3232,7 @@ definitions:
         description: Category Path
         type: string
       trnCatId__trnCatCode:
-        description: Code
+        description: Parent category
         type: string
       row_id:
         description: Unique technical row ID
@@ -3280,7 +3279,7 @@ definitions:
         - TUTO
         - LINEAR
       trnLsnCatId__trnCatFrontPath:
-        description: Front path
+        description: Parent category
         type: string
       trnTagLsnVirtual:
         description: Trn tag lsn virtual
@@ -3289,12 +3288,8 @@ definitions:
         description: Determines if the lesson is visible on the front-end application.
         type: boolean
       trnLsnFrontPath:
-        description: Front path
+        description: URL
         type: string
-      trnLsnCatId__trnCatPublish:
-        description: Determines if the category and its subcategories and lessons
-          are available on the front-end application.
-        type: boolean
       row_id:
         description: Unique technical row ID
         type: string
@@ -3387,6 +3382,16 @@ definitions:
   TrnLsnTranslate:
     type: object
     properties:
+      trnLtrHtmlContent:
+        description: The HTML equivalent of the content attribute. It's this attribute
+          that is displayed by the front-end application.
+        type: string
+      trnLtrRawContent:
+        description: trn ltr raw content
+        type: string
+      trnLtrLsnId__trnLsnPublish:
+        description: Determines if the lesson is visible on the front-end application.
+        type: boolean
       trnLtrLang:
         description: Language
         type: string
@@ -3397,16 +3402,15 @@ definitions:
       trnLtrLsnId__trnLsnPath:
         description: Original Lesson ID Path
         type: string
-      trnLtrHtmlContent:
-        description: The HTML equivalent of the content attribute. It's this attribute
-          that is displayed by the front-end application.
-        type: string
       trnLtrLsnId__trnLsnFrontPath:
         description: Front path
         type: string
       trnLtrContent:
         description: Content
         type: string
+      trnLtrHasContent:
+        description: Has Content
+        type: boolean
       row_id:
         description: Unique technical row ID
         type: string
@@ -3416,15 +3420,9 @@ definitions:
       trnLtrLsnId__trnLsnCode:
         description: Code
         type: string
-      trnLtrRawContent:
-        description: trn ltr raw content
-        type: string
       trnLtrLsnId:
         description: Original Lesson ID
         type: string
-      trnLtrLsnId__trnLsnPublish:
-        description: Determines if the lesson is visible on the front-end application.
-        type: boolean
       trnLtrVideo:
         description: Video
         type: object
@@ -3448,7 +3446,7 @@ tags:
 - name: TrnCategory
   description: Category
 - name: TrnCategoryTranslate
-  description: Traduction
+  description: Category title
 - name: TrnLesson
   description: Lesson
 - name: TrnLsnTranslate
