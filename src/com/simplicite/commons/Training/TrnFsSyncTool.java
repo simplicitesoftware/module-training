@@ -257,7 +257,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		g.changeAccess("TrnTag", crud);
 		g.changeAccess("TrnTagLsn", crud);
 		g.changeAccess("TrnTagTranslate", crud);
-
+        g.changeAccess("TrnPage", crud);
 	}
 	
 	private void unloadTrnObjectAccess(){
@@ -270,6 +270,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		g.changeAccess("TrnTag", crud);
 		g.changeAccess("TrnTagLsn", crud);
 		g.changeAccess("TrnTagTranslate", crud);
+        g.changeAccess("TrnPage", crud);
 	}
 	
 	private void loadTrnObjects(){
