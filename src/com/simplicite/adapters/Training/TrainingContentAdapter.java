@@ -182,7 +182,6 @@ public class TrainingContentAdapter extends SimpleAdapter {
 					ObjectDB translation = getGrant().getObject(lang + description.getString("title") + "_TrnLsnTranslate", "TrnLsnTranslate");
 					translation.setFieldValue("trnLtrLan", lang.toUpperCase());
 					translation.setFieldValue("trnLtrTitle", description.getString("title"));
-					translation.setFieldValue("trnLtrDescription", description.getString("description"));
 					translation.setFieldValue("trnLtrLsnId", lessonId);
 					new BusinessObjectTool(translation).validateAndCreate();
 				} else {

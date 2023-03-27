@@ -587,8 +587,6 @@ public class TrnFsSyncTool implements java.io.Serializable {
 							File video = new File(content.getString("video"));
 							lessonContent.getField("trnLtrVideo").setDocument(lessonContent, video.getName(), new FileInputStream(video));
 						}
-						if(content.has("description"))
-							lessonContent.setFieldValue("trnLtrDescription", content.getString("description"));
 						bot.validateAndCreate();
 					}
 					
