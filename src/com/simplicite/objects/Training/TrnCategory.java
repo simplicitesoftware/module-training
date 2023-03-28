@@ -82,13 +82,19 @@ public class TrnCategory extends TrnObject {
 	@Override
 	public String postCreate() {
 		try{
-			ObjectDB tsl = getGrant().getTmpObject("TrnCategoryTranslate");
-			synchronized(tsl.getLock()){
-				tsl.resetValues();
-				tsl.setFieldValue("trnCtrLang", "ANY");
-				tsl.setFieldValue("trnCtrTitle", getFieldValue("trnCatCode"));
-				tsl.setFieldValue("trnCtrCatId", getRowId());
-				tsl.getTool().validateAndCreate();
+			ObjectDB tcl = getGrant().getTmpObject("TrnCategoryTranslate");
+			synchronized(tcl.getLock()){
+				tcl.resetValues();
+                tcl.resetFilters();
+                tcl.setFieldFilter("trnCtrCatId", getRowId());
+                tcl.setFieldFilter("trnCtrLang", "ANY");
+                if(tcl.count() == 0) {
+                    tcl.setFieldValue("trnCtrLang", "ANY");
+                    String test = getFieldValue("trnCatCode");
+                    tcl.setFieldValue("trnCtrTitle", getFieldValue("trnCatCode"));
+                    tcl.setFieldValue("trnCtrCatId", getRowId());
+                    tcl.getTool().validateAndCreate();
+                }
 			}
 		}
 		catch(Exception e){

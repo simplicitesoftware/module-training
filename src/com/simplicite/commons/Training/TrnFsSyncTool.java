@@ -443,7 +443,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 				category.setFieldValue("trnCatCode", name[2]);
 				category.setFieldValue("trnCatPath", relativePath);
 				category.setFieldValue("trnCatId", getCatRowIdFromPath(getParentRelativePath(dir)));
-				bot.validateAndSave();
+				bot.validateAndCreate();
 				rowId = category.getRowId();
 			}
 			
@@ -468,6 +468,8 @@ public class TrnFsSyncTool implements java.io.Serializable {
 					, false, false);
 					bot.validateAndCreate();
 				}
+                // create "ANY" cat title if it does not exist
+                category.postCreate();
 			}
 		}
 		catch(Exception e){

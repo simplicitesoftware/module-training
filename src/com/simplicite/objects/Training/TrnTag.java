@@ -35,4 +35,23 @@ public class TrnTag extends TrnObject {
 		}
 		return json;
 	}
+
+    @Override
+	public String postCreate() {
+		try{
+			ObjectDB tsl = getGrant().getTmpObject("TrnTagTranslate");
+			synchronized(tsl.getLock()){
+				tsl.resetValues();
+				tsl.setFieldValue("trnTagTranslateLang", "ANY");
+				tsl.setFieldValue("trnTagTranslateTrad", getFieldValue("trnTagCode"));
+				tsl.setFieldValue("trnTaglangTagId", getRowId());
+				tsl.getTool().validateAndCreate();
+			}
+		}
+		catch(Exception e){
+			AppLog.error(e, getGrant());
+		}
+
+		return null;
+	}
 }
