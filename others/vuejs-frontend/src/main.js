@@ -56,8 +56,17 @@ function fecthAppParams() {
   })
 }
 
+// maximum attempts if backend does not respond
+const maxAttempt = 5;
+let attempt = 0;
+
 // return true if server has responded or return false and wait 0.5sec before retrying 
 function initFront() {
+    if(attempt === maxAttempt) {
+        console.log("Backend is not responding...");
+        return;
+    }
+    attempt++;
       // set the vue after fetching the parameters
     fecthAppParams().then((res) => {
         if(res) {
