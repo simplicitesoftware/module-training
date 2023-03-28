@@ -572,22 +572,35 @@ public class TrnFsSyncTool implements java.io.Serializable {
 					JSONObject content = json.getJSONObject("contents").getJSONObject(lang);
 					bot = new BusinessObjectTool(lessonContent);
 					synchronized(lessonContent){
-						bot.selectForCreate();
-						lessonContent.setFieldValue("trnLtrLsnId", rowId);
-						lessonContent.setFieldValue("trnLtrLang", lang);
-						String ltrContent = "Content is not set for this lesson";
-						String ltrTitle = "default";
-						if(content.has("markdown")  && content.has("title")) {
-							ltrContent = FileTool.readFile(new File(content.getString("markdown")));
-							ltrTitle = content.getString("title");
-						}
-						lessonContent.setFieldValue("trnLtrContent", ltrContent);
-						lessonContent.setFieldValue("trnLtrTitle", ltrTitle);
-						if(content.has("video")){
-							File video = new File(content.getString("video"));
-							lessonContent.getField("trnLtrVideo").setDocument(lessonContent, video.getName(), new FileInputStream(video));
-						}
-						bot.validateAndCreate();
+                        bot.selectForCreate();
+                        lessonContent.setFieldValue("trnLtrLsnId", rowId);
+                        lessonContent.setFieldValue("trnLtrLang", lang);
+                        if(content.has("markdown")  && content.has("title")) {
+                            String ltrContent = FileTool.readFile(new File(content.getString("markdown")));
+                            String ltrTitle = content.getString("title");
+                            lessonContent.setFieldValue("trnLtrContent", ltrContent);
+                            lessonContent.setFieldValue("trnLtrTitle", ltrTitle);
+                        }
+                        
+                        if(content.has("video")){
+                            File video = new File(content.getString("video"));
+                            lessonContent.getField("trnLtrVideo").setDocument(lessonContent, video.getName(), new FileInputStream(video));
+                        }
+                        
+                        // validateAndUpdate not working
+                        if(lang.equals("ANY")) {
+                            ObjectDB translate = g.getObject("trn_any_content", "TrnLsnTranslate");
+                            translate.resetFilters();
+                            translate.setFieldFilter("trnLtrLsnId", rowId);
+                            translate.setFieldFilter("trnLtrLang", "ANY");
+                            List<String[]> res = translate.search();
+                            if(res.size() > 0) {
+                                translate.setValues(res.get(0));
+                                translate.delete();
+                            }
+                            
+                        }
+                        bot.validateAndCreate();
 					}
 					
 					if(content.has("pics")){
@@ -609,7 +622,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 			}
 		}
 		catch(Exception e){
-			AppLog.error(getClass(), "upsertCategory", e.getMessage(), e, g);
+			AppLog.error(getClass(), "upsertLesson", e.getMessage(), e, g);
 			throw new TrnSyncException("TRN_SYNC_UPSERT_LESSON", e.getMessage()+" "+lesson.toJSON()+ " "+dir.getPath());
 		}
 	}
@@ -680,7 +693,6 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		lsn.put("code", getLsnCode(dir));
 		
 		JSONObject json = new JSONObject(FileTool.readFile(dir.getPath()+"/lesson.json"));
-		if(!json.has("ANY")) json.put("ANY", new JSONObject());
 		lsn.put("published", json.optBoolean("published", true));
 		lsn.put("viz", json.optString("display", "TUTO"));
 		lsn.put("tags", json.optJSONArray("tags"));
