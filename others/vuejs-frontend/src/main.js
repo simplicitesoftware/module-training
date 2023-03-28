@@ -1,3 +1,4 @@
+/* eslint-disable no-debugger */
 import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from 'vue-router'
@@ -38,7 +39,7 @@ function setSimplicitePublicSession(){
 }
 
 function fecthAppParams() {
-  return new Promise(() => {
+  return new Promise((resolve) => {
     Vue.prototype.$smp.getExternalObject("TrnPublicService")
     .call()
     .then(res => {
@@ -47,23 +48,38 @@ function fecthAppParams() {
       else Vue.prototype.$ES_INSTANCE = res.es_instance;  
       Vue.prototype.$ES_INDEX = res.es_index;
       Vue.prototype.$ES_CREDENTIALS = res.es_credentials;
+      resolve(true)
     }).catch((e) => {
       console.error("fetchAppParams has failed: " + JSON.stringify(e, null, 4));
+      resolve(false)
     });
   })
 }
 
-(() => {
-  Vue.prototype.$smp = setSimplicitePublicSession();
-  fecthAppParams();
+// return true if server has responded or return false and wait 0.5sec before retrying 
+function initFront() {
+      // set the vue after fetching the parameters
+    fecthAppParams().then((res) => {
+        if(res) {
+            //5. Creating the Vue instance with the router, the store and el:'#app' as the root instance of vue
+            new Vue({
+                el: '#app',
+                store, //injects the store into all child components so they can use it
+                render: h => h(App),
+                router: router,
+            }).$mount('#app');
+        } else {
+            setTimeout(() => initFront, 500);
+        }
+        
+    });
+    return false;
+}
 
-  //5. Creating the Vue instance with the router, the store and el:'#app' as the root instance of vue
-  new Vue({
-    el: '#app',
-    store, //injects the store into all child components so they can use it
-    render: h => h(App),
-    router: router,
-  }).$mount('#app');
+(() => {
+
+  Vue.prototype.$smp = setSimplicitePublicSession();
+  initFront()
 })()
 
 
