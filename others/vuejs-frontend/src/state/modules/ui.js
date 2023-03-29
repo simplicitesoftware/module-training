@@ -6,7 +6,7 @@ export default {
     isDrawerOpen: true,
     isLightBoxVisible: false,
     lightBoxImageSrc: '',
-    langIndex: 0,
+    langIndex: 1,
     langList: ['FRA', 'ENU'],
     tagList: [],
     tagCache: [], // cache used to apply correct values after toggle lang
