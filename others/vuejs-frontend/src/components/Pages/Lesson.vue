@@ -130,6 +130,17 @@
             el.scrollIntoView();
           }
         })
+      },
+      // prevents page reloading on internal URL's
+      onHtmlClick(event) {
+        if(event.target.tagName.toLowerCase() === 'a') {
+            // if the href is served on the same base url
+            if(event.target.href.includes(window.location.origin)) {
+                event.stopPropagation();
+                event.preventDefault();
+                this.$router.push(event.target.pathname);
+            }
+        }
       }
     },
     async created() {      
@@ -169,6 +180,7 @@
     },
     mounted() {
       this.addScrollListeners();
+      this.$el.addEventListener("click", this.onHtmlClick);
     },
     beforeDestroy() {
       this.$store.dispatch('lesson/unsetLesson');
