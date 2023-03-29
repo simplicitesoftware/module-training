@@ -116,7 +116,6 @@ header
     width: $header-logo-width
     height: 50px
     margin: 5px 5px 5px 16px
-    filter: invert(100%)
     &:hover
       cursor: pointer
 
