@@ -49,9 +49,9 @@
    "field": "row_module_id",
    "list": [{
     "object": "View",
-    "userkey": "Formation",
+    "userkey": "Training",
     "item": {
-     "viw_name": "Formation",
+     "viw_name": "Training",
      "viw_ui": null,
      "viw_order": 1,
      "viw_icon": "img/color/innovation",
@@ -165,7 +165,7 @@
       "grp_comment": "The group for the administrators of the training platform",
       "grp_type": ["G"],
       "grp_parent_id__grp_name": null,
-      "grp_home_id__viw_name": "Formation",
+      "grp_home_id__viw_name": "Training",
       "row_module_id__mdl_name": "Training"
      }
     },
@@ -8024,9 +8024,9 @@
    "field": "row_module_id",
    "list": [{
     "object": "ViewGroup",
-    "userkey": "Formation~TRN_ADMIN",
+    "userkey": "Training~TRN_ADMIN",
     "item": {
-     "vig_view_id__viw_name": "Formation",
+     "vig_view_id__viw_name": "Training",
      "vig_group_id__grp_name": "TRN_ADMIN",
      "vig_group_id__grp_comment": "The group for the administrators of the training platform",
      "row_module_id__mdl_name": "Training"
@@ -11344,6 +11344,20 @@
    "list": [
     {
      "object": "TranslateLink",
+     "userkey": "K~~~~ENU",
+     "item": {
+      "tsl_typeLink": "K",
+      "tsl_id__obf_object_id__obj_name": null,
+      "tsl_id__obf_field_id__fld_name": null,
+      "tsl_id__obf_order": null,
+      "tsl_lang": "ENU",
+      "tsl_value": "Subcategories",
+      "tsl_simplehelp": null,
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "TranslateLink",
      "userkey": "K~TrnCategory~trnCatId~70~ENU",
      "item": {
       "tsl_typeLink": "K",
@@ -11352,6 +11366,20 @@
       "tsl_id__obf_order": 70,
       "tsl_lang": "ENU",
       "tsl_value": "Subcategories",
+      "tsl_simplehelp": null,
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "TranslateLink",
+     "userkey": "K~~~~FRA",
+     "item": {
+      "tsl_typeLink": "K",
+      "tsl_id__obf_object_id__obj_name": null,
+      "tsl_id__obf_field_id__fld_name": null,
+      "tsl_id__obf_order": null,
+      "tsl_lang": "FRA",
+      "tsl_value": "Catégories Filles",
       "tsl_simplehelp": null,
       "row_module_id__mdl_name": "Training"
      }
@@ -11380,10 +11408,10 @@
    "list": [
     {
      "object": "TranslateView",
-     "userkey": "V~Formation~ENU",
+     "userkey": "V~Training~ENU",
      "item": {
       "tsl_typeView": "V",
-      "tsl_id__viw_name": "Formation",
+      "tsl_id__viw_name": "Training",
       "tsl_lang": "ENU",
       "tsl_value": "Training Scope",
       "tsl_help": null,
@@ -11392,10 +11420,10 @@
     },
     {
      "object": "TranslateView",
-     "userkey": "V~Formation~FRA",
+     "userkey": "V~Training~FRA",
      "item": {
       "tsl_typeView": "V",
-      "tsl_id__viw_name": "Formation",
+      "tsl_id__viw_name": "Training",
       "tsl_lang": "FRA",
       "tsl_value": "Scope Formation",
       "tsl_help": null,
