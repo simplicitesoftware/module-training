@@ -7,53 +7,26 @@
 						<div class="lesson-html-content" v-if="lesson.html" v-html="lesson.html"></div>
 					</div>
 					<div v-else-if="gotServerResponse && !lesson.html" class="default-content">
-						<div class="header">
-							<h1>Welcome</h1>
-							<h2>To the default page of the Simplicité documentation module</h2>
-							<p class="subtitle-text">This page contains all the informations needed to help you set your own documentation</p>
-						</div>
-						<div class="content-flex">
-							<div class="content-wrapper">
-								<div class="ui-button">
-									
-									<a href="/ui" class="ui-link">
-									<button class="button-text">Go to Simplicité UI</button>
-								</a>
-								</div>
-								<div class="text-content">
-									<h2 class="text-title">Main features</h2>
+						<h1 class="title">Congratulations!  🥳</h1>
+						<div class="content-wrapper">
+							<div class="introduction">
+								<p>You have successfully installed the documentation module! </p>
+								<p>It’s a ready-to use application. Use it to share your information and processes on the web. Do not publish sensible information, or make sure you restrict the access to this website at the network level.</p>
+							</div>
+							<div class="text-image">
+								<div class="default-text">
+									<p>Here are some next steps that you might want to take :</p>
 									<ul>
-										<li>
-											<h4 class="sub-title">Categories / Lessons :</h4>
-											<p class="text-block">Assign lessons to categories, and set the content in one or more langages.</p>
-											<p class="text-block">Both categories and lessons can be published / unpublished.</p>
-										</li>
-										<li>
-											<h4 class="sub-title">Pages : </h4>
-											<p class="text-block">This object serves pages that do not necessarily appear in the tree view.</p>
-											<p class="text-block">
-											A page must be linked with a lesson (lesson handles the content), its responsibility is to
-											serve the content either as a page on the following url <span class="italic">/page/&lt;category-name&gt;/&lt;page-name&gt;</span>
-											or as a homepage (limited to 1).
-											</p>
-											<p class="text-block">
-											In order to hide a page from the tree view, unpublish the category linked to the lesson.
-											You can also unpublish pages through the linked lesson publish option in which case it won't be served anymore.
-											</p>
-										</li>
-										<li>
-											<h4 class="sub-title">Tags :</h4>
-											<p class="text-block">
-											You can set tags on your lessons. These tags give your users the ability to sort lessons on the frontend.
-											</p>
-										</li>
-										<li>
-											<h4 class="sub-title">Site theme :</h4>
-											<p class="text-block">Customize the frontend appearence using the Site theme object.</p>
-											<p class="text-block">This object gives you the possiblity to change the primary / secondary colors and also the logo of your documentation.</p> 
-										</li>
+										<li>Apply your own branding </li>
+										<li>Create some categories and lessons</li>
+										<li>Create a custom homepage</li>
 									</ul>
+									<p>Instructions on how to administrate this website’s content are available on the backoffice, which you can access through the /ui endpoint.</p>
 								</div>
+								<img class="default-image" src="../../../public/img/homepage-illustration.svg"/>
+							</div>
+							<div class="button-container">
+								<button class="backoffice" @click="$router.push('/ui?scope=Training')">Access to the administrator’s backoffice</button>
 							</div>
 						</div>
 					</div>
@@ -126,7 +99,7 @@ export default {
 			border-bottom: 1px solid #eee
 			background-color: white
 			padding-bottom: 1em
-			border-radius: map-get($radius, regular)
+			order-radius: map-get($radius, regular)
 			@include box-shadow
 			overflow: auto
 			.content-block
@@ -135,69 +108,42 @@ export default {
 
 .default-content
 	padding: map_get($paddings, "medium")
-	font-size: 1.1rem
-	
-	.header
+	line-height: 1.8rem
+	font-size: 1.4rem
+	p
+		padding-bottom: 20px
+	ul
+		padding-bottom: 30px
+	.title
 		text-align: center
-		background-color: #d8d8d8
-		border-radius: map-get($radius, "medium")
-		margin-bottom: 0.9rem
-		.subtitle-text
-			padding-bottom: map_get($paddings, "medium")
-			padding-top: map_get($paddings, "small")
-	
-	.content-flex
-		line-height: 1.5
-		display: flex
-		flex-direction: row
-		flex-warp: wrap 
-		@include box-shadow
-		border-radius: map-get($radius, "medium")
-		ul
-			list-style-type: none
-
-		.content-wrapper
-			width: 100%
-			.ui-button
-				float: right
-				padding: map_get($paddings, "medium")
-				margin-top: map_get($margins, "medium")
-				margin-right: map_get($margins, "medium")
-
-				.ui-link
-					@include box-shadow
-					border: none
-					border-radius: 10px
-					background-color: #479eff
-					//text-align: center
-					padding: 15px
-					
-					&:hover
-						background-color: #2859fa
+		padding: 20px
+		padding-bottom: 40px
+	.content-wrapper
+		padding-left: 22%
+		padding-right: 22%
+		.introduction
+		.text-image
+			display: flex
+			wrap: column
+			.default-text
+				flex-direction: column
+				margin-top: 10px
+			.default-image
+				padding-left: 30px
+				width: 15em
+	.button-container
+		padding-top: 40px
+		width: 100%
+		text-align: center
+		.backoffice
+			display: inline-block
+			background-color:	#6aa84f
+			color: white
+			border-radius: 15px
+			font-size: 1.4rem
+			padding: 20px
+			&:hover
+				cursor: pointer
+				@include box-shadow
 						
-					
-					.button-text
-						font-size: 1.2rem
-						color: white
-						vertical-align: middle
-						cursor: pointer
-						
-						
-			.text-content
-				padding: map_get($paddings, "large")
-				text-align: justify
-				.text-title
-					padding-bottom: 5px
-				.sub-title
-					padding-bottom: map_get($paddings, "small")
-					color: #387ED1
-				.text-block
-					padding-bottom: map_get($paddings, "medium")
-					margin-left: 8px
-				.italic
-					font-style: italic
-					color: #4a4a4a
-
-	
-
 </style>
