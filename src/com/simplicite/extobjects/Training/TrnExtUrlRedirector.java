@@ -34,7 +34,8 @@ public class TrnExtUrlRedirector extends ExternalObject {
 					}
 				}
 				//setPublic(true);
-				return this.sendHttpRedirect(params, destinationUrl);
+                this.sendHttpRedirect(params, destinationUrl);
+				return "";
 			} else {
 				try { return sendHttpError(params, 500); } catch (IOException ie) { return "Unexpected error"; }
 			}
