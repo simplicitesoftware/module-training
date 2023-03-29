@@ -26,7 +26,9 @@
 								<img class="default-image" src="../../../public/img/homepage-illustration.svg"/>
 							</div>
 							<div class="button-container">
-								<button class="backoffice" @click="$router.push('/ui?scope=Training')">Access to the administrator’s backoffice</button>
+								<a href="/ui?scope=Formation">
+									<button class="backoffice">Access to the administrator’s backoffice</button>
+								</a>
 							</div>
 						</div>
 					</div>
