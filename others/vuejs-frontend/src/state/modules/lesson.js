@@ -21,8 +21,8 @@ export default {
           {"trnPageType": "homepage", "TrnPage_TrnLesson_id__trnLsnPublish": true}, {inlineDocs: 'infos'}
         ).then(async array => {
           if(array[0]) {
-            payload.lesson.row_id = array[0].TrnPage_TrnLesson_id;
-            payload.lesson.viz = array[0].TrnPage_TrnLesson_id__trnLsnVisualization;
+            payload.lesson.row_id = array[0].trnPageTrnLessonid;
+            payload.lesson.viz = array[0].trnPageTrnLessonid__trnLsnVisualization;
             await dispatch("fetchLesson", payload);
             resolve();
           }
