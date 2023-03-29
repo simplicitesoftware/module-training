@@ -2,6 +2,7 @@ package com.simplicite.commons.Training;
 
 import java.util.*;
 
+import com.google.gson.JsonObject;
 import com.simplicite.objects.Training.TrnTagLsn;
 import com.simplicite.objects.Training.TrnTagTranslate;
 import com.simplicite.objects.Training.TrnUrlRewriting;
@@ -573,38 +574,42 @@ public class TrnFsSyncTool implements java.io.Serializable {
 				if(json.getJSONObject("contents").has(lang)){					
 					JSONObject content = json.getJSONObject("contents").getJSONObject(lang);
 					bot = new BusinessObjectTool(lessonContent);
-					synchronized(lessonContent){
-                        bot.selectForCreate();
-                        lessonContent.setFieldValue("trnLtrLsnId", rowId);
-                        lessonContent.setFieldValue("trnLtrLang", lang);
-                        if(content.has("markdown")  && content.has("title")) {
-                            String ltrContent = FileTool.readFile(new File(content.getString("markdown")));
-                            String ltrTitle = content.getString("title");
-                            lessonContent.setFieldValue("trnLtrContent", ltrContent);
-                            lessonContent.setFieldValue("trnLtrTitle", ltrTitle);
-                        }
-                        
-                        if(content.has("video")){
-                            File video = new File(content.getString("video"));
-                            lessonContent.getField("trnLtrVideo").setDocument(lessonContent, video.getName(), new FileInputStream(video));
-                        }
-                        
-                        // validateAndUpdate not working
-                        if(lang.equals("ANY")) {
-                            ObjectDB translate = g.getObject("trn_any_content", "TrnLsnTranslate");
-                            translate.resetFilters();
-                            translate.setFieldFilter("trnLtrLsnId", rowId);
-                            translate.setFieldFilter("trnLtrLang", "ANY");
-                            List<String[]> res = translate.search();
-                            if(res.size() > 0) {
-                                translate.setValues(res.get(0));
-                                translate.delete();
+                    if((content.has("markdown")  && content.has("title")) || content.has("video")) {
+                        synchronized(lessonContent){
+                            bot.selectForCreate();
+                            lessonContent.setFieldValue("trnLtrLsnId", rowId);
+                            lessonContent.setFieldValue("trnLtrLang", lang);
+                            if(content.has("markdown")  && content.has("title")) {
+                                String ltrContent = FileTool.readFile(new File(content.getString("markdown")));
+                                String ltrTitle = content.getString("title");
+                                lessonContent.setFieldValue("trnLtrContent", ltrContent);
+                                lessonContent.setFieldValue("trnLtrTitle", ltrTitle);
                             }
                             
+                            if(content.has("video")){
+                                File video = new File(content.getString("video"));
+                                lessonContent.getField("trnLtrVideo").setDocument(lessonContent, video.getName(), new FileInputStream(video));
+                                if(lessonContent.getFieldValue("trnLtrTitle").isEmpty()) {
+                                    lessonContent.setFieldValue("trnLtrTitle", json.get("code"));
+                                }
+                            }
+                            
+                            // validateAndUpdate not working
+                            if(lang.equals("ANY")) {
+                                ObjectDB translate = g.getObject("trn_any_content", "TrnLsnTranslate");
+                                translate.resetFilters();
+                                translate.setFieldFilter("trnLtrLsnId", rowId);
+                                translate.setFieldFilter("trnLtrLang", "ANY");
+                                List<String[]> res = translate.search();
+                                if(res.size() > 0) {
+                                    translate.setValues(res.get(0));
+                                    translate.delete();
+                                }
+                                
+                            }
+                            bot.validateAndCreate();
                         }
-                        bot.validateAndCreate();
-					}
-					
+                    }
 					if(content.has("pics")){
 						JSONArray pics = content.getJSONArray("pics");
 						
@@ -695,6 +700,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		lsn.put("code", getLsnCode(dir));
 		
 		JSONObject json = new JSONObject(FileTool.readFile(dir.getPath()+"/lesson.json"));
+        if(!json.has("ANY")) json.put("ANY", new JSONObject());
 		lsn.put("published", json.optBoolean("published", true));
 		lsn.put("viz", json.optString("display", "TUTO"));
 		lsn.put("tags", json.optJSONArray("tags"));
