@@ -26,7 +26,7 @@
 								<img class="default-image" src="../../../public/img/homepage-illustration.svg"/>
 							</div>
 							<div class="button-container">
-								<a href="/ui?scope=Formation">
+								<a href="/ui?scope=Training">
 									<button class="backoffice">Access to the administrator’s backoffice</button>
 								</a>
 							</div>
