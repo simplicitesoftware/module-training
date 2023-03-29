@@ -18,7 +18,7 @@ export default {
       return new Promise((resolve, reject) => {
         let page = payload.smp.getBusinessObject("TrnPage");
         page.search(
-          {"trnPageType": "homepage", "TrnPage_TrnLesson_id__trnLsnPublish": true}, {inlineDocs: 'infos'}
+          {"trnPageType": "homepage", "trnPageTrnLessonid__trnLsnPublish": true}, {inlineDocs: 'infos'}
         ).then(async array => {
           if(array[0]) {
             payload.lesson.row_id = array[0].trnPageTrnLessonid;
@@ -34,7 +34,7 @@ export default {
     async openPage({dispatch}, payload) {
       return new Promise((resolve) => {
         let page = payload.smp.getBusinessObject("TrnPage");
-        page.search({"TrnPage_TrnLesson_id__trnLsnFrontPath": payload.path, "TrnPage_TrnLesson_id__trnLsnPublish": true}, {inlineDocs: 'infos'})
+        page.search({"trnPageTrnLessonid__trnLsnFrontPath": payload.path, "trnPageTrnLessonid__trnLsnPublish": true}, {inlineDocs: 'infos'})
         .then(async array => {
           if(array[0]) {
             payload.lesson.row_id = array[0].TrnPage_TrnLesson_id;
