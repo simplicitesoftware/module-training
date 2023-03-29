@@ -77,11 +77,9 @@ function initFront() {
                 router: router,
             }).$mount('#app');
         } else {
-            setTimeout(() => initFront, 500);
-        }
-        
+            setTimeout(() => initFront(), 500);
+        }  
     });
-    return false;
 }
 
 (() => {
