@@ -13,7 +13,6 @@ import simplicite from 'simplicite';
 import AsyncComputed from 'vue-async-computed';
 import vClickOutside from 'v-click-outside'
 
-
 Vue.use(VueHighlightJS);
 Vue.config.productionTip = false;
 Vue.use(VueRouter);

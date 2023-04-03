@@ -170,15 +170,13 @@ export default {
 
         const myHeaders = new Headers();
         if(process.env.NODE_ENV !== "local") {
-          const authent = btoa(this.$ES_CREDENTIALS);
+          const authent = Buffer.from(this.$ES_CREDENTIALS, 'utf8').toString('base64');
           myHeaders.append("Authorization", "Basic "+authent);
+          console.log("added authorization headers");
         }
 
         myHeaders.append("Content-Type", "application/json");
-        // eslint-disable-next-line no-unused-vars
-        const esInstance = this.$ES_INSTANCE;
         myHeaders.append("Origin", this.$ES_INSTANCE);
- 
 
         const json = {
           "query": {
@@ -297,7 +295,7 @@ export default {
   position: absolute
   z-index: 1
   overflow: scroll
-  max-height: 50rem
+  max-height: 80vh
   width: 50vw
   //width: 50%
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)

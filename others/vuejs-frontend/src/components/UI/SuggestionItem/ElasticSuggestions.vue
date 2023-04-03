@@ -15,6 +15,11 @@ export default {
   components: {
     SuggestionItem
   },
+  data: function() {
+    return {
+      contentMaxLength: 800
+    }
+  },
   props:{
       elasticHits: Array,
   },
@@ -52,6 +57,8 @@ export default {
     stringifyHighlightedContent(highlights) {
       let content = "";
       for(const h of highlights) {
+        // prevents too big suggestions
+        if(content.length > this.contentMaxLength) return content
         content += h + " [...]<br>";
       }
       return content;
