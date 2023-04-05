@@ -22,7 +22,7 @@
      "item": {
       "sys_code": "TRN_CONFIG",
       "sys_value": "{\n    \"edition_type\": \"UI\",\n    \"index_type\": \"simplicite\"\n}",
-      "sys_value2": "{\n\t\"edition_type\": \"UI\",\n\t\"filesystem_contentdir\": \"/home/trainingrec/training-content/content\",\n\t\"index_type\": \"elasticsearch\",\n\t\"esi_config\": {\n        \"instance\": \"https://index.simplicite.io\",\n        \"index\": \"simplicite\",\n        \"public_credentials\":\"frontend:7~HFym%vvWM9{b5iGwG>CPDL>\"\n    }\n}",
+      "sys_value2": null,
       "sys_type": "PRV",
       "sys_desc": "Examples : \n\nSimple usecase\n---------------------------\n\nEditing through UI, using Simplicité indexing\n\n```json\n{\n\t\"edition_type\": \"UI\",\n\t\"index_type\": \"simplicite\"\n}\n```\n\nAdvanced usecase\n---------------------------\n\nEditing through Filesystem (possible git repo), using ElasticSearch indexing\n\n```json\n{\n\t\"edition_type\": \"FILESYSTEM\",\n\t\"filesystem_contentdir\": \"/path/to/directory/to/sync/with\",\n\t\"index_type\": \"elasticsearch\",\n\t\"esi_config\": {\n\t\t\"instance\": \"https://elasticsearchinstance.mydomain.not\",\n\t\t\"index\": \"docs_myinstance\",\n\t\t\"public_credentials\":\"user:password\"\n\t}\n}\n```",
       "row_module_id__mdl_name": "Training"
@@ -98,21 +98,21 @@
     "object": "User",
     "userkey": "training-sync",
     "item": {
-     "usr_image_id": null,
      "usr_login": "training-sync",
+     "usr_lang": "FRA",
+     "usr_image_id": null,
      "usr_timezone": null,
      "usr_minrows": 20,
      "usr_maxrows": 50,
+     "usr_active": "1",
      "usr_title": null,
-     "usr_first_name": null,
      "usr_last_name": null,
-     "usr_lang": "FRA",
+     "usr_first_name": null,
      "usr_email": null,
+     "usr_home_id__viw_name": null,
      "usr_work_num": null,
      "usr_home_num": null,
      "usr_cell_num": null,
-     "usr_active": "1",
-     "usr_home_id__viw_name": null,
      "usr_address1": null,
      "usr_address2": null,
      "usr_zipcode": null,
@@ -123,7 +123,7 @@
      "usr_menu": true,
      "usr_menu_defcollapsed": false,
      "usr_menu_defdomain_id__obd_name": null,
-     "usr_last_logon": "2022-02-04 16:13:10",
+     "usr_last_logon": "2023-04-04 14:59:01",
      "usr_dateformat": null,
      "usr_lang_pref": "FRA",
      "usr_mfa_method": null,
@@ -136,20 +136,36 @@
    "label": "User parameter",
    "icon": "img/system/system_param",
    "field": "row_module_id",
-   "list": [{
-    "object": "UserSysParam",
-    "userkey": "training-sync~FORCE_CHANGE_PASSWORD",
-    "item": {
-     "usp_user_id__usr_login": "training-sync",
-     "usp_param_id__sys_code": "FORCE_CHANGE_PASSWORD",
-     "usp_value": "yes",
-     "usp_param_id__sys_type": "PRV",
-     "usp_param_id__sys_value": "empty",
-     "usp_param_id__sys_value2": null,
-     "usp_param_id__sys_desc": "Force password change (set at user level)",
-     "row_module_id__mdl_name": "Training"
+   "list": [
+    {
+     "object": "UserSysParam",
+     "userkey": "training-sync~DISPOSITION",
+     "item": {
+      "usp_user_id__usr_login": "training-sync",
+      "usp_param_id__sys_code": "DISPOSITION",
+      "usp_value": null,
+      "usp_param_id__sys_type": "LFL",
+      "usp_param_id__sys_value": "default",
+      "usp_param_id__sys_value2": null,
+      "usp_param_id__sys_desc": "Webapp disposition, ex: default, myapp, ...",
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "UserSysParam",
+     "userkey": "training-sync~FORCE_CHANGE_PASSWORD",
+     "item": {
+      "usp_user_id__usr_login": "training-sync",
+      "usp_param_id__sys_code": "FORCE_CHANGE_PASSWORD",
+      "usp_value": "yes",
+      "usp_param_id__sys_type": "PRV",
+      "usp_param_id__sys_value": "empty",
+      "usp_param_id__sys_value2": null,
+      "usp_param_id__sys_desc": "Force password change (set at user level)",
+      "row_module_id__mdl_name": "Training"
+     }
     }
-   }]
+   ]
   },
   {
    "object": "Group",
@@ -11344,6 +11360,20 @@
    "list": [
     {
      "object": "TranslateLink",
+     "userkey": "K~~~~ENU",
+     "item": {
+      "tsl_typeLink": "K",
+      "tsl_id__obf_object_id__obj_name": null,
+      "tsl_id__obf_field_id__fld_name": null,
+      "tsl_id__obf_order": null,
+      "tsl_lang": "ENU",
+      "tsl_value": "Subcategories",
+      "tsl_simplehelp": null,
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "TranslateLink",
      "userkey": "K~TrnCategory~trnCatId~70~ENU",
      "item": {
       "tsl_typeLink": "K",
@@ -11352,6 +11382,20 @@
       "tsl_id__obf_order": 70,
       "tsl_lang": "ENU",
       "tsl_value": "Subcategories",
+      "tsl_simplehelp": null,
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "TranslateLink",
+     "userkey": "K~~~~FRA",
+     "item": {
+      "tsl_typeLink": "K",
+      "tsl_id__obf_object_id__obj_name": null,
+      "tsl_id__obf_field_id__fld_name": null,
+      "tsl_id__obf_order": null,
+      "tsl_lang": "FRA",
+      "tsl_value": "Catégories Filles",
       "tsl_simplehelp": null,
       "row_module_id__mdl_name": "Training"
      }
