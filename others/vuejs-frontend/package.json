@@ -6,7 +6,6 @@
     "serve": "vue-cli-service serve --mode remote",
     "serve-dev": "vue-cli-service serve --mode local",
     "build": "vue-cli-service build",
-    "build-remote": "vue-cli-service build --mode remote",
     "lint": "vue-cli-service lint",
     "zip": "jar -cfM ../../resources/ObjectExternal/TrnFront/site.zip -C ./dist/ .",
     "sim-deploy": "npm run build && npm run zip"

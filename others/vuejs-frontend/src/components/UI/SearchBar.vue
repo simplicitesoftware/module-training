@@ -167,12 +167,10 @@ export default {
         this.isSugOpen = false
       }
       else{
-
         const myHeaders = new Headers();
         if(process.env.NODE_ENV !== "local") {
           const authent = Buffer.from(this.$ES_CREDENTIALS, 'utf8').toString('base64');
           myHeaders.append("Authorization", "Basic "+authent);
-          console.log("added authorization headers");
         }
 
         myHeaders.append("Content-Type", "application/json");
@@ -192,9 +190,8 @@ export default {
           },
           "size": 10
         };
-        const raw = JSON.stringify(
-          json
-        );
+
+        const raw = JSON.stringify(json);
 
         var requestOptions = {
           method: 'POST',

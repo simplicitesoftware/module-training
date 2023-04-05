@@ -128,19 +128,19 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		loadTrnObjects();
 		// injects contents at `contentDir` into DB, sets new hashes (recursive)
 		syncPath("/");
-    AppLog.info("Content has been synced", g);
+        AppLog.info("Content has been synced", g);
 		// deletes from DB paths that are not in the file structure anymore
-    AppLog.info("Removing deleted items...", g);
+        AppLog.info("Removing deleted items...", g);
 		deleteDeleted();
 		// save new hashes (in glo.ser)
 		// NB: if there was an exception above, glo.ser not modified => sync() would rerun similarly
 		storeHashes();
-    AppLog.info("Synchronization done", g);
+        AppLog.info("Synchronization done", g);
 	}
 	
 	public void verifyContentStructure() throws TrnSyncException{
 		TrnVerifyContent.verifyContentStructure(contentDir, TrnTools.getLangs(g));
-    AppLog.info("Training content has been verified", g);
+        AppLog.info("Training content has been verified", g);
 	}
 	
 	private boolean isPic(File f){

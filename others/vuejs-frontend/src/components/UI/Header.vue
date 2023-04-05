@@ -13,6 +13,7 @@
          v-show="navigationArrowVisible">skip_previous</i>
       <i id="next-button" class="material-icons header-buttons__button" @click="arrowNavigationClicked(1)"
          v-show="navigationArrowVisible">skip_next</i>
+      <i id="to-ui" class="material-icons header-buttons__button" @click="toUi()">open_in_new</i>
       <div v-if="isTagDefined">
         <i id="tag-selector" :class="tagClass" @click="tagSelectorClicked">bookmark</i>
         <TagSelector v-if="isModalOpen"/>

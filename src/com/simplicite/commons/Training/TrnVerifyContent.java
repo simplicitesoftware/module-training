@@ -13,7 +13,7 @@ import org.json.JSONArray;
 // This code is also used in the content migration script. 
 // see CheckDocs2.java -> https://github.com/simplicitesoftware/migdocs2
 public class TrnVerifyContent implements java.io.Serializable {
-	private static final long serialVersionUID = 1L;	
+	private static final long serialVersionUID = 1L;
 	private static final Pattern PATTERN_CATEGORY = Pattern.compile("^CTG_[0-9]+_[a-z0-9\\-]+$");
 	private static final Pattern PATTERN_LESSON = Pattern.compile("^LSN_[0-9]+_[a-z0-9\\-]+$");
 	private static String[] LANG_CODES;
