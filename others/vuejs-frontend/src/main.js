@@ -24,7 +24,7 @@ Vue.use(vClickOutside);
 
 // Make Simplicité login as a promise
 function setSimplicitePublicSession(){
-  var deploymentType = process.env.NODE_ENV;
+  const deploymentType = process.env.NODE_ENV;
   let instanceUrl = deploymentType === 'remote' || deploymentType === 'local' ? process.env.VUE_APP_SIM_INSTANCE_URL : window.location.origin;
   console.log('instance url : ' + instanceUrl);
 
@@ -41,11 +41,15 @@ function fecthAppParams() {
     Vue.prototype.$smp.getExternalObject("TrnPublicService")
     .call()
     .then(res => {
-      Vue.prototype.$SEARCH_TYPE = res.search_type;  
-      if(process.env.NODE_ENV === "local") Vue.prototype.$ES_INSTANCE = process.env.VUE_APP_ESI_URL;
-      else Vue.prototype.$ES_INSTANCE = res.es_instance;  
-      Vue.prototype.$ES_INDEX = res.es_index;
-      Vue.prototype.$ES_CREDENTIALS = res.es_credentials;
+      Vue.prototype.$SEARCH_TYPE = res.search_type;
+      if(Vue.prototype.$SEARCH_TYPE === "elasticsearch") {
+        if(process.env.NODE_ENV === "local") Vue.prototype.$ES_INSTANCE = process.env.VUE_APP_ESI_URL;
+        else Vue.prototype.$ES_INSTANCE = res.es_instance;  
+        Vue.prototype.$ES_INDEX = res.es_index;
+        Vue.prototype.$ES_CREDENTIALS = res.es_credentials;
+      }
+      console.log("Successfuly fetched app paramaters from instance");
+      console.log(`Current search type: ${Vue.prototype.$SEARCH_TYPE}`);
       resolve(true)
     }).catch((e) => {
       console.error("fetchAppParams has failed: " + JSON.stringify(e, null, 4));
@@ -59,9 +63,11 @@ const maxAttempt = 5;
 let attempt = 0;
 
 // return true if server has responded or return false and wait 0.5sec before retrying 
+// implemented to handle the case where clearing backend cache or importing the module for the first time will break the front (infinite spinner, no header or no tree view)
+// this happens because simplicite serves the front before loading up others services such as TrnTreeService, TrnTagService etc...
 function initFront() {
     if(attempt === maxAttempt) {
-        console.log("Backend is not responding...");
+        console.log("Backend is not responding. Reload the page or contact an admin");
         return;
     }
     attempt++;
@@ -76,16 +82,16 @@ function initFront() {
                 router: router,
             }).$mount('#app');
         } else {
+            console.log("")
             setTimeout(() => initFront(), 500);
         }  
     });
 }
 
 (() => {
-
   Vue.prototype.$smp = setSimplicitePublicSession();
   initFront()
-})()
+})() 
 
 
 
