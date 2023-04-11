@@ -773,6 +773,6 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	}
 	
 	private boolean isTrainingDbEmpty(){
-		return 0==g.simpleQueryAsDouble("select count(*) from trn_category");
+		return 0 == (int) g.simpleQueryAsDouble("select count(*) from trn_category");
 	}
 }
