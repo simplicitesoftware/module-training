@@ -22,7 +22,7 @@
      "item": {
       "sys_code": "TRN_CONFIG",
       "sys_value": "{\n    \"edition_type\": \"UI\",\n    \"index_type\": \"simplicite\"\n}",
-      "sys_value2": "",
+      "sys_value2": null,
       "sys_type": "PRV",
       "sys_desc": "Examples : \n\nSimple usecase\n---------------------------\n\nEditing through UI, using Simplicité indexing\n\n```json\n{\n\t\"edition_type\": \"UI\",\n\t\"index_type\": \"simplicite\"\n}\n```\n\nAdvanced usecase\n---------------------------\n\nEditing through Filesystem (possible git repo), using ElasticSearch indexing\n\n```json\n{\n\t\"edition_type\": \"FILESYSTEM\",\n\t\"filesystem_contentdir\": \"/path/to/directory/to/sync/with\",\n\t\"index_type\": \"elasticsearch\",\n\t\"esi_config\": {\n\t\t\"instance\": \"https://elasticsearchinstance.mydomain.not\",\n\t\t\"index\": \"docs_myinstance\",\n\t\t\"public_credentials\":\"user:password\"\n\t}\n}\n```",
       "row_module_id__mdl_name": "Training"
@@ -125,6 +125,7 @@
      "usr_menu_defdomain_id__obd_name": null,
      "usr_last_logon": "2023-04-04 14:59:01",
      "usr_dateformat": null,
+     "usr_numformat": null,
      "usr_lang_pref": "FRA",
      "usr_mfa_method": null,
      "usr_mfa_settings": {}
@@ -1084,6 +1085,7 @@
       "fld_more": false,
       "fld_listmore": false,
       "fld_listsum": null,
+      "fld_exportable": true,
       "fld_tray": null,
       "fld_type": "3",
       "fld_type_id__flt_code": null,
@@ -1106,7 +1108,8 @@
       "fld_objlist": null,
       "fld_comment": null,
       "fld_classification": null,
-      "row_module_id__mdl_name": "Training"
+      "row_module_id__mdl_name": "Training",
+      "fld_incrementsyntax": null
      }
     },
     {
@@ -1125,6 +1128,7 @@
       "fld_more": false,
       "fld_listmore": false,
       "fld_listsum": null,
+      "fld_exportable": true,
       "fld_tray": null,
       "fld_type": "13",
       "fld_type_id__flt_code": null,
@@ -1147,7 +1151,8 @@
       "fld_objlist": null,
       "fld_comment": null,
       "fld_classification": null,
-      "row_module_id__mdl_name": "Training"
+      "row_module_id__mdl_name": "Training",
+      "fld_incrementsyntax": null
      }
     },
     {
@@ -1166,6 +1171,7 @@
       "fld_more": false,
       "fld_listmore": false,
       "fld_listsum": null,
+      "fld_exportable": true,
       "fld_tray": null,
       "fld_type": "0",
       "fld_type_id__flt_code": null,
@@ -1188,7 +1194,8 @@
       "fld_objlist": null,
       "fld_comment": null,
       "fld_classification": null,
-      "row_module_id__mdl_name": "Training"
+      "row_module_id__mdl_name": "Training",
+      "fld_incrementsyntax": null
      }
     },
     {
@@ -1207,6 +1214,7 @@
       "fld_more": false,
       "fld_listmore": false,
       "fld_listsum": null,
+      "fld_exportable": true,
       "fld_tray": null,
       "fld_type": "1",
       "fld_type_id__flt_code": null,
@@ -1229,7 +1237,8 @@
       "fld_objlist": null,
       "fld_comment": null,
       "fld_classification": null,
-      "row_module_id__mdl_name": "Training"
+      "row_module_id__mdl_name": "Training",
+      "fld_incrementsyntax": null
      }
     },
     {
@@ -1248,6 +1257,7 @@
       "fld_more": false,
       "fld_listmore": false,
       "fld_listsum": null,
+      "fld_exportable": true,
       "fld_tray": null,
       "fld_type": "13",
       "fld_type_id__flt_code": null,
@@ -1270,7 +1280,8 @@
       "fld_objlist": null,
       "fld_comment": null,
       "fld_classification": null,
-      "row_module_id__mdl_name": "Training"
+      "row_module_id__mdl_name": "Training",
+      "fld_incrementsyntax": null
      }
     },
     {
@@ -1289,6 +1300,7 @@
       "fld_more": false,
       "fld_listmore": false,
       "fld_listsum": null,
+      "fld_exportable": true,
       "fld_tray": null,
       "fld_type": "8",
       "fld_type_id__flt_code": null,
@@ -1311,7 +1323,8 @@
       "fld_objlist": null,
       "fld_comment": "Determines if the category and its subcategories and lessons are available on the front-end application.",
       "fld_classification": null,
-      "row_module_id__mdl_name": "Training"
+      "row_module_id__mdl_name": "Training",
+      "fld_incrementsyntax": null
      }
     },
     {
@@ -1330,6 +1343,7 @@
       "fld_more": false,
       "fld_listmore": false,
       "fld_listsum": null,
+      "fld_exportable": true,
       "fld_tray": null,
       "fld_type": "0",
       "fld_type_id__flt_code": null,
@@ -1352,7 +1366,8 @@
       "fld_objlist": null,
       "fld_comment": null,
       "fld_classification": null,
-      "row_module_id__mdl_name": "Training"
+      "row_module_id__mdl_name": "Training",
+      "fld_incrementsyntax": null
      }
     },
     {
@@ -1371,6 +1386,7 @@
       "fld_more": false,
       "fld_listmore": false,
       "fld_listsum": null,
+      "fld_exportable": true,
       "fld_tray": null,
       "fld_type": "13",
       "fld_type_id__flt_code": null,
@@ -1393,7 +1409,8 @@
       "fld_objlist": null,
       "fld_comment": null,
       "fld_classification": null,
-      "row_module_id__mdl_name": "Training"
+      "row_module_id__mdl_name": "Training",
+      "fld_incrementsyntax": null
      }
     },
     {
@@ -1412,6 +1429,7 @@
       "fld_more": false,
       "fld_listmore": false,
       "fld_listsum": null,
+      "fld_exportable": true,
       "fld_tray": null,
       "fld_type": "7",
       "fld_type_id__flt_code": null,
@@ -1434,7 +1452,8 @@
       "fld_objlist": null,
       "fld_comment": null,
       "fld_classification": null,
-      "row_module_id__mdl_name": "Training"
+      "row_module_id__mdl_name": "Training",
+      "fld_incrementsyntax": null
      }
     },
     {
@@ -1453,6 +1472,7 @@
       "fld_more": false,
       "fld_listmore": false,
       "fld_listsum": null,
+      "fld_exportable": true,
       "fld_tray": null,
       "fld_type": "3",
       "fld_type_id__flt_code": null,
@@ -1475,7 +1495,8 @@
       "fld_objlist": null,
       "fld_comment": null,
       "fld_classification": null,
-      "row_module_id__mdl_name": "Training"
+      "row_module_id__mdl_name": "Training",
+      "fld_incrementsyntax": null
      }
     },
     {
@@ -1499,6 +1520,7 @@
       "fld_more": false,
       "fld_listmore": false,
       "fld_listsum": null,
+      "fld_exportable": true,
       "fld_tray": null,
       "fld_type": "10",
       "fld_type_id__flt_code": null,
@@ -1521,7 +1543,8 @@
       "fld_objlist": null,
       "fld_comment": null,
       "fld_classification": null,
-      "row_module_id__mdl_name": "Training"
+      "row_module_id__mdl_name": "Training",
+      "fld_incrementsyntax": null
      }
     },
     {
@@ -1540,6 +1563,7 @@
       "fld_more": false,
       "fld_listmore": false,
       "fld_listsum": null,
+      "fld_exportable": true,
       "fld_tray": null,
       "fld_type": "0",
       "fld_type_id__flt_code": null,
@@ -1562,7 +1586,8 @@
       "fld_objlist": null,
       "fld_comment": null,
       "fld_classification": null,
-      "row_module_id__mdl_name": "Training"
+      "row_module_id__mdl_name": "Training",
+      "fld_incrementsyntax": null
      }
     },
     {
@@ -1581,6 +1606,7 @@
       "fld_more": false,
       "fld_listmore": false,
       "fld_listsum": null,
+      "fld_exportable": true,
       "fld_tray": null,
       "fld_type": "3",
       "fld_type_id__flt_code": null,
@@ -1603,7 +1629,8 @@
       "fld_objlist": null,
       "fld_comment": null,
       "fld_classification": null,
-      "row_module_id__mdl_name": "Training"
+      "row_module_id__mdl_name": "Training",
+      "fld_incrementsyntax": null
      }
     },
     {
@@ -1622,6 +1649,7 @@
       "fld_more": false,
       "fld_listmore": false,
       "fld_listsum": null,
+      "fld_exportable": true,
       "fld_tray": null,
       "fld_type": "10",
       "fld_type_id__flt_code": null,
@@ -1644,7 +1672,8 @@
       "fld_objlist": null,
       "fld_comment": null,
       "fld_classification": null,
-      "row_module_id__mdl_name": "Training"
+      "row_module_id__mdl_name": "Training",
+      "fld_incrementsyntax": null
      }
     },
     {
@@ -1663,6 +1692,7 @@
       "fld_more": false,
       "fld_listmore": false,
       "fld_listsum": null,
+      "fld_exportable": true,
       "fld_tray": null,
       "fld_type": "1",
       "fld_type_id__flt_code": null,
@@ -1685,7 +1715,8 @@
       "fld_objlist": null,
       "fld_comment": null,
       "fld_classification": null,
-      "row_module_id__mdl_name": "Training"
+      "row_module_id__mdl_name": "Training",
+      "fld_incrementsyntax": null
      }
     },
     {
@@ -1704,6 +1735,7 @@
       "fld_more": false,
       "fld_listmore": false,
       "fld_listsum": null,
+      "fld_exportable": true,
       "fld_tray": null,
       "fld_type": "13",
       "fld_type_id__flt_code": null,
@@ -1726,7 +1758,8 @@
       "fld_objlist": null,
       "fld_comment": null,
       "fld_classification": null,
-      "row_module_id__mdl_name": "Training"
+      "row_module_id__mdl_name": "Training",
+      "fld_incrementsyntax": null
      }
     },
     {
@@ -1745,6 +1778,7 @@
       "fld_more": false,
       "fld_listmore": false,
       "fld_listsum": null,
+      "fld_exportable": true,
       "fld_tray": null,
       "fld_type": "8",
       "fld_type_id__flt_code": null,
@@ -1767,7 +1801,8 @@
       "fld_objlist": null,
       "fld_comment": "Determines if the lesson is visible on the front-end application.",
       "fld_classification": null,
-      "row_module_id__mdl_name": "Training"
+      "row_module_id__mdl_name": "Training",
+      "fld_incrementsyntax": null
      }
     },
     {
@@ -1786,6 +1821,7 @@
       "fld_more": false,
       "fld_listmore": true,
       "fld_listsum": null,
+      "fld_exportable": true,
       "fld_tray": null,
       "fld_type": "7",
       "fld_type_id__flt_code": null,
@@ -1808,7 +1844,8 @@
       "fld_objlist": null,
       "fld_comment": "Describes the visualization mode to be used in the front-end application.",
       "fld_classification": null,
-      "row_module_id__mdl_name": "Training"
+      "row_module_id__mdl_name": "Training",
+      "fld_incrementsyntax": null
      }
     },
     {
@@ -1827,6 +1864,7 @@
       "fld_more": false,
       "fld_listmore": false,
       "fld_listsum": null,
+      "fld_exportable": true,
       "fld_tray": null,
       "fld_type": "13",
       "fld_type_id__flt_code": null,
@@ -1849,7 +1887,8 @@
       "fld_objlist": null,
       "fld_comment": null,
       "fld_classification": null,
-      "row_module_id__mdl_name": "Training"
+      "row_module_id__mdl_name": "Training",
+      "fld_incrementsyntax": null
      }
     },
     {
@@ -1868,6 +1907,7 @@
       "fld_more": false,
       "fld_listmore": false,
       "fld_listsum": null,
+      "fld_exportable": true,
       "fld_tray": null,
       "fld_type": "8",
       "fld_type_id__flt_code": null,
@@ -1890,7 +1930,8 @@
       "fld_objlist": null,
       "fld_comment": null,
       "fld_classification": null,
-      "row_module_id__mdl_name": "Training"
+      "row_module_id__mdl_name": "Training",
+      "fld_incrementsyntax": null
      }
     },
     {
@@ -1909,6 +1950,7 @@
       "fld_more": true,
       "fld_listmore": false,
       "fld_listsum": null,
+      "fld_exportable": true,
       "fld_tray": null,
       "fld_type": "13",
       "fld_type_id__flt_code": null,
@@ -1931,7 +1973,8 @@
       "fld_objlist": null,
       "fld_comment": "The HTML equivalent of the content attribute. It's this attribute that is displayed by the front-end application.",
       "fld_classification": null,
-      "row_module_id__mdl_name": "Training"
+      "row_module_id__mdl_name": "Training",
+      "fld_incrementsyntax": null
      }
     },
     {
@@ -1950,6 +1993,7 @@
       "fld_more": false,
       "fld_listmore": false,
       "fld_listsum": null,
+      "fld_exportable": true,
       "fld_tray": null,
       "fld_type": "7",
       "fld_type_id__flt_code": null,
@@ -1972,7 +2016,8 @@
       "fld_objlist": null,
       "fld_comment": null,
       "fld_classification": null,
-      "row_module_id__mdl_name": "Training"
+      "row_module_id__mdl_name": "Training",
+      "fld_incrementsyntax": null
      }
     },
     {
@@ -1991,6 +2036,7 @@
       "fld_more": false,
       "fld_listmore": false,
       "fld_listsum": null,
+      "fld_exportable": true,
       "fld_tray": null,
       "fld_type": "0",
       "fld_type_id__flt_code": null,
@@ -2013,7 +2059,8 @@
       "fld_objlist": null,
       "fld_comment": null,
       "fld_classification": null,
-      "row_module_id__mdl_name": "Training"
+      "row_module_id__mdl_name": "Training",
+      "fld_incrementsyntax": null
      }
     },
     {
@@ -2032,6 +2079,7 @@
       "fld_more": true,
       "fld_listmore": false,
       "fld_listsum": null,
+      "fld_exportable": true,
       "fld_tray": null,
       "fld_type": "13",
       "fld_type_id__flt_code": null,
@@ -2054,7 +2102,8 @@
       "fld_objlist": null,
       "fld_comment": null,
       "fld_classification": null,
-      "row_module_id__mdl_name": "Training"
+      "row_module_id__mdl_name": "Training",
+      "fld_incrementsyntax": null
      }
     },
     {
@@ -2073,6 +2122,7 @@
       "fld_more": false,
       "fld_listmore": false,
       "fld_listsum": null,
+      "fld_exportable": true,
       "fld_tray": null,
       "fld_type": "3",
       "fld_type_id__flt_code": null,
@@ -2095,7 +2145,8 @@
       "fld_objlist": null,
       "fld_comment": null,
       "fld_classification": null,
-      "row_module_id__mdl_name": "Training"
+      "row_module_id__mdl_name": "Training",
+      "fld_incrementsyntax": null
      }
     },
     {
@@ -2114,6 +2165,7 @@
       "fld_more": false,
       "fld_listmore": false,
       "fld_listsum": null,
+      "fld_exportable": true,
       "fld_tray": null,
       "fld_type": "17",
       "fld_type_id__flt_code": null,
@@ -2136,7 +2188,8 @@
       "fld_objlist": null,
       "fld_comment": null,
       "fld_classification": null,
-      "row_module_id__mdl_name": "Training"
+      "row_module_id__mdl_name": "Training",
+      "fld_incrementsyntax": null
      }
     },
     {
@@ -2155,6 +2208,7 @@
       "fld_more": false,
       "fld_listmore": false,
       "fld_listsum": null,
+      "fld_exportable": true,
       "fld_tray": null,
       "fld_type": "3",
       "fld_type_id__flt_code": null,
@@ -2177,7 +2231,8 @@
       "fld_objlist": null,
       "fld_comment": null,
       "fld_classification": null,
-      "row_module_id__mdl_name": "Training"
+      "row_module_id__mdl_name": "Training",
+      "fld_incrementsyntax": null
      }
     },
     {
@@ -2200,6 +2255,7 @@
       "fld_more": false,
       "fld_listmore": false,
       "fld_listsum": null,
+      "fld_exportable": true,
       "fld_tray": null,
       "fld_type": "0",
       "fld_type_id__flt_code": null,
@@ -2222,7 +2278,8 @@
       "fld_objlist": null,
       "fld_comment": null,
       "fld_classification": null,
-      "row_module_id__mdl_name": "Training"
+      "row_module_id__mdl_name": "Training",
+      "fld_incrementsyntax": null
      }
     },
     {
@@ -2241,6 +2298,7 @@
       "fld_more": false,
       "fld_listmore": false,
       "fld_listsum": null,
+      "fld_exportable": true,
       "fld_tray": null,
       "fld_type": "7",
       "fld_type_id__flt_code": null,
@@ -2263,7 +2321,8 @@
       "fld_objlist": null,
       "fld_comment": null,
       "fld_classification": null,
-      "row_module_id__mdl_name": "Training"
+      "row_module_id__mdl_name": "Training",
+      "fld_incrementsyntax": null
      }
     },
     {
@@ -2282,6 +2341,7 @@
       "fld_more": false,
       "fld_listmore": false,
       "fld_listsum": null,
+      "fld_exportable": true,
       "fld_tray": null,
       "fld_type": "0",
       "fld_type_id__flt_code": null,
@@ -2304,7 +2364,8 @@
       "fld_objlist": null,
       "fld_comment": null,
       "fld_classification": null,
-      "row_module_id__mdl_name": "Training"
+      "row_module_id__mdl_name": "Training",
+      "fld_incrementsyntax": null
      }
     },
     {
@@ -2323,6 +2384,7 @@
       "fld_more": false,
       "fld_listmore": false,
       "fld_listsum": null,
+      "fld_exportable": true,
       "fld_tray": null,
       "fld_type": "20",
       "fld_type_id__flt_code": null,
@@ -2345,7 +2407,8 @@
       "fld_objlist": null,
       "fld_comment": null,
       "fld_classification": null,
-      "row_module_id__mdl_name": "Training"
+      "row_module_id__mdl_name": "Training",
+      "fld_incrementsyntax": null
      }
     },
     {
@@ -2364,6 +2427,7 @@
       "fld_more": false,
       "fld_listmore": false,
       "fld_listsum": null,
+      "fld_exportable": true,
       "fld_tray": null,
       "fld_type": "7",
       "fld_type_id__flt_code": null,
@@ -2386,7 +2450,8 @@
       "fld_objlist": null,
       "fld_comment": null,
       "fld_classification": null,
-      "row_module_id__mdl_name": "Training"
+      "row_module_id__mdl_name": "Training",
+      "fld_incrementsyntax": null
      }
     },
     {
@@ -2405,6 +2470,7 @@
       "fld_more": false,
       "fld_listmore": false,
       "fld_listsum": null,
+      "fld_exportable": true,
       "fld_tray": null,
       "fld_type": "0",
       "fld_type_id__flt_code": null,
@@ -2427,7 +2493,8 @@
       "fld_objlist": null,
       "fld_comment": null,
       "fld_classification": null,
-      "row_module_id__mdl_name": "Training"
+      "row_module_id__mdl_name": "Training",
+      "fld_incrementsyntax": null
      }
     },
     {
@@ -2446,6 +2513,7 @@
       "fld_more": false,
       "fld_listmore": false,
       "fld_listsum": null,
+      "fld_exportable": true,
       "fld_tray": null,
       "fld_type": "3",
       "fld_type_id__flt_code": null,
@@ -2468,7 +2536,8 @@
       "fld_objlist": null,
       "fld_comment": "A code identifying the TrnSiteContent object",
       "fld_classification": null,
-      "row_module_id__mdl_name": "Training"
+      "row_module_id__mdl_name": "Training",
+      "fld_incrementsyntax": null
      }
     },
     {
@@ -2487,6 +2556,7 @@
       "fld_more": false,
       "fld_listmore": false,
       "fld_listsum": null,
+      "fld_exportable": true,
       "fld_tray": null,
       "fld_type": "13",
       "fld_type_id__flt_code": null,
@@ -2509,7 +2579,8 @@
       "fld_objlist": null,
       "fld_comment": null,
       "fld_classification": null,
-      "row_module_id__mdl_name": "Training"
+      "row_module_id__mdl_name": "Training",
+      "fld_incrementsyntax": null
      }
     },
     {
@@ -2528,6 +2599,7 @@
       "fld_more": false,
       "fld_listmore": false,
       "fld_listsum": null,
+      "fld_exportable": true,
       "fld_tray": null,
       "fld_type": "7",
       "fld_type_id__flt_code": null,
@@ -2550,7 +2622,8 @@
       "fld_objlist": null,
       "fld_comment": null,
       "fld_classification": null,
-      "row_module_id__mdl_name": "Training"
+      "row_module_id__mdl_name": "Training",
+      "fld_incrementsyntax": null
      }
     },
     {
@@ -2573,6 +2646,7 @@
       "fld_more": false,
       "fld_listmore": false,
       "fld_listsum": null,
+      "fld_exportable": true,
       "fld_tray": null,
       "fld_type": "10",
       "fld_type_id__flt_code": null,
@@ -2595,7 +2669,8 @@
       "fld_objlist": null,
       "fld_comment": null,
       "fld_classification": null,
-      "row_module_id__mdl_name": "Training"
+      "row_module_id__mdl_name": "Training",
+      "fld_incrementsyntax": null
      }
     },
     {
@@ -2614,6 +2689,7 @@
       "fld_more": false,
       "fld_listmore": false,
       "fld_listsum": null,
+      "fld_exportable": true,
       "fld_tray": null,
       "fld_type": "3",
       "fld_type_id__flt_code": null,
@@ -2636,7 +2712,8 @@
       "fld_objlist": null,
       "fld_comment": null,
       "fld_classification": null,
-      "row_module_id__mdl_name": "Training"
+      "row_module_id__mdl_name": "Training",
+      "fld_incrementsyntax": null
      }
     },
     {
@@ -2655,6 +2732,7 @@
       "fld_more": false,
       "fld_listmore": false,
       "fld_listsum": null,
+      "fld_exportable": true,
       "fld_tray": null,
       "fld_type": "0",
       "fld_type_id__flt_code": null,
@@ -2677,7 +2755,8 @@
       "fld_objlist": null,
       "fld_comment": null,
       "fld_classification": null,
-      "row_module_id__mdl_name": "Training"
+      "row_module_id__mdl_name": "Training",
+      "fld_incrementsyntax": null
      }
     },
     {
@@ -2696,6 +2775,7 @@
       "fld_more": false,
       "fld_listmore": false,
       "fld_listsum": null,
+      "fld_exportable": true,
       "fld_tray": null,
       "fld_type": "0",
       "fld_type_id__flt_code": null,
@@ -2718,7 +2798,8 @@
       "fld_objlist": null,
       "fld_comment": null,
       "fld_classification": null,
-      "row_module_id__mdl_name": "Training"
+      "row_module_id__mdl_name": "Training",
+      "fld_incrementsyntax": null
      }
     },
     {
@@ -2737,6 +2818,7 @@
       "fld_more": false,
       "fld_listmore": false,
       "fld_listsum": null,
+      "fld_exportable": true,
       "fld_tray": null,
       "fld_type": "0",
       "fld_type_id__flt_code": null,
@@ -2759,7 +2841,8 @@
       "fld_objlist": null,
       "fld_comment": null,
       "fld_classification": null,
-      "row_module_id__mdl_name": "Training"
+      "row_module_id__mdl_name": "Training",
+      "fld_incrementsyntax": null
      }
     },
     {
@@ -2778,6 +2861,7 @@
       "fld_more": false,
       "fld_listmore": false,
       "fld_listsum": null,
+      "fld_exportable": true,
       "fld_tray": null,
       "fld_type": "0",
       "fld_type_id__flt_code": null,
@@ -2800,7 +2884,8 @@
       "fld_objlist": null,
       "fld_comment": null,
       "fld_classification": null,
-      "row_module_id__mdl_name": "Training"
+      "row_module_id__mdl_name": "Training",
+      "fld_incrementsyntax": null
      }
     },
     {
@@ -2819,6 +2904,7 @@
       "fld_more": false,
       "fld_listmore": false,
       "fld_listsum": null,
+      "fld_exportable": true,
       "fld_tray": null,
       "fld_type": "7",
       "fld_type_id__flt_code": null,
@@ -2841,7 +2927,8 @@
       "fld_objlist": null,
       "fld_comment": null,
       "fld_classification": null,
-      "row_module_id__mdl_name": "Training"
+      "row_module_id__mdl_name": "Training",
+      "fld_incrementsyntax": null
      }
     },
     {
@@ -2860,6 +2947,7 @@
       "fld_more": false,
       "fld_listmore": false,
       "fld_listsum": null,
+      "fld_exportable": true,
       "fld_tray": null,
       "fld_type": "3",
       "fld_type_id__flt_code": null,
@@ -2882,7 +2970,8 @@
       "fld_objlist": null,
       "fld_comment": "Traduction content",
       "fld_classification": null,
-      "row_module_id__mdl_name": "Training"
+      "row_module_id__mdl_name": "Training",
+      "fld_incrementsyntax": null
      }
     },
     {
@@ -2901,6 +2990,7 @@
       "fld_more": false,
       "fld_listmore": false,
       "fld_listsum": null,
+      "fld_exportable": true,
       "fld_tray": null,
       "fld_type": "23",
       "fld_type_id__flt_code": null,
@@ -2923,7 +3013,8 @@
       "fld_objlist": null,
       "fld_comment": null,
       "fld_classification": null,
-      "row_module_id__mdl_name": "Training"
+      "row_module_id__mdl_name": "Training",
+      "fld_incrementsyntax": null
      }
     },
     {
@@ -2942,6 +3033,7 @@
       "fld_more": false,
       "fld_listmore": false,
       "fld_listsum": null,
+      "fld_exportable": true,
       "fld_tray": null,
       "fld_type": "20",
       "fld_type_id__flt_code": null,
@@ -2964,7 +3056,8 @@
       "fld_objlist": null,
       "fld_comment": null,
       "fld_classification": null,
-      "row_module_id__mdl_name": "Training"
+      "row_module_id__mdl_name": "Training",
+      "fld_incrementsyntax": null
      }
     },
     {
@@ -2983,6 +3076,7 @@
       "fld_more": false,
       "fld_listmore": false,
       "fld_listsum": null,
+      "fld_exportable": true,
       "fld_tray": null,
       "fld_type": "23",
       "fld_type_id__flt_code": null,
@@ -3005,7 +3099,8 @@
       "fld_objlist": null,
       "fld_comment": null,
       "fld_classification": null,
-      "row_module_id__mdl_name": "Training"
+      "row_module_id__mdl_name": "Training",
+      "fld_incrementsyntax": null
      }
     }
    ]
@@ -3510,6 +3605,25 @@
     },
     {
      "object": "ObjectExternal",
+     "userkey": "TrnGitCheckoutService",
+     "item": {
+      "obe_name": "TrnGitCheckoutService",
+      "obe_type": "E",
+      "obe_url": null,
+      "obe_comment": "Provides the ability to checkout on repository in the content folder and trigger a synchronisation.",
+      "obe_help": null,
+      "obe_class": null,
+      "obe_script_id": {
+       "path": "src/com/simplicite/extobjects/Training/TrnGitCheckoutService.java",
+       "mime": "text/plain",
+       "name": "TrnGitCheckoutService.java"
+      },
+      "obe_icon": null,
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "ObjectExternal",
      "userkey": "TrnPublicService",
      "item": {
       "obe_name": "TrnPublicService",
@@ -3636,7 +3750,6 @@
       "obo_groupby": false,
       "obo_dfltref": null,
       "obo_template_id__tpl_name": "TrnCategory",
-      "obo_cache": "D",
       "obo_copy": true,
       "obo_export": true,
       "obo_pagine": true,
@@ -3662,6 +3775,7 @@
       "row_module_id__mdl_name": "Training",
       "obo_btn_reload": "P",
       "obo_btn_prefs": "P",
+      "obo_btn_bookmark": "1",
       "obo_btn_del": "P",
       "obo_btn_copy": "P",
       "obo_btn_export": "P",
@@ -3711,7 +3825,6 @@
       "obo_groupby": false,
       "obo_dfltref": null,
       "obo_template_id__tpl_name": "TrnCategoryTranslate",
-      "obo_cache": "D",
       "obo_copy": true,
       "obo_export": true,
       "obo_pagine": true,
@@ -3737,6 +3850,7 @@
       "row_module_id__mdl_name": "Training",
       "obo_btn_reload": "P",
       "obo_btn_prefs": "P",
+      "obo_btn_bookmark": "1",
       "obo_btn_del": "P",
       "obo_btn_copy": "P",
       "obo_btn_export": "P",
@@ -3786,7 +3900,6 @@
       "obo_groupby": false,
       "obo_dfltref": null,
       "obo_template_id__tpl_name": "TrnLesson",
-      "obo_cache": "D",
       "obo_copy": true,
       "obo_export": true,
       "obo_pagine": true,
@@ -3812,6 +3925,7 @@
       "row_module_id__mdl_name": "Training",
       "obo_btn_reload": "P",
       "obo_btn_prefs": "P",
+      "obo_btn_bookmark": "1",
       "obo_btn_del": "P",
       "obo_btn_copy": "P",
       "obo_btn_export": "P",
@@ -3861,7 +3975,6 @@
       "obo_groupby": false,
       "obo_dfltref": null,
       "obo_template_id__tpl_name": "TrnLsnTranslate",
-      "obo_cache": "D",
       "obo_copy": true,
       "obo_export": true,
       "obo_pagine": true,
@@ -3887,6 +4000,7 @@
       "row_module_id__mdl_name": "Training",
       "obo_btn_reload": "P",
       "obo_btn_prefs": "P",
+      "obo_btn_bookmark": "1",
       "obo_btn_del": "P",
       "obo_btn_copy": "P",
       "obo_btn_export": "P",
@@ -3936,7 +4050,6 @@
       "obo_groupby": false,
       "obo_dfltref": null,
       "obo_template_id__tpl_name": "TrnPage",
-      "obo_cache": "D",
       "obo_copy": true,
       "obo_export": true,
       "obo_pagine": true,
@@ -3966,6 +4079,7 @@
       "row_module_id__mdl_name": "Training",
       "obo_btn_reload": "P",
       "obo_btn_prefs": "P",
+      "obo_btn_bookmark": "1",
       "obo_btn_del": "P",
       "obo_btn_copy": "P",
       "obo_btn_export": "P",
@@ -4015,7 +4129,6 @@
       "obo_groupby": false,
       "obo_dfltref": null,
       "obo_template_id__tpl_name": "TrnPicture",
-      "obo_cache": "D",
       "obo_copy": true,
       "obo_export": true,
       "obo_pagine": true,
@@ -4041,6 +4154,7 @@
       "row_module_id__mdl_name": "Training",
       "obo_btn_reload": "P",
       "obo_btn_prefs": "P",
+      "obo_btn_bookmark": "1",
       "obo_btn_del": "P",
       "obo_btn_copy": "P",
       "obo_btn_export": "P",
@@ -4086,7 +4200,6 @@
       "obo_groupby": false,
       "obo_dfltref": null,
       "obo_template_id__tpl_name": "TrnSiteContent",
-      "obo_cache": "D",
       "obo_copy": true,
       "obo_export": true,
       "obo_pagine": true,
@@ -4116,6 +4229,7 @@
       "row_module_id__mdl_name": "Training",
       "obo_btn_reload": "P",
       "obo_btn_prefs": "P",
+      "obo_btn_bookmark": "1",
       "obo_btn_del": "P",
       "obo_btn_copy": "P",
       "obo_btn_export": "P",
@@ -4164,7 +4278,6 @@
       "obo_groupby": false,
       "obo_dfltref": null,
       "obo_template_id__tpl_name": "Base",
-      "obo_cache": "D",
       "obo_copy": true,
       "obo_export": true,
       "obo_pagine": true,
@@ -4194,6 +4307,7 @@
       "row_module_id__mdl_name": "Training",
       "obo_btn_reload": "P",
       "obo_btn_prefs": "P",
+      "obo_btn_bookmark": "1",
       "obo_btn_del": "P",
       "obo_btn_copy": "P",
       "obo_btn_export": "P",
@@ -4246,7 +4360,6 @@
       "obo_groupby": false,
       "obo_dfltref": null,
       "obo_template_id__tpl_name": "TrnTag",
-      "obo_cache": "D",
       "obo_copy": true,
       "obo_export": true,
       "obo_pagine": true,
@@ -4276,6 +4389,7 @@
       "row_module_id__mdl_name": "Training",
       "obo_btn_reload": "P",
       "obo_btn_prefs": "P",
+      "obo_btn_bookmark": "1",
       "obo_btn_del": "P",
       "obo_btn_copy": "P",
       "obo_btn_export": "P",
@@ -4325,7 +4439,6 @@
       "obo_groupby": false,
       "obo_dfltref": null,
       "obo_template_id__tpl_name": "TrnTagLsn",
-      "obo_cache": "D",
       "obo_copy": true,
       "obo_export": true,
       "obo_pagine": true,
@@ -4351,6 +4464,7 @@
       "row_module_id__mdl_name": "Training",
       "obo_btn_reload": "P",
       "obo_btn_prefs": "P",
+      "obo_btn_bookmark": "1",
       "obo_btn_del": "P",
       "obo_btn_copy": "P",
       "obo_btn_export": "P",
@@ -4400,7 +4514,6 @@
       "obo_groupby": false,
       "obo_dfltref": null,
       "obo_template_id__tpl_name": "Base",
-      "obo_cache": "D",
       "obo_copy": true,
       "obo_export": true,
       "obo_pagine": true,
@@ -4426,6 +4539,7 @@
       "row_module_id__mdl_name": "Training",
       "obo_btn_reload": "P",
       "obo_btn_prefs": "P",
+      "obo_btn_bookmark": "1",
       "obo_btn_del": "P",
       "obo_btn_copy": "P",
       "obo_btn_export": "P",
@@ -4475,7 +4589,6 @@
       "obo_groupby": false,
       "obo_dfltref": null,
       "obo_template_id__tpl_name": "TrnUrlRewriting",
-      "obo_cache": "D",
       "obo_copy": true,
       "obo_export": true,
       "obo_pagine": true,
@@ -4505,6 +4618,7 @@
       "row_module_id__mdl_name": "Training",
       "obo_btn_reload": "P",
       "obo_btn_prefs": "P",
+      "obo_btn_bookmark": "1",
       "obo_btn_del": "P",
       "obo_btn_copy": "P",
       "obo_btn_export": "P",
@@ -4565,6 +4679,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": "TrnCategory-1",
       "obf_area_id__ofa_position": 1,
       "row_module_id__mdl_name": "Training"
@@ -4598,6 +4715,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": "TrnCategory-1",
       "obf_area_id__ofa_position": 1,
       "row_module_id__mdl_name": "Training"
@@ -4631,6 +4751,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": "1",
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": "TrnCategory-1",
       "obf_area_id__ofa_position": 1,
       "row_module_id__mdl_name": "Training"
@@ -4664,6 +4787,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": "TrnCategory-1",
       "obf_area_id__ofa_position": 1,
       "row_module_id__mdl_name": "Training"
@@ -4697,6 +4823,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": "TrnCategory-1",
       "obf_area_id__ofa_position": 1,
       "row_module_id__mdl_name": "Training"
@@ -4730,6 +4859,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": "TrnCategory-1",
       "obf_area_id__ofa_position": 1,
       "row_module_id__mdl_name": "Training"
@@ -4763,6 +4895,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": "TrnCategory-1",
       "obf_area_id__ofa_position": 1,
       "row_module_id__mdl_name": "Training"
@@ -4796,6 +4931,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": "TrnCategory-1",
       "obf_area_id__ofa_position": 1,
       "row_module_id__mdl_name": "Training"
@@ -4829,6 +4967,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": null,
       "obf_area_id__ofa_position": null,
       "row_module_id__mdl_name": "Training"
@@ -4862,6 +5003,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": "ANY",
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": "TrnCategoryTranslate-1",
       "obf_area_id__ofa_position": 1,
       "row_module_id__mdl_name": "Training"
@@ -4895,6 +5039,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": "TrnCategoryTranslate-1",
       "obf_area_id__ofa_position": 1,
       "row_module_id__mdl_name": "Training"
@@ -4928,6 +5075,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": "TrnCategoryTranslate-1",
       "obf_area_id__ofa_position": 1,
       "row_module_id__mdl_name": "Training"
@@ -4961,6 +5111,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": "TrnCategoryTranslate-1",
       "obf_area_id__ofa_position": 1,
       "row_module_id__mdl_name": "Training"
@@ -4994,6 +5147,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": "TrnCategoryTranslate-1",
       "obf_area_id__ofa_position": 1,
       "row_module_id__mdl_name": "Training"
@@ -5027,6 +5183,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": "TrnLesson-Main",
       "obf_area_id__ofa_position": 1,
       "row_module_id__mdl_name": "Training"
@@ -5060,6 +5219,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": "TrnLesson-Main",
       "obf_area_id__ofa_position": 1,
       "row_module_id__mdl_name": "Training"
@@ -5093,6 +5255,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": "1",
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": "TrnLesson-Main",
       "obf_area_id__ofa_position": 1,
       "row_module_id__mdl_name": "Training"
@@ -5126,6 +5291,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": "TrnLesson-Main",
       "obf_area_id__ofa_position": 1,
       "row_module_id__mdl_name": "Training"
@@ -5159,6 +5327,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": "LINEAR",
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": "TrnLesson-Main",
       "obf_area_id__ofa_position": 1,
       "row_module_id__mdl_name": "Training"
@@ -5192,6 +5363,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": "TrnLesson-Main",
       "obf_area_id__ofa_position": 1,
       "row_module_id__mdl_name": "Training"
@@ -5225,6 +5399,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": "TrnLesson-Main",
       "obf_area_id__ofa_position": 1,
       "row_module_id__mdl_name": "Training"
@@ -5258,6 +5435,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": "TrnLesson-Main",
       "obf_area_id__ofa_position": 1,
       "row_module_id__mdl_name": "Training"
@@ -5291,6 +5471,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": "TrnLesson-Main",
       "obf_area_id__ofa_position": 1,
       "row_module_id__mdl_name": "Training"
@@ -5324,6 +5507,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": "TrnLesson-Main",
       "obf_area_id__ofa_position": 1,
       "row_module_id__mdl_name": "Training"
@@ -5357,6 +5543,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": "ANY",
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": "TrnLsnTranslate-1",
       "obf_area_id__ofa_position": 1,
       "row_module_id__mdl_name": "Training"
@@ -5390,6 +5579,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": "TrnLsnTranslate-1",
       "obf_area_id__ofa_position": 1,
       "row_module_id__mdl_name": "Training"
@@ -5423,6 +5615,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": "TrnLsnTranslate-1",
       "obf_area_id__ofa_position": 1,
       "row_module_id__mdl_name": "Training"
@@ -5456,6 +5651,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": "TrnLsnTranslate-1",
       "obf_area_id__ofa_position": 1,
       "row_module_id__mdl_name": "Training"
@@ -5489,6 +5687,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": "TrnLsnTranslate-1",
       "obf_area_id__ofa_position": 1,
       "row_module_id__mdl_name": "Training"
@@ -5522,6 +5723,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": "TrnLsnTranslate-1",
       "obf_area_id__ofa_position": 1,
       "row_module_id__mdl_name": "Training"
@@ -5555,6 +5759,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": null,
       "obf_area_id__ofa_position": null,
       "row_module_id__mdl_name": "Training"
@@ -5588,6 +5795,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": "TrnLsnTranslate-2",
       "obf_area_id__ofa_position": 2,
       "row_module_id__mdl_name": "Training"
@@ -5621,6 +5831,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": "TrnLsnTranslate-2",
       "obf_area_id__ofa_position": 2,
       "row_module_id__mdl_name": "Training"
@@ -5654,6 +5867,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": "1",
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": "TrnLsnTranslate-2",
       "obf_area_id__ofa_position": 2,
       "row_module_id__mdl_name": "Training"
@@ -5687,6 +5903,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": "TrnLsnTranslate-1",
       "obf_area_id__ofa_position": 1,
       "row_module_id__mdl_name": "Training"
@@ -5720,6 +5939,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": "TrnLsnTranslate-1",
       "obf_area_id__ofa_position": 1,
       "row_module_id__mdl_name": "Training"
@@ -5753,6 +5975,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": "TrnPage-5",
       "obf_area_id__ofa_position": 5,
       "row_module_id__mdl_name": "Training"
@@ -5786,6 +6011,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": "TrnPage-5",
       "obf_area_id__ofa_position": 5,
       "row_module_id__mdl_name": "Training"
@@ -5819,6 +6047,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": "TrnPage-4",
       "obf_area_id__ofa_position": 4,
       "row_module_id__mdl_name": "Training"
@@ -5852,6 +6083,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": "TrnPage-4",
       "obf_area_id__ofa_position": 4,
       "row_module_id__mdl_name": "Training"
@@ -5885,6 +6119,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": "TrnPage-4",
       "obf_area_id__ofa_position": 4,
       "row_module_id__mdl_name": "Training"
@@ -5918,6 +6155,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": "1",
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": "TrnPage-4",
       "obf_area_id__ofa_position": 4,
       "row_module_id__mdl_name": "Training"
@@ -5951,6 +6191,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": "LINEAR",
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": "TrnPage-4",
       "obf_area_id__ofa_position": 4,
       "row_module_id__mdl_name": "Training"
@@ -5984,6 +6227,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": null,
       "obf_area_id__ofa_position": null,
       "row_module_id__mdl_name": "Training"
@@ -6017,6 +6263,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": "*",
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": "TrnPicture-1",
       "obf_area_id__ofa_position": 1,
       "row_module_id__mdl_name": "Training"
@@ -6050,6 +6299,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": "TrnPicture-1",
       "obf_area_id__ofa_position": 1,
       "row_module_id__mdl_name": "Training"
@@ -6083,6 +6335,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": "TrnPicture-1",
       "obf_area_id__ofa_position": 1,
       "row_module_id__mdl_name": "Training"
@@ -6116,6 +6371,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": "TrnPicture-1",
       "obf_area_id__ofa_position": 1,
       "row_module_id__mdl_name": "Training"
@@ -6149,6 +6407,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": "TrnSiteContent-1",
       "obf_area_id__ofa_position": 1,
       "row_module_id__mdl_name": "Training"
@@ -6182,6 +6443,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": "TrnSiteContent-1",
       "obf_area_id__ofa_position": 1,
       "row_module_id__mdl_name": "Training"
@@ -6215,6 +6479,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": "TrnSiteContent-1",
       "obf_area_id__ofa_position": 1,
       "row_module_id__mdl_name": "Training"
@@ -6248,6 +6515,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": null,
       "obf_area_id__ofa_position": null,
       "row_module_id__mdl_name": "Training"
@@ -6281,6 +6551,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": null,
       "obf_area_id__ofa_position": null,
       "row_module_id__mdl_name": "Training"
@@ -6314,6 +6587,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": null,
       "obf_area_id__ofa_position": null,
       "row_module_id__mdl_name": "Training"
@@ -6347,6 +6623,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": "TrnTag-1",
       "obf_area_id__ofa_position": 1,
       "row_module_id__mdl_name": "Training"
@@ -6380,6 +6659,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": "TrnTagLsn-1",
       "obf_area_id__ofa_position": 1,
       "row_module_id__mdl_name": "Training"
@@ -6413,6 +6695,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": "TrnTagLsn-1",
       "obf_area_id__ofa_position": 1,
       "row_module_id__mdl_name": "Training"
@@ -6446,6 +6731,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": "TrnTagLsn-1",
       "obf_area_id__ofa_position": 1,
       "row_module_id__mdl_name": "Training"
@@ -6479,6 +6767,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": "TrnTagLsn-1",
       "obf_area_id__ofa_position": 1,
       "row_module_id__mdl_name": "Training"
@@ -6512,6 +6803,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": null,
       "obf_area_id__ofa_position": null,
       "row_module_id__mdl_name": "Training"
@@ -6545,6 +6839,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": null,
       "obf_area_id__ofa_position": null,
       "row_module_id__mdl_name": "Training"
@@ -6578,6 +6875,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": null,
       "obf_area_id__ofa_position": null,
       "row_module_id__mdl_name": "Training"
@@ -6611,6 +6911,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": null,
       "obf_area_id__ofa_position": null,
       "row_module_id__mdl_name": "Training"
@@ -6644,6 +6947,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": "TrnUrlRewriting-1",
       "obf_area_id__ofa_position": 1,
       "row_module_id__mdl_name": "Training"
@@ -6677,6 +6983,9 @@
       "obf_fld_researchreq": null,
       "obf_fld_dfault": null,
       "obf_field_id__fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
       "obf_area_id__ofa_name": "TrnUrlRewriting-1",
       "obf_area_id__ofa_position": 1,
       "row_module_id__mdl_name": "Training"
@@ -6706,6 +7015,7 @@
       "obf_cascad": "C",
       "obf_card": "0,n",
       "obf_query": null,
+      "obf_filters": null,
       "obf_visible": true,
       "obf_ref_export": true,
       "obf_copy": false,
@@ -6734,6 +7044,7 @@
       "obf_cascad": "C",
       "obf_card": "0,n",
       "obf_query": null,
+      "obf_filters": null,
       "obf_visible": true,
       "obf_ref_export": true,
       "obf_copy": false,
@@ -6762,6 +7073,7 @@
       "obf_cascad": "C",
       "obf_card": "0,n",
       "obf_query": null,
+      "obf_filters": null,
       "obf_visible": true,
       "obf_ref_export": false,
       "obf_copy": false,
@@ -6790,6 +7102,7 @@
       "obf_cascad": "C",
       "obf_card": "0,n",
       "obf_query": null,
+      "obf_filters": null,
       "obf_visible": true,
       "obf_ref_export": true,
       "obf_copy": false,
@@ -6818,6 +7131,7 @@
       "obf_cascad": "C",
       "obf_card": "0,n",
       "obf_query": null,
+      "obf_filters": null,
       "obf_visible": true,
       "obf_ref_export": true,
       "obf_copy": false,
@@ -6846,6 +7160,7 @@
       "obf_cascad": "C",
       "obf_card": "0,1",
       "obf_query": null,
+      "obf_filters": null,
       "obf_visible": false,
       "obf_ref_export": true,
       "obf_copy": false,
@@ -6874,6 +7189,7 @@
       "obf_cascad": "C",
       "obf_card": "0,n",
       "obf_query": null,
+      "obf_filters": null,
       "obf_visible": true,
       "obf_ref_export": true,
       "obf_copy": false,
@@ -6902,6 +7218,7 @@
       "obf_cascad": "C",
       "obf_card": "0,n",
       "obf_query": null,
+      "obf_filters": null,
       "obf_visible": true,
       "obf_ref_export": true,
       "obf_copy": false,
@@ -6930,6 +7247,7 @@
       "obf_cascad": "C",
       "obf_card": "0,n",
       "obf_query": null,
+      "obf_filters": null,
       "obf_visible": false,
       "obf_ref_export": true,
       "obf_copy": false,
@@ -6958,6 +7276,7 @@
       "obf_cascad": "Z",
       "obf_card": "0,n",
       "obf_query": "t.row_id in (\n\tselect trn_taglsn_lsn_id\n\tfrom trn_tag_lsn\n\twhere trn_taglsn_tag_id=[row_id]\n)",
+      "obf_filters": null,
       "obf_visible": true,
       "obf_ref_export": true,
       "obf_copy": false,
@@ -6975,7 +7294,7 @@
   {
    "object": "Action",
    "label": "Actions",
-   "icon": "img/system/action",
+   "icon": "img/system/action_btn",
    "field": "row_module_id",
    "list": [
     {
@@ -6998,7 +7317,9 @@
       "row_module_id__mdl_name": "Training",
       "act_exec": "BCK",
       "act_count": null,
-      "act_order": null
+      "act_order": null,
+      "act_color": null,
+      "act_color_bg": null
      }
     },
     {
@@ -7021,7 +7342,9 @@
       "row_module_id__mdl_name": "Training",
       "act_exec": "BCK",
       "act_count": null,
-      "act_order": 10
+      "act_order": 10,
+      "act_color": null,
+      "act_color_bg": null
      }
     }
    ]
@@ -7130,6 +7453,19 @@
       "fct_name": "TRN_FRONT_E",
       "fct_object_id__obj_type": "E",
       "fct_object_id__obj_name": "TrnFront",
+      "fct_function": "L",
+      "fct_action_id__act_name": null,
+      "fct_view_id__viw_name": null,
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "Function",
+     "userkey": "TRN_GIT_CHECKOUT_SERVICE_E",
+     "item": {
+      "fct_name": "TRN_GIT_CHECKOUT_SERVICE_E",
+      "fct_object_id__obj_type": "E",
+      "fct_object_id__obj_name": "TrnGitCheckoutService",
       "fct_function": "L",
       "fct_action_id__act_name": null,
       "fct_view_id__viw_name": null,
@@ -7514,6 +7850,20 @@
     },
     {
      "object": "Grant",
+     "userkey": "PUBLIC~TRN_GIT_CHECKOUT_SERVICE_E~TrnGitCheckoutService~",
+     "item": {
+      "grt_group_id__grp_name": "PUBLIC",
+      "grt_function_id__fct_name": "TRN_GIT_CHECKOUT_SERVICE_E",
+      "grt_function_id__fct_object_id__obj_type": "E",
+      "grt_function_id__fct_object_id__obj_name": "TrnGitCheckoutService",
+      "grt_function_id__fct_action_id__act_name": null,
+      "grt_function_id__fct_function": "L",
+      "grt_activ": true,
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "Grant",
      "userkey": "PUBLIC~TRN_LSN_R~TrnLesson~",
      "item": {
       "grt_group_id__grp_name": "PUBLIC",
@@ -7604,6 +7954,20 @@
       "grt_function_id__fct_name": "TRN_SITE_THEME_R",
       "grt_function_id__fct_object_id__obj_type": "O",
       "grt_function_id__fct_object_id__obj_name": "TrnSiteTheme",
+      "grt_function_id__fct_action_id__act_name": null,
+      "grt_function_id__fct_function": "L",
+      "grt_activ": true,
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "Grant",
+     "userkey": "PUBLIC~TRN_SYNC_SERVICE_E~TrnSyncService~",
+     "item": {
+      "grt_group_id__grp_name": "PUBLIC",
+      "grt_function_id__fct_name": "TRN_SYNC_SERVICE_E",
+      "grt_function_id__fct_object_id__obj_type": "E",
+      "grt_function_id__fct_object_id__obj_name": "TrnSyncService",
       "grt_function_id__fct_action_id__act_name": null,
       "grt_function_id__fct_function": "L",
       "grt_activ": true,
@@ -8172,7 +8536,7 @@
       "res_file": {
        "path": "resources/ObjectExternal/TrnFront/SITE.zip",
        "mime": "application/zip",
-       "name": "SITE.zip"
+       "name": "site.zip"
       },
       "res_image": null,
       "row_module_id__mdl_name": "Training"
@@ -10741,6 +11105,18 @@
     },
     {
      "object": "TranslateExternal",
+     "userkey": "O~TrnGitCheckoutService~ENU",
+     "item": {
+      "tsl_typeObject": "O",
+      "tsl_id__obe_name": "TrnGitCheckoutService",
+      "tsl_lang": "ENU",
+      "tsl_value": "Git checkout service",
+      "tsl_help": null,
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "TranslateExternal",
      "userkey": "O~TrnPublicService~ENU",
      "item": {
       "tsl_typeObject": "O",
@@ -10819,6 +11195,18 @@
       "tsl_id__obe_name": "TrnFront",
       "tsl_lang": "FRA",
       "tsl_value": "TrnFront",
+      "tsl_help": null,
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "TranslateExternal",
+     "userkey": "O~TrnGitCheckoutService~FRA",
+     "item": {
+      "tsl_typeObject": "O",
+      "tsl_id__obe_name": "TrnGitCheckoutService",
+      "tsl_lang": "FRA",
+      "tsl_value": "Git checkout service",
       "tsl_help": null,
       "row_module_id__mdl_name": "Training"
      }

@@ -17,10 +17,6 @@ import com.simplicite.commons.Training.TrnTools;
 public class TrnTreeService extends RESTServiceExternalObject  {
 	private static final long serialVersionUID = 1L;
 
-    private TrnCategory tmpCategory = (TrnCategory) g().getObject("tree_TrnCategory", "TrnCategory");
-    private TrnLesson tmpLesson = (TrnLesson) g().getObject("tree_TrnLesson", "TrnLesson");
-	private TrnTagLsn tagLsn = (TrnTagLsn) g().getObject("tree_TrnTagLsn", "TrnTagLsn");
-
 	private String previousLesson = "";
 	private ArrayList<JSONObject> lessonsNeedingNextPath = new ArrayList<>(); 
 	private ArrayList<String> nextPaths = new ArrayList<>(); 
@@ -75,7 +71,11 @@ public class TrnTreeService extends RESTServiceExternalObject  {
 	}
 
 	private JSONArray getTree(String lang, JSONArray tags){
-		JSONArray tree = getCategoriesRecursive("is null", tags, lang);
+		TrnCategory tmpCategory = (TrnCategory) g().getObject("tree_TrnCategory", "TrnCategory");
+		TrnLesson tmpLesson = (TrnLesson) g().getObject("tree_TrnLesson", "TrnLesson");
+		TrnTagLsn tagLsn = (TrnTagLsn) g().getObject("tree_TrnTagLsn", "TrnTagLsn");
+		
+		JSONArray tree = getCategoriesRecursive("is null", tmpCategory, tmpLesson, tagLsn, tags, lang);
 	
 		for(int i = 0; i < lessonsNeedingNextPath.size()-1; i++ )
 			lessonsNeedingNextPath.get(i).put("next_path", nextPaths.get(i+1));
@@ -83,18 +83,18 @@ public class TrnTreeService extends RESTServiceExternalObject  {
 		return tree;
 	}
 	
-	private JSONArray getCategoriesRecursive(String parentId, JSONArray tags, String lang){
+	private JSONArray getCategoriesRecursive(String parentId, TrnCategory tmpCategory, TrnLesson tmpLesson, TrnTagLsn tagLsn, JSONArray tags, String lang){
 		JSONArray cats = new JSONArray();
-		for(JSONObject cat : getCategories(parentId, lang)){
-			cat.put("categories", getCategoriesRecursive(cat.getString("row_id"), tags, lang));
-			cat.put("lessons", getLessons(cat.getString("row_id"), lang, tags));
+		for(JSONObject cat : getCategories(parentId, tmpCategory, lang)){
+			cat.put("categories", getCategoriesRecursive(cat.getString("row_id"), tmpCategory, tmpLesson, tagLsn, tags, lang));
+			cat.put("lessons", getLessons(cat.getString("row_id"), tmpLesson, tagLsn, lang, tags));
 			if(cat.getJSONArray("lessons").length() == 0 && cat.getJSONArray("categories").length() == 0) continue;
 			cats.put(cat);
 		}
 		return cats;
 	}
 	
-	private List<JSONObject> getCategories(String parentId, String lang){
+	private List<JSONObject> getCategories(String parentId, TrnCategory tmpCategory, String lang){
 		List<JSONObject> catList = new ArrayList();
 		synchronized(tmpCategory){
 			tmpCategory.resetFilters();
@@ -113,7 +113,7 @@ public class TrnTreeService extends RESTServiceExternalObject  {
 		return catList;
 	}
 	
-	private JSONArray getLessons(String categoryId, String lang, JSONArray tags){
+	private JSONArray getLessons(String categoryId, TrnLesson tmpLesson, TrnTagLsn tagLsn, String lang, JSONArray tags){
 		JSONArray lessons = new JSONArray();
 		JSONObject lsn;
 		
@@ -145,4 +145,3 @@ public class TrnTreeService extends RESTServiceExternalObject  {
 		return lessons;
 	}
 }
-
