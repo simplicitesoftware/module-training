@@ -44,6 +44,24 @@ public class TrnEsiHelper implements java.io.Serializable {
 		}
 	}
 	
+	public void deleteIndex(){
+		String url = esInstance+"/"+esIndex;
+		try {
+			String result = RESTTool.delete(url, esUser, esPassword);
+		}catch(Exception e){
+			AppLog.error("Error deleting index "+esIndex+" on elasticsearch instance " + esInstance, e, g);
+		}
+	}
+	
+	public void createIndex() {
+		String url = esInstance+"/"+esIndex;
+		try{
+			String result = RESTTool.put(url, esUser, esPassword);
+		}catch(Exception e) {
+			AppLog.error("Error creating index " +esIndex+" on elasticsearch instance " + esInstance, e, g);
+		}
+	}
+	
 	public void indexAllModules(){
 		for(String mdl : getModules())
 			if(!ModuleDB.isSystemModule(mdl))
