@@ -114,95 +114,79 @@ export default {
       else this.$store.commit("tree/OPEN_NODE", suggestion.path);
     },
     queryIndex(){
-        if(this.inputValue == ''){
-            this.isSugOpen = false
-        } else {
-            clearTimeout(this.typingTimer);
-            this.typingTimer = setTimeout(function () {
-                console.log("fetching...");
-                if(this.$SEARCH_TYPE == "elasticsearch"){
-                    this.searchElasticSearch(this.inputValue)
-                }
-                else if(this.$SEARCH_TYPE == "simplicite"){
-                    this.searchSimplicite(this.inputValue)
-                }
-                else if(this.$SEARCH_TYPE == "community"){
-                    this.searchCommnuity(this.inputValue)
-                }
-            }.bind(this), 500);
-        }
+        this.isSugOpen = false
+        this.suggestions = null;
+        clearTimeout(this.typingTimer);
+        this.typingTimer = setTimeout(function () {
+            if(this.$SEARCH_TYPE == "elasticsearch"){
+                this.searchElasticSearch(this.inputValue)
+            }
+            else if(this.$SEARCH_TYPE == "simplicite"){
+                this.searchSimplicite(this.inputValue)
+            }
+            else if(this.$SEARCH_TYPE == "community"){
+                this.searchCommnuity(this.inputValue)
+            }
+        }.bind(this), 500);
     },
     searchSimplicite(inputValue){
-        if(inputValue == ''){
-            this.isSugOpen = false
-            this.suggestions = null;
-        } else {
-            console.log(inputValue);
-            const headers = new Headers();
-            headers.append("Authorization", this.$smp.getBearerTokenHeader());
-            headers.append("Content-Type", "application/json");
+        const headers = new Headers();
+        headers.append("Authorization", this.$smp.getBearerTokenHeader());
+        headers.append("Content-Type", "application/json");
 
-            const requestOptions = {
-                method: 'GET',
-                headers: headers,
-                redirect: 'follow'
-            };
-            fetch(this.$smp.parameters.url+"/api/rest/?_indexsearch="+inputValue, requestOptions)
-                .then(response => response.json())
-                .then(async (json) => {
-                const hits = json.filter(elem => elem.object === "TrnLsnTranslate");
-                if(hits.length != 0){
-                    this.suggestions = hits
-                    this.isSugOpen = true;
-                    console.log("hits !");
-                }
-                else{
-                    this.suggestions = null
-                    console.log("no hits !");
-                }
-                console.log("simplicite fetched");
-                })
-                .catch(error => console.log('error', error));
-        }
+        const requestOptions = {
+            method: 'GET',
+            headers: headers,
+            redirect: 'follow'
+        };
+        fetch(this.$smp.parameters.url+"/api/rest/?_indexsearch="+inputValue, requestOptions)
+            .then(response => response.json())
+            .then(async (json) => {
+            const hits = json.filter(elem => elem.object === "TrnLsnTranslate");
+            if(hits.length != 0){
+                this.suggestions = hits
+                this.isSugOpen = true;
+            }
+            else{
+                this.suggestions = null
+            }
+            })
+            .catch(error => console.log('error', error));
+        
     },
     searchElasticSearch(inputValue){
 
-      if(inputValue == ''){
-        this.isSugOpen = false
-        this.suggestions = null;
-      }
-      else{
         const myHeaders = new Headers();
         if(process.env.NODE_ENV !== "local") {
-          const authent = Buffer.from(this.$ES_CREDENTIALS, 'utf8').toString('base64');
-          myHeaders.append("Authorization", "Basic "+authent);
+            const authent = Buffer.from(this.$ES_CREDENTIALS, 'utf8').toString('base64');
+            myHeaders.append("Authorization", "Basic "+authent);
         }
 
         myHeaders.append("Content-Type", "application/json");
         myHeaders.append("Origin", this.$ES_INSTANCE);
 
         const json = {
-          "query": {
-              "multi_match": {
-                  "type": "phrase_prefix",
-                  "query": inputValue,
-                  "fields": this.getsearchFields
-              }
-          },
-          "highlight": {
-              "fields": this.gethighlightFields,
-              "fragment_size":500
-          },
-          "size": 10
+            "query": {
+                "multi_match": {
+                    "type": "phrase_prefix",
+                    "query": inputValue,
+                    "fields": this.getsearchFields
+                }
+            },
+            "highlight": {
+                "fields": this.gethighlightFields,
+                "fragment_size":500
+            },
+            "size": 10
         };
 
         const raw = JSON.stringify(json);
 
-        var requestOptions = {
-          method: 'POST',
-          headers: myHeaders,
-          body: raw,
-          redirect: 'follow'
+        const requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
         };
 
         const searchUrl = this.$ES_INSTANCE+"/"+this.$ES_INDEX+"/_search";
@@ -210,35 +194,33 @@ export default {
         fetch(searchUrl, requestOptions)
         .then(response => response.json())
         .then(json => {
-          var hits = json.hits.hits
-          if(hits.length != 0){
+            const hits = json.hits.hits
+            if(hits.length != 0){
             this.suggestions = hits;
             this.isSugOpen = true;
-          }
-          else{
+            }
+            else{
             this.suggestions = null
-          }
-          console.log("elastic fetched");
+            }
         })
         .catch(error => console.log('error', error));
-      }
     },
+    // to do
     searchCommnuity(inputValue){
-      console.log(inputValue)
-      var myHeaders = new Headers();
-      myHeaders.append("key", "1d6d13346f39ffa120b0c0c3afe5212c23ea71a5d3a76bc18d9013e7d1fc2f98");
-      var requestOptions = {
-        method: 'GET',
-        headers: myHeaders,
-        redirect: 'follow'
-      };
+        console.log(inputValue);
+        const myHeaders = new Headers();
+        myHeaders.append("key", "1d6d13346f39ffa120b0c0c3afe5212c23ea71a5d3a76bc18d9013e7d1fc2f98");
+        const requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+            redirect: 'follow'
+        };
 
-      //fetch("https://community.simplicite.io/search.json?q=pouvoir créer un agenda", requestOptions)
-      fetch("https://community.simplicite.io/posts.json", requestOptions)
+         //fetch("https://community.simplicite.io/search.json?q=pouvoir créer un agenda", requestOptions)
+        fetch("https://community.simplicite.io/posts.json", requestOptions)
         .then(response => response.json())
         .then(json => {
-          var hits = json;
-          console.log(hits)
+            this.suggestion =  json;
         })
         .catch(error => console.log('error', error));
     },

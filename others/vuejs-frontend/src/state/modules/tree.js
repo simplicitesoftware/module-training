@@ -49,7 +49,6 @@ export default {
         let cursor = state.tree; 
         let path = "";
         let foundLsn = undefined;
-
         parents.forEach(function (val, idx) {
           path += "/" + val;
           if(idx === parents.length - 1){ // last item => FIND LESSON

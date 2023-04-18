@@ -27,7 +27,8 @@ export default {
       suggestions: [],
       contentMaxLength: 1000,
       suggestionMaxLength: 10,
-      keyRegex: /(\*|[A-Za-z]+) (.*)/
+      keyRegex: /(\*|[A-Za-z]+) (.*)/,
+      frontPathRegex: /[A-Za-z- _]* (.+)/
     }
   },
   computed: {
@@ -38,32 +39,39 @@ export default {
   // async operation is made on component creation
   async created() {
     const translate = this.$smp.getBusinessObject("TrnLsnTranslate");
-    for(let i = 0; i < this.suggestionMaxLength; i++) {
-        const hit = this.simpliciteHits[i];
-        const suggestion = new Object();
-        suggestion.path = hit.key;
-        await this.setSuggestionContent(translate, suggestion, hit.row_id, this.lang);
+    const lesson = this.$smp.getBusinessObject("TrnLesson");
+    for(let i = 0; this.suggestions.length < this.suggestionMaxLength && this.simpliciteHits.length > i; i++) {
+        await this.processHit(translate, lesson, this.simpliciteHits[i], this.lang);
     }    
   },
   methods:{
     suggestionSelected(suggestion){
       this.$emit('suggestionSelected', suggestion);
     },
-    async setSuggestionContent(translate, suggestion, rowId, lang) {
-        const regexMatch = suggestion.path.match(this.keyRegex);
-        console.log(regexMatch);
-        if(regexMatch[1] !== "*") {
-            const res = await translate.search({row_id: rowId, trnLtrLang: lang});
-            const test45 = res;
-            console.log(test45); 
-            if(res.length) {
-                if(res[0].trnLtrRawContent) {
-                    this.formatContent(suggestion, res[0]);
-                }  else { // if no content set in language, look for "ANY" content
-                    const anyTranslate = await translate.search({trnLtrLsnId__trnLsnPath: regexMatch[2], trnLtrLang: "ANY"});
-                    if(anyTranslate.length) {
-                        this.formatContent(suggestion, anyTranslate[0]);
-                    }
+    async processHit(translate, lesson, hit, lang) {
+        const pathMatch = hit.key.match(this.keyRegex);
+        if(!pathMatch) {
+            console.log(`Unable to parse path ${hit.key}`);
+            return;
+        }
+        if(pathMatch[1] !== "*") {
+            this.setSuggestion(pathMatch[2], translate, lesson, lang, hit.row_id);
+        }
+    },
+    async setSuggestion(path, translate, lesson, lang, translateRowId) {
+        const suggestion = new Object();
+        const contentRes = await translate.search({row_id: translateRowId, trnLtrLang: lang});
+        if(contentRes.length) {
+            const lessonRes = await lesson.search({row_id: contentRes[0].trnLtrLsnId});
+            if(lessonRes.length) {
+                suggestion.path = lessonRes[0].trnLsnFrontPath;
+            }
+            if(contentRes[0].trnLtrRawContent) {
+                this.formatContent(suggestion, contentRes[0]);
+            }  else { // if no content set in language, look for "ANY" content
+                const anyTranslate = await translate.search({trnLtrLsnId__trnLsnPath: path, trnLtrLang: "ANY"});
+                if(anyTranslate.length) {
+                    this.formatContent(suggestion, anyTranslate[0]);
                 }
             }
         }
