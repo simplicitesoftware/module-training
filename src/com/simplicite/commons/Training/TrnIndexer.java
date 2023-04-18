@@ -11,7 +11,7 @@ public class TrnIndexer implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public static void forceIndex(Grant g) throws Exception{
-		TrnEsiHelper es = getEsHelper(g);
+		TrnEsiHelper es = TrnEsiHelper.getEsHelper(g);
 		if(es!=null){
 			TrnLesson lsn = (TrnLesson) g.getTmpObject("TrnLesson");
 			synchronized(lsn){
@@ -24,18 +24,8 @@ public class TrnIndexer implements java.io.Serializable {
 		}
 	}
 	
-	private static TrnEsiHelper getEsHelper(Grant g){
-		JSONObject conf = new JSONObject(g.getParameter("TRN_CONFIG"));
-		if("elasticsearch".equals(conf.optString("index_type"))){
-			JSONObject esConf = conf.getJSONObject("esi_config");
-			return new TrnEsiHelper(g, esConf);
-		}
-		else
-			return null;
-	}
-	
 	public static void indexLesson(TrnLesson lsn) throws Exception{
-		indexLesson(getEsHelper(lsn.getGrant()), lsn);
+		indexLesson(TrnEsiHelper.getEsHelper(lsn.getGrant()), lsn);
 	}
 	
 	private static void indexLesson(TrnEsiHelper es, TrnLesson lsn) throws Exception{
@@ -44,7 +34,7 @@ public class TrnIndexer implements java.io.Serializable {
 	}
 
 	public static void deleteLessonIndex(TrnLesson lsn) throws Exception {
-		deleteLessonIndex(getEsHelper(lsn.getGrant()) , lsn);
+		deleteLessonIndex(TrnEsiHelper.getEsHelper(lsn.getGrant()) , lsn);
 	}
 
 	private static void deleteLessonIndex(TrnEsiHelper es, TrnLesson lsn) throws Exception {

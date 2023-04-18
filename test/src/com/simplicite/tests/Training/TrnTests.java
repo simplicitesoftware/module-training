@@ -9,6 +9,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import com.simplicite.commons.Training.TrnFsSyncTool;
+import com.simplicite.commons.Training.TrnTools;
+import com.simplicite.commons.Training.TrnEsiHelper;
 /**
  * Unit tests TrnTests
  */
@@ -16,6 +18,11 @@ public class TrnTests {
 	@Test
 	public void testSync() {
 		try {
+            if(!TrnTools.isUiMode()) {
+                TrnEsiHelper eh = TrnEsiHelper.getEsHelper(Grant.getSystemAdmin());
+                eh.deleteIndex();
+                eh.createIndex();
+            }
 			TrnFsSyncTool.dropDbData();
 			TrnFsSyncTool.deleteStore();
 			TrnFsSyncTool.triggerSync();

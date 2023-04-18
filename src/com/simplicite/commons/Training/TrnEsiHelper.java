@@ -28,6 +28,16 @@ public class TrnEsiHelper implements java.io.Serializable {
 		this.esUser = esCredentials!=null ? esCredentials.split(":")[0] : null;
 		this.esPassword = esCredentials!=null ? esCredentials.split(":")[1] : null;
 	}
+
+    public static TrnEsiHelper getEsHelper(Grant g){
+		JSONObject conf = new JSONObject(g.getParameter("TRN_CONFIG"));
+		if("elasticsearch".equals(conf.optString("index_type"))){
+			JSONObject esConf = conf.getJSONObject("esi_config");
+			return new TrnEsiHelper(g, esConf);
+		}
+		else
+			return null;
+	}
 	
 	public String getDefaultIndex(){
 		return esIndex;
@@ -41,6 +51,24 @@ public class TrnEsiHelper implements java.io.Serializable {
 		}
 		catch(Exception e){
 			AppLog.error("Error calling elasticsearch", e, g);
+		}
+	}
+	
+	public void deleteIndex(){
+		String url = esInstance+"/"+esIndex;
+		try {
+			String result = RESTTool.delete(url, esUser, esPassword);
+		}catch(Exception e){
+			AppLog.error("Error deleting index "+esIndex+" on elasticsearch instance " + esInstance, e, g);
+		}
+	}
+	
+	public void createIndex() {
+		String url = esInstance+"/"+esIndex;
+		try{
+			String result = RESTTool.put(url, esUser, esPassword);
+		}catch(Exception e) {
+			AppLog.error("Error creating index " +esIndex+" on elasticsearch instance " + esInstance, e, g);
 		}
 	}
 	
