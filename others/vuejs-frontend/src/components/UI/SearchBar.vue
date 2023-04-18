@@ -60,6 +60,7 @@ export default {
       highlightFields: ["title", "raw_content"],
       hover: false,
       isSugOpen:false,
+      typingTimer: undefined,
       queryInput:'',
       result:'',
       suggestions:null,
@@ -113,58 +114,62 @@ export default {
       else this.$store.commit("tree/OPEN_NODE", suggestion.path);
     },
     queryIndex(){
-
-      clearTimeout(this.timeout);
-
-      // Make a new timeout set to go off in 500ms (0.5 second)
-      this.timeout = setTimeout(function () {
         if(this.inputValue == ''){
-          this.isSugOpen = false
+            this.isSugOpen = false
+        } else {
+            clearTimeout(this.typingTimer);
+            this.typingTimer = setTimeout(function () {
+                console.log("fetching...");
+                if(this.$SEARCH_TYPE == "elasticsearch"){
+                    this.searchElasticSearch(this.inputValue)
+                }
+                else if(this.$SEARCH_TYPE == "simplicite"){
+                    this.searchSimplicite(this.inputValue)
+                }
+                else if(this.$SEARCH_TYPE == "community"){
+                    this.searchCommnuity(this.inputValue)
+                }
+            }.bind(this), 500);
         }
-        else{
-          // console.log(this.inputValue)
-          this.isSugOpen = true;
-          if(this.$SEARCH_TYPE == "elasticsearch"){
-            this.searchElasticSearch(this.inputValue)
-          }
-          else if(this.$SEARCH_TYPE == "simplicite"){
-            this.searchSimplicite(this.inputValue)
-          }
-          else if(this.$SEARCH_TYPE == "community"){
-            this.searchCommnuity(this.inputValue)
-          }
-        }
-      }.bind(this), 500);
     },
     searchSimplicite(inputValue){
+        if(inputValue == ''){
+            this.isSugOpen = false
+            this.suggestions = null;
+        } else {
+            console.log(inputValue);
+            const headers = new Headers();
+            headers.append("Authorization", this.$smp.getBearerTokenHeader());
+            headers.append("Content-Type", "application/json");
 
-      var headers = new Headers();
-      headers.append("Authorization", this.$smp.getBearerTokenHeader());
-      headers.append("Content-Type", "application/json");
-
-      var requestOptions = {
-        method: 'GET',
-        headers: headers,
-        redirect: 'follow'
-      };
-      fetch(this.$smp.parameters.url+"/api/rest/?_indexsearch="+inputValue, requestOptions)
-        .then(response => response.json())
-        .then(async (json) => {
-          var hits = json.filter(elem => elem.object === "TrnLesson" || elem.object === "TrnCategory");
-          if(hits.length != 0){
-            this.suggestions = hits
-          }
-          else{
-            this.suggestions = null
-          }
-        })
-        .catch(error => console.log('error', error));
-
+            const requestOptions = {
+                method: 'GET',
+                headers: headers,
+                redirect: 'follow'
+            };
+            fetch(this.$smp.parameters.url+"/api/rest/?_indexsearch="+inputValue, requestOptions)
+                .then(response => response.json())
+                .then(async (json) => {
+                const hits = json.filter(elem => elem.object === "TrnLsnTranslate");
+                if(hits.length != 0){
+                    this.suggestions = hits
+                    this.isSugOpen = true;
+                    console.log("hits !");
+                }
+                else{
+                    this.suggestions = null
+                    console.log("no hits !");
+                }
+                console.log("simplicite fetched");
+                })
+                .catch(error => console.log('error', error));
+        }
     },
     searchElasticSearch(inputValue){
 
       if(inputValue == ''){
         this.isSugOpen = false
+        this.suggestions = null;
       }
       else{
         const myHeaders = new Headers();
@@ -207,11 +212,13 @@ export default {
         .then(json => {
           var hits = json.hits.hits
           if(hits.length != 0){
-            this.suggestions = hits; 
+            this.suggestions = hits;
+            this.isSugOpen = true;
           }
           else{
             this.suggestions = null
           }
+          console.log("elastic fetched");
         })
         .catch(error => console.log('error', error));
       }

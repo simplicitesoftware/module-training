@@ -1,4 +1,3 @@
-/* eslint-disable no-debugger */
 import {SET_TREE,OPEN_NODE,TOGGLE_NODE_OPEN} from "../mutation-types";
 
 export default {
@@ -111,7 +110,6 @@ export default {
             tags:rootGetters['ui/selectedTagsRowId']
           }
         ).then(function(res){
-          debugger
           let addStateValue = node => {
             node.open = false;
             if(node.is_category)
