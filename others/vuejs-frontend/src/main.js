@@ -82,8 +82,7 @@ function initFront() {
                 router: router,
             }).$mount('#app');
         } else {
-            console.log("")
-            setTimeout(() => initFront(), 500);
+            initFront();
         }  
     });
 }

@@ -39,12 +39,13 @@
       })
     },
     created() {
-      if (this.$router.currentRoute.name === 'Lesson') this.isUserOnLesson = true;
-      this.$store.dispatch('ui/fetchStyle', {smp : this.$smp}).finally(() => {
-        this.isStyleLoaded = true;
-      });
-      this.$store.dispatch('ui/fetchTags', {smp: this.$smp});
-      this.$store.dispatch('tree/fetchTree', {smp: this.$smp}).then(() => this.isFetching = false);
+        if (this.$router.currentRoute.name === 'Lesson') this.isUserOnLesson = true;
+        this.$store.dispatch('ui/fetchStyle', {smp : this.$smp}).finally(() => {
+            this.isStyleLoaded = true;
+        });
+        // set isFetching after fetch tags to reduce loading time (fetchTree takes a while)
+        this.$store.dispatch('ui/fetchTags', {smp: this.$smp}).finally(() => this.isFetching = false);
+        this.$store.dispatch('tree/fetchTree', {smp: this.$smp});
     },
     watch: {
       $route(to) {
