@@ -1915,12 +1915,6 @@ paths:
       - schema:
           type: string
         in: query
-        name: _indexsearch
-        description: Index search query
-        required: false
-      - schema:
-          type: string
-        in: query
         name: trnLsnCode
         description: Search filter for Code
         required: false
@@ -2645,12 +2639,6 @@ paths:
       - schema:
           type: string
         in: query
-        name: _indexsearch
-        description: Index search query
-        required: false
-      - schema:
-          type: string
-        in: query
         name: trnPicId
         description: Search filter for Trn pic id
         required: false
@@ -3301,12 +3289,6 @@ paths:
         in: query
         name: _doc
         description: Documentation?
-        required: false
-      - schema:
-          type: string
-        in: query
-        name: _indexsearch
-        description: Index search query
         required: false
       - schema:
           type: string

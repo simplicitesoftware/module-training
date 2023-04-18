@@ -1208,11 +1208,6 @@ paths:
         type: boolean
         required: false
       - in: query
-        name: _indexsearch
-        description: Index search query
-        type: string
-        required: false
-      - in: query
         name: trnLsnCode
         description: Search filter for Code
         type: string
@@ -1821,11 +1816,6 @@ paths:
         type: boolean
         required: false
       - in: query
-        name: _indexsearch
-        description: Index search query
-        type: string
-        required: false
-      - in: query
         name: trnPicId
         description: Search filter for Trn pic id
         type: string
@@ -2374,11 +2364,6 @@ paths:
         name: _doc
         description: Documentation?
         type: boolean
-        required: false
-      - in: query
-        name: _indexsearch
-        description: Index search query
-        type: string
         required: false
       - in: query
         name: trnCatCode
