@@ -90,8 +90,8 @@ public class TrnLesson extends TrnObject {
 	}
 	
 	public void index(){
-    String published = getFieldValue("trnLsnPublish");
-    if(published.equals("0")) return; 
+        String published = getFieldValue("trnLsnPublish");
+        if(published.equals("0")) return; 
 		try{
 			TrnIndexer.indexLesson(this);
 		}

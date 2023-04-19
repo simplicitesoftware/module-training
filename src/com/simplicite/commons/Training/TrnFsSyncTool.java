@@ -75,7 +75,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 			loadTrnObjectAccess();
 			dropCategory(false);
 			dropTag(false);
-      AppLog.info("Successfully droped data", g);
+            AppLog.info("Successfully droped data", g);
 		}catch(DeleteException e){
 			throw new TrnSyncException("TRN_DROP_ERROR", e.getMessage());
 		}

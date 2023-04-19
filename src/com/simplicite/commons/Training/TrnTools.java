@@ -24,6 +24,21 @@ public class TrnTools implements java.io.Serializable {
 		JSONObject conf = new JSONObject(Grant.getSystemAdmin().getParameter("TRN_CONFIG"));
 		return "UI".equals(conf.optString("edition_type"));
 	}
+
+    public static boolean isFileSystemMode() {
+        JSONObject conf = new JSONObject(Grant.getSystemAdmin().getParameter("TRN_CONFIG"));
+		return "FILESYSTEM".equals(conf.optString("edition_type"));
+    }
+
+    public static boolean isElasticSearchMode() {
+        JSONObject conf = new JSONObject(Grant.getSystemAdmin().getParameter("TRN_CONFIG"));
+		return "elasticsearch".equals(conf.optString("index_type"));
+    } 
+
+    public static boolean isSimpliciteMode() {
+        JSONObject conf = new JSONObject(Grant.getSystemAdmin().getParameter("TRN_CONFIG"));
+		return "simplicite".equals(conf.optString("index_type"));
+    }
 	
 	public static String[] getLangs(Grant g){
 		return g.getListOfValues("LANG_ALL").getCodesArray("LANG_ALL");

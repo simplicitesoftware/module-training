@@ -18,14 +18,16 @@ public class TrnTests {
 	@Test
 	public void testSync() {
 		try {
-            if(!TrnTools.isUiMode()) {
+            if(TrnTools.isFileSystemMode()) {
+                TrnFsSyncTool.dropDbData();
+                TrnFsSyncTool.deleteStore();
+                TrnFsSyncTool.triggerSync();
+            }
+            if(TrnTools.isElasticSearchMode()) {
                 TrnEsiHelper eh = TrnEsiHelper.getEsHelper(Grant.getSystemAdmin());
                 eh.deleteIndex();
                 eh.createIndex();
             }
-			TrnFsSyncTool.dropDbData();
-			TrnFsSyncTool.deleteStore();
-			TrnFsSyncTool.triggerSync();
 		} catch (Exception e) {
 			AppLog.error(getClass(), "testSync", e.getMessage(), e, Grant.getSystemAdmin());
 			fail(e.getMessage());
