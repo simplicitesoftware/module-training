@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="app">
-    <Header v-if="isStyleLoaded"/>
+    <CustomHeader v-if="isStyleLoaded"/>
     <main>
       <nav class="navigation-drawer" v-show="isDrawerOpen" :style="{background: `linear-gradient(${themeValues.primaryColor} 65%, ${themeValues.secondaryColor})`}">
         <TreeViewNode v-for="(motherCategory, index) in tree" :key="index" :node="motherCategory" :depth="0"/>
@@ -17,13 +17,13 @@
 <script>
   import {mapGetters, mapState} from "vuex";
   import Spinner from "./components/UI/Spinner";
-  import Header from "./components/UI/Header";
+  import CustomHeader from "./components/UI/CustomHeader";
   import LightBox from "./components/UI/LightBox";
   import TreeViewNode from "./components/UI/TreeViewNode";
 
   export default {
     name: 'App',
-    components: {LightBox, Header, TreeViewNode, Spinner},
+    components: {LightBox, CustomHeader, TreeViewNode, Spinner},
     data: () => ({
       isFetching: true,
       isStyleLoaded: false,
@@ -39,13 +39,12 @@
       })
     },
     created() {
-        if (this.$router.currentRoute.name === 'Lesson') this.isUserOnLesson = true;
-        this.$store.dispatch('ui/fetchStyle', {smp : this.$smp}).finally(() => {
-            this.isStyleLoaded = true;
-        });
-        // set isFetching after fetch tags to reduce loading time (fetchTree takes a while)
-        this.$store.dispatch('ui/fetchTags', {smp: this.$smp}).finally(() => this.isFetching = false);
-        this.$store.dispatch('tree/fetchTree', {smp: this.$smp});
+      if (this.$router.currentRoute.name === 'Lesson') this.isUserOnLesson = true;
+      this.$store.dispatch('ui/fetchStyle', {smp : this.$smp}).finally(() => {
+        this.isStyleLoaded = true;
+      });
+      this.$store.dispatch('ui/fetchTags', {smp: this.$smp});
+      this.$store.dispatch('tree/fetchTree', {smp: this.$smp}).then(() => this.isFetching = false);
     },
     watch: {
       $route(to) {

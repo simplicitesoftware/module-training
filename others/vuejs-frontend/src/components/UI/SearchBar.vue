@@ -1,7 +1,7 @@
 <template>
   <div id="SearchBar"  v-click-outside="hideSuggestions">
     <div class="searchElement">
-      <input class="searchbar" @input="queryIndex" v-model="inputValue" type="text" name="" value="" :placeholder="searchbarPlaceHolder"/>
+      <input class="searchbar" @input="queryIndex" v-model="inputValue" type="text" :placeholder="searchbarPlaceHolder"/>
       <div @click="searchIconClick" class="searchbar-logo-container" :style="{[`background-color`]: `${themeValues.primaryColor}`}">
         <span class="material-icons searchbar-logo">
             search

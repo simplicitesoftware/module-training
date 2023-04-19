@@ -1,25 +1,22 @@
 <template>
   <header id="top-menu" :style="{background: `linear-gradient(to right, ${themeValues.primaryColor} 65%, ${themeValues.secondaryColor})`}">
     <div class="menu-icon" @click="toggleMenu">
-      <i class="material-icons menu-icon__image">menu</i>
+        <i class="material-icons menu-icon__image">menu</i>
     </div>
     <div class="logo-warning" v-if="themeValues.iconUrl === undefined" @click="goToHome">Icone missing (upload it in Site theme)</div>
     <div v-else class="logo" :style="{backgroundImage:`url(${themeValues.iconUrl})`}" @click="goToHome">
     </div>
     <SearchBar ref="searchbaritem" class="search-bar" v-show="searchbarVisible" v-bind:themeValues="themeValues"/>
     <nav class="header-buttons">
-      
-      <i id="previous-button" class="material-icons header-buttons__button" @click="arrowNavigationClicked(-1)"
-         v-show="navigationArrowVisible">skip_previous</i>
-      <i id="next-button" class="material-icons header-buttons__button" @click="arrowNavigationClicked(1)"
-         v-show="navigationArrowVisible">skip_next</i>
-      <i id="to-ui" class="material-icons header-buttons__button" @click="toUi()">open_in_new</i>
-      <div v-if="isTagDefined">
-        <i id="tag-selector" :class="tagClass" @click="tagSelectorClicked">bookmark</i>
-        <TagSelector v-if="isModalOpen"/>
-      </div>
-      
-      <!-- <button id="language-switch" class="button-nostyle"> -->
+        <i id="previous-button" class="material-icons header-buttons__button" @click="arrowNavigationClicked(-1)"
+            v-show="navigationArrowVisible">skip_previous</i>
+        <i id="next-button" class="material-icons header-buttons__button" @click="arrowNavigationClicked(1)"
+            v-show="navigationArrowVisible">skip_next</i>
+        <i id="to-ui" class="material-icons header-buttons__button" @click="toUi()">open_in_new</i>
+        <div v-if="isTagDefined">
+            <i id="tag-selector" :class="tagClass" @click="tagSelectorClicked">bookmark</i>
+            <TagSelector v-if="isModalOpen"/>
+        </div>
         <i class="material-icons header-buttons__button" @click="toggleLang">language</i> <span>{{lang}}</span>
     </nav>
   </header>
@@ -31,7 +28,7 @@
   import TagSelector from "./TagSelector";
 
   export default {
-    name: "Header",
+    name: "CustomHeader",
     data: () => ({
       searchbarVisible: true,
       navigationArrowVisible: false,
