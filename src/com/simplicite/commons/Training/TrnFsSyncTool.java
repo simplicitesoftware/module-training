@@ -148,22 +148,6 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		return "png".equals(extension) || "jpg".equals(extension);
 	}
 	
-	private boolean isCategory(File dir){
-		return dir.isDirectory() && isCategory(dir.getName());
-	}
-	
-	private boolean isCategory(String path){
-		return PATTERN_CATEGORY.matcher(path).matches();
-	}
-	
-	private boolean isLesson(File dir){
-		return dir.isDirectory() && isLesson(dir.getName());
-	}
-	
-	private boolean isLesson(String path){
-		return PATTERN_LESSON.matcher(path).matches();
-	}
-	
 	private void deleteDeleted(){
 		for(String path : hashStore.keySet())
 			if(!foundPaths.contains(path))
@@ -228,7 +212,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	private void deleteForPath(String path){
 		BusinessObjectTool bot;
 		String id;
-		if(isCategory(path)){
+		if(TrnVerifyContent.isCategory(path)){
 			bot = new BusinessObjectTool(category);
 			id = getCatRowIdFromPath(path);
 		}
@@ -236,7 +220,6 @@ public class TrnFsSyncTool implements java.io.Serializable {
 			bot = new BusinessObjectTool(lesson);
 			id = getLsnRowIdFromPath(path);
 		}
-		
 		try{
 			synchronized(bot.getObject()){
 				bot.getForDelete(id);
@@ -315,9 +298,9 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	}
 	
 	private void updateDbWithDir(File dir) throws TrnSyncException{
-		if(isCategory(dir))
+		if(TrnVerifyContent.isCategory(dir))
 			upsertCategory(dir);
-		else if(isLesson(dir))
+		else if(TrnVerifyContent.isLesson(dir))
 			upsertLesson(dir);
 		else
 			throw new TrnSyncException("TRN_SYNC_ERROR_NOT_CATEGORY_NOR_LESSON", dir);

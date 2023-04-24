@@ -132,7 +132,7 @@ public class TrnVerifyContent implements java.io.Serializable {
 		return dir.isDirectory() && isCategory(dir.getName());
 	}
 	
-	private static boolean isCategory(String path){
+	public static boolean isCategory(String path){
 		return PATTERN_CATEGORY.matcher(path).matches();
 	}
 	
