@@ -11732,20 +11732,6 @@
    "list": [
     {
      "object": "TranslateLink",
-     "userkey": "K~~~~ENU",
-     "item": {
-      "tsl_typeLink": "K",
-      "tsl_id__obf_object_id__obj_name": null,
-      "tsl_id__obf_field_id__fld_name": null,
-      "tsl_id__obf_order": null,
-      "tsl_lang": "ENU",
-      "tsl_value": "Subcategories",
-      "tsl_simplehelp": null,
-      "row_module_id__mdl_name": "Training"
-     }
-    },
-    {
-     "object": "TranslateLink",
      "userkey": "K~TrnCategory~trnCatId~70~ENU",
      "item": {
       "tsl_typeLink": "K",
@@ -11754,20 +11740,6 @@
       "tsl_id__obf_order": 70,
       "tsl_lang": "ENU",
       "tsl_value": "Subcategories",
-      "tsl_simplehelp": null,
-      "row_module_id__mdl_name": "Training"
-     }
-    },
-    {
-     "object": "TranslateLink",
-     "userkey": "K~~~~FRA",
-     "item": {
-      "tsl_typeLink": "K",
-      "tsl_id__obf_object_id__obj_name": null,
-      "tsl_id__obf_field_id__fld_name": null,
-      "tsl_id__obf_order": null,
-      "tsl_lang": "FRA",
-      "tsl_value": "Catégories Filles",
       "tsl_simplehelp": null,
       "row_module_id__mdl_name": "Training"
      }
