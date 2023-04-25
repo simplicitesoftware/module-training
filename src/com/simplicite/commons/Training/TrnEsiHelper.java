@@ -30,10 +30,8 @@ public class TrnEsiHelper implements java.io.Serializable {
 	}
 
     public static TrnEsiHelper getEsHelper(Grant g){
-		JSONObject conf = new JSONObject(g.getParameter("TRN_CONFIG"));
-		if("elasticsearch".equals(conf.optString("index_type"))){
-			JSONObject esConf = conf.getJSONObject("esi_config");
-			return new TrnEsiHelper(g, esConf);
+		if(TrnTools.isElasticSearchMode()){
+			return new TrnEsiHelper(g, TrnTools.getEsiConfig());
 		}
 		else
 			return null;

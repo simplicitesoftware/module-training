@@ -1,6 +1,7 @@
 package com.simplicite.commons.Training;
 
 import java.util.*;
+
 import com.simplicite.util.*;
 import com.simplicite.util.tools.*;
 import org.apache.commons.lang3.StringUtils;
@@ -19,27 +20,39 @@ public class TrnTools implements java.io.Serializable {
 	public static String path2Front(String path){
 		return path.replaceAll("(CTG|LSN)_[0-9]+_", "");
 	}
-	
-	public static boolean isUiMode(){
-		JSONObject conf = new JSONObject(Grant.getSystemAdmin().getParameter("TRN_CONFIG"));
-		return "UI".equals(conf.optString("edition_type"));
+
+    public static boolean isUiMode(){
+		return "UI".equals(getContentEdition().optString("mode"));
 	}
 
     public static boolean isFileSystemMode() {
-        JSONObject conf = new JSONObject(Grant.getSystemAdmin().getParameter("TRN_CONFIG"));
-		return "FILESYSTEM".equals(conf.optString("edition_type"));
+		return "FILESYSTEM".equals(getContentEdition().optString("mode"));
     }
 
     public static boolean isElasticSearchMode() {
-        JSONObject conf = new JSONObject(Grant.getSystemAdmin().getParameter("TRN_CONFIG"));
-		return "elasticsearch".equals(conf.optString("index_type"));
-    } 
+		return "elasticsearch".equals(getContentIndexation().optString("engine"));
+    }
 
     public static boolean isSimpliciteMode() {
-        JSONObject conf = new JSONObject(Grant.getSystemAdmin().getParameter("TRN_CONFIG"));
-		return "simplicite".equals(conf.optString("index_type"));
+		return "simplicite".equals(getContentIndexation().optString("engine"));
     }
-	
+
+    private static JSONObject getTrnConfig() {
+        return new JSONObject(Grant.getSystemAdmin().getParameter("TRN_CONFIG"));
+    }
+
+    private static JSONObject getContentEdition() {
+        return getTrnConfig().getJSONObject("content_edition");
+    }
+
+    public static JSONObject getContentIndexation() {
+        return getTrnConfig().getJSONObject("content_indexation");
+    }
+
+    public static JSONObject getEsiConfig() {
+        return getTrnConfig().getJSONObject("esi_config");
+    }
+
 	public static String[] getLangs(Grant g){
 		return g.getListOfValues("LANG_ALL").getCodesArray("LANG_ALL");
 	}
