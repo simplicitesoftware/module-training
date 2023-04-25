@@ -4,14 +4,10 @@ import java.util.*;
 
 import com.google.gson.JsonObject;
 import com.simplicite.objects.Training.TrnTagLsn;
-import com.simplicite.objects.Training.TrnTagTranslate;
-import com.simplicite.objects.Training.TrnUrlRewriting;
-//import com.simplicite.commons.Training.TrnVerifyContent;
 import com.simplicite.util.*;
 import com.simplicite.util.exceptions.*;
 import com.simplicite.util.tools.*;
 import java.io.File;
-import java.util.regex.Pattern;
 import org.json.JSONObject;
 import org.json.JSONArray;
 import org.apache.commons.io.FilenameUtils;
@@ -28,8 +24,6 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 	private static final String HASHSTORE_FILENAME = "glo.ser";
 	
-	private final Pattern PATTERN_CATEGORY = Pattern.compile("^CTG_[0-9]+_[a-z\\-]+$");
-	private final Pattern PATTERN_LESSON = Pattern.compile("^LSN_[0-9]+_[a-z0-9-]+$");
 	private final File contentDir;
 	private final File hashStoreFile;
 	private final String[] LANG_CODES;

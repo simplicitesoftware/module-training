@@ -14,8 +14,8 @@ import org.json.JSONArray;
 // see CheckDocs2.java -> https://github.com/simplicitesoftware/migdocs2
 public class TrnVerifyContent implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
-	private static final Pattern PATTERN_CATEGORY = Pattern.compile("^CTG_[0-9]+_[a-z0-9\\-]+$");
-	private static final Pattern PATTERN_LESSON = Pattern.compile("^LSN_[0-9]+_[a-z0-9\\-]+$");
+	private static final Pattern PATTERN_CATEGORY = Pattern.compile("CTG_\\d+_[a-z\\-]+[\\d\\.]*$");
+	private static final Pattern PATTERN_LESSON = Pattern.compile("^LSN_[\\d]+_[a-z\\d\\-\\.]+$");
 	private static String[] LANG_CODES;
 	private static final String CHARSET = "UTF-8";
 	
@@ -155,4 +155,3 @@ public class TrnVerifyContent implements java.io.Serializable {
 		return locale!=null && Arrays.asList(LANG_CODES).contains(locale) ? baseName.replace("_"+locale, "") : baseName;
 	}
 }
-
