@@ -46,7 +46,7 @@ Editing through UI, using Simplicité indexing.
 
 </td>
 <td>
-The ElasticSearch mode works with every configuration, just change the value of the attribute<strong>engine</strong> to <strong>elasticsearch</strong>, and add the <strong>esi_config</strong> object as shown in the example.
+The ElasticSearch mode works with every configuration, just change the value of the attribute <strong>engine</strong> to <strong>elasticsearch</strong>, and add the <strong>esi_config</strong> object as shown in the example.
 </td>
 </tr>
 <tr>

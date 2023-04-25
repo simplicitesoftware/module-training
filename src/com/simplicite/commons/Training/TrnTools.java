@@ -41,7 +41,7 @@ public class TrnTools implements java.io.Serializable {
         return new JSONObject(Grant.getSystemAdmin().getParameter("TRN_CONFIG"));
     }
 
-    private static JSONObject getContentEdition() {
+    public static JSONObject getContentEdition() {
         return getTrnConfig().getJSONObject("content_edition");
     }
 
@@ -50,7 +50,7 @@ public class TrnTools implements java.io.Serializable {
     }
 
     public static JSONObject getEsiConfig() {
-        return getTrnConfig().getJSONObject("esi_config");
+        return getContentIndexation().getJSONObject("esi_config");
     }
 
 	public static String[] getLangs(Grant g){

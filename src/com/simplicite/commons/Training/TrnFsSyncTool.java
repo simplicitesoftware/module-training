@@ -55,10 +55,10 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	
 	public TrnFsSyncTool(Grant g) throws TrnSyncException{
 		this.g = g;
-		JSONObject conf = new JSONObject(g.getParameter("TRN_CONFIG"));
-		if(Tool.isEmpty(conf.getString("content_dir")))
+		JSONObject contentEdition = TrnTools.getContentEdition();
+		if(Tool.isEmpty(contentEdition.getString("content_dir")))
 			throw new TrnSyncException("TRN_SYNC_EMPTY_CONTENT_PATH");
-		contentDir = new File(conf.getString("content_dir"));
+		contentDir = new File(contentEdition.getString("content_dir"));
 		hashStoreFile = new File(g.getContentDir()+"/"+HASHSTORE_FILENAME);
 		LANG_CODES = TrnTools.getLangs(g);
 		DEFAULT_LANG_CODE = TrnTools.getDefaultLang();
