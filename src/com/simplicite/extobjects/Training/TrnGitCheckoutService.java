@@ -1,10 +1,9 @@
 package com.simplicite.extobjects.Training;
 
-import java.io.File;
-import java.util.*;
+import org.json.JSONObject;
 
+import com.simplicite.commons.Training.TrnTools;
 import com.simplicite.util.*;
-import com.simplicite.util.exceptions.*;
 import com.simplicite.util.tools.*;
 
 /**
@@ -12,17 +11,18 @@ import com.simplicite.util.tools.*;
  */
 public class TrnGitCheckoutService extends com.simplicite.webapp.services.RESTServiceExternalObject {
 	private static final long serialVersionUID = 1L;
-    private static final String expectedUrl = "https://github.com/simplicitesoftware/migdocs2.git";
 
 	@Override
 	public Object post(Parameters params) {
 		try{
+            JSONObject gitConfig = TrnTools.getGitConfig();
             String gitUrl = params.getParameter("url");
             String branch = params.getParameter("branch");
-            if(!gitUrl.equals(expectedUrl)) {
-                throw new Exception("Url is not supported");
+            if(!gitUrl.equals(gitConfig.getJSONObject("repository").getString("uri"))) {
+                throw new Exception(gitUrl + " is not a supported url");
             }
-            SystemTool.ExecResult res = SystemTool.exec("ls" , null, null);
+            String command = "git clone --filter=blob:none https://github.com/simplicitesoftware/module-pizzeria.git ../../test-git";
+            SystemTool.ExecResult res = SystemTool.exec(command , null, null);
             String path = res.getStdoutAsString();
             AppLog.info(res.toString(), getGrant());
 			return "test";
@@ -31,5 +31,4 @@ public class TrnGitCheckoutService extends com.simplicite.webapp.services.RESTSe
 			return "ERROR "+e.getMessage();
 		}
 	}
-	
 }

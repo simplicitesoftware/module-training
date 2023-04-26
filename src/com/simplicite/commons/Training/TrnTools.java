@@ -53,6 +53,10 @@ public class TrnTools implements java.io.Serializable {
         return getContentIndexation().getJSONObject("esi_config");
     }
 
+    public static JSONObject getGitConfig() {
+        return getContentEdition().getJSONObject("git_checkout_service");
+    }
+
 	public static String[] getLangs(Grant g){
 		return g.getListOfValues("LANG_ALL").getCodesArray("LANG_ALL");
 	}

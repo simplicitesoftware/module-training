@@ -21,10 +21,10 @@
      "userkey": "TRN_CONFIG",
      "item": {
       "sys_code": "TRN_CONFIG",
-      "sys_value": "{\n    \"edition_type\": \"UI\",\n    \"index_type\": \"simplicite\"\n}",
+      "sys_value": "{\n    \"content_edition\": {\n        \"mode\": \"UI\"\n    },\n    \"content_indexation\": {\n        \"engine\": \"simplicite\"\n    }\n}",
       "sys_value2": null,
       "sys_type": "PRV",
-      "sys_desc": "Module Training configurations\n---\n\n---\n\n<table>\n<tr>\n<td>UI<\/td>\n<td>\n\n```json\n{\n  \"edition_type\": \"UI\",\n  \"index_type\": \"simplicite\"\n}\n```\n\n<\/td>\n<td>\nEditing through UI, using Simplicité indexing.\n<\/td>\n<\/tr>\n<tr>\n<td>UI + ElasticSearch<\/td>\n<td>\n\n```json\n{\n  \"edition_type\": \"UI\",\n  \"index_type\": \"elasticsearch\",\n  \"esi_config\": {\n    \"instance\": <elasticsearch url>,\n    \"index\": <elasticsearch index>,\n    \"public_credentials\": <user:password>\n  }\n}\n```\n\n<\/td>\n<td>\nThe ElasticSearch mode works with every configuration, just change the value of <strong>index_type<\/strong> to <strong>elasticsearch<\/strong>, and add the <strong>esi_config<\/strong> object as shown in the example.\n<\/td>\n<\/tr>\n<tr>\n<td>FILESYSTEM<\/td>\n<td>\n\n```json\n{\n  \"edition_type\": \"FILESYSTEM\",\n  \"index_type\": \"simplicite\",\n  \"filesystem_contentdir\": <path to directory to sync with>\n}\n```\n\n<\/td>\n<td>\nThe content cannot be changed through the UI. Instead, the content is handled by the filesystem and is loaded in the module using the synchronisation mechanism.\n<\/td>\n<\/tr>\n<tr>\n<td>FILESYSTEM<\/br>{ Git { Simple }}<\/td>\n<td>\n\n```json\n{\n  \"edition_type\": \"FILESYSTEM\",\n  \"index_type\": \"simplicite\",\n  \"filesystem_contentdir\": <path to directory to sync with>,\n  \"git_config\": {\n    \"repository_url\": <git url>\n  }\n}\n```\n\n<\/td>\n<td>\nSame as above, but the content is fetched from a git repository.\n<\/td>\n<\/tr>\n<tr>\n<td>FILESYSTEM<\/br>{ Git { Authentified }}<\/td>\n<td>\n\n```json\n{\n  \"edition_type\": \"FILESYSTEM\",\n  \"index_type\": \"simplicite\",\n  \"filesystem_contentdir\": <path to directory to sync with>,\n  \"git_config\": {\n    \"repository_url\": <git url>,\n    \"git_credentials\": <user:password>\n  },\n}\n```\n\n<\/td>\n<td>\nSame as above, with git credentials.\n<\/td>\n<\/tr>\n<\/table>\n\n<style>\n    td {\n        padding: 10px\n    }\n<\/style>",
+      "sys_desc": "Module Training configurations\n---\n\n---\n\n<table>\n<tr>\n<td>UI<\/td>\n<td>\n\n```json\n{\n    \"content_edition\": {\n        \"mode\": \"UI\"\n    },\n    \"content_indexation\": {\n        \"engine\": \"simplicite\"\n    }\n}\n```\n\n<\/td>\n<td>\nEditing through UI, using Simplicité indexing.\n<\/td>\n<\/tr>\n<tr>\n<td>UI + ElasticSearch<\/td>\n<td>\n\n```json\n{\n    \"content_edition\": {\n        \"mode\": \"UI\"\n    },\n    \"content_indexation\": {\n        \"engine\": \"elasticsearch\",\n        \"esi_config\": {\n            \"instance\": \"<instance url>\",\n            \"index\": \"<elasticsearch index>\",\n            \"public_credentials\":\"<user:password>\"\n        }\n    }\n}\n```\n\n<\/td>\n<td>\nThe ElasticSearch mode works with every configuration, just change the value of the attribute <strong>engine<\/strong> to <strong>elasticsearch<\/strong>, and add the <strong>esi_config<\/strong> object as shown in the example.\n<\/td>\n<\/tr>\n<tr>\n<td>FILESYSTEM<\/td>\n<td>\n\n```json\n{\n    \"content_edition\": {\n        \"mode\": \"FILESYSTEM\",\n        \"content_dir\": \"<path of the content directory>\",\n    },\n    \"content_indexation\": {\n        \"engine\": \"simplicite\"\n    }\n}\n```\n\n<\/td>\n<td>\nThe content cannot be changed through the UI. Instead, the content is handled by the filesystem and is loaded in the module using the synchronisation mechanism.\n<\/td>\n<\/tr>\n<tr>\n<td>FILESYSTEM<\/br>{ Git { Simple }}<\/td>\n<td>\n\n```json\n{\n    \"content_edition\": {\n        \"mode\": \"FILESYSTEM\",\n        \"content_dir\": \"<path of the content directory>\",\n        \"git_checkout_service\": {\n            \"repository\": {\n                \"uri\": \"<uri>\"\n            }\n        }\n    },\n    \"content_indexation\": {\n        \"engine\": \"simplicite\"\n    }\n}\n```\n\n<\/td>\n<td>\nSame as above, but the content is fetched from a git repository.\n<\/td>\n<\/tr>\n<tr>\n<td>FILESYSTEM<\/br>{ Git { Authentified }}<\/td>\n<td>\n\n```json\n{\n    \"content_edition\": {\n        \"mode\": \"FILESYSTEM\",\n        \"content_dir\": \"<path of the content directory>\",\n        \"git_checkout_service\": {\n            \"repository\": {\n                \"uri\": \"<uri>\",\n                \"creds\": {\n                    \"username\": \"<username>\",\n                    \"token\": \"<token>\"\n                } \n            }\n        }\n    },\n    \"content_indexation\": {\n        \"engine\": \"simplicite\"\n    }\n}\n```\n\n<\/td>\n<td>\nSame as above, with git credentials.\n<\/td>\n<\/tr>\n<\/table>\n\n<style>\n    td {\n        padding: 10px\n    }\n<\/style>",
       "row_module_id__mdl_name": "Training"
      }
     },
@@ -123,7 +123,7 @@
      "usr_menu": true,
      "usr_menu_defcollapsed": false,
      "usr_menu_defdomain_id__obd_name": null,
-     "usr_last_logon": "2023-04-18 11:11:08",
+     "usr_last_logon": "2023-04-26 10:25:45",
      "usr_dateformat": null,
      "usr_numformat": null,
      "usr_lang_pref": "FRA",
@@ -137,20 +137,36 @@
    "label": "User parameter",
    "icon": "img/system/system_param",
    "field": "row_module_id",
-   "list": [{
-    "object": "UserSysParam",
-    "userkey": "training-sync~FORCE_CHANGE_PASSWORD",
-    "item": {
-     "usp_user_id__usr_login": "training-sync",
-     "usp_param_id__sys_code": "FORCE_CHANGE_PASSWORD",
-     "usp_value": "yes",
-     "usp_param_id__sys_type": "PRV",
-     "usp_param_id__sys_value": "empty",
-     "usp_param_id__sys_value2": null,
-     "usp_param_id__sys_desc": "Force password change (set at user level)",
-     "row_module_id__mdl_name": "Training"
+   "list": [
+    {
+     "object": "UserSysParam",
+     "userkey": "training-sync~DISPOSITION",
+     "item": {
+      "usp_user_id__usr_login": "training-sync",
+      "usp_param_id__sys_code": "DISPOSITION",
+      "usp_value": null,
+      "usp_param_id__sys_type": "LFL",
+      "usp_param_id__sys_value": "default",
+      "usp_param_id__sys_value2": null,
+      "usp_param_id__sys_desc": "Webapp disposition, ex: default, myapp, ...",
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "UserSysParam",
+     "userkey": "training-sync~FORCE_CHANGE_PASSWORD",
+     "item": {
+      "usp_user_id__usr_login": "training-sync",
+      "usp_param_id__sys_code": "FORCE_CHANGE_PASSWORD",
+      "usp_value": "yes",
+      "usp_param_id__sys_type": "PRV",
+      "usp_param_id__sys_value": "empty",
+      "usp_param_id__sys_value2": null,
+      "usp_param_id__sys_desc": "Force password change (set at user level)",
+      "row_module_id__mdl_name": "Training"
+     }
     }
-   }]
+   ]
   },
   {
    "object": "Group",
@@ -8520,7 +8536,7 @@
       "res_file": {
        "path": "resources/ObjectExternal/TrnFront/SITE.zip",
        "mime": "application/zip",
-       "name": "site.zip"
+       "name": "SITE.zip"
       },
       "res_image": null,
       "row_module_id__mdl_name": "Training"
@@ -11732,6 +11748,20 @@
    "list": [
     {
      "object": "TranslateLink",
+     "userkey": "K~~~~ENU",
+     "item": {
+      "tsl_typeLink": "K",
+      "tsl_id__obf_object_id__obj_name": null,
+      "tsl_id__obf_field_id__fld_name": null,
+      "tsl_id__obf_order": null,
+      "tsl_lang": "ENU",
+      "tsl_value": "Subcategories",
+      "tsl_simplehelp": null,
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "TranslateLink",
      "userkey": "K~TrnCategory~trnCatId~70~ENU",
      "item": {
       "tsl_typeLink": "K",
@@ -11740,6 +11770,20 @@
       "tsl_id__obf_order": 70,
       "tsl_lang": "ENU",
       "tsl_value": "Subcategories",
+      "tsl_simplehelp": null,
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "TranslateLink",
+     "userkey": "K~~~~FRA",
+     "item": {
+      "tsl_typeLink": "K",
+      "tsl_id__obf_object_id__obj_name": null,
+      "tsl_id__obf_field_id__fld_name": null,
+      "tsl_id__obf_order": null,
+      "tsl_lang": "FRA",
+      "tsl_value": "Catégories Filles",
       "tsl_simplehelp": null,
       "row_module_id__mdl_name": "Training"
      }

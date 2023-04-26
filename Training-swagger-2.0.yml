@@ -73,7 +73,7 @@ paths:
       - session
   /rest/TrnLesson/{row_id}:
     post:
-      summary: Create a new TrnLessonbusiness object record
+      summary: Create a new TrnLesson business object record
       security:
       - bearerAuth: []
       produces:
@@ -192,7 +192,7 @@ paths:
       tags:
       - TrnLesson
     put:
-      summary: Update a TrnLessonbusiness object record
+      summary: Update a TrnLesson business object record
       security:
       - bearerAuth: []
       produces:
@@ -310,7 +310,7 @@ paths:
       - TrnCategoryTranslate
   /rest/TrnUrlRewriting/{row_id}:
     post:
-      summary: Create a new TrnUrlRewritingbusiness object record
+      summary: Create a new TrnUrlRewriting business object record
       security:
       - bearerAuth: []
       produces:
@@ -429,7 +429,7 @@ paths:
       tags:
       - TrnUrlRewriting
     put:
-      summary: Update a TrnUrlRewritingbusiness object record
+      summary: Update a TrnUrlRewriting business object record
       security:
       - bearerAuth: []
       produces:
@@ -472,7 +472,7 @@ paths:
       - application/json
   /rest/TrnCategory/{row_id}:
     post:
-      summary: Create a new TrnCategorybusiness object record
+      summary: Create a new TrnCategory business object record
       security:
       - bearerAuth: []
       produces:
@@ -591,7 +591,7 @@ paths:
       tags:
       - TrnCategory
     put:
-      summary: Update a TrnCategorybusiness object record
+      summary: Update a TrnCategory business object record
       security:
       - bearerAuth: []
       produces:
@@ -787,7 +787,7 @@ paths:
       - TrnCategory
   /rest/TrnLsnTranslate/{row_id}:
     post:
-      summary: Create a new TrnLsnTranslatebusiness object record
+      summary: Create a new TrnLsnTranslate business object record
       security:
       - bearerAuth: []
       produces:
@@ -906,7 +906,7 @@ paths:
       tags:
       - TrnLsnTranslate
     put:
-      summary: Update a TrnLsnTranslatebusiness object record
+      summary: Update a TrnLsnTranslate business object record
       security:
       - bearerAuth: []
       produces:
@@ -949,7 +949,7 @@ paths:
       - application/json
   /rest/TrnTagTranslate/{row_id}:
     post:
-      summary: Create a new TrnTagTranslatebusiness object record
+      summary: Create a new TrnTagTranslate business object record
       security:
       - bearerAuth: []
       produces:
@@ -1068,7 +1068,7 @@ paths:
       tags:
       - TrnTagTranslate
     put:
-      summary: Update a TrnTagTranslatebusiness object record
+      summary: Update a TrnTagTranslate business object record
       security:
       - bearerAuth: []
       produces:
@@ -1378,7 +1378,7 @@ paths:
       - TrnLsnTranslate
   /rest/TrnTag/{row_id}:
     post:
-      summary: Create a new TrnTagbusiness object record
+      summary: Create a new TrnTag business object record
       security:
       - bearerAuth: []
       produces:
@@ -1497,7 +1497,7 @@ paths:
       tags:
       - TrnTag
     put:
-      summary: Update a TrnTagbusiness object record
+      summary: Update a TrnTag business object record
       security:
       - bearerAuth: []
       produces:
@@ -1600,7 +1600,7 @@ paths:
       - TrnTagLsn
   /rest/TrnCategoryTranslate/{row_id}:
     post:
-      summary: Create a new TrnCategoryTranslatebusiness object record
+      summary: Create a new TrnCategoryTranslate business object record
       security:
       - bearerAuth: []
       produces:
@@ -1719,7 +1719,7 @@ paths:
       tags:
       - TrnCategoryTranslate
     put:
-      summary: Update a TrnCategoryTranslatebusiness object record
+      summary: Update a TrnCategoryTranslate business object record
       security:
       - bearerAuth: []
       produces:
@@ -1899,7 +1899,7 @@ paths:
       - TrnUrlRewriting
   /rest/TrnPicture/{row_id}:
     post:
-      summary: Create a new TrnPicturebusiness object record
+      summary: Create a new TrnPicture business object record
       security:
       - bearerAuth: []
       produces:
@@ -2018,7 +2018,7 @@ paths:
       tags:
       - TrnPicture
     put:
-      summary: Update a TrnPicturebusiness object record
+      summary: Update a TrnPicture business object record
       security:
       - bearerAuth: []
       produces:
@@ -2167,7 +2167,7 @@ paths:
       - TrnPage
   /rest/TrnSiteContent/{row_id}:
     post:
-      summary: Create a new TrnSiteContentbusiness object record
+      summary: Create a new TrnSiteContent business object record
       security:
       - bearerAuth: []
       produces:
@@ -2286,7 +2286,7 @@ paths:
       tags:
       - TrnSiteContent
     put:
-      summary: Update a TrnSiteContentbusiness object record
+      summary: Update a TrnSiteContent business object record
       security:
       - bearerAuth: []
       produces:
@@ -2415,7 +2415,7 @@ paths:
       - TrnCategory
   /rest/TrnSiteTheme/{row_id}:
     post:
-      summary: Create a new TrnSiteThemebusiness object record
+      summary: Create a new TrnSiteTheme business object record
       security:
       - bearerAuth: []
       produces:
@@ -2534,7 +2534,7 @@ paths:
       tags:
       - TrnSiteTheme
     put:
-      summary: Update a TrnSiteThemebusiness object record
+      summary: Update a TrnSiteTheme business object record
       security:
       - bearerAuth: []
       produces:
@@ -2577,7 +2577,7 @@ paths:
       - application/json
   /rest/TrnTagLsn/{row_id}:
     post:
-      summary: Create a new TrnTagLsnbusiness object record
+      summary: Create a new TrnTagLsn business object record
       security:
       - bearerAuth: []
       produces:
@@ -2696,7 +2696,7 @@ paths:
       tags:
       - TrnTagLsn
     put:
-      summary: Update a TrnTagLsnbusiness object record
+      summary: Update a TrnTagLsn business object record
       security:
       - bearerAuth: []
       produces:
@@ -2789,7 +2789,7 @@ paths:
       - TrnTag
   /rest/TrnPage/{row_id}:
     post:
-      summary: Create a new TrnPagebusiness object record
+      summary: Create a new TrnPage business object record
       security:
       - bearerAuth: []
       produces:
@@ -2908,7 +2908,7 @@ paths:
       tags:
       - TrnPage
     put:
-      summary: Update a TrnPagebusiness object record
+      summary: Update a TrnPage business object record
       security:
       - bearerAuth: []
       produces:
