@@ -3,6 +3,8 @@ package com.simplicite.objects.Training;
 import com.simplicite.util.tools.MarkdownTool;
 import com.simplicite.commons.Training.*;
 import org.jsoup.Jsoup;
+import java.util.*;
+import com.simplicite.util.*;
 
 /**
  * Business object TrnLsnTranslate
@@ -30,5 +32,12 @@ public class TrnLsnTranslate extends TrnObject {
 			lsn.index();
 		}
 		return null;
+	}
+	
+	@Override
+	public List<String[]> postSearch(List<String[]> rows) {
+		for(String[] row : rows)
+			row[getFieldIndex("trnLtrHasContent")] = ""+!Tool.isEmpty(row[getFieldIndex("trnLtrRawContent")]);
+		return rows;
 	}
 }
