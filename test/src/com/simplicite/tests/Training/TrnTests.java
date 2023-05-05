@@ -17,14 +17,14 @@ import com.simplicite.commons.Training.TrnEsiHelper;
  */
 public class TrnTests {
 	
-	@Test
+	/*@Test
 	public void testCheckout() throws InterruptedException{
 			String command = "git clone --filter=blob:none https://github.com/simplicitesoftware/module-pizzeria.git ../../test-git";
             SystemTool.ExecResult res = SystemTool.exec("git clone --filter=blob:none https://github.com/simplicitesoftware/module-pizzeria.git" , null, Platform.getTmpDir());
             AppLog.info(res.getStdoutAsString(), Grant.getSystemAdmin());
-	}
+	}*/
 	
-	/*@Test
+	@Test
 	public void testSync() {
 		try {
             if(TrnTools.isFileSystemMode()) {
@@ -41,7 +41,7 @@ public class TrnTests {
 			AppLog.error(getClass(), "testSync", e.getMessage(), e, Grant.getSystemAdmin());
 			fail(e.getMessage());
 		}
-	}*/
+	}
 	
 	/*@Test
 	public void testDockerVolume() {

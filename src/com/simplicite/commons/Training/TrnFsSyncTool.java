@@ -421,7 +421,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 				category.setFieldValue("trnCatCode", name[2]);
 				category.setFieldValue("trnCatPath", relativePath);
 				category.setFieldValue("trnCatId", getCatRowIdFromPath(getParentRelativePath(dir)));
-				bot.validateAndCreate();
+				bot.validateAndSave();
 				rowId = category.getRowId();
 			}
 			
