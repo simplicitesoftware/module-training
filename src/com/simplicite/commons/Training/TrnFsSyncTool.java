@@ -300,18 +300,17 @@ public class TrnFsSyncTool implements java.io.Serializable {
 					for(String lang : LANG_CODES) {
 						if(tradObj.has(lang)) {
 							String translation = tradObj.getString(lang);
-							upsertTranslate(rowId, lang, translation);
+							upsertTagTranslation(rowId, lang, translation);
 						}
 					}
 				}
 			}
 		} catch(Exception e) {
-			AppLog.error(getClass(), "upsertTags", e.getMessage(), e, g);
-			throw new TrnSyncException("TRN_SYNC_UPSERT_TAGS_FROM_JSON");
+			throw new TrnSyncException("TRN_SYNC_UPSERT_TAGS_FROM_JSON", e.getMessage());
 		}          
 	}
 
-	private void upsertTranslate(String tagRowId, String lang, String translation) throws TrnSyncException {
+	private void upsertTagTranslation(String tagRowId, String lang, String translation) throws TrnSyncException {
 		try {
 			BusinessObjectTool bot = new BusinessObjectTool(translateTag);
 			String translateRowId = getTagTranslateRowId(tagRowId, lang, translation);
@@ -327,8 +326,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 				bot.validateAndSave();
 			}
 		} catch(Exception e) {
-			AppLog.error(getClass(), "upsertTagTranslate", e.getMessage(), e, g);
-			throw new TrnSyncException("TRN_SYNC_UPSERT_TRANSLATE");
+			throw new TrnSyncException("TRN_SYNC_UPSERT_TAG_TRANSLATION", e.getMessage());
 		}
 	}
 
@@ -362,8 +360,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 				upsertUrlRewriting(sourceUrl, destination);
 			}
 		} catch(Exception e) {
-			AppLog.error(getClass(), "upsertTags", e.getMessage(), e, g);
-			throw new TrnSyncException("TRN_SYNC_UPSERT_URLS_REWRITING_FROM_JSON");
+			throw new TrnSyncException("TRN_SYNC_UPSERT_URLS_REWRITING_FROM_JSON", e.getMessage());
 		}    
 	}
 
@@ -438,7 +435,6 @@ public class TrnFsSyncTool implements java.io.Serializable {
 			}
 		}
 		catch(Exception e){
-			AppLog.error(getClass(), "upsertCategory", e.getMessage(), e, g);
 			throw new TrnSyncException("TRN_SYNC_UPSERT_CATEGORY", e.getMessage()+" "+category.toJSON()+ " "+dir.getPath());
 		}
 	}
@@ -494,11 +490,10 @@ public class TrnFsSyncTool implements java.io.Serializable {
 			// create tag N-N lesson if tag exists and if association does not already exist
 			upsertTrnTagLsn(rowId, json, relativePath);
 			// create contents
-			upsertContent(rowId, json);
+			upsertLessonTranslations(rowId, json);
 		}
 		catch(Exception e){
-			AppLog.error(getClass(), "upsertLessonAndContent", e.getMessage(), e, g);
-			throw new TrnSyncException("TRN_SYNC_UPSERT_LESSON", e.getMessage()+" "+lesson.toJSON()+ " "+dir.getPath());
+			throw new TrnSyncException("TRN_SYNC_UPSERT_LESSON_AND_CONTENT", e.getMessage()+" "+lesson.toJSON()+ " "+dir.getPath());
 		}
 	}
 
@@ -526,8 +521,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
                 return lesson.getRowId();
             }
         } catch(Exception e) {
-            AppLog.error(getClass(), "upsertLesson", e.getMessage(), e, g);
-            throw new TrnSyncException("TRN_SYNC_UPSERT_LESSON");
+            throw new TrnSyncException("TRN_SYNC_UPSERT_LESSON", e.getMessage()+" "+lesson.toJSON());
         }
     }
 
@@ -558,76 +552,89 @@ public class TrnFsSyncTool implements java.io.Serializable {
                 }
             }
         } catch(Exception e) {
-            AppLog.error(getClass(), "upsertTrnTagLsn", e.getMessage(), e, g);
-            throw new TrnSyncException("TRN_SYNC_UPSERT_TRN_TAG_LSN", relativePath);
+            throw new TrnSyncException("TRN_SYNC_UPSERT_TRN_TAG_LSN", e.getMessage());
         }
     }
 
-    private void upsertContent(String rowId, JSONObject json) throws TrnSyncException {
+    private void upsertLessonTranslations(String rowId, JSONObject json) throws TrnSyncException {
+        BusinessObjectTool bot = new BusinessObjectTool(lessonContent);
+        for(String lang : LANG_CODES){
+            if(json.getJSONObject("contents").has(lang)){					
+                upsertLessonTranslation(rowId, json, lang, bot);
+            }
+        }
+    }
+
+    private void upsertLessonTranslation(String rowId, JSONObject json, String lang, BusinessObjectTool bot) throws TrnSyncException {
         try {
-            BusinessObjectTool bot = new BusinessObjectTool(lessonContent);
-            for(String lang : LANG_CODES){
-                if(json.getJSONObject("contents").has(lang)){					
-                    JSONObject content = json.getJSONObject("contents").getJSONObject(lang);
-                    
-                    if((content.has("markdown")  && content.has("title")) || content.has("video")) {
-                        synchronized(lessonContent){
-                            bot.selectForCreate();
-                            lessonContent.setFieldValue("trnLtrLsnId", rowId);
-                            lessonContent.setFieldValue("trnLtrLang", lang);
-                            if(content.has("markdown")  && content.has("title")) {
-                                String ltrContent = FileTool.readFile(new File(content.getString("markdown")));
-                                String ltrTitle = content.getString("title");
-                                lessonContent.setFieldValue("trnLtrContent", ltrContent);
-                                lessonContent.setFieldValue("trnLtrTitle", ltrTitle);
-                            }
-                            
-                            if(content.has("video")){
-                                File video = new File(content.getString("video"));
-                                lessonContent.getField("trnLtrVideo").setDocument(lessonContent, video.getName(), new FileInputStream(video));
-                                if(lessonContent.getFieldValue("trnLtrTitle").isEmpty()) {
-                                    lessonContent.setFieldValue("trnLtrTitle", json.get("code"));
-                                }
-                            }
-                            
-                            // validateAndUpdate not working
-                            if(lang.equals("ANY")) {
-                                ObjectDB translate = g.getObject("trn_any_content", "TrnLsnTranslate");
-                                translate.resetFilters();
-                                translate.setFieldFilter("trnLtrLsnId", rowId);
-                                translate.setFieldFilter("trnLtrLang", "ANY");
-                                List<String[]> res = translate.search();
-                                if(res.size() > 0) {
-                                    translate.setValues(res.get(0));
-                                    translate.delete();
-                                }
-                                
-                            }
-                            bot.validateAndCreate();
+            JSONObject content = json.getJSONObject("contents").getJSONObject(lang);
+            if(content.has("markdown") && content.has("title") || content.has("video")) {
+                synchronized(lessonContent){
+                    bot.selectForCreate();
+                    setLessonTranslation(rowId, content, json, lang);
+                    // validateAndUpdate not working
+                    if(lang.equals("ANY")) {
+                        ObjectDB translate = g.getObject("trn_any_content", "TrnLsnTranslate");
+                        translate.resetFilters();
+                        translate.setFieldFilter("trnLtrLsnId", rowId);
+                        translate.setFieldFilter("trnLtrLang", "ANY");
+                        List<String[]> res = translate.search();
+                        if(res.size() > 0) {
+                            translate.setValues(res.get(0));
+                            translate.delete();
                         }
                     }
-                    if(content.has("pics")){
-                        JSONArray pics = content.getJSONArray("pics");
-                        
-                        bot = new BusinessObjectTool(picture);
-                        synchronized(picture){
-                            for(int i=0; i<pics.length(); i++){
-                                File f = new File(pics.getString(i));
-                                picture.resetValues();
-                                picture.getField("trnPicImage").setDocument(picture, f.getName(), new FileInputStream(f));
-                                picture.setFieldValue("trnPicLang", lang);
-                                picture.setFieldValue("trnPicLsnId", rowId);
-                                bot.validateAndCreate();
-                            }
-                        }
+                    bot.validateAndCreate();
+                    createPics(rowId, content, lang);
+                }
+            }
+        } catch(Exception e) {
+            throw new TrnSyncException("TRN_SYNC_UPSERT_LESSON_TRANSLATION", e.getMessage()+" "+json.toString(2));
+        }
+    }
+
+    private void setLessonTranslation(String rowId, JSONObject content, JSONObject json, String lang) throws TrnSyncException {
+        try {
+            lessonContent.setFieldValue("trnLtrLsnId", rowId);
+            lessonContent.setFieldValue("trnLtrLang", lang);
+            if(content.has("markdown")  && content.has("title")) {
+                String ltrContent = FileTool.readFile(new File(content.getString("markdown")));
+                String ltrTitle = content.getString("title");
+                lessonContent.setFieldValue("trnLtrContent", ltrContent);
+                lessonContent.setFieldValue("trnLtrTitle", ltrTitle);
+            }
+            
+            if(content.has("video")){
+                File video = new File(content.getString("video"));
+                lessonContent.getField("trnLtrVideo").setDocument(lessonContent, video.getName(), new FileInputStream(video));
+                if(lessonContent.getFieldValue("trnLtrTitle").isEmpty()) {
+                    lessonContent.setFieldValue("trnLtrTitle", json.get("code"));
+                }
+            }
+        } catch(Exception e) {
+            throw new TrnSyncException("TRN_SYNC_SET_LESSON_TRANSLATION", e.getMessage());
+        }
+    }
+
+    private void createPics(String rowId, JSONObject content, String lang) throws TrnSyncException {
+        try {
+            if(content.has("pics")){
+                JSONArray pics = content.getJSONArray("pics");
+                BusinessObjectTool bot = new BusinessObjectTool(picture);
+                synchronized(picture){
+                    for(int i=0; i<pics.length(); i++){
+                        File f = new File(pics.getString(i));
+                        picture.resetValues();
+                        picture.getField("trnPicImage").setDocument(picture, f.getName(), new FileInputStream(f));
+                        picture.setFieldValue("trnPicLang", lang);
+                        picture.setFieldValue("trnPicLsnId", rowId);
+                        bot.validateAndCreate();
                     }
                 }
             }
         } catch(Exception e) {
-            AppLog.error(getClass(), "upsertContent", e.getMessage(), e, g);
-            throw new TrnSyncException("TRN_UPSERT_CONTENT");
+            throw new TrnSyncException("TRN_CREATE_PICS", e.getMessage());
         }
-        
     }
 
 	private String getTagRowIdFromCode(String code) {
