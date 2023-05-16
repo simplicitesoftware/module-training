@@ -44,7 +44,7 @@ public class TrnEsiHelper implements java.io.Serializable {
 	public void indexEsDoc(String id, JSONObject doc) {
 		String url = esInstance+"/"+esIndex+"/_doc/"+id;
 		try{
-			String result = RESTTool.post(doc, "application/json", url, esUser, esPassword);
+			RESTTool.post(doc, "application/json", url, esUser, esPassword);
 			AppLog.info("Indexing at "+url+" : "+doc.getString("path"), Grant.getSystemAdmin());
 		}
 		catch(Exception e){
@@ -55,7 +55,7 @@ public class TrnEsiHelper implements java.io.Serializable {
 	public void deleteIndex(){
 		String url = esInstance+"/"+esIndex;
 		try {
-			String result = RESTTool.delete(url, esUser, esPassword);
+            RESTTool.delete(url, esUser, esPassword);
 		}catch(Exception e){
 			AppLog.error("Error deleting index "+esIndex+" on elasticsearch instance " + esInstance, e, g);
 		}
@@ -64,7 +64,7 @@ public class TrnEsiHelper implements java.io.Serializable {
 	public void createIndex() {
 		String url = esInstance+"/"+esIndex;
 		try{
-			String result = RESTTool.put(url, esUser, esPassword);
+			RESTTool.put("simplicite", url, esUser, esPassword);
 		}catch(Exception e) {
 			AppLog.error("Error creating index " +esIndex+" on elasticsearch instance " + esInstance, e, g);
 		}
@@ -100,7 +100,7 @@ public class TrnEsiHelper implements java.io.Serializable {
 	public void deleteEsLesson(String lsnId) {
 		String url = esInstance+"/"+esIndex+"/_doc/"+lsnId;
 		try {
-			String result = RESTTool.delete(url);
+			String result = RESTTool.delete(url, esUser, esPassword);
 			AppLog.info("Deleted lesson index: " + url, Grant.getSystemAdmin());
 		} catch(Exception e) {
 			AppLog.error("Error deleting lesson: "+url + " : " + e.getMessage(), e, Grant.getSystemAdmin());
