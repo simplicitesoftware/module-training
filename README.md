@@ -1,3 +1,10 @@
+<!--
+ ___ _            _ _    _ _    __
+/ __(_)_ __  _ __| (_)__(_) |_ /_/
+\__ \ | '  \| '_ \ | / _| |  _/ -_)
+|___/_|_|_|_| .__/_|_\__|_|\__\___|
+            |_| 
+-->
 ![](https://docs.simplicite.io//logos/logo250.png)
 * * *
 
@@ -18,8 +25,13 @@ Installation instructions
 `Training` module definition
 ============================
 
-Expand All
-	@@ -17,294 +31,7 @@ This module objective is to offer an easy way to deploy a custom documentation.
+The module for the Simplicité Training platform.
+
+This module objective is to offer an easy way to deploy a custom documentation.
 It's a *Category* / *Lesson* / *Translations* model with a few additions such as *tags* or *pages*.
 
 The training module not only gives the ability to manage content, but it also serves a Vue.js front end (see the external object *TrnFront*).
+
+The front end is served on the root url of your instance. For further details on the site mapping, see system parameter *URI_MAPPING*.
+
+More info available on the front end default home page.
