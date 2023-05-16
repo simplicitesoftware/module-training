@@ -93,9 +93,25 @@ public class TrnTools implements java.io.Serializable {
         }
     }
 
-    public static JSONObject getGitConfig() throws TrnConfigException {
+    private static JSONObject getGitConfig() throws TrnConfigException {
         try {
             return getContentEdition().getJSONObject("git_checkout_service");
+        } catch(Exception e) {
+            throw new TrnConfigException(e.getMessage());
+        }
+    }
+
+    public static String getGitUrl() throws TrnConfigException {
+        try {
+            return getGitConfig().getJSONObject("repository").getString("uri");
+        } catch(Exception e) {
+            throw new TrnConfigException(e.getMessage());
+        }
+    }
+
+    public static String getGitBranch() throws TrnConfigException {
+        try {
+            return getGitConfig().getJSONObject("repository").getString("branch");
         } catch(Exception e) {
             throw new TrnConfigException(e.getMessage());
         }

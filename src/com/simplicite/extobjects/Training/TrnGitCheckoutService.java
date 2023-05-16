@@ -11,21 +11,17 @@ import com.simplicite.util.tools.*;
  */
 public class TrnGitCheckoutService extends com.simplicite.webapp.services.RESTServiceExternalObject {
 	private static final long serialVersionUID = 1L;
-
+    // test
 	@Override
 	public Object post(Parameters params) {
 		try{
-            JSONObject gitConfig = TrnTools.getGitConfig();
-            String gitUrl = params.getParameter("url");
-            String branch = params.getParameter("branch");
-            if(!gitUrl.equals(gitConfig.getJSONObject("repository").getString("uri"))) {
-                throw new Exception(gitUrl + " is not a supported url");
-            }
-            String command = "git clone --filter=blob:none https://github.com/simplicitesoftware/module-pizzeria.git ../../test-git";
+            String gitUrl = TrnTools.getGitUrl();
+            String branch = TrnTools.getGitBranch();
+            String command = "git clone --filter=blob:none -b "+branch+" "+gitUrl+" ../../test-git";
             SystemTool.ExecResult res = SystemTool.exec(command , null, null);
-            String path = res.getStdoutAsString();
+            String stdout = res.getStdoutAsString();
             AppLog.info(res.toString(), getGrant());
-			return "test";
+			return "success ??";
         } catch(Exception e){
 			AppLog.error(getClass(), "post", e.getMessage(), e, getGrant());
 			return "ERROR "+e.getMessage();
