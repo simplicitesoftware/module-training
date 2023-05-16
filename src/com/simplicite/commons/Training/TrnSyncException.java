@@ -7,10 +7,10 @@ import java.io.File;
  */
 public class TrnSyncException extends Exception {
 	private static final long serialVersionUID = 1L;
-	private String additional;
+	private final String additional;
 	public TrnSyncException(String msg){
 		super(msg);
-		additional = "";
+		this.additional = "";
 	}
 	
 	public TrnSyncException(String msg, String additional){
@@ -23,8 +23,8 @@ public class TrnSyncException extends Exception {
 		this.additional = f.getPath();
 	}
 	
+    @Override
 	public String getMessage(){
-		return super.getMessage()+" : "+additional;
+		return super.getMessage()+" : "+this.additional;
 	}
-	
 }

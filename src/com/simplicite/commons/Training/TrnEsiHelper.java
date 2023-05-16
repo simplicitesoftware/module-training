@@ -29,7 +29,7 @@ public class TrnEsiHelper implements java.io.Serializable {
 		this.esPassword = esCredentials!=null ? esCredentials.split(":")[1] : null;
 	}
 
-    public static TrnEsiHelper getEsHelper(Grant g){
+    public static TrnEsiHelper getEsHelper(Grant g) throws TrnConfigException{
 		if(TrnTools.isElasticSearchMode()){
 			return new TrnEsiHelper(g, TrnTools.getEsiConfig());
 		}

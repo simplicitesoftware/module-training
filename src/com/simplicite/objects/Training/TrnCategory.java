@@ -176,17 +176,22 @@ public class TrnCategory extends TrnObject {
 	@Override
 	public boolean isActionEnable(String[] row, String action) {
 		//deactivate sync action if ui mode
-		if(TrnTools.isUiMode() && "forceDirSync".equals(action))
-			return false;
-		return true;
+        try {
+            if(TrnTools.isUiMode() && "forceDirSync".equals(action)) return false;
+        } catch(TrnConfigException e) {
+            AppLog.error(getClass(), "isActionEnable", e.getMessage(), e, getGrant());
+        }
+        return true;
 	}
 	
 	public void forceDirSync(){
 		try {
 			TrnFsSyncTool.triggerSync();
-		} catch (TrnSyncException e) {
+		} catch(TrnSyncException e) {
 			AppLog.error(getClass(), "forceDirSync", e.getMessage(), e, Grant.getSystemAdmin());
-		}
+		} catch(TrnConfigException e) {
+            AppLog.error(getClass(), "forceDirSync", e.getMessage(), e, getGrant());
+        }
 	}
 	
 	public void reIndexAll(){

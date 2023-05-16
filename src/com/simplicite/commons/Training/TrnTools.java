@@ -21,44 +21,84 @@ public class TrnTools implements java.io.Serializable {
 		return path.replaceAll("(CTG|LSN)_[0-9]+_", "");
 	}
 
-    public static boolean isUiMode(){
-		return "UI".equals(getContentEdition().optString("mode"));
+    public static boolean isUiMode() throws TrnConfigException {
+        try {
+    		return "UI".equals(getContentEdition().optString("mode"));
+        } catch(Exception e) {
+            throw new TrnConfigException(e.getMessage());
+        }
 	}
 
-    public static boolean isFileSystemMode() {
-		return "FILESYSTEM".equals(getContentEdition().optString("mode"));
+    public static boolean isFileSystemMode() throws TrnConfigException {
+        try {
+            return "FILESYSTEM".equals(getContentEdition().optString("mode"));
+        } catch(Exception e) {
+            throw new TrnConfigException(e.getMessage());
+        }
     }
 
-    public static boolean isElasticSearchMode() {
-		return "elasticsearch".equals(getContentIndexation().optString("engine"));
+    public static boolean isElasticSearchMode() throws TrnConfigException {
+        try {
+            return "elasticsearch".equals(getIndexEngine());
+        } catch(Exception e) {
+            throw new TrnConfigException(e.getMessage());
+        }
     }
 
-    public static boolean isSimpliciteMode() {
-		return "simplicite".equals(getContentIndexation().optString("engine"));
+    public static boolean isSimpliciteMode() throws TrnConfigException {
+        try {
+            return "simplicite".equals(getIndexEngine());
+        } catch(Exception e) {
+            throw new TrnConfigException(e.getMessage());
+        }
     }
 
-    private static JSONObject getTrnConfig() {
-        return new JSONObject(Grant.getSystemAdmin().getParameter("TRN_CONFIG"));
+    private static JSONObject getTrnConfig() throws TrnConfigException {
+        try {
+            return new JSONObject(Grant.getSystemAdmin().getParameter("TRN_CONFIG"));
+        } catch(Exception e) {
+            throw new TrnConfigException(e.getMessage());
+        }
     }
 
-    public static JSONObject getContentEdition() {
-        return getTrnConfig().getJSONObject("content_edition");
+    public static JSONObject getContentEdition() throws TrnConfigException {
+        try {
+            return getTrnConfig().getJSONObject("content_edition");
+        } catch(Exception e) {
+            throw new TrnConfigException(e.getMessage());
+        }
     }
 
-    private static JSONObject getContentIndexation() {
-        return getTrnConfig().getJSONObject("content_indexation");
+    private static JSONObject getContentIndexation() throws TrnConfigException {
+        try {
+            return getTrnConfig().getJSONObject("content_indexation");
+        } catch(Exception e) {
+            throw new TrnConfigException(e.getMessage());
+        }
     }
 
-    public static String getIndexEngine() {
-        return getContentIndexation().getString("engine");
+    public static String getIndexEngine() throws TrnConfigException {
+        try {
+            return getContentIndexation().getString("engine");
+        } catch(Exception e) {
+            throw new TrnConfigException(e.getMessage());
+        }
     }
 
-    public static JSONObject getEsiConfig() {
-        return getContentIndexation().getJSONObject("esi_config");
+    public static JSONObject getEsiConfig() throws TrnConfigException {
+        try {
+            return getContentIndexation().getJSONObject("esi_config");
+        } catch(Exception e) {
+            throw new TrnConfigException(e.getMessage());
+        }
     }
 
-    public static JSONObject getGitConfig() {
-        return getContentEdition().getJSONObject("git_checkout_service");
+    public static JSONObject getGitConfig() throws TrnConfigException {
+        try {
+            return getContentEdition().getJSONObject("git_checkout_service");
+        } catch(Exception e) {
+            throw new TrnConfigException(e.getMessage());
+        }
     }
 
 	public static String[] getLangs(Grant g){

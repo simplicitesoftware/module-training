@@ -94,8 +94,9 @@ public class TrnLesson extends TrnObject {
         if(published.equals("0")) return; 
 		try{
 			TrnIndexer.indexLesson(this);
-		}
-		catch(Exception e){
+		} catch(TrnConfigException e) {
+            AppLog.error(getClass(), "index", e.getMessage(), e, getGrant());
+        } catch(Exception e){
 			AppLog.error("Error indexing lessson", e, getGrant());
 		}
 	}

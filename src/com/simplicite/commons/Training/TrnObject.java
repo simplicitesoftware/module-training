@@ -13,10 +13,14 @@ public class TrnObject extends ObjectDB {
 
 	@Override
 	public void postLoad() {
-		isNotUiModeWarning();
+        try {
+    		isNotUiModeWarning();
+        } catch(TrnConfigException e) {
+            AppLog.error(getClass(), "postLoad", e.getMessage(), e, getGrant());
+        }
 	}
 	
-	private void isNotUiModeWarning(){
+	private void isNotUiModeWarning() throws TrnConfigException{
 		if(!TrnTools.isUiMode()){
 			getCtxHelps().add(new ObjectCtxHelp(getName(), new String[]{ 
 				ObjectCtxHelp.CTXHELP_LIST, 
@@ -28,20 +32,35 @@ public class TrnObject extends ObjectDB {
 
 	@Override
 	public boolean isCreateEnable() {
-		return isChangeEnable();
+        try {
+            return isChangeEnable();
+        } catch(TrnConfigException e) {
+            AppLog.error(getClass(), "isCreateEnable", e.getMessage(), e, getGrant());
+            return true;
+        }
 	}
 	
 	@Override
 	public boolean isUpdateEnable(String[] row) {
-		return isChangeEnable();
+        try {
+		    return isChangeEnable();
+        } catch(TrnConfigException e) {
+            AppLog.error(getClass(), "isUpdateEnable", e.getMessage(), e, getGrant());
+            return true;
+        }
 	}
 	
 	@Override
 	public boolean isDeleteEnable(String[] row) {
-		return isChangeEnable();
+        try {
+    		return isChangeEnable();
+        } catch(TrnConfigException e) {
+            AppLog.error(getClass(), "isDeleteEnable", e.getMessage(), e, getGrant());
+            return true;
+        }
 	}
 
-	private boolean isChangeEnable(){
+	private boolean isChangeEnable() throws TrnConfigException{
 		return TrnTools.isUiMode() || isSyncInstance();
 	}
 	

@@ -38,22 +38,22 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	
 	Grant g;
 	
-	public static void dropDbData() throws TrnSyncException{
+	public static void dropDbData() throws TrnSyncException, TrnConfigException{
 		TrnFsSyncTool t = new TrnFsSyncTool(Grant.getSystemAdmin());
 		t.dropData();
 	}
 	
-	public static void deleteStore() throws TrnSyncException{
+	public static void deleteStore() throws TrnSyncException, TrnConfigException{
 		TrnFsSyncTool t = new TrnFsSyncTool(Grant.getSystemAdmin());
 		t.deleteHashStore();
 	}
 	
-	public static void triggerSync() throws TrnSyncException{
+	public static void triggerSync() throws TrnSyncException, TrnConfigException{
 		TrnFsSyncTool t = new TrnFsSyncTool(Grant.getSystemAdmin());
 		t.sync();
 	}
 	
-	public TrnFsSyncTool(Grant g) throws TrnSyncException{
+	public TrnFsSyncTool(Grant g) throws TrnSyncException, TrnConfigException{
 		this.g = g;
 		JSONObject contentEdition = TrnTools.getContentEdition();
 		if(Tool.isEmpty(contentEdition.getString("content_dir")))
