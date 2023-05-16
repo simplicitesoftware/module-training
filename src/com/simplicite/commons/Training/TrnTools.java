@@ -45,8 +45,12 @@ public class TrnTools implements java.io.Serializable {
         return getTrnConfig().getJSONObject("content_edition");
     }
 
-    public static JSONObject getContentIndexation() {
+    private static JSONObject getContentIndexation() {
         return getTrnConfig().getJSONObject("content_indexation");
+    }
+
+    public static String getIndexEngine() {
+        return getContentIndexation().getString("engine");
     }
 
     public static JSONObject getEsiConfig() {

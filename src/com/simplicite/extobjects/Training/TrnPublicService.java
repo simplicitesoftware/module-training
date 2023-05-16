@@ -14,15 +14,14 @@ public class TrnPublicService extends RESTServiceExternalObject {
 	
 	@Override
 	public Object get(Parameters params) throws HTTPException{
-		JSONObject p = new JSONObject(getGrant().getSystemParam("TRN_CONFIG"));
 		JSONObject r = new JSONObject();
-        String searchType = TrnTools.getContentIndexation().getString("engine");
+        String searchType = TrnTools.getIndexEngine();
 		r.put("search_type", searchType);
-		if("elasticsearch".equals(searchType)){
-            JSONObject esConfig = p.getJSONObject("esi_config");
-			r.put("es_instance", esConfig.getString("instance"));
-			r.put("es_index", esConfig.getString("index"));
-			r.put("es_credentials", esConfig.optString("public_credentials", ""));
+		if(TrnTools.isElasticSearchMode()){
+            JSONObject esiConfig = TrnTools.getEsiConfig();
+			r.put("es_instance", esiConfig.getString("instance"));
+			r.put("es_index", esiConfig.getString("index"));
+			r.put("es_credentials", esiConfig.optString("public_credentials", ""));
 		}
 		return r;
 	}
