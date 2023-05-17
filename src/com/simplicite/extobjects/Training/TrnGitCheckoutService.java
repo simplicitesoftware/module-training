@@ -32,13 +32,14 @@ public class TrnGitCheckoutService extends com.simplicite.webapp.services.RESTSe
 	@Override
 	public Object post(Parameters params) {
         try {
+            String gitUrl = TrnTools.getGitUrl();
             String branch = TrnTools.getGitBranch();
-            File localDir = getContentDir();
+            File localDir = new File("/home/trainingrec/test-content");
+            AppLog.info(Platform.getContentDir(), getGrant());
             if (!localDir.exists()) {
-                return performClone(TrnTools.getGitUrl(), branch, localDir);
+                return performClone(gitUrl, branch, localDir);
             } else {
-                // doesn't need the repo url as 
-                return performPull(branch, localDir);
+                return performPull(gitUrl, branch, localDir);
             }
         } catch (IOException | GitAPIException | TrnConfigException e) {
             AppLog.error(getClass(), "post", e.getMessage(), e, getGrant());
@@ -51,7 +52,7 @@ public class TrnGitCheckoutService extends com.simplicite.webapp.services.RESTSe
         cloneCommand.setURI(remoteUrl);
         cloneCommand.setDirectory(localDir);
         cloneCommand.setCloneAllBranches(false);
-        cloneCommand.setBranch(branch);
+        cloneCommand.setBranch(branch); // Replace with the branch you want to clone
         cloneCommand.setCloneSubmodules(false);
         cloneCommand.setDepth(1);
 
@@ -60,11 +61,11 @@ public class TrnGitCheckoutService extends com.simplicite.webapp.services.RESTSe
         }
     }
 
-    private static String performPull(String branch, File localDir) throws IOException, GitAPIException {
+    private static String performPull(String remoteUrl, String branch, File localDir) throws IOException, GitAPIException {
         FileRepositoryBuilder repositoryBuilder = new FileRepositoryBuilder();
         Repository repository = repositoryBuilder.setGitDir(new File(localDir, ".git"))
-                                                .readEnvironment()
-                                                .findGitDir()
+                                                .readEnvironment() // Read environment variables like GIT_DIR
+                                                .findGitDir() // Find the Git repository
                                                 .build();
 
         try (Git git = new Git(repository)) {
@@ -81,7 +82,7 @@ public class TrnGitCheckoutService extends com.simplicite.webapp.services.RESTSe
     @Override
     public Object del(Parameters params) {
         try {
-            File repositoryDir = getContentDir();
+            File repositoryDir = new File("/home/trainingrec/test-content");
             if (repositoryDir.exists()) {
                 return deleteRepository(repositoryDir);
             } else {
@@ -95,9 +96,5 @@ public class TrnGitCheckoutService extends com.simplicite.webapp.services.RESTSe
     private static String deleteRepository(File repositoryDir) throws IOException {
         FileUtils.delete(repositoryDir, FileUtils.RECURSIVE);
         return "Repository deleted successfully.";
-    }
-
-    private File getContentDir() {
-        return new File(Platform.getContentDir()+"/test-content");
     }
 }

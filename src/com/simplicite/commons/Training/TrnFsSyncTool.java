@@ -5,7 +5,6 @@ import java.util.*;
 import com.google.gson.JsonObject;
 import com.simplicite.objects.Training.TrnTagLsn;
 import com.simplicite.util.*;
-import com.simplicite.util.engine.Platform;
 import com.simplicite.util.exceptions.*;
 import com.simplicite.util.tools.*;
 import java.io.File;
@@ -24,7 +23,6 @@ import java.nio.file.Files;
 public class TrnFsSyncTool implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 	private static final String HASHSTORE_FILENAME = "glo.ser";
-    private static final String CONTENT_FOLDERNAME = "content";
 	
 	private final File contentDir;
 	private final File hashStoreFile;
@@ -55,11 +53,13 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		t.sync();
 	}
 	
-	public TrnFsSyncTool(Grant g) {
+	public TrnFsSyncTool(Grant g) throws TrnSyncException, TrnConfigException{
 		this.g = g;
-        String baseContentDir = Platform.getContentDir();
-		contentDir = new File(baseContentDir, CONTENT_FOLDERNAME);
-		hashStoreFile = new File(baseContentDir, HASHSTORE_FILENAME);
+		JSONObject contentEdition = TrnTools.getContentEdition();
+		if(Tool.isEmpty(contentEdition.getString("content_dir")))
+			throw new TrnSyncException("TRN_SYNC_EMPTY_CONTENT_PATH");
+		contentDir = new File(contentEdition.getString("content_dir"));
+		hashStoreFile = new File(g.getContentDir()+"/"+HASHSTORE_FILENAME);
 		LANG_CODES = TrnTools.getLangs(g);
 		DEFAULT_LANG_CODE = TrnTools.getDefaultLang();
 	}
