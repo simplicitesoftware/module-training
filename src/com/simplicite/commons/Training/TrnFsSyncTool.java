@@ -31,7 +31,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	private final String[] LANG_CODES;
 	private final String DEFAULT_LANG_CODE;
 	
-	private ObjectDB category, categoryContent, lesson, lessonContent, picture, tag, translateTag, trnUrlRewriting;
+	private ObjectDB category, categoryContent, lesson, lessonContent, picture, tag, translateTag, trnUrlRewriting, theme, page;
 	
 	private HashMap<String, String> hashStore;
 	private ArrayList<String> foundPaths;
@@ -122,7 +122,10 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		loadTrnObjects();
 		// injects contents at `contentDir` into DB, sets new hashes (recursive)
 		syncPath("/");
+        syncTheme();
+        syncHomepage();
         AppLog.info("Content has been synced", g);
+        
 		// deletes from DB paths that are not in the file structure anymore
         AppLog.info("Removing deleted items...", g);
 		deleteDeleted();
@@ -236,6 +239,8 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		g.changeAccess("TrnTagLsn", crud);
 		g.changeAccess("TrnTagTranslate", crud);
         g.changeAccess("TrnPage", crud);
+        g.changeAccess("TrnSiteTheme", crud);
+        g.changeAccess("TrnPage", crud);
 	}
 	
 	private void loadTrnObjects(){
@@ -248,7 +253,54 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		tag = g.getObject("sync_TrnTag", "TrnTag");
 		translateTag = g.getObject("sync_TrnTagTranslate", "TrnTagTranslate");
 		trnUrlRewriting = g.getObject("sync_TrnUrlRewriting", "TrnUrlRewriting");
+        theme = g.getObject("sync_TrnSiteTheme", "TrnSiteTheme");
+        page = g.getObject("sync_TrnPage", "TrnPage");
 	}
+
+    private void syncTheme() throws TrnSyncException {
+        try {
+            if(isThemeSet().isEmpty()) {
+                BusinessObjectTool bot = new BusinessObjectTool(theme);
+                JSONObject json = new JSONObject(FileTool.readFile(contentDir.getPath()+"/theme.json"));
+                synchronized(theme) {
+                    theme.resetValues();
+                    theme.setFieldValue("trnThemeColor", json.getString("main_color"));
+                    theme.setFieldValue("trnThemeSecondaryColor", json.getString("secondary_color"));
+                    File icon = new File(json.getString("icon_path"));
+                    theme.getField("trnThemeIcon").setDocument(theme, icon.getName(), new FileInputStream(icon));
+                    bot.validateAndSave();
+                }    
+            }
+        } catch(Exception e) {
+            throw new TrnSyncException("TRN_SYNC_ERROR_SYNC_THEME");
+        }
+    }
+
+    private void syncHomepage() throws TrnSyncException {
+        try {
+            if(getPageRowIdFromCode("homepage").isEmpty()) {
+                lesson.resetFilters();
+                lesson.setFieldFilter("trnLsnFrontPath", "/pages/homepage");
+                List<String[]> res = lesson.search();
+                if(res.isEmpty()) {
+                    throw new TrnSyncException("syncHomepage", "Unable to find lesson homepage");
+                }
+                lesson.setValues(res.get(0));
+                page.resetValues();
+                BusinessObjectTool bot = new BusinessObjectTool(page);
+                bot.selectForCreate();
+                synchronized(page) {
+                    page.resetValues();
+                    page.setFieldValue("trnPageCode", "homepage");
+                    page.setFieldValue("trnPageType", "homepage");
+                    page.setFieldValue("trnPageTrnLessonid", lesson.getRowId());
+                    bot.validateAndSave();
+                }
+            }
+        } catch(Exception e) {
+            throw new TrnSyncException("TRN_SYNC_ERROR_SYNC_HOMEPAGE");
+        }
+    }
 	
 	private void syncPath(String relativePath) throws TrnSyncException{
 		File dir = new File(contentDir.getPath()+relativePath);
@@ -478,6 +530,14 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	private String getLsnRowIdFromPath(String path){
 		return Tool.isEmpty(path) ? "" : g.simpleQuery("select row_id from trn_lesson where trn_lsn_path='"+path+"'");
 	}
+
+    private String getPageRowIdFromCode(String code) {
+        return Tool.isEmpty(code) ? "" : g.simpleQuery("select row_id from trn_page where trn_page_code='"+code+"'");
+    }
+
+    private String isThemeSet() {
+        return g.simpleQuery("select row_id from trn_theme");
+    }
 	
 	private void upsertLessonAndContent(File dir) throws TrnSyncException{
 		try{
