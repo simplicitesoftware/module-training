@@ -252,7 +252,7 @@
         margin-bottom: 8px
 
     img
-      width: 100%
+      width: 60%
       height: auto
       overflow-clip-margin: content-box
       overflow: clip
