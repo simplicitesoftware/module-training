@@ -36,11 +36,11 @@ public class TrnGitCheckoutService extends com.simplicite.webapp.services.RESTSe
 	public Object post(Parameters params) {
         try {
             String branch = TrnTools.getGitBranch();
-            File localDir = getContentDir();
-            if (!localDir.exists()) {
-                return performClone(TrnTools.getGitUrl(), branch, localDir);
+            File contentDir = getContentDir();
+            if (!contentDir.exists()) {
+                return performClone(TrnTools.getGitUrl(), branch, contentDir);
             } else {
-                return performPull(branch, localDir);
+                return performPull(branch, contentDir);
             }
         } catch (IOException | GitAPIException | TrnConfigException e) {
             AppLog.error(getClass(), "post", e.getMessage(), e, getGrant());
@@ -48,10 +48,10 @@ public class TrnGitCheckoutService extends com.simplicite.webapp.services.RESTSe
         }
 	}
 
-    private static String performClone(String remoteUrl, String branch, File localDir) throws IOException, GitAPIException {
+    private String performClone(String remoteUrl, String branch, File contentDir) throws IOException, GitAPIException {
         CloneCommand cloneCommand = Git.cloneRepository();
         cloneCommand.setURI(remoteUrl);
-        cloneCommand.setDirectory(localDir);
+        cloneCommand.setDirectory(contentDir);
         cloneCommand.setCloneAllBranches(false);
         cloneCommand.setBranch(branch);
         cloneCommand.setCloneSubmodules(false);
@@ -63,9 +63,9 @@ public class TrnGitCheckoutService extends com.simplicite.webapp.services.RESTSe
         }
     }
 
-    private static String performPull(String branch, File localDir) throws IOException, GitAPIException {
+    private String performPull(String branch, File contentDir) throws IOException, GitAPIException, TrnConfigException {
         FileRepositoryBuilder repositoryBuilder = new FileRepositoryBuilder();
-        Repository repository = repositoryBuilder.setGitDir(new File(localDir, ".git"))
+        Repository repository = repositoryBuilder.setGitDir(new File(contentDir, ".git"))
                                                 .readEnvironment()
                                                 .findGitDir()
                                                 .build();
@@ -79,7 +79,18 @@ public class TrnGitCheckoutService extends com.simplicite.webapp.services.RESTSe
             pullCommand.call();
 
             return "Pull completed successfully.";
+        } catch(GitAPIException e) {
+            // improve log ??
+            AppLog.warning(getClass(), "performPull", 
+                "Unable to pull. The pull command fallback will try to delete and clone back the repository", e, getGrant());
+            return pullCommandFallback(TrnTools.getGitUrl(), branch, contentDir); 
         }
+    }
+
+    private String pullCommandFallback(String remoteUrl, String branch, File contentDir) throws IOException, GitAPIException {
+        deleteRepository();
+        performClone(remoteUrl, branch, contentDir);
+        return "The pull command has failed probably due to a conflict between your local and remote content. The pull command fallback has deleted and cloned back the repository";
     }
 
     private static <T extends TransportCommand<?, ?>> void gitAuthentication(T command) {
@@ -94,20 +105,20 @@ public class TrnGitCheckoutService extends com.simplicite.webapp.services.RESTSe
     @Override
     public Object del(Parameters params) {
         try {
-            File repositoryDir = getContentDir();
-            if (repositoryDir.exists()) {
-                return deleteRepository(repositoryDir);
-            } else {
-                return "Repository directory does not exist.";
-            }
+            return deleteRepository();
         } catch (IOException e) {
             return "ERROR : " + e.getMessage();
         }
     }
 
-    private static String deleteRepository(File repositoryDir) throws IOException {
-        FileUtils.delete(repositoryDir, FileUtils.RECURSIVE);
-        return "Repository deleted successfully.";
+    private String deleteRepository() throws IOException {
+        File repositoryDir = getContentDir();
+        if (repositoryDir.exists()) {
+            FileUtils.delete(repositoryDir, FileUtils.RECURSIVE);
+            return "Repository deleted successfully.";
+        } else {
+            return "Repository directory does not exist.";
+        }
     }
 
     private File getContentDir() {
