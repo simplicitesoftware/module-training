@@ -10,9 +10,12 @@ import java.util.List;
 
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
+import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
+import org.eclipse.jgit.transport.CredentialItem.Username;
 import org.eclipse.jgit.util.FileUtils;
 import org.eclipse.jgit.api.CloneCommand;
 import org.eclipse.jgit.api.PullCommand;
+import org.eclipse.jgit.api.TransportCommand;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.json.JSONObject;
@@ -53,6 +56,7 @@ public class TrnGitCheckoutService extends com.simplicite.webapp.services.RESTSe
         cloneCommand.setBranch(branch);
         cloneCommand.setCloneSubmodules(false);
         cloneCommand.setDepth(1);
+        gitAuthentication(cloneCommand);
 
         try (Git git = cloneCommand.call()) {
             return "Shallow clone completed successfully.";
@@ -69,11 +73,21 @@ public class TrnGitCheckoutService extends com.simplicite.webapp.services.RESTSe
         try (Git git = new Git(repository)) {
             PullCommand pullCommand = git.pull();
             pullCommand.setRemote("origin");
-            pullCommand.setRemoteBranchName(branch); // Change branch name if needed
+            pullCommand.setRemoteBranchName(branch);
+            gitAuthentication(pullCommand);
 
             pullCommand.call();
 
             return "Pull completed successfully.";
+        }
+    }
+
+    private static <T extends TransportCommand<?, ?>> void gitAuthentication(T command) {
+        JSONObject credentials = TrnTools.getGitCredentials();
+        if(credentials!=null) {
+            UsernamePasswordCredentialsProvider credentialsProvider = new UsernamePasswordCredentialsProvider(
+                credentials.getString("username"), credentials.getString("token"));
+            command.setCredentialsProvider(credentialsProvider);
         }
     }
 

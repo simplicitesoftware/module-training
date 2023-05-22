@@ -117,6 +117,14 @@ public class TrnTools implements java.io.Serializable {
         }
     }
 
+    public static JSONObject getGitCredentials() {
+        try {
+            return getGitConfig().getJSONObject("repository").getJSONObject("creds");
+        } catch(Exception e) {
+            return null;
+        }
+    }
+
 	public static String[] getLangs(Grant g){
 		return g.getListOfValues("LANG_ALL").getCodesArray("LANG_ALL");
 	}
