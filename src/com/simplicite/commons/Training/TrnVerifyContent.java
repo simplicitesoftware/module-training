@@ -54,35 +54,67 @@ public class TrnVerifyContent implements java.io.Serializable {
 	
 	private static void validateRootContent(File dir) throws TrnSyncException{
 		for(File child : dir.listFiles()) {
-			if(!isCategory(child) && !child.getName().equals("tags.json") && !child.getName().equals("url_rewriting.json"))
+			if (isTagJson(child)) {
+				validateTagsJson(child);
+            } 
+            else if(isUrlRewritingJson(child)) {
+                validateUrlRewritingJson(child);
+			} 
+            else if(isThemeJson(child)) {
+                validateThemeJson(child);
+            }
+            else if(!isLogo(child) && !isCategory(child)) {
 				throw new TrnSyncException("TRN_SYNC_ROOT_NON_CONFORMITY", child);
-			else if (child.getName().equals("tags.json")) {
-				// check if tags.json has a correct structure
-				try {
-					JSONArray tags = new JSONArray(readFile(dir.getPath()+"/tags.json"));
-					for(int i = 0; i < tags.length(); i++) {
-						JSONObject tag = tags.getJSONObject(i);
-						if(StringUtils.isEmpty(tag.getString("code")) && StringUtils.isEmpty(tag.getJSONObject("translation").toString())) {
-							throw new Exception();
-						}
-					}
-				} catch(Exception e) {
-					throw new TrnSyncException("TRN_SYNC_ROOT_TAGS_JSON_NON_CONFORMITY", dir);
-				}
-				try {
-					JSONArray urlRewriting = new JSONArray(readFile(dir.getPath()+"/url_rewriting.json"));
-					for(int i = 0; i < urlRewriting.length(); i++) {
-						JSONObject record = urlRewriting.getJSONObject(i);
-						if(StringUtils.isEmpty(record.getString("sourceUrl")) && StringUtils.isEmpty(record.getString("destinationUrl"))) {
-							throw new Exception();
-						}
-					}
-				} catch(Exception e) {
-					throw new TrnSyncException("TRN_SYNC_ROOT_URL_REWRITING_JSON_NON_CONFORMITY", dir);
-				}
-			}
+            }
 		}
 	}
+
+    private static boolean isTagJson(File f) {
+        return f.getName().equals("tags.json");
+    }
+
+    private static boolean isUrlRewritingJson(File f) {
+        return f.getName().equals("url_rewriting.json");
+    }
+
+    private static boolean isThemeJson(File f) {
+        return f.getName().equals("theme.json");
+    }
+
+    private static boolean isLogo(File f) {
+        return f.getName().equals("logo500-white.png");
+    }
+
+    private static void validateTagsJson(File f) throws TrnSyncException {
+        JSONArray tags = new JSONArray(readFile(f.getPath()));
+        for(int i = 0; i < tags.length(); i++) {
+            JSONObject tag = tags.getJSONObject(i);
+            if(StringUtils.isEmpty(tag.getString("code")) 
+            || StringUtils.isEmpty(tag.getJSONObject("translation").toString())) {
+                throw new TrnSyncException("TRN_SYNC_ROOT_TAGS_JSON_NON_CONFORMITY", f);
+            }
+        }
+    }
+
+    private static void validateUrlRewritingJson(File f) throws TrnSyncException {
+        JSONArray urlRewriting = new JSONArray(readFile(f.getPath()));
+        for(int i = 0; i < urlRewriting.length(); i++) {
+            JSONObject row = urlRewriting.getJSONObject(i);
+            if(StringUtils.isEmpty(row.getString("sourceUrl")) 
+            || StringUtils.isEmpty(row.getString("destinationUrl"))) {
+                throw new TrnSyncException("TRN_SYNC_ROOT_URL_REWRITING_JSON_NON_CONFORMITY", f);
+            }
+        }
+    }
+
+    private static void validateThemeJson(File f) throws TrnSyncException {
+        JSONObject json = new JSONObject(readFile(f.getPath()));
+        if(StringUtils.isEmpty(json.getString("main_color"))
+        || StringUtils.isEmpty(json.getString("secondary_color"))
+        || StringUtils.isEmpty(json.getString("logo_path"))) {
+            throw new TrnSyncException("TRN_SYNC_ROOT_THEME_JSON_NON_CONFORMITY");
+        }
+    }
 	
 	private static void validateCategoryContent(File dir) throws TrnSyncException{
 		boolean hasJson = false;

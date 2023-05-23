@@ -266,7 +266,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
                     theme.resetValues();
                     theme.setFieldValue("trnThemeColor", json.getString("main_color"));
                     theme.setFieldValue("trnThemeSecondaryColor", json.getString("secondary_color"));
-                    File icon = new File(json.getString("icon_path"));
+                    File icon = new File(json.getString("logo_path"));
                     theme.getField("trnThemeIcon").setDocument(theme, icon.getName(), new FileInputStream(icon));
                     bot.validateAndSave();
                 }    
