@@ -31,6 +31,7 @@ import com.simplicite.util.tools.*;
  */
 public class TrnGitCheckoutService extends com.simplicite.webapp.services.RESTServiceExternalObject {
 	private static final long serialVersionUID = 1L;
+    private static final String CONTENT_FOLDER_NAME = "content";
 
 	@Override
 	public Object post(Parameters params) {
@@ -122,6 +123,6 @@ public class TrnGitCheckoutService extends com.simplicite.webapp.services.RESTSe
     }
 
     private File getContentDir() {
-        return new File(Platform.getContentDir()+"/test-content");
+        return new File(Platform.getContentDir(), CONTENT_FOLDER_NAME);
     }
 }
