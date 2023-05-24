@@ -31,7 +31,7 @@ import com.simplicite.util.tools.*;
  */
 public class TrnGitCheckoutService extends com.simplicite.webapp.services.RESTServiceExternalObject {
 	private static final long serialVersionUID = 1L;
-    private static final String CONTENT_FOLDER_NAME = "content";
+    private static final String CONTENT_FOLDER_NAME = "docs";
 
 	@Override
 	public Object post(Parameters params) {
@@ -81,7 +81,6 @@ public class TrnGitCheckoutService extends com.simplicite.webapp.services.RESTSe
 
             return "Pull completed successfully.";
         } catch(GitAPIException e) {
-            // improve log ??
             AppLog.warning(getClass(), "performPull", 
                 "Unable to pull. The pull command fallback will try to delete and clone back the repository", e, getGrant());
             return pullCommandFallback(TrnTools.getGitUrl(), branch, contentDir); 

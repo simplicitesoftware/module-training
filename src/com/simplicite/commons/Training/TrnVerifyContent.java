@@ -56,7 +56,7 @@ public class TrnVerifyContent implements java.io.Serializable {
 		for(File child : dir.listFiles()) {
 			if (isTagJson(child)) {
 				validateTagsJson(child);
-            } 
+            }
             else if(isUrlRewritingJson(child)) {
                 validateUrlRewritingJson(child);
 			} 

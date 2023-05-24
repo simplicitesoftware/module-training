@@ -189,14 +189,11 @@ public class TrnCategory extends TrnObject {
 			TrnFsSyncTool.triggerSync();
 		} catch(TrnSyncException e) {
 			AppLog.error(getClass(), "forceDirSync", e.getMessage(), e, Grant.getSystemAdmin());
-		} catch(TrnConfigException e) {
-            AppLog.error(getClass(), "forceDirSync", e.getMessage(), e, getGrant());
-        }
+		}
 	}
 	
 	public void reIndexAll(){
 		try{
-			//TrnIndexer.forceIndex(getGrant());
 			TrnIndexer.forceIndex((getGrant()));
 		}
 		catch(Exception e){

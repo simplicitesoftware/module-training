@@ -2,7 +2,6 @@ package com.simplicite.commons.Training;
 
 import java.util.*;
 
-import com.google.gson.JsonObject;
 import com.simplicite.objects.Training.TrnTagLsn;
 import com.simplicite.util.*;
 import com.simplicite.util.engine.Platform;
@@ -24,33 +23,47 @@ import java.nio.file.Files;
 public class TrnFsSyncTool implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 	private static final String HASHSTORE_FILENAME = "glo.ser";
-    private static final String CONTENT_FOLDERNAME = "content";
+    private static final String CONTENT_FOLDERNAME = "docs/content";
+    private static final String TAG_JSON_NAME = "tags.json";
+    private static final String URL_REWRITING_JSON_NAME = "url_rewriting.json";
+    private static final String THEME_JSON_NAME = "theme.json";
 	
 	private final File contentDir;
 	private final File hashStoreFile;
-	private final String[] LANG_CODES;
-	private final String DEFAULT_LANG_CODE;
+	private final String[] langCodes;
+	private final String defaultLangCode;
 	
-	private ObjectDB category, categoryContent, lesson, lessonContent, picture, tag, translateTag, trnUrlRewriting, theme, page;
+	private ObjectDB category;
+	private ObjectDB categoryContent;
+	private ObjectDB lesson;
+	private ObjectDB lessonContent;
+	private ObjectDB picture;
+	private ObjectDB tag;
+	private ObjectDB tagTranslation;
+	private ObjectDB urlRewriting;
+	private ObjectDB theme;
+	private ObjectDB page;
 	
 	private HashMap<String, String> hashStore;
+    // the following attributes are used to keep track of the content diffs and remove deleted content
 	private ArrayList<String> foundPaths;
-	private ArrayList<String> jsonTags;
-	private ArrayList<String> addedUrls;
+	private ArrayList<String> foundTags;
+    private ArrayList<String> foundTagsTranslations;
+	private ArrayList<String> foundUrlsRewriting;
 	
 	Grant g;
 	
-	public static void dropDbData() throws TrnSyncException, TrnConfigException{
+	public static void dropDbData() throws TrnSyncException {
 		TrnFsSyncTool t = new TrnFsSyncTool(Grant.getSystemAdmin());
 		t.dropData();
 	}
 	
-	public static void deleteStore() throws TrnSyncException, TrnConfigException{
+	public static void deleteStore() throws TrnSyncException {
 		TrnFsSyncTool t = new TrnFsSyncTool(Grant.getSystemAdmin());
 		t.deleteHashStore();
 	}
 	
-	public static void triggerSync() throws TrnSyncException, TrnConfigException{
+	public static void triggerSync() throws TrnSyncException {
 		TrnFsSyncTool t = new TrnFsSyncTool(Grant.getSystemAdmin());
 		t.sync();
 	}
@@ -58,10 +71,11 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	public TrnFsSyncTool(Grant g) {
 		this.g = g;
         String baseContentDir = Platform.getContentDir();
+        AppLog.info(baseContentDir, g);
 		contentDir = new File(baseContentDir, CONTENT_FOLDERNAME);
 		hashStoreFile = new File(baseContentDir, HASHSTORE_FILENAME);
-		LANG_CODES = TrnTools.getLangs(g);
-		DEFAULT_LANG_CODE = TrnTools.getDefaultLang();
+		langCodes = TrnTools.getLangs(g);
+		defaultLangCode = TrnTools.getDefaultLang();
 	}
 	
 	public void dropData() throws TrnSyncException{
@@ -77,20 +91,18 @@ public class TrnFsSyncTool implements java.io.Serializable {
 
 	private void dropCategory(boolean loadAccess) throws DeleteException {
 		if(loadAccess) loadTrnObjectAccess();
-		ObjectDB cat = g.getTmpObject("TrnCategory");
-		synchronized(cat){
-			cat.resetFilters();
-			cat.setFieldFilter("trnCatId.trnCatPath", "is null");
-			for(String[] row : cat.search()){
-				cat.setValues(row);
-				(new BusinessObjectTool(cat)).delete();
+		synchronized(category){
+			category.resetFilters();
+			category.setFieldFilter("trnCatId.trnCatPath", "is null");
+			for(String[] row : category.search()){
+				category.setValues(row);
+				(new BusinessObjectTool(category)).delete();
 			}
 		}
 	}
 
 	private void dropTag(boolean loadAccess) throws DeleteException {
 		if(loadAccess) loadTrnObjectAccess();
-		ObjectDB tag = g.getTmpObject("TrnTag");
 		synchronized(tag){
 			tag.resetFilters();
 			for(String[] row : tag.search()){
@@ -116,14 +128,11 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		// verify the structure (recursive)
 		verifyContentStructure();
 		// initialize some usefull objects
-		foundPaths = new ArrayList<>();
-		jsonTags = new ArrayList<>();
-		addedUrls = new ArrayList<>();
+		initFoundArrays();
 		loadTrnObjects();
 		// injects contents at `contentDir` into DB, sets new hashes (recursive)
 		syncPath("/");
-        syncTheme();
-        syncHomepage();
+        upsertHomepage(); // homepage content depends on the lesson homepage, so it must be executed after syncPath
         AppLog.info("Content has been synced", g);
         
 		// deletes from DB paths that are not in the file structure anymore
@@ -140,91 +149,69 @@ public class TrnFsSyncTool implements java.io.Serializable {
         AppLog.info("Training content has been verified", g);
 	}
 	
-	private boolean isPic(File f){
-		String extension = FilenameUtils.getExtension(f.getName()).toLowerCase();
-		return "png".equals(extension) || "jpg".equals(extension);
-	}
+    private void initFoundArrays() {
+        foundPaths = new ArrayList<>();
+		foundTags = new ArrayList<>();
+        foundTagsTranslations = new ArrayList<>();
+		foundUrlsRewriting = new ArrayList<>();
+    }
 	
+    // deletes the elements that do not exists anymore
 	private void deleteDeleted(){
-		for(String path : hashStore.keySet())
-			if(!foundPaths.contains(path))
-				deleteForPath(path);
-		deleteDeletedTags();
-		deleteDeletedUrls();
+        deleteDeletedPaths();
+        deleteDiff(foundTags, tag, "TAG");
+		deleteDiff(foundTagsTranslations, tagTranslation, "TAG_TRANSLATION");
+        deleteDiff(foundUrlsRewriting, urlRewriting, "URL_REWRITING");
 	}
 
-	private void deleteDeletedTags() {
-		if(jsonTags.size() == 0) return;
-		BusinessObjectTool trnTag = new BusinessObjectTool(tag);
-		tag.resetFilters();
-		for(String[] row : tag.search()) {
-			tag.resetValues();
-			tag.setValues(row);
-			String rowId = tag.getRowId();
-			String code = tag.getFieldValue("trnTagCode");
-			if(!jsonTags.contains(code)) {
-				deleteTag(rowId, trnTag);
-			}
-		}
-	}
+    private void deleteDeletedPaths() {
+        for(String path : hashStore.keySet()) {
+            if(!foundPaths.contains(path) && path.equals(TAG_JSON_NAME) && path.equals(URL_REWRITING_JSON_NAME) && path.equals(THEME_JSON_NAME)) {
+				deletePath(path);
+            }
+        }
+    }
 
-	private void deleteTag(String rowId, BusinessObjectTool trnTag) {
-		try {
-			synchronized(trnTag.getObject()) {
-				trnTag.getForDelete(rowId);
-				trnTag.delete();
-			}
-		} catch(Exception e) {
-			AppLog.warning(getClass(), "deleteTag", "TRN_WARN_TAG_NOT_EXISTANT_IN_DB", e, g);
-		}
-	}
-
-	private void deleteDeletedUrls() {
-		if(addedUrls.size() == 0) return;
-		BusinessObjectTool trnUrl = new BusinessObjectTool(trnUrlRewriting);
-		trnUrlRewriting.resetFilters();
-		for(String[] row : trnUrlRewriting.search()) {
-			trnUrlRewriting.resetValues();
-			trnUrlRewriting.setValues(row);
-			String rowId = trnUrlRewriting.getRowId();
-			String destination = trnUrlRewriting.getFieldValue("trnDestinationUrl");
-			if(!addedUrls.contains(destination)) {
-				deleteUrl(rowId, trnUrl);
-			}
-		}
-	}
-
-	private void deleteUrl(String rowId, BusinessObjectTool trnUrlRewriting) {
-		try {
-			synchronized(trnUrlRewriting.getObject()) {
-				trnUrlRewriting.getForDelete(rowId);
-				trnUrlRewriting.delete();
-			}
-		} catch(Exception e) {
-			AppLog.warning(getClass(), "deleteTag", "TRN_WARN_URL_REWRITING_NOT_EXISTANT_IN_DB", e, g);
-			
-		}
-	}
-	
-	private void deleteForPath(String path){
+	private void deletePath(String path) {
 		BusinessObjectTool bot;
-		String id;
+		String rowId;
+        String object;
 		if(TrnVerifyContent.isCategory(path)){
 			bot = new BusinessObjectTool(category);
-			id = getCatRowIdFromPath(path);
+			rowId = getCatRowIdFromPath(path);
+            object = "CATEGORY";
 		}
 		else{
 			bot = new BusinessObjectTool(lesson);
-			id = getLsnRowIdFromPath(path);
+			rowId = getLsnRowIdFromPath(path);
+            object = "LESSON";
 		}
-		try{
-			synchronized(bot.getObject()){
-				bot.getForDelete(id);
-				bot.delete();
+        deleteRecord(rowId, bot, object);
+        hashStore.remove(path);
+	}
+
+    private void deleteDiff(ArrayList<String> foundObject, ObjectDB object, String objectName) {
+        if(foundObject.isEmpty()) return;
+		BusinessObjectTool bot = new BusinessObjectTool(object);
+		object.resetFilters();
+		for(String[] row : object.search()) {
+			object.resetValues();
+			object.setValues(row);
+			String rowId = object.getRowId();
+			if(!foundObject.contains(rowId)) {
+				deleteRecord(rowId, bot, objectName);
 			}
 		}
-		catch(Exception e){
-			AppLog.warning(getClass(), "deleteForPath", "TRN_WARN_DEL_PATH_NOT_EXISTANT_IN_DB: " + path, e, g);
+    }
+
+    private void deleteRecord(String rowId, BusinessObjectTool bot, String objectName) {
+		try {
+			synchronized(bot.getObject()) {
+				bot.getForDelete(rowId);
+				bot.delete();
+			}
+		} catch(Exception e) {
+			AppLog.warning(getClass(), "deleteRecord", "TRN_WARN_UNABLE_TO_DELETE_"+objectName+": row_id="+rowId, e, g);
 		}
 	}
 	
@@ -251,77 +238,30 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		lessonContent = g.getObject("sync_TrnLsnTranslate", "TrnLsnTranslate");
 		picture = g.getObject("sync_TrnPicture", "TrnPicture");
 		tag = g.getObject("sync_TrnTag", "TrnTag");
-		translateTag = g.getObject("sync_TrnTagTranslate", "TrnTagTranslate");
-		trnUrlRewriting = g.getObject("sync_TrnUrlRewriting", "TrnUrlRewriting");
+		tagTranslation = g.getObject("sync_TrnTagTranslate", "TrnTagTranslate");
+		urlRewriting = g.getObject("sync_TrnUrlRewriting", "TrnUrlRewriting");
         theme = g.getObject("sync_TrnSiteTheme", "TrnSiteTheme");
         page = g.getObject("sync_TrnPage", "TrnPage");
 	}
-
-    private void syncTheme() throws TrnSyncException {
-        try {
-            if(isThemeSet().isEmpty()) {
-                BusinessObjectTool bot = new BusinessObjectTool(theme);
-                JSONObject json = new JSONObject(FileTool.readFile(contentDir.getPath()+"/theme.json"));
-                synchronized(theme) {
-                    theme.resetValues();
-                    theme.setFieldValue("trnThemeColor", json.getString("main_color"));
-                    theme.setFieldValue("trnThemeSecondaryColor", json.getString("secondary_color"));
-                    File icon = new File(json.getString("logo_path"));
-                    theme.getField("trnThemeIcon").setDocument(theme, icon.getName(), new FileInputStream(icon));
-                    bot.validateAndSave();
-                }    
-            }
-        } catch(Exception e) {
-            throw new TrnSyncException("TRN_SYNC_ERROR_SYNC_THEME");
-        }
-    }
-
-    private void syncHomepage() throws TrnSyncException {
-        try {
-            if(getPageRowIdFromCode("homepage").isEmpty()) {
-                lesson.resetFilters();
-                lesson.setFieldFilter("trnLsnFrontPath", "/pages/homepage");
-                List<String[]> res = lesson.search();
-                if(res.isEmpty()) {
-                    throw new TrnSyncException("syncHomepage", "Unable to find lesson homepage");
-                }
-                lesson.setValues(res.get(0));
-                page.resetValues();
-                BusinessObjectTool bot = new BusinessObjectTool(page);
-                bot.selectForCreate();
-                synchronized(page) {
-                    page.resetValues();
-                    page.setFieldValue("trnPageCode", "homepage");
-                    page.setFieldValue("trnPageType", "homepage");
-                    page.setFieldValue("trnPageTrnLessonid", lesson.getRowId());
-                    bot.validateAndSave();
-                }
-            }
-        } catch(Exception e) {
-            throw new TrnSyncException("TRN_SYNC_ERROR_SYNC_HOMEPAGE");
-        }
-    }
 	
 	private void syncPath(String relativePath) throws TrnSyncException{
-		File dir = new File(contentDir.getPath()+relativePath);
+        File dir = new File(contentDir.getPath()+relativePath);
+        String newHash = getNewHash(relativePath, dir);
+        if(newHash != null) {
+            if("/".equals(relativePath)) {
+                // todo, implement hashStore with these specific files (tags.json, theme.json etc..)
+                // currently it only checks if the root directy has changed, and if so it triggers all the following methods
+                syncTags();
+                syncUrlsRewriting();
+                syncTheme();
+			} else {
+                updateDbWithDir(dir);
+            }
+            hashStore.put(relativePath, newHash);
+        }
 	
-		String oldHash = hashStore.get(relativePath);
-		String newHash = "";
-		try{
-			newHash = hashDirectoryFiles(dir);
-		}
-		catch(Exception e){
-			throw new TrnSyncException("TRN_SYNC_ERROR_HASHING_FILES", relativePath);
-		}
-		
-		if(oldHash==null || !oldHash.equals(newHash))
-			if("/".equals(relativePath)) {
-				upsertTags(dir);
-				upsertUrlsRewriting(dir);
-			}
-			else updateDbWithDir(dir);
-		
-		hashStore.put(relativePath, newHash);
+        // add every found path, even if it has not changed since last sync
+        // so we can compare the differences with glo.ser keys (old paths) and remove the deleted path
 		foundPaths.add(relativePath);
 		
 		File[] files = dir.listFiles();
@@ -339,77 +279,100 @@ public class TrnFsSyncTool implements java.io.Serializable {
 			throw new TrnSyncException("TRN_SYNC_ERROR_NOT_CATEGORY_NOR_LESSON", dir);
 	}
 
-	private void upsertTags(File dir) throws TrnSyncException {
+    private void syncTags() throws TrnSyncException {
+        File f = new File(contentDir.getPath(), TAG_JSON_NAME);
+        String newHash = getNewHash(TAG_JSON_NAME, f);
+        if(newHash != null) {
+            AppLog.info("Tags modifications detected, Syncing...", g);
+            upsertTags(f);
+            hashStore.put(TAG_JSON_NAME, newHash);
+            AppLog.info("Tags successfully synced", g);
+        }
+    }
+
+	private void upsertTags(File jsonFile) throws TrnSyncException {
 		try {
-			JSONArray json = new JSONArray(FileTool.readFile(dir.getPath()+"/tags.json"));
-			for (int i = 0; i < json.length(); i++) {
+			JSONArray json = new JSONArray(FileTool.readFile(jsonFile));
+			
+            for (int i = 0; i < json.length(); i++) {
 				JSONObject tagObject = json.getJSONObject(i);
 				String tagCode = tagObject.optString("code");
 				String rowId = upsertTag(tagCode);
-				jsonTags.add(tagCode);
-				if(!Tool.isEmpty(rowId)) {
-					JSONObject tradObj = tagObject.optJSONObject("translation");
-					for(String lang : LANG_CODES) {
-						if(tradObj.has(lang)) {
-							String translation = tradObj.getString(lang);
-							upsertTagTranslation(rowId, lang, translation);
-						}
-					}
-				}
+
+                JSONObject tradObj = tagObject.optJSONObject("translation");
+                for(String lang : langCodes) {
+                    if(tradObj.has(lang)) {
+                        upsertTagTranslation(rowId, lang, tradObj.getString(lang));
+                    }
+                }
 			}
 		} catch(Exception e) {
 			throw new TrnSyncException("TRN_SYNC_UPSERT_TAGS_FROM_JSON", e.getMessage());
 		}          
 	}
 
-	private void upsertTagTranslation(String tagRowId, String lang, String translation) throws TrnSyncException {
-		try {
-			BusinessObjectTool bot = new BusinessObjectTool(translateTag);
-			String translateRowId = getTagTranslateRowId(tagRowId, lang, translation);
-			synchronized(translateTag) {
-				translateTag.resetValues();
-				if(Tool.isEmpty(translateRowId))
-					bot.selectForCreate();
-				else
-					bot.selectForUpdate(translateRowId);
-				translateTag.setFieldValue("trnTagTranslateLang", lang);
-				translateTag.setFieldValue("trnTagTranslateTrad", translation);
-				translateTag.setFieldValue("trnTaglangTagId", tagRowId);
-				bot.validateAndSave();
-			}
-		} catch(Exception e) {
-			throw new TrnSyncException("TRN_SYNC_UPSERT_TAG_TRANSLATION", e.getMessage());
-		}
-	}
-
-	private String upsertTag(String code) throws TrnSyncException {
+    private String upsertTag(String code) throws TrnSyncException {
 		try {
 			String rowId = getTagRowIdFromCode(code);
-			if(!Tool.isEmpty(rowId)) {
-				return "";
-			}
 			BusinessObjectTool bot = new BusinessObjectTool(tag);
-			bot.selectForCreate();
+			
 			synchronized(tag) {
+                if(Tool.isEmpty(rowId)) { 
+                    bot.selectForCreate();
+                } else {
+                    bot.selectForUpdate(rowId);
+                }
 				tag.resetValues();
 				tag.resetValues();
 				tag.setFieldValue("trnTagCode", code);
 				bot.validateAndSave();
-				return tag.getRowId();
+                rowId = tag.getRowId();
+                foundTags.add(rowId); // to keep track of added tags, needed to clean deleted tags
+				return rowId;
 			}
 		} catch(Exception e) {
 			throw new TrnSyncException("TRN_SYNC_UPSERT_TAG", e.getMessage()+" "+ code);
 		}
 	}
 
-	private void upsertUrlsRewriting(File dir)throws TrnSyncException {
+	private void upsertTagTranslation(String tagRowId, String lang, String translation) throws TrnSyncException {
 		try {
-			JSONArray json = new JSONArray(FileTool.readFile(dir.getPath()+"/url_rewriting.json"));
+			BusinessObjectTool bot = new BusinessObjectTool(tagTranslation);
+			String translateRowId = getTagTranslateRowId(tagRowId, lang, translation);
+			synchronized(tagTranslation) {
+				tagTranslation.resetValues();
+				if(Tool.isEmpty(translateRowId))
+					bot.selectForCreate();
+				else
+					bot.selectForUpdate(translateRowId);
+				tagTranslation.setFieldValue("trnTagTranslateLang", lang);
+				tagTranslation.setFieldValue("trnTagTranslateTrad", translation);
+				tagTranslation.setFieldValue("trnTaglangTagId", tagRowId);
+				bot.validateAndSave();
+                foundTagsTranslations.add(tagTranslation.getRowId());
+			}
+		} catch(Exception e) {
+			throw new TrnSyncException("TRN_SYNC_UPSERT_TAG_TRANSLATION", e.getMessage());
+		}
+	}
+
+    private void syncUrlsRewriting() throws TrnSyncException {
+        File f = new File(contentDir.getPath(), URL_REWRITING_JSON_NAME);
+        String newHash = getNewHash(URL_REWRITING_JSON_NAME, f);
+        if(newHash != null) {
+            AppLog.info("Urls rewriting modifications detected, Syncing...", g);
+            upsertUrlsRewriting(f);
+            hashStore.put(URL_REWRITING_JSON_NAME, newHash);
+            AppLog.info("Urls rewriting successfully synced", g);
+        }
+    }
+
+	private void upsertUrlsRewriting(File f) throws TrnSyncException {
+		try {
+			JSONArray json = new JSONArray(FileTool.readFile(f));
 			for (int i = 0; i < json.length(); i++) {
 				JSONObject jsonRecord = json.getJSONObject(i);
-				String sourceUrl = jsonRecord.optString("sourceUrl");
-				String destination = jsonRecord.optString("destinationUrl");
-				upsertUrlRewriting(sourceUrl, destination);
+				upsertUrlRewriting(jsonRecord.optString("sourceUrl"), jsonRecord.optString("destinationUrl"));
 			}
 		} catch(Exception e) {
 			throw new TrnSyncException("TRN_SYNC_UPSERT_URLS_REWRITING_FROM_JSON", e.getMessage());
@@ -418,23 +381,23 @@ public class TrnFsSyncTool implements java.io.Serializable {
 
 	private void upsertUrlRewriting(String sourceUrl, String destinationUrl) throws TrnSyncException {
 		try {
-			BusinessObjectTool bot = new BusinessObjectTool(trnUrlRewriting);
+			BusinessObjectTool bot = new BusinessObjectTool(urlRewriting);
 			String rowId = getUrlRewritingRowId(sourceUrl, destinationUrl);
-			synchronized(trnUrlRewriting) {
-				trnUrlRewriting.resetValues();
+			synchronized(urlRewriting) {
+				urlRewriting.resetValues();
 				if(Tool.isEmpty(rowId)) {
 					bot.selectForCreate();
 				} else {
 					bot.selectForUpdate(rowId);
 				}
-				trnUrlRewriting.setFieldValue("trnSourceUrl", sourceUrl);
-				trnUrlRewriting.setFieldValue("trnDestinationUrl", destinationUrl);
+				urlRewriting.setFieldValue("trnSourceUrl", sourceUrl);
+				urlRewriting.setFieldValue("trnDestinationUrl", destinationUrl);
 
 				bot.validateAndSave();
-				addedUrls.add(destinationUrl);
+				foundUrlsRewriting.add(urlRewriting.getRowId());
 			}
 		} catch(Exception e) {
-			throw new TrnSyncException("TRN_SYNC_UPSERT_URL_REWRITING",  e.getMessage()+" "+trnUrlRewriting.toJSON());
+			throw new TrnSyncException("TRN_SYNC_UPSERT_URL_REWRITING",  e.getMessage()+" "+urlRewriting.toJSON());
 		}
 	}
 	
@@ -497,7 +460,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	
 	private List<String[]> jsonCatContents(JSONObject json){
 		List<String[]> l = new ArrayList<>();
-		for(String lang : LANG_CODES){
+		for(String lang : langCodes){
 			if(json.has(lang)){
 				JSONObject content = json.getJSONObject(lang);
 				l.add(new String[]{
@@ -535,8 +498,8 @@ public class TrnFsSyncTool implements java.io.Serializable {
         return Tool.isEmpty(code) ? "" : g.simpleQuery("select row_id from trn_page where trn_page_code='"+code+"'");
     }
 
-    private String isThemeSet() {
-        return g.simpleQuery("select row_id from trn_theme");
+    private String getThemeRowId() {
+        return g.simpleQuery("select row_id from trn_site_theme");
     }
 	
 	private void upsertLessonAndContent(File dir) throws TrnSyncException{
@@ -618,7 +581,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 
     private void upsertLessonTranslations(String rowId, JSONObject json) throws TrnSyncException {
         BusinessObjectTool bot = new BusinessObjectTool(lessonContent);
-        for(String lang : LANG_CODES){
+        for(String lang : langCodes){
             if(json.getJSONObject("contents").has(lang)){					
                 upsertLessonTranslation(rowId, json, lang, bot);
             }
@@ -697,6 +660,66 @@ public class TrnFsSyncTool implements java.io.Serializable {
         }
     }
 
+    private void syncTheme() throws TrnSyncException{
+        File f = new File(contentDir.getPath(), THEME_JSON_NAME);
+        String newHash = getNewHash(THEME_JSON_NAME, f);
+        if(newHash != null) {
+            AppLog.info("Theme modifications detected, Syncing...", g);
+            upsertTheme(f);
+            hashStore.put(THEME_JSON_NAME, newHash);
+            AppLog.info("Theme successfully synced", g);
+        }
+    }
+
+    private void upsertTheme(File f) throws TrnSyncException {
+        try {
+            BusinessObjectTool bot = new BusinessObjectTool(theme);
+            JSONObject json = new JSONObject(FileTool.readFile(f));
+            String rowId = getThemeRowId();
+            synchronized(theme) {
+                if(rowId.isEmpty()) {
+                    bot.selectForCreate();
+                } else {
+                    bot.selectForUpdate(rowId);
+                }
+                theme.resetValues();
+                theme.setFieldValue("trnThemeColor", json.getString("main_color"));
+                theme.setFieldValue("trnThemeSecondaryColor", json.getString("secondary_color"));
+                File icon = new File(contentDir.getPath(), json.getString("logo_path"));
+                theme.getField("trnThemeIcon").setDocument(theme, icon.getName(), new FileInputStream(icon));
+                bot.validateAndSave();
+            }
+        } catch(Exception e) {
+            throw new TrnSyncException("TRN_SYNC_ERROR_SYNC_THEME", e.getMessage());
+        }
+    }
+
+    private void upsertHomepage() throws TrnSyncException {
+        try {
+            if(getPageRowIdFromCode("homepage").isEmpty()) {
+                lesson.resetFilters();
+                lesson.setFieldFilter("trnLsnFrontPath", "/pages/homepage");
+                List<String[]> res = lesson.search();
+                if(res.isEmpty()) {
+                    throw new TrnSyncException("syncHomepage", "Unable to find lesson homepage");
+                }
+                lesson.setValues(res.get(0));
+                page.resetValues();
+                BusinessObjectTool bot = new BusinessObjectTool(page);
+                bot.selectForCreate();
+                synchronized(page) {
+                    page.resetValues();
+                    page.setFieldValue("trnPageCode", "homepage");
+                    page.setFieldValue("trnPageType", "homepage");
+                    page.setFieldValue("trnPageTrnLessonid", lesson.getRowId());
+                    bot.validateAndSave();
+                }
+            }
+        } catch(Exception e) {
+            throw new TrnSyncException("TRN_SYNC_ERROR_SYNC_HOMEPAGE", e.getMessage());
+        }
+    }
+
 	private String getTagRowIdFromCode(String code) {
 		return Tool.isEmpty(code) ? "" : g.simpleQuery("select row_id from trn_tag where trn_tag_code='"+code+"'");
 	}
@@ -725,7 +748,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	
 	private JSONObject getPics(File lsnDir){
 		JSONObject pics = new JSONObject();
-		for(String lang : LANG_CODES)
+		for(String lang : langCodes)
 			pics.put(lang, new JSONArray());
 		
 		for(File f : lsnDir.listFiles())
@@ -734,18 +757,16 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		
 		return pics;
 	}
-	
-	// private String getLocaleStrippedBaseName(File f){
-	// 	String baseName = FilenameUtils.getBaseName(f.getName());
-	// 	String[] split = baseName.toUpperCase().split("_");
-	// 	String locale = split.length>0 ? split[split.length-1] : null;
-	// 	return locale!=null && Arrays.asList(LANG_CODES).contains(locale) ? baseName.replace("_"+locale, "") : baseName;
-	// }
+
+    private boolean isPic(File f){
+		String extension = FilenameUtils.getExtension(f.getName()).toLowerCase();
+		return "png".equals(extension) || "jpg".equals(extension);
+	}
 	
 	private String getLocale(File f){
 		String[] split = FilenameUtils.getBaseName(f.getName()).toUpperCase().split("_");
 		String locale = split.length>0 ? split[split.length-1] : null;
-		return locale!=null && Arrays.asList(LANG_CODES).contains(locale) ? locale : DEFAULT_LANG_CODE;
+		return locale!=null && Arrays.asList(langCodes).contains(locale) ? locale : defaultLangCode;
 	}
 	
 	private String getLsnCode(File lsnDir){
@@ -756,7 +777,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		return lsnDir.getName().split("_")[1];
 	}
 	
-	private JSONObject getLsnData(File dir) throws Exception{
+	private JSONObject getLsnData(File dir) throws Exception {
 		JSONObject lsn = new JSONObject();
 		
 		lsn.put("order", getLsnOrder(dir));
@@ -774,7 +795,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		
 		JSONObject pictures = getPics(dir);
 		
-		for(String lang : LANG_CODES){
+		for(String lang : langCodes){
 			if(json.has(lang)){
 				content = json.getJSONObject(lang);
 				
@@ -801,19 +822,20 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	}
 	
 	// Non-recursive version of https://stackoverflow.com/a/46899517/1612642 => ignores directories
-    private static String hashDirectoryFiles(File directory) throws java.io.IOException
+    private static String hashDirectoryFiles(File file) throws java.io.IOException
     {
-        if (!directory.isDirectory())
-            throw new IllegalArgumentException("Not a directory");
-
         Vector<FileInputStream> fileStreams = new Vector<>();
         
-        File[] files = directory.listFiles();
-        if (files != null){
-            Arrays.sort(files, Comparator.comparing(File::getName));
-            for(File file : files)
-                if (!file.isDirectory())
-                    fileStreams.add(new FileInputStream(file));
+        if(file.isDirectory()) {
+            File[] files = file.listFiles();
+            if (files != null){
+                Arrays.sort(files, Comparator.comparing(File::getName));
+                for(File child : files)
+                    if (!child.isDirectory())
+                        fileStreams.add(new FileInputStream(child));
+            }
+        } else {
+            fileStreams.add(new FileInputStream(file));
         }
 
         try (SequenceInputStream sequenceInputStream = new SequenceInputStream(fileStreams.elements()))
@@ -830,6 +852,26 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		else
 			hashStore = (HashMap<String, String>) Tool.fileToObject(hashStoreFile);
 	}
+
+    // compares hashes from the last successfull synchronization with the current content to synchronize
+    // and returns the calculated hash if no hash has been found in glo.ser, or if old hash is different from the new hash
+    // returns null if the hashes are the same (no modification of docs content)
+    private String getNewHash(String relativePath, File dir) throws TrnSyncException {
+		String oldHash = hashStore.get(relativePath);
+		String newHash = "";
+		try{
+			newHash = hashDirectoryFiles(dir);
+		}
+		catch(Exception e){
+			throw new TrnSyncException("TRN_SYNC_ERROR_HASHING_FILES", relativePath);
+		}
+		
+		if(oldHash==null || !oldHash.equals(newHash)) {
+            return newHash;
+        } else {
+            return null;
+        }
+    }
 	
 	private void storeHashes() throws TrnSyncException{
 		Tool.objectToFile(hashStore, hashStoreFile);
