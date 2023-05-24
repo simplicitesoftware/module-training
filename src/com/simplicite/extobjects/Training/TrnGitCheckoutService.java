@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
@@ -16,6 +17,7 @@ import org.eclipse.jgit.util.FileUtils;
 import org.eclipse.jgit.api.CloneCommand;
 import org.eclipse.jgit.api.PullCommand;
 import org.eclipse.jgit.api.TransportCommand;
+import org.eclipse.jgit.api.CreateBranchCommand.SetupUpstreamMode;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.json.JSONObject;
@@ -43,6 +45,7 @@ public class TrnGitCheckoutService extends com.simplicite.webapp.services.RESTSe
             } else {
                 return performPull(branch, contentDir);
             }
+            // execute sync and return status message here
         } catch (IOException | GitAPIException | TrnConfigException e) {
             AppLog.error(getClass(), "post", e.getMessage(), e, getGrant());
             return "ERROR : " + e.getMessage();
@@ -79,6 +82,13 @@ public class TrnGitCheckoutService extends com.simplicite.webapp.services.RESTSe
 
             pullCommand.call();
 
+            git.checkout()
+                .setCreateBranch(doesBranchExist(git, branch))
+                .setName(branch)
+                .setUpstreamMode(SetupUpstreamMode.TRACK)
+                .setStartPoint("origin/"+branch)
+                .call();
+
             return "Pull completed successfully.";
         } catch(GitAPIException e) {
             AppLog.warning(getClass(), "performPull", 
@@ -87,10 +97,18 @@ public class TrnGitCheckoutService extends com.simplicite.webapp.services.RESTSe
         }
     }
 
+    private boolean doesBranchExist(Git git, String branch) throws GitAPIException {
+        return git.branchList()
+            .call()
+            .stream()
+            .map(Ref::getName)
+            .noneMatch(("refs/heads/" + branch)::equals);
+    }
+
     private String pullCommandFallback(String remoteUrl, String branch, File contentDir) throws IOException, GitAPIException {
         deleteRepository();
         performClone(remoteUrl, branch, contentDir);
-        return "The pull command has failed probably due to a conflict between your local and remote content. The pull command fallback has deleted and cloned back the repository";
+        return "The pull command has failed probably due to a conflict between your local and remote content, please check your server logs for more information. The pull command fallback has deleted and cloned back the repository";
     }
 
     private static <T extends TransportCommand<?, ?>> void gitAuthentication(T command) {
