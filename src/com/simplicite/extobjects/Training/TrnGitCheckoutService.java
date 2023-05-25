@@ -23,6 +23,8 @@ import org.eclipse.jgit.api.errors.GitAPIException;
 import org.json.JSONObject;
 
 import com.simplicite.commons.Training.TrnConfigException;
+import com.simplicite.commons.Training.TrnFsSyncTool;
+import com.simplicite.commons.Training.TrnSyncException;
 import com.simplicite.commons.Training.TrnTools;
 import com.simplicite.util.engine.Platform;
 import com.simplicite.util.*;
@@ -41,18 +43,19 @@ public class TrnGitCheckoutService extends com.simplicite.webapp.services.RESTSe
             String branch = TrnTools.getGitBranch();
             File contentDir = getContentDir();
             if (!contentDir.exists()) {
-                return performClone(TrnTools.getGitUrl(), branch, contentDir);
+                performClone(TrnTools.getGitUrl(), branch, contentDir);
             } else {
-                return performPull(branch, contentDir);
+                performPull(branch, contentDir);
             }
-            // execute sync and return status message here
-        } catch (IOException | GitAPIException | TrnConfigException e) {
+            TrnFsSyncTool.triggerSync();
+            return "The content has been successfully updated";
+        } catch (IOException | GitAPIException | TrnConfigException | TrnSyncException e) {
             AppLog.error(getClass(), "post", e.getMessage(), e, getGrant());
             return "ERROR : " + e.getMessage();
         }
 	}
 
-    private String performClone(String remoteUrl, String branch, File contentDir) throws IOException, GitAPIException {
+    private void performClone(String remoteUrl, String branch, File contentDir) throws IOException, GitAPIException {
         CloneCommand cloneCommand = Git.cloneRepository();
         cloneCommand.setURI(remoteUrl);
         cloneCommand.setDirectory(contentDir);
@@ -63,11 +66,11 @@ public class TrnGitCheckoutService extends com.simplicite.webapp.services.RESTSe
         gitAuthentication(cloneCommand);
 
         try (Git git = cloneCommand.call()) {
-            return "Shallow clone completed successfully.";
+            AppLog.info("Shallow clone completed successfully.", getGrant());
         }
     }
 
-    private String performPull(String branch, File contentDir) throws IOException, GitAPIException, TrnConfigException {
+    private void performPull(String branch, File contentDir) throws IOException, GitAPIException, TrnConfigException {
         FileRepositoryBuilder repositoryBuilder = new FileRepositoryBuilder();
         Repository repository = repositoryBuilder.setGitDir(new File(contentDir, ".git"))
                                                 .readEnvironment()
@@ -89,11 +92,10 @@ public class TrnGitCheckoutService extends com.simplicite.webapp.services.RESTSe
                 .setStartPoint("origin/"+branch)
                 .call();
 
-            return "Pull completed successfully.";
+            AppLog.info("Pull completed successfully.", getGrant());
         } catch(GitAPIException e) {
-            AppLog.warning(getClass(), "performPull", 
-                "Unable to pull. The pull command fallback will try to delete and clone back the repository", e, getGrant());
-            return pullCommandFallback(TrnTools.getGitUrl(), branch, contentDir); 
+            AppLog.warning(getClass(), "performPull", "Unable to pull. The pull command fallback will try to delete and clone back the repository", e, getGrant());
+            pullCommandFallback(TrnTools.getGitUrl(), branch, contentDir); 
         }
     }
 
@@ -105,10 +107,10 @@ public class TrnGitCheckoutService extends com.simplicite.webapp.services.RESTSe
             .noneMatch(("refs/heads/" + branch)::equals);
     }
 
-    private String pullCommandFallback(String remoteUrl, String branch, File contentDir) throws IOException, GitAPIException {
+    private void pullCommandFallback(String remoteUrl, String branch, File contentDir) throws IOException, GitAPIException {
         deleteRepository();
         performClone(remoteUrl, branch, contentDir);
-        return "The pull command has failed probably due to a conflict between your local and remote content, please check your server logs for more information. The pull command fallback has deleted and cloned back the repository";
+        AppLog.info("The pull command fallback has deleted and cloned back the repository", getGrant());
     }
 
     private static <T extends TransportCommand<?, ?>> void gitAuthentication(T command) {

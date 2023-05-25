@@ -2,6 +2,7 @@ package com.simplicite.commons.Training;
 
 import java.util.*;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.io.File;
 import java.util.regex.Pattern;
 import org.apache.commons.io.FilenameUtils;
@@ -14,13 +15,12 @@ import org.json.JSONArray;
 // see CheckDocs2.java -> https://github.com/simplicitesoftware/migdocs2
 public class TrnVerifyContent implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
-	private static final Pattern PATTERN_CATEGORY = Pattern.compile("^CTG_[0-9]+_[a-z0-9\\-]+$");
-	private static final Pattern PATTERN_LESSON = Pattern.compile("^LSN_[0-9]+_[a-z0-9\\-]+$");
-	private static String[] LANG_CODES;
-	private static final String CHARSET = "UTF-8";
+	private static final Pattern PATTERN_CATEGORY = Pattern.compile("^CTG_\\d+_[a-z0-9\\-]+$");
+	private static final Pattern PATTERN_LESSON = Pattern.compile("^LSN_\\d+_[a-z0-9\\-]+$");
+	private static String[] langCodes;
 	
 	public static void verifyContentStructure(File contentDir, String[] lang) throws TrnSyncException{
-		LANG_CODES = lang;
+		langCodes = lang;
 		verifyFolderStructure(contentDir, true);
 	}
 	
@@ -45,7 +45,7 @@ public class TrnVerifyContent implements java.io.Serializable {
 	
 	private static String readFile(String filePath) throws TrnSyncException{
 		try{
-			return FileUtils.readFileToString(new File(filePath), CHARSET);
+			return FileUtils.readFileToString(new File(filePath), StandardCharsets.UTF_8);
 		}
 		catch(IOException e){
 			throw new TrnSyncException("TRN_SYNC_READFILEERROR" + e.getMessage());
@@ -148,7 +148,7 @@ public class TrnVerifyContent implements java.io.Serializable {
 	}
 	
 	private static boolean isMarkdown(File f){
-		return FilenameUtils.getExtension(f.getName()).toLowerCase().equals("md");
+		return FilenameUtils.getExtension(f.getName()).equalsIgnoreCase("md");
 	}
 	
 	private static boolean isPic(File f){
@@ -157,7 +157,7 @@ public class TrnVerifyContent implements java.io.Serializable {
 	}
 	
 	private static boolean isVideo(File f){
-		return FilenameUtils.getExtension(f.getName()).toLowerCase().equals("webm");
+		return FilenameUtils.getExtension(f.getName()).equalsIgnoreCase("webm");
 	}
 	
 	public static boolean isCategory(File dir){
@@ -184,6 +184,6 @@ public class TrnVerifyContent implements java.io.Serializable {
 		String baseName = FilenameUtils.getBaseName(f.getName());
 		String[] split = baseName.toUpperCase().split("_");
 		String locale = split.length>0 ? split[split.length-1] : null;
-		return locale!=null && Arrays.asList(LANG_CODES).contains(locale) ? baseName.replace("_"+locale, "") : baseName;
+		return locale!=null && Arrays.asList(langCodes).contains(locale) ? baseName.replace("_"+locale, "") : baseName;
 	}
 }
