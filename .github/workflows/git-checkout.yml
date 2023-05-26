@@ -1,0 +1,30 @@
+name: Git checkout github action
+
+on:
+  push:
+    branches:
+      - main
+      - rec
+
+jobs:
+  post_request:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check branch name
+        id: branch_check
+        run: echo ::set-output name=branch::$(echo ${GITHUB_REF#refs/heads/})
+
+      - name: Main branch git-checkout request
+        if: ${{ steps.branch_check.outputs.branch == 'main' }}
+        run: |
+          curl -X POST -H "Content-Type: application/json" \
+            --user username:password \
+            https://training.dev.simplicite.io/api/ext/TrnGitCheckoutService
+
+      - name: Rec branch git-checkout request
+        if: ${{ steps.branch_check.outputs.branch == 'rec' }}
+        run: |
+          curl -X POST -H "Content-Type: application/json" \
+            --user username:password \
+            https://trainingrec.dev.simplicite.io/api/ext/TrnGitCheckoutService
