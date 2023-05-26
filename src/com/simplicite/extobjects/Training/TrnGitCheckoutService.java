@@ -10,15 +10,21 @@ import java.util.List;
 
 import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.lib.Repository;
+import org.eclipse.jgit.merge.ContentMergeStrategy;
+import org.eclipse.jgit.merge.MergeStrategy;
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
+import org.eclipse.jgit.transport.FetchResult;
+import org.eclipse.jgit.transport.RefSpec;
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 import org.eclipse.jgit.transport.CredentialItem.Username;
 import org.eclipse.jgit.util.FileUtils;
 import org.eclipse.jgit.api.CloneCommand;
 import org.eclipse.jgit.api.PullCommand;
+import org.eclipse.jgit.api.PullResult;
 import org.eclipse.jgit.api.TransportCommand;
 import org.eclipse.jgit.api.CreateBranchCommand.SetupUpstreamMode;
 import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.MergeResult;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.json.JSONObject;
 
@@ -36,19 +42,25 @@ import com.simplicite.util.tools.*;
 public class TrnGitCheckoutService extends com.simplicite.webapp.services.RESTServiceExternalObject {
 	private static final long serialVersionUID = 1L;
     private static final String CONTENT_FOLDER_NAME = "docs";
+    private UsernamePasswordCredentialsProvider credentials;
 
 	@Override
 	public Object post(Parameters params) {
         try {
             String branch = TrnTools.getGitBranch();
             File contentDir = getContentDir();
+            String msg;
+            setUsernameTokenCredentials();
             if (!contentDir.exists()) {
-                performClone(TrnTools.getGitUrl(), branch, contentDir);
+                String gitUrl = TrnTools.getGitUrl(); 
+                performClone(gitUrl, branch, contentDir);
+                msg = "Result: "+gitUrl+" has been successfully cloned. Current branch: "+branch+".";
             } else {
                 performPull(branch, contentDir);
+                msg = "The content has been successfully updated. Current branch: "+branch+".";
             }
             TrnFsSyncTool.triggerSync();
-            return "The content has been successfully updated";
+            return msg;
         } catch (IOException | GitAPIException | TrnConfigException | TrnSyncException e) {
             AppLog.error(getClass(), "post", e.getMessage(), e, getGrant());
             return "ERROR : " + e.getMessage();
@@ -56,14 +68,14 @@ public class TrnGitCheckoutService extends com.simplicite.webapp.services.RESTSe
 	}
 
     private void performClone(String remoteUrl, String branch, File contentDir) throws IOException, GitAPIException {
-        CloneCommand cloneCommand = Git.cloneRepository();
-        cloneCommand.setURI(remoteUrl);
-        cloneCommand.setDirectory(contentDir);
-        cloneCommand.setCloneAllBranches(false);
-        cloneCommand.setBranch(branch);
-        cloneCommand.setCloneSubmodules(false);
-        cloneCommand.setDepth(1);
-        gitAuthentication(cloneCommand);
+        CloneCommand cloneCommand = Git.cloneRepository()
+            .setURI(remoteUrl)
+            .setDirectory(contentDir)
+            .setCloneAllBranches(false)
+            .setBranch(branch)
+            .setCloneSubmodules(false)
+            .setDepth(1)
+            .setCredentialsProvider(credentials);
 
         try (Git git = cloneCommand.call()) {
             AppLog.info("Shallow clone completed successfully.", getGrant());
@@ -78,33 +90,56 @@ public class TrnGitCheckoutService extends com.simplicite.webapp.services.RESTSe
                                                 .build();
 
         try (Git git = new Git(repository)) {
-            PullCommand pullCommand = git.pull();
-            pullCommand.setRemote("origin");
-            pullCommand.setRemoteBranchName(branch);
-            gitAuthentication(pullCommand);
 
-            pullCommand.call();
-
-            git.checkout()
-                .setCreateBranch(doesBranchExist(git, branch))
-                .setName(branch)
-                .setUpstreamMode(SetupUpstreamMode.TRACK)
-                .setStartPoint("origin/"+branch)
+            git.fetch()
+                .setRemote("origin")
+                // map all the local branches with their remote tracking branches
+                .setRefSpecs(new RefSpec("+refs/heads/*:refs/remotes/origin/*")) 
+                .setCredentialsProvider(credentials)
                 .call();
+            AppLog.info("Successfully fetched from remote repository", getGrant());
 
-            AppLog.info("Pull completed successfully.", getGrant());
+            if(branchExistsLocally(git, branch)) {
+                // Switch to the existing local branch
+                git.checkout()
+                    .setName(branch)
+                    .call();
+                AppLog.info("Checkout on existing branch: "+branch, getGrant());
+            } else {
+                // Create a new branch from the remote branch
+                git.checkout()
+                    .setCreateBranch(true)
+                    .setName(branch)
+                    .setStartPoint("origin/" + branch)
+                    .call();
+                AppLog.info("Checkout on new branch: "+branch, getGrant());
+            }
+
+            git.pull()
+                .setRemote("origin")
+                .setRemoteBranchName(branch)
+                .setCredentialsProvider(credentials)
+                .setContentMergeStrategy(ContentMergeStrategy.THEIRS)
+                .call();
+            AppLog.info("Remote content has been pulled", getGrant());
+
+            AppLog.info("Checkout done.", getGrant());
         } catch(GitAPIException e) {
             AppLog.warning(getClass(), "performPull", "Unable to pull. The pull command fallback will try to delete and clone back the repository", e, getGrant());
             pullCommandFallback(TrnTools.getGitUrl(), branch, contentDir); 
         }
     }
 
-    private boolean doesBranchExist(Git git, String branch) throws GitAPIException {
-        return git.branchList()
-            .call()
-            .stream()
-            .map(Ref::getName)
-            .noneMatch(("refs/heads/" + branch)::equals);
+    private boolean branchExistsLocally(Git git, String branch) throws GitAPIException {
+        List<Ref> branches = git.branchList().call();
+        boolean branchExistsLocally = false;
+        for (Ref ref : branches) {
+            if (ref.getName().equals("refs/heads/" + branch)) {
+                branchExistsLocally = true;
+                break;
+            }
+        }
+        return branchExistsLocally;
     }
 
     private void pullCommandFallback(String remoteUrl, String branch, File contentDir) throws IOException, GitAPIException {
@@ -113,13 +148,9 @@ public class TrnGitCheckoutService extends com.simplicite.webapp.services.RESTSe
         AppLog.info("The pull command fallback has deleted and cloned back the repository", getGrant());
     }
 
-    private static <T extends TransportCommand<?, ?>> void gitAuthentication(T command) {
-        JSONObject credentials = TrnTools.getGitCredentials();
-        if(credentials!=null) {
-            UsernamePasswordCredentialsProvider credentialsProvider = new UsernamePasswordCredentialsProvider(
-                credentials.getString("username"), credentials.getString("token"));
-            command.setCredentialsProvider(credentialsProvider);
-        }
+    private void setUsernameTokenCredentials() throws TrnConfigException {
+        JSONObject jsonCreds = TrnTools.getGitCredentials();
+        credentials = new UsernamePasswordCredentialsProvider(jsonCreds.getString("username"), jsonCreds.getString("token"));
     }
 
     @Override
@@ -133,11 +164,16 @@ public class TrnGitCheckoutService extends com.simplicite.webapp.services.RESTSe
 
     private String deleteRepository() throws IOException {
         File repositoryDir = getContentDir();
+        String msg;
         if (repositoryDir.exists()) {
             FileUtils.delete(repositoryDir, FileUtils.RECURSIVE);
-            return "Repository deleted successfully.";
+            msg = "Repository deleted successfully.";
+            AppLog.info(msg, getGrant());
+            return msg;
         } else {
-            return "Repository directory does not exist.";
+            msg = "Repository directory does not exist.";
+            AppLog.info(msg, getGrant());
+            return msg;
         }
     }
 
