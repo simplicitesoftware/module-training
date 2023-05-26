@@ -71,7 +71,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	public TrnFsSyncTool(Grant g) {
 		this.g = g;
         String baseContentDir = Platform.getContentDir();
-        AppLog.info(baseContentDir, g);
+        //AppLog.info(baseContentDir, g);
 		contentDir = new File(baseContentDir, CONTENT_FOLDERNAME);
 		hashStoreFile = new File(baseContentDir, HASHSTORE_FILENAME);
 		langCodes = TrnTools.getLangs(g);
@@ -80,7 +80,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	
 	public void dropData() throws TrnSyncException{
 		try{
-			loadTrnObjectAccess();
+			loadTrnObjects();
 			dropCategory(false);
 			dropTag(false);
             AppLog.info("Successfully droped data", g);
@@ -298,7 +298,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 				JSONObject tagObject = json.getJSONObject(i);
 				String tagCode = tagObject.optString("code");
 				String rowId = upsertTag(tagCode);
-
+                foundTags.add(rowId); // to keep track of added tags, needed to clean deleted tags
                 JSONObject tradObj = tagObject.optJSONObject("translation");
                 for(String lang : langCodes) {
                     if(tradObj.has(lang)) {
@@ -315,19 +315,16 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		try {
 			String rowId = getTagRowIdFromCode(code);
 			BusinessObjectTool bot = new BusinessObjectTool(tag);
-			
+			if(!Tool.isEmpty(rowId)) {
+                return rowId;
+            }
 			synchronized(tag) {
-                if(Tool.isEmpty(rowId)) { 
-                    bot.selectForCreate();
-                } else {
-                    bot.selectForUpdate(rowId);
-                }
+                bot.selectForCreate();
 				tag.resetValues();
 				tag.resetValues();
 				tag.setFieldValue("trnTagCode", code);
 				bot.validateAndSave();
                 rowId = tag.getRowId();
-                foundTags.add(rowId); // to keep track of added tags, needed to clean deleted tags
 				return rowId;
 			}
 		} catch(Exception e) {
@@ -372,29 +369,29 @@ public class TrnFsSyncTool implements java.io.Serializable {
 			JSONArray json = new JSONArray(FileTool.readFile(f));
 			for (int i = 0; i < json.length(); i++) {
 				JSONObject jsonRecord = json.getJSONObject(i);
-				upsertUrlRewriting(jsonRecord.optString("sourceUrl"), jsonRecord.optString("destinationUrl"));
+				String rowId = upsertUrlRewriting(jsonRecord.optString("sourceUrl"), jsonRecord.optString("destinationUrl"));
+                foundUrlsRewriting.add(rowId);
 			}
 		} catch(Exception e) {
 			throw new TrnSyncException("TRN_SYNC_UPSERT_URLS_REWRITING_FROM_JSON", e.getMessage());
-		}    
+		}
 	}
 
-	private void upsertUrlRewriting(String sourceUrl, String destinationUrl) throws TrnSyncException {
+	private String upsertUrlRewriting(String sourceUrl, String destinationUrl) throws TrnSyncException {
 		try {
 			BusinessObjectTool bot = new BusinessObjectTool(urlRewriting);
 			String rowId = getUrlRewritingRowId(sourceUrl, destinationUrl);
+            if(!Tool.isEmpty(rowId)) {
+                return rowId;
+            }
 			synchronized(urlRewriting) {
-				urlRewriting.resetValues();
-				if(Tool.isEmpty(rowId)) {
-					bot.selectForCreate();
-				} else {
-					bot.selectForUpdate(rowId);
-				}
+				urlRewriting.resetValues();			
+                bot.selectForCreate();
 				urlRewriting.setFieldValue("trnSourceUrl", sourceUrl);
 				urlRewriting.setFieldValue("trnDestinationUrl", destinationUrl);
 
 				bot.validateAndSave();
-				foundUrlsRewriting.add(urlRewriting.getRowId());
+                return urlRewriting.getRowId();
 			}
 		} catch(Exception e) {
 			throw new TrnSyncException("TRN_SYNC_UPSERT_URL_REWRITING",  e.getMessage()+" "+urlRewriting.toJSON());
@@ -679,8 +676,10 @@ public class TrnFsSyncTool implements java.io.Serializable {
             synchronized(theme) {
                 if(rowId.isEmpty()) {
                     bot.selectForCreate();
+                    AppLog.info("THEME select for CREATE", g);
                 } else {
                     bot.selectForUpdate(rowId);
+                    AppLog.info("THEME select for UPDATE: "+rowId, g);
                 }
                 theme.resetValues();
                 theme.setFieldValue("trnThemeColor", json.getString("main_color"));

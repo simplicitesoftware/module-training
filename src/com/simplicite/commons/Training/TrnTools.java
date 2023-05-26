@@ -117,11 +117,11 @@ public class TrnTools implements java.io.Serializable {
         }
     }
 
-    public static JSONObject getGitCredentials() {
+    public static JSONObject getGitCredentials() throws TrnConfigException {
         try {
             return getGitConfig().getJSONObject("repository").getJSONObject("creds");
         } catch(Exception e) {
-            return null;
+            throw new TrnConfigException(e.getMessage());
         }
     }
 
