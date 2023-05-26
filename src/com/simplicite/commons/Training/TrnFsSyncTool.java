@@ -670,28 +670,20 @@ public class TrnFsSyncTool implements java.io.Serializable {
 
     private void upsertTheme(File f) throws TrnSyncException {
         try {
-            BusinessObjectTool bot = new BusinessObjectTool(theme);
             JSONObject json = new JSONObject(FileTool.readFile(f));
-            String rowId = getThemeRowId();
+            File icon = new File(contentDir.getPath(), json.getString("logo_path"));
             synchronized(theme) {
-                if(rowId.isEmpty()) {
-                    bot.selectForCreate();
-                    AppLog.info("THEME select for CREATE", g);
-                } else {
-                    bot.selectForUpdate(rowId);
-                    AppLog.info("THEME select for UPDATE: "+rowId, g);
-                }
-                theme.resetValues();
+                theme.getTool().getForCreateOrUpdate(Map.of()); 
                 theme.setFieldValue("trnThemeColor", json.getString("main_color"));
                 theme.setFieldValue("trnThemeSecondaryColor", json.getString("secondary_color"));
-                File icon = new File(contentDir.getPath(), json.getString("logo_path"));
                 theme.getField("trnThemeIcon").setDocument(theme, icon.getName(), new FileInputStream(icon));
-                bot.validateAndSave();
+                theme.getTool().validateAndSave();
             }
         } catch(Exception e) {
             throw new TrnSyncException("TRN_SYNC_ERROR_SYNC_THEME", e.getMessage());
         }
     }
+    
 
     private void upsertHomepage() throws TrnSyncException {
         try {
