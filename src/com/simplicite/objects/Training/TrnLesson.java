@@ -14,6 +14,7 @@ import org.json.JSONObject;
 public class TrnLesson extends TrnObject {
 	private static final long serialVersionUID = 1L;
 	private final Pattern PATTERN_LINEAR_PICS = Pattern.compile("src\\s*=\\s*\\\"(.+?)\\\"");
+    private final ObjectDB content = getGrant().getTmpObject("TrnLsnTranslate");
 
 	@Override
 	public String getUserKeyLabel(String[] row) {
@@ -107,20 +108,20 @@ public class TrnLesson extends TrnObject {
 
 	// set lang as null for index json
 	public JSONObject getLessonJSON(String lang, boolean includeHtml) throws Exception {
-		ObjectDB content = getGrant().getTmpObject("TrnLsnTranslate");
-		if(lang == null) return getLessonForIndex(content);
-		else return getLessonForFront(lang, content, includeHtml);
+		
+		if(lang == null) return getLessonForIndex();
+		else return getLessonForFront(lang, includeHtml);
 	}
 	
-	public JSONObject getLessonForFront(String lang, ObjectDB content, boolean includeHtml) throws Exception{
+	public JSONObject getLessonForFront(String lang, boolean includeHtml) throws Exception{
 		JSONObject json = initLessonJson();
-		fillJsonFront(json, lang, content, includeHtml);
+		fillJsonFront(json, lang, includeHtml);
 		return json;
 	}
 	
-	public JSONObject getLessonForIndex(ObjectDB content) throws Exception{
+	public JSONObject getLessonForIndex() throws Exception{
 		JSONObject json = initLessonJson();
-		fillJsonIndex(json, content);
+		fillJsonIndex(json);
 		return json;
 	}
 	
@@ -137,7 +138,7 @@ public class TrnLesson extends TrnObject {
 		return json;
 	}
 
-	private void fillJsonIndex(JSONObject json, ObjectDB content) throws Exception {
+	private void fillJsonIndex(JSONObject json) throws Exception {
 		synchronized(content) {
 			content.resetFilters();
 			content.setFieldFilter("trnLtrLsnId", getRowId());
@@ -162,14 +163,11 @@ public class TrnLesson extends TrnObject {
 		}
 	}
 
-	private void fillJsonFront(JSONObject json, String lang, ObjectDB content, boolean includeHtml) throws Exception {
+	private void fillJsonFront(JSONObject json, String lang, boolean includeHtml) throws Exception {
 		synchronized(content){
 			content.resetFilters();
 			content.setFieldFilter("trnLtrLsnId", getRowId());
 			content.setFieldFilter("trnLtrLang", lang);
-			// if(getFieldValue("trnLsnFrontPath").equals("/docs/security")) {
-			// 	String debug = "";
-			// }
 			if(content.getCount()==1){
 				content.setValues((content.search()).get(0));
 				
@@ -198,7 +196,7 @@ public class TrnLesson extends TrnObject {
 			}
 			// if lang is not any and there is no content found from the language, try to add content from any
 			if(!lang.equals("ANY") && (!json.has("title") || !json.has("video") || !json.has("html"))) {
-				fillJsonFront(json, "ANY", content, includeHtml);
+				fillJsonFront(json, "ANY", includeHtml);
 			}
 		}
 	}
@@ -233,9 +231,6 @@ public class TrnLesson extends TrnObject {
 		if(lastIndex < htmlContent.length()) {
 			out.append(htmlContent, lastIndex, htmlContent.length());
 		}
-		String returnValue = out.toString();
-		return returnValue;
+		return out.toString();
 	}
-	
-	
 }

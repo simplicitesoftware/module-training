@@ -15,7 +15,7 @@ import org.json.JSONArray;
 public class TrnTagLsn extends TrnObject {
 	private static final long serialVersionUID = 1L;
 	
-	public Boolean lessonHasTag(String lsn_row_id, JSONArray tags) {
+	public boolean lessonHasTag(String lsn_row_id, JSONArray tags) {
 		Boolean hasTag = false;
 		for(int i = 0; i < tags.length(); i++) {
 			String tag_id = tags.getJSONObject(i).getString("row_id");

@@ -1,20 +1,6 @@
 package com.simplicite.extobjects.Training;
 
-import java.util.*;
-
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-
-import org.json.JSONObject;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.OutputStream;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import com.simplicite.util.*;
-import com.simplicite.util.exceptions.*;
 import com.simplicite.util.tools.*;
 
 /**
@@ -29,8 +15,7 @@ public class TrnSitemap extends ExternalObject {
     	setDecoration(false);
         setMIMEType(HTTPTool.MIME_TYPE_TXT);
         setContentDisposition("attachment", "sitemap.txt");
-        byte[] file = getSiteMap().getBytes();
-        return file;
+        return getSiteMap().getBytes();
     }
     
     private String getSiteMap(){
@@ -65,14 +50,4 @@ public class TrnSitemap extends ExternalObject {
 		}
 		return fileContent;
     }
-
-    /*private FileWriter getOutputStream() {
-        try (FileWriter out = new FileWriter(new File("sitemap.txt"))) {
-			out.write(getSiteMap());
-			return out;
-		} catch(java.io.IOException e) {
-			AppLog.error(e, getGrant());
-		}
-        return null;
-    }*/
 }
