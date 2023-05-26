@@ -16,9 +16,9 @@ import com.simplicite.commons.Training.TrnTools;
  */
 public class TrnTreeService extends RESTServiceExternalObject  {
 	private static final long serialVersionUID = 1L;
-    private final TrnLesson tmpLesson = (TrnLesson) g().getObject("tree_TrnLesson", "TrnLesson");
-    private final TrnCategory tmpCategory = (TrnCategory) g().getObject("tree_TrnCategory", "TrnCategory");
-    private final TrnTagLsn tagLsn = (TrnTagLsn) g().getObject("tree_TrnTagLsn", "TrnTagLsn");
+    private TrnLesson tmpLesson;
+    private TrnCategory tmpCategory;
+    private TrnTagLsn tagLsn;
 
 	private String previousLesson = "";
 	private ArrayList<JSONObject> lessonsNeedingNextPath = new ArrayList<>(); 
@@ -64,6 +64,7 @@ public class TrnTreeService extends RESTServiceExternalObject  {
 	}
 	
 	private JSONObject getLesson(String lessonId, String lang) throws Exception{
+        tmpLesson = (TrnLesson) g().getObject("tree_TrnLesson", "TrnLesson");
 		synchronized(tmpLesson){
 			tmpLesson.resetFilters();
 			if(!tmpLesson.select(lessonId))
@@ -73,7 +74,8 @@ public class TrnTreeService extends RESTServiceExternalObject  {
 	}
 
 	private JSONArray getTree(String lang, JSONArray tags){
-		
+		tmpCategory = (TrnCategory) g().getObject("tree_TrnCategory", "TrnCategory");
+        tagLsn = (TrnTagLsn) g().getObject("tree_TrnTagLsn", "TrnTagLsn");
 		JSONArray tree = getCategoriesRecursive("is null", tags, lang);
 	
 		for(int i = 0; i < lessonsNeedingNextPath.size()-1; i++ )

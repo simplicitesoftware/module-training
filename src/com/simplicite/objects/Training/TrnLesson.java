@@ -13,8 +13,8 @@ import org.json.JSONObject;
  */
 public class TrnLesson extends TrnObject {
 	private static final long serialVersionUID = 1L;
-	private final Pattern PATTERN_LINEAR_PICS = Pattern.compile("src\\s*=\\s*\\\"(.+?)\\\"");
-    private final ObjectDB content = getGrant().getTmpObject("TrnLsnTranslate");
+	private static final Pattern PATTERN_LINEAR_PICS = Pattern.compile("src\\s*=\\s*\\\"(.+?)\\\"");
+    private TrnLsnTranslate lsnTranslate;
 
 	@Override
 	public String getUserKeyLabel(String[] row) {
@@ -52,7 +52,7 @@ public class TrnLesson extends TrnObject {
 		
 		setFieldValue("trnLsnFrontPath", TrnTools.path2Front(getFieldValue("trnLsnPath")));
 		
-		return null;
+		return Collections.emptyList();
 	}
 	
 	@Override
@@ -108,7 +108,7 @@ public class TrnLesson extends TrnObject {
 
 	// set lang as null for index json
 	public JSONObject getLessonJSON(String lang, boolean includeHtml) throws Exception {
-		
+		lsnTranslate = (TrnLsnTranslate) getGrant().getObject("tree_TrnTagLsn", "TrnTagLsn");
 		if(lang == null) return getLessonForIndex();
 		else return getLessonForFront(lang, includeHtml);
 	}
@@ -139,21 +139,21 @@ public class TrnLesson extends TrnObject {
 	}
 
 	private void fillJsonIndex(JSONObject json) throws Exception {
-		synchronized(content) {
-			content.resetFilters();
-			content.setFieldFilter("trnLtrLsnId", getRowId());
+		synchronized(lsnTranslate) {
+			lsnTranslate.resetFilters();
+			lsnTranslate.setFieldFilter("trnLtrLsnId", getRowId());
 			for(String lang: TrnTools.getLangs(getGrant(), true)) {
 				// fill json with asked lang
 				String attributeLang = "_" + lang.toLowerCase();
-				content.setFieldFilter("trnLtrLang", lang);
-				if(content.getCount()==1){
-					content.setValues((content.search()).get(0));
+				lsnTranslate.setFieldFilter("trnLtrLang", lang);
+				if(lsnTranslate.getCount()==1){
+					lsnTranslate.setValues((lsnTranslate.search()).get(0));
 					ObjectField f;
-					f = content.getField("trnLtrTitle");
+					f = lsnTranslate.getField("trnLtrTitle");
 					if(!f.getValue().equals("default")) {
 						json.put("title"+attributeLang, f.getValue());
 
-						f = content.getField("trnLtrRawContent");
+						f = lsnTranslate.getField("trnLtrRawContent");
 						String htmlContent = f.getValue();
 						// if LINEAR, then change content images link
 						json.put("raw_content"+attributeLang, htmlContent);
@@ -164,26 +164,26 @@ public class TrnLesson extends TrnObject {
 	}
 
 	private void fillJsonFront(JSONObject json, String lang, boolean includeHtml) throws Exception {
-		synchronized(content){
-			content.resetFilters();
-			content.setFieldFilter("trnLtrLsnId", getRowId());
-			content.setFieldFilter("trnLtrLang", lang);
-			if(content.getCount()==1){
-				content.setValues((content.search()).get(0));
+		synchronized(lsnTranslate){
+			lsnTranslate.resetFilters();
+			lsnTranslate.setFieldFilter("trnLtrLsnId", getRowId());
+			lsnTranslate.setFieldFilter("trnLtrLang", lang);
+			if(lsnTranslate.getCount()==1){
+				lsnTranslate.setValues((lsnTranslate.search()).get(0));
 				
 				ObjectField f;
-				f = content.getField("trnLtrTitle");
+				f = lsnTranslate.getField("trnLtrTitle");
 				if(!f.isEmpty() && !json.has("title")){
 					json.put("title", f.getValue());
 				}
 				
-				f = content.getField("trnLtrVideo");
+				f = lsnTranslate.getField("trnLtrVideo");
 				if(!f.isEmpty() && !json.has("video")){
 					json.put("video", f.getValue());
-					json.put("ltr_id", content.getRowId());
+					json.put("ltr_id", lsnTranslate.getRowId());
 				}
 				
-				f = content.getField("trnLtrHtmlContent");
+				f = lsnTranslate.getField("trnLtrHtmlContent");
 				if(!f.isEmpty() && !json.has("html") && includeHtml) {
 					String htmlContent = f.getValue();
 					// if LINEAR, then change content images link
