@@ -4,7 +4,7 @@
     <main>
       <nav class="navigation-drawer" v-show="isDrawerOpen" :style="{background: `linear-gradient(${themeValues.primaryColor} 65%, ${themeValues.secondaryColor})`}">
         <TreeViewNode v-for="(motherCategory, index) in tree" :key="index" :node="motherCategory" :depth="0"/>
-      </nav>  
+      </nav>
       <div class="page-content">
         <router-view v-if="!isFetching" class="page-content__router-view" :key="$route.fullPath"/>
         <Spinner v-else/>

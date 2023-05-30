@@ -129,7 +129,7 @@ export default {
     },
     [OPEN_NODE](state, path){
       const openNode = (foundNode, cursor) => {
-        if(foundNode && foundNode.is_category){
+        if(foundNode?.is_category){
           foundNode.open=true;
           cursor = foundNode.categories;
         }
@@ -141,7 +141,7 @@ export default {
       const toggleNode = (foundNode, cursor) => {
         if(foundNode && foundNode.path==targetPath)
           foundNode.open = !foundNode.open;
-        else if(foundNode && foundNode.is_category)
+        else if(foundNode?.is_category)
           cursor = foundNode.categories;
         return  cursor;
       }

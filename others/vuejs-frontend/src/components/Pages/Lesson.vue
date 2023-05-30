@@ -47,8 +47,8 @@
 
   function getDocumentURL(vm) {
     return new Promise((resolve, reject) => {
-      if (vm.lesson && vm.lesson.video){
-        var obj = vm.$smp.getBusinessObject("TrnLsnTranslate");
+      if (vm?.lesson.video){
+        const obj = vm.$smp.getBusinessObject("TrnLsnTranslate");
         obj.get(
           vm.lesson.ltr_id
         ).then(item => {
@@ -58,7 +58,6 @@
       }
     })
   }
-
 
   export default {
     name: "Lesson",
@@ -76,7 +75,7 @@
   },
     asyncComputed: {
       async videoUrl() {
-        if (this.lesson && this.lesson.video)
+        if (this.lesson?.video)
          return await getDocumentURL(this);
         else
           return false;
@@ -104,10 +103,10 @@
           /* How this feature works : we go through all the a tags of the lesson-content element with #IMG_SCROLL_ & if their lower boundary is
           at a certain fixed point, we tell the slider to go to this image
            */
-          for (let i = 0; i < links.length; i++) {
-            if (links[i].hasAttribute("href") && links[i].getAttribute("href").includes("#IMG_SCROLL_")) {
-              if (links[i].getBoundingClientRect().bottom < e.target.getBoundingClientRect().bottom) {
-                imageName = links[i].getAttribute("href").split("#IMG_SCROLL_")[1];
+          for (const element of links) {
+            if (element.hasAttribute("href") && element.getAttribute("href").includes("#IMG_SCROLL_")) {
+              if (element.getBoundingClientRect().bottom < e.target.getBoundingClientRect().bottom) {
+                imageName = element.getAttribute("href").split("#IMG_SCROLL_")[1];
                 if (imageName && !this.alreadyScrolledImages.includes(imageName)) { // We add the imageName to the list
                   potentialImages.push(imageName);
                   this.alreadyScrolledImages.push(imageName);
@@ -131,41 +130,26 @@
           }
         })
       },
-      // prevents page reloading on internal URL's
-      onHtmlClick(event) {
-        if(event.target.tagName.toLowerCase() === 'a') {
-            // if the href is served on the same base url
-            if(event.target.href.includes(window.location.origin)) {
-                event.stopPropagation();
-                event.preventDefault();
-                this.$router.push(event.target.pathname);
-            }
+      async openLessonFromPath() {
+        let path = "/" + this.$router.currentRoute.params.lessonPath;
+        if(path.includes(".md")){
+          const mdLessonPath = path.split(".md");
+          path = mdLessonPath[0];
         }
-      }
-    },
-    async created() {      
-      // eslint-disable-next-line no-prototype-builtins
-      if(this.$router.currentRoute.params.hasOwnProperty("lessonPath") && this.tree.length) {
-        let lessonPath = "/" + this.$router.currentRoute.params.lessonPath;
-        if(lessonPath.includes(".md")){
-          var mdLessonPath = lessonPath.split(".md");
-          lessonPath = mdLessonPath[0];
-        }
-        const lesson = this.getLessonFromPath(lessonPath);
+        const lesson = this.getLessonFromPath(path);
         if(!lesson) await this.$router.push('/404');
         else this.openLesson(lesson); 
-
-      // eslint-disable-next-line no-prototype-builtins
-      } else if(this.$router.currentRoute.params.hasOwnProperty("pagePath")) {
+      },
+      async openPage() {
         this.$store.dispatch("lesson/openPage", {
           smp: this.$smp,
           lesson: {row_id: undefined, viz: undefined},
           path: "/" + this.$router.currentRoute.params.pagePath
         }).catch(async e => {
           await this.$router.push('/404');
-        }); 
-      // eslint-disable-next-line no-prototype-builtins
-      } else if(this.$router.currentRoute.params.hasOwnProperty("categoryPath")) {
+        });
+      },
+      async openCategory() {
         const cat = this.getCategoryFromPath("/" + this.$router.currentRoute.params.categoryPath);
         if(cat) {
           if(cat.lessons.length > 0) {
@@ -176,7 +160,27 @@
             this.$store.commit("tree/OPEN_NODE", cat.path);
           }
         } else await this.$router.push('/404');
-      }
+      },
+      // prevents page reloading on internal URL's
+      onHtmlClick(event) {
+        if(event.target.tagName.toLowerCase() === 'a') {
+			// if the href is served on the same base url
+			if(event.target.href.includes(window.location.origin)) {
+					event.stopPropagation();
+					event.preventDefault();
+					this.$router.push(event.target.pathname);
+			}
+        }
+      },
+    },
+    async created() {      
+		if(Object.prototype.hasOwnProperty.call(this.$router.currentRoute.params, "lessonPath") && this.tree.length) {
+			this.openLessonFromPath();
+		} else if(Object.prototype.hasOwnProperty.call(this.$router.currentRoute.params, "pagePath")) {
+			this.openPage();
+		} else if(Object.prototype.hasOwnProperty.call(this.$router.currentRoute.params, "categoryPath")) {
+			this.openCategory();
+		}
     },
     mounted() {
       this.addScrollListeners();

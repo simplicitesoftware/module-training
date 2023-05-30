@@ -1,5 +1,5 @@
 <template>
-  <header id="top-menu" :style="{background: `linear-gradient(to right, ${themeValues.primaryColor} 65%, ${themeValues.secondaryColor})`}">
+<header id="top-menu" :style="{background: `linear-gradient(to right, ${themeValues.primaryColor} 65%, ${themeValues.secondaryColor})`}">
     <div class="menu-icon" @click="toggleMenu">
         <i class="material-icons menu-icon__image">menu</i>
     </div>
@@ -19,154 +19,154 @@
         </div>
         <i class="material-icons header-buttons__button" @click="toggleLang">language</i> <span>{{lang}}</span>
     </nav>
-  </header>
+</header>
 </template>
 
 <script>
-  import {mapGetters, mapState} from "vuex";
-  import SearchBar from "./SearchBar";
-  import TagSelector from "./TagSelector";
+import {mapGetters, mapState} from "vuex";
+import SearchBar from "./SearchBar";
+import TagSelector from "./TagSelector";
 
-  export default {
+export default {
     name: "CustomHeader",
     data: () => ({
-      searchbarVisible: true,
-      navigationArrowVisible: false,
-      defaultLogoUrl: "../../../public/Logo_Simplicite_Noir.png"
+    searchbarVisible: true,
+    navigationArrowVisible: false,
+    defaultLogoUrl: "../../../public/Logo_Simplicite_Noir.png"
     }),
     components: { SearchBar, TagSelector },
     computed: {
-      ...mapState({
+    ...mapState({
         lesson: state => state.lesson.lesson,
         isDrawerOpen: state => state.ui.isDrawerOpen, // remove ?
         isModalOpen: state => state.ui.isModalOpen,
         themeValues: state => state.ui.themeValues,
-      }),
-      ...mapGetters({
+    }),
+    ...mapGetters({
         getLessonFromPath: 'tree/getLessonFromPath',
         lang: 'ui/lang',
         isTagDefined: 'ui/isTagDefined',
         isSortedByTag: "ui/isSortedByTag",
-      }),
-      tagClass() {
+    }),
+    tagClass() {
         return {
-          'material-icons header-buttons__button': !this.isSortedByTag,
-          'material-icons header-buttons__button tag-sorted': this.isSortedByTag,
+            'material-icons header-buttons__button': !this.isSortedByTag,
+            'material-icons header-buttons__button tag-sorted': this.isSortedByTag,
         }
-      }
+    }
     },
     methods: {
-      goToHome() {
+    goToHome() {
         this.$router.push('/').catch(() => console.log('Navigation Duplicated'))
-      },
-      arrowNavigationClicked(direction){
+    },
+    arrowNavigationClicked(direction){
         let path = '';
         if (direction === -1) path = this.getLessonFromPath(this.lesson.path).previous_path;
         if (direction === 1) path = this.getLessonFromPath(this.lesson.path).next_path;
         if (path)
-          this.$router.push('/lesson/' + path.toString().substring(1)).catch(err => console.error(err));
+        this.$router.push('/lesson/' + path.toString().substring(1)).catch(err => console.error(err));
         else if (direction === -1) this.shakeElement("previous-button");
         else if (direction === 1) this.shakeElement("next-button");
-      },
-      toggleMenu() {
+    },
+    toggleMenu() {
         this.$store.dispatch('ui/toggleDrawer');
-      },
-      toggleLang(){
+    },
+    toggleLang(){
         this.$store.dispatch('ui/toggleLang', {smp: this.$smp});
-      },
-      shakeElement(elementId) {
+    },
+    shakeElement(elementId) {
         document.getElementById(elementId).classList.add("shaked");
         setTimeout(() => document.getElementById(elementId).classList.remove('shaked'), 150);
-      },
-      tagSelectorClicked() {
+    },
+    tagSelectorClicked() {
         this.$store.commit('ui/TOGGLE_MODAL_STATE');
-      }
+    }
     },
     created() {
-      if (this.$router.currentRoute.name === 'Lesson') this.navigationArrowVisible = true
+    if (this.$router.currentRoute.name === 'Lesson') this.navigationArrowVisible = true
     },
     watch:{
-      $route (to){
+    $route (to){
         this.navigationArrowVisible = to.name === 'Lesson';
-      }
+    }
     },
-  }
+}
 </script>
 
 <style scoped lang="sass">
-@import "../../assets/sass/variables"
-@import "../../assets/sass/mixins"
+    @import "../../assets/sass/variables"
+    @import "../../assets/sass/mixins"
 
-header
-  box-sizing: border-box
-  width: 100%
-  display: flex
-  flex-flow: row
-  align-items: center
-  padding: $header-padding
-  height: $header-height
-  max-height: $header-height
-  color: white
-  .logo
-    background-repeat: no-repeat
-    background-size: contain
-    z-index: 200
-    width: $header-logo-width
-    height: 50px
-    margin: 5px 5px 5px 16px
-    &:hover
-      cursor: pointer
-
-  .logo-warning
-    width: $header-logo-width
-    height: $header-logo-height
-    margin-top: map-get($margins, small)
-    text-align: center
-    &:hover
-      cursor: pointer
-
-
-  .menu-icon
-    padding: $header-menu-icon-padding
-    border-radius: 50px
-    cursor: pointer
-    display: flex
-    align-items: center
-    user-select: none
-    &:hover
-      background-color: transparentize(white, 0.9)
-    &__image
-      font-size: $header-menu-icon-size
-
-  .header-buttons
-    margin-left: auto
-    margin-right: 15px
-    display: flex
-    align-items: center
-    &__button
-      margin-left: map-get($margins, small)
-      padding: map-get($paddings, medium)
-      border-radius: map-get($radius, x-large)
-      color: white
-      &:hover
-        background-color: rgba(255, 255, 255, 0.1)
+    header
+        box-sizing: border-box
+        width: 100%
+        display: flex
+        flex-flow: row
+        align-items: center
+        padding: $header-padding
+        height: $header-height
+        max-height: $header-height
+        color: white
+    .logo
+        background-repeat: no-repeat
+        background-size: contain
+        z-index: 200
+        width: $header-logo-width
+        height: 50px
+        margin: 5px 5px 5px 16px
+        &:hover
         cursor: pointer
-  .tag-sorted
-    color: rgba(242, 238, 99, 1)
 
-  .shaked
-    animation: headshake 100ms cubic-bezier(.4, .1, .6, .9)
-    animation-iteration-count: 2
+    .logo-warning
+        width: $header-logo-width
+        height: $header-logo-height
+        margin-top: map-get($margins, small)
+        text-align: center
+        &:hover
+        cursor: pointer
 
-  .search-bar
-    width: 50%
 
-  @keyframes headshake
-    0%
-      background-color: $color-accent
-      border: solid $color-accent
-    25%
-      transform: translateX(10%)
-    75%
-      transform: translateX(-10%)
+    .menu-icon
+        padding: $header-menu-icon-padding
+        border-radius: 50px
+        cursor: pointer
+        display: flex
+        align-items: center
+        user-select: none
+        &:hover
+            background-color: transparentize(white, 0.9)
+        &__image
+            font-size: $header-menu-icon-size
+
+    .header-buttons
+        margin-left: auto
+        margin-right: 15px
+        display: flex
+        align-items: center
+        &__button
+            margin-left: map-get($margins, small)
+            padding: map-get($paddings, medium)
+            border-radius: map-get($radius, x-large)
+            color: white
+            &:hover
+                background-color: rgba(255, 255, 255, 0.1)
+                cursor: pointer
+    .tag-sorted
+        color: rgba(242, 238, 99, 1)
+
+    .shaked
+        animation: headshake 100ms cubic-bezier(.4, .1, .6, .9)
+        animation-iteration-count: 2
+
+    .search-bar
+        width: 50%
+
+    @keyframes headshake
+        0%
+        background-color: $color-accent
+        border: solid $color-accent
+        25%
+        transform: translateX(10%)
+        75%
+        transform: translateX(-10%)
 </style>
