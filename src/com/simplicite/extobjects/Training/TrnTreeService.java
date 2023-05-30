@@ -75,6 +75,7 @@ public class TrnTreeService extends RESTServiceExternalObject  {
 
 	private JSONArray getTree(String lang, JSONArray tags){
 		tmpCategory = (TrnCategory) g().getObject("tree_TrnCategory", "TrnCategory");
+        tmpLesson = (TrnLesson) g().getObject("tree_TrnLesson", "TrnLesson");
         tagLsn = (TrnTagLsn) g().getObject("tree_TrnTagLsn", "TrnTagLsn");
 		JSONArray tree = getCategoriesRecursive("is null", tags, lang);
 	

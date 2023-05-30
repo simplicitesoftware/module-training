@@ -108,7 +108,7 @@ public class TrnLesson extends TrnObject {
 
 	// set lang as null for index json
 	public JSONObject getLessonJSON(String lang, boolean includeHtml) throws Exception {
-		lsnTranslate = (TrnLsnTranslate) getGrant().getObject("tree_TrnTagLsn", "TrnTagLsn");
+		lsnTranslate = (TrnLsnTranslate) getGrant().getObject("tree_TrnTrnLsnTranslate", "TrnLsnTranslate");
 		if(lang == null) return getLessonForIndex();
 		else return getLessonForFront(lang, includeHtml);
 	}
@@ -214,19 +214,22 @@ public class TrnLesson extends TrnObject {
 		while(m.find()) {
 			String imgPath = m.group(1);
 			for(String[] pic : pics) {
+                // optimiser en cherchant les documents par doc name ?
+                // ou possible de fetch la liste des docs correspondants aux images de la leçon ?
 				picObject.setValues(pic);
 				String docId = picObject.getFieldValue("trnPicImage");
 				DocumentDB doc = DocumentDB.getDocument(docId, getGrant());
 				String frontUrl = getGrant().getContextURL() + doc.getURL("").replace("/ui", "");;
-				if(imgPath.contains(doc.getName())) {
+                String docName = doc.getName();
+				if(imgPath.contains(docName)) {
 					// append the content of html from the lastIndex (beginning of string to copy) to start index (end of string to copy)
 					// in a nutshell add all the htmlContent before the match (match not included)
 					out.append(htmlContent, lastIndex, m.start())
 					// then append the new Url
 					.append("src=\""+frontUrl+"\"");
+        			lastIndex = m.end();
 				}
 			}
-			lastIndex = m.end();
 		}
 		if(lastIndex < htmlContent.length()) {
 			out.append(htmlContent, lastIndex, htmlContent.length());
