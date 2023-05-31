@@ -30,65 +30,67 @@ import TagSelector from "./TagSelector";
 export default {
     name: "CustomHeader",
     data: () => ({
-    searchbarVisible: true,
-    navigationArrowVisible: false,
-    defaultLogoUrl: "../../../public/Logo_Simplicite_Noir.png"
+        searchbarVisible: true,
+        navigationArrowVisible: false,
+        defaultLogoUrl: "../../../public/Logo_Simplicite_Noir.png"
     }),
     components: { SearchBar, TagSelector },
     computed: {
-    ...mapState({
-        lesson: state => state.lesson.lesson,
-        isDrawerOpen: state => state.ui.isDrawerOpen, // remove ?
-        isModalOpen: state => state.ui.isModalOpen,
-        themeValues: state => state.ui.themeValues,
-    }),
-    ...mapGetters({
-        getLessonFromPath: 'tree/getLessonFromPath',
-        lang: 'ui/lang',
-        isTagDefined: 'ui/isTagDefined',
-        isSortedByTag: "ui/isSortedByTag",
-    }),
-    tagClass() {
-        return {
-            'material-icons header-buttons__button': !this.isSortedByTag,
-            'material-icons header-buttons__button tag-sorted': this.isSortedByTag,
+        ...mapState({
+            lesson: state => state.lesson.lesson,
+            isDrawerOpen: state => state.ui.isDrawerOpen, // remove ?
+            isModalOpen: state => state.ui.isModalOpen,
+            themeValues: state => state.ui.themeValues,
+        }),
+        ...mapGetters({
+            getLessonFromPath: 'tree/getLessonFromPath',
+            lang: 'ui/lang',
+            isTagDefined: 'ui/isTagDefined',
+            isSortedByTag: "ui/isSortedByTag",
+        }),
+        tagClass() {
+            return {
+                'material-icons header-buttons__button': !this.isSortedByTag,
+                'material-icons header-buttons__button tag-sorted': this.isSortedByTag,
+            }
         }
-    }
     },
     methods: {
-    goToHome() {
-        this.$router.push('/').catch(() => console.log('Navigation Duplicated'))
-    },
-    arrowNavigationClicked(direction){
-        let path = '';
-        if (direction === -1) path = this.getLessonFromPath(this.lesson.path).previous_path;
-        if (direction === 1) path = this.getLessonFromPath(this.lesson.path).next_path;
-        if (path)
-        this.$router.push('/lesson/' + path.toString().substring(1)).catch(err => console.error(err));
-        else if (direction === -1) this.shakeElement("previous-button");
-        else if (direction === 1) this.shakeElement("next-button");
-    },
-    toggleMenu() {
-        this.$store.dispatch('ui/toggleDrawer');
-    },
-    toggleLang(){
-        this.$store.dispatch('ui/toggleLang', {smp: this.$smp});
-    },
-    shakeElement(elementId) {
-        document.getElementById(elementId).classList.add("shaked");
-        setTimeout(() => document.getElementById(elementId).classList.remove('shaked'), 150);
-    },
-    tagSelectorClicked() {
-        this.$store.commit('ui/TOGGLE_MODAL_STATE');
-    }
+        goToHome() {
+            this.$router.push('/').catch(() => console.log('Navigation Duplicated'))
+        },
+        arrowNavigationClicked(direction){
+            let path = '';
+            if (direction === -1) path = this.getLessonFromPath(this.lesson.path).previous_path;
+            if (direction === 1) path = this.getLessonFromPath(this.lesson.path).next_path;
+            if (path) this.$router.push('/lesson/' + path.toString().substring(1)).catch(err => console.error(err));
+            else if (direction === -1) this.shakeElement("previous-button");
+            else if (direction === 1) this.shakeElement("next-button");
+        },
+        toggleMenu() {
+            this.$store.dispatch('ui/toggleDrawer');
+        },
+        toggleLang(){
+            this.$store.dispatch('ui/toggleLang', {smp: this.$smp});
+        },
+        shakeElement(elementId) {
+            document.getElementById(elementId).classList.add("shaked");
+            setTimeout(() => document.getElementById(elementId).classList.remove('shaked'), 150);
+        },
+        tagSelectorClicked() {
+            this.$store.commit('ui/TOGGLE_MODAL_STATE');
+        },
+        toUi() {
+            window.location.href = "/ui";
+        }
     },
     created() {
-    if (this.$router.currentRoute.name === 'Lesson') this.navigationArrowVisible = true
+        if (this.$router.currentRoute.name === 'Lesson') this.navigationArrowVisible = true
     },
     watch:{
-    $route (to){
-        this.navigationArrowVisible = to.name === 'Lesson';
-    }
+        $route (to){
+            this.navigationArrowVisible = to.name === 'Lesson';
+        }
     },
 }
 </script>
