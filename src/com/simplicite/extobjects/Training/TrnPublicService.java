@@ -22,7 +22,13 @@ public class TrnPublicService extends RESTServiceExternalObject {
             r.put("search_type", searchType);
             if(TrnTools.isElasticSearchMode()){
                 JSONObject esiConfig = TrnTools.getEsiConfig();
-                r.put("es_instance", esiConfig.getString("instance"));
+                String instance;
+                if(esiConfig.has("front_instance")) {
+                    instance = esiConfig.getString("front_instance");
+                } else {
+                    instance = esiConfig.getString("instance");
+                }
+                r.put("es_instance", instance);
                 r.put("es_index", esiConfig.getString("index"));
                 r.put("es_credentials", esiConfig.optString("public_credentials", ""));
             }
