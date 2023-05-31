@@ -50,12 +50,14 @@ public class TrnGitCheckoutService extends com.simplicite.webapp.services.RESTSe
             TrnFsSyncTool.triggerSync();
             return msg;
         } catch (IOException | GitAPIException | TrnConfigException | TrnSyncException e) {
+            setHTTPStatus(500);
             AppLog.error(getClass(), "post", e.getMessage(), e, getGrant());
             return "ERROR : " + e.getMessage();
         }
 	}
 
-    private void performClone(String remoteUrl, String branch, File contentDir) throws IOException, GitAPIException {
+    private void performClone(String remoteUrl, String branch, File contentDir) throws GitAPIException {
+        AppLog.info("Attempting to clone "+remoteUrl+" on branch "+branch, getGrant());
         CloneCommand cloneCommand = Git.cloneRepository()
             .setURI(remoteUrl)
             .setDirectory(contentDir)
@@ -71,6 +73,7 @@ public class TrnGitCheckoutService extends com.simplicite.webapp.services.RESTSe
     }
 
     private void performPull(String branch, File contentDir) throws IOException, GitAPIException, TrnConfigException {
+        AppLog.info("Attempting to pull on branch "+branch, getGrant());
         FileRepositoryBuilder repositoryBuilder = new FileRepositoryBuilder();
         Repository repository = repositoryBuilder.setGitDir(new File(contentDir, ".git"))
                                                 .readEnvironment()

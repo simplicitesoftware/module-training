@@ -29,7 +29,6 @@ public class TrnTreeService extends RESTServiceExternalObject  {
 		String defaultLang = TrnTools.getLangs(g(), false)[0];//use first lang as default
 		String lang = params.getParameter("lang", defaultLang);
 		try{
-		
 			if(!"".equals(params.getParameter("getImages", "")))
 				return getImages(params.getParameter("lessonId", "0"));
 			if(!"".equals(params.getParameter("getLesson", "")))
@@ -42,6 +41,7 @@ public class TrnTreeService extends RESTServiceExternalObject  {
 				return "getTree deprecated";
 		}
 		catch(Exception e){
+            setHTTPStatus(500);
 			AppLog.error(getClass(), "post", e.getMessage(), e, g());
 			return "ERROR "+e.getMessage();
 		}

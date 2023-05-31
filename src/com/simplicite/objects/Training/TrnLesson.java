@@ -202,38 +202,44 @@ public class TrnLesson extends TrnObject {
 	}
 
 	// When fetching a linear lesson, converts pictures old urls to current 
-	private String setLinearPictureContent(String htmlContent) {
-		Matcher m = PATTERN_LINEAR_PICS.matcher(htmlContent);
-		ObjectDB picObject = getGrant().getTmpObject("TrnPicture");
-		picObject.resetFilters();
-		picObject.setFieldFilter("trnPicLsnId", getRowId());
-		List<String[]> pics = picObject.search();
-		// rebuilding string with StringBuilder
-		StringBuilder out = new StringBuilder();
-		int lastIndex = 0;
-		while(m.find()) {
-			String imgPath = m.group(1);
-			for(String[] pic : pics) {
-                // optimiser en cherchant les documents par doc name ?
-                // ou possible de fetch la liste des docs correspondants aux images de la leçon ?
-				picObject.setValues(pic);
-				String docId = picObject.getFieldValue("trnPicImage");
-				DocumentDB doc = DocumentDB.getDocument(docId, getGrant());
-				String frontUrl = getGrant().getContextURL() + doc.getURL("").replace("/ui", "");;
-                String docName = doc.getName();
-				if(imgPath.contains(docName)) {
-					// append the content of html from the lastIndex (beginning of string to copy) to start index (end of string to copy)
-					// in a nutshell add all the htmlContent before the match (match not included)
-					out.append(htmlContent, lastIndex, m.start())
-					// then append the new Url
-					.append("src=\""+frontUrl+"\"");
-        			lastIndex = m.end();
-				}
-			}
-		}
-		if(lastIndex < htmlContent.length()) {
-			out.append(htmlContent, lastIndex, htmlContent.length());
-		}
-		return out.toString();
+	private String setLinearPictureContent(String htmlContent) throws Exception {
+        try {
+            Matcher m = PATTERN_LINEAR_PICS.matcher(htmlContent);
+            ObjectDB picObject = getGrant().getTmpObject("TrnPicture");
+            picObject.resetFilters();
+            picObject.setFieldFilter("trnPicLsnId", getRowId());
+            List<String[]> pics = picObject.search();
+            // rebuilding string with StringBuilder
+            StringBuilder out = new StringBuilder();
+            int nextIndex = 0;
+            while(m.find()) {
+                String imgPath = m.group(1);
+                for(String[] pic : pics) {
+                    // optimiser en cherchant les documents par doc name ?
+                    // ou possible de fetch la liste des docs correspondants aux images de la leçon ?
+                    picObject.setValues(pic);
+                    String docId = picObject.getFieldValue("trnPicImage");
+                    DocumentDB doc = DocumentDB.getDocument(docId, getGrant());
+                    String frontUrl = getGrant().getContextURL() + doc.getURL("").replace("/ui", "");;
+                    String docName = doc.getName();
+                    if(imgPath.contains(docName)) {
+                        // append the content of html from the nextIndex (beginning of string to copy) to start index (end of string to copy)
+                        // in a nutshell add all the htmlContent before the match (match not included)
+                        int startIndex = m.start();
+                        out.append(htmlContent, nextIndex, startIndex)
+                        // then append the new Url
+                        .append("src=\""+frontUrl+"\"");
+                        nextIndex = m.end();
+                        break;
+                    }
+                }
+            }
+            if(nextIndex < htmlContent.length()) {
+                out.append(htmlContent, nextIndex, htmlContent.length());
+            }
+            return out.toString();
+        } catch(Exception e) {
+            throw new Exception("An error occured while parsing linear picture content: "+e.getMessage());
+        }
 	}
 }
