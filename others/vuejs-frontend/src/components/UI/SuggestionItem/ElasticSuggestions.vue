@@ -22,6 +22,7 @@ export default {
   },
   props:{
       elasticHits: Array,
+      inputValue: String
   },
   computed:{
     ...mapGetters({

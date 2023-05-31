@@ -60,7 +60,6 @@ export default {
       highlightFields: ["title", "raw_content"],
       hover: false,
       isSugOpen:false,
-      typingTimer: undefined,
       queryInput:'',
       result:'',
       suggestions:null,
@@ -114,20 +113,15 @@ export default {
       else this.$store.commit("tree/OPEN_NODE", suggestion.path);
     },
     queryIndex(){
-        this.isSugOpen = false
-        this.suggestions = null;
-        clearTimeout(this.typingTimer);
-        this.typingTimer = setTimeout(function () {
-            if(this.$SEARCH_TYPE == "elasticsearch"){
-                this.searchElasticSearch(this.inputValue)
-            }
-            else if(this.$SEARCH_TYPE == "simplicite"){
-                this.searchSimplicite(this.inputValue)
-            }
-            else if(this.$SEARCH_TYPE == "community"){
-                this.searchCommnuity(this.inputValue)
-            }
-        }.bind(this), 500);
+        if(this.$SEARCH_TYPE == "elasticsearch"){
+            this.searchElasticSearch(this.inputValue)
+        }
+        else if(this.$SEARCH_TYPE == "simplicite"){
+            this.searchSimplicite(this.inputValue)
+        }
+        else if(this.$SEARCH_TYPE == "community"){
+            this.searchCommnuity(this.inputValue)
+        }
     },
     searchSimplicite(inputValue){
         const headers = new Headers();
@@ -165,6 +159,7 @@ export default {
         myHeaders.append("Content-Type", "application/json");
         myHeaders.append("Origin", this.$ES_INSTANCE);
 
+        // any results are not returned
         const json = {
             "query": {
                 "multi_match": {
@@ -194,13 +189,15 @@ export default {
         fetch(searchUrl, requestOptions)
         .then(response => response.json())
         .then(json => {
-            const hits = json.hits.hits
-            if(hits.length != 0){
-            this.suggestions = hits;
-            this.isSugOpen = true;
-            }
-            else{
-            this.suggestions = null
+            if(json.hits) {
+                const hits = json.hits.hits
+                if(hits.length != 0){
+                    this.suggestions = hits;
+                    this.isSugOpen = true;
+                }
+                else{
+                    this.suggestions = null
+                }
             }
         })
         .catch(error => console.log('error', error));
