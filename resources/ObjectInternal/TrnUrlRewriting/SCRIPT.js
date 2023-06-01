@@ -1,7 +1,7 @@
 // TrnUrlRewriting front side hook
 (function(ui) {
 	if (!ui) return;
-	var app = ui.getAjax();
+	const app = ui.getAjax();
 
 	function setWiredUriTag(attribute) {
 		const elements = $(attribute).find($('div')).find($('a'));
@@ -18,7 +18,7 @@
 
 	Simplicite.UI.hooks.TrnUrlRewriting = function(o, cbk) {
 		try {
-			var p = o.locals.ui;
+			const p = o.locals.ui;
 			if (p && o.isMainInstance()) {
 				p.list.onload = function(ctn, obj, params) {
 					setWiredUriTag('[data-field="trnSourceUrl"]');

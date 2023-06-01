@@ -1,7 +1,7 @@
 // TrnPage front side hook
 (function(ui) {
 	if (!ui) return;
-	var app = ui.getAjax();
+	const app = ui.getAjax();
 	// Hook called by each object instance
 	
 	function setWiredUriTag(attribute) {
@@ -26,7 +26,7 @@
 	
 	Simplicite.UI.hooks.TrnPage = function(o, cbk) {
 		try {
-			var p = o.locals.ui;
+			const p = o.locals.ui;
 			if (p && o.isMainInstance()) {
 				p.list.onload = function(ctn, obj, params) {
 					setWiredUriTag('[data-field="TrnPage_TrnLesson_id__trnLsnFrontPath"]');

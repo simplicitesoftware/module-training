@@ -1,7 +1,7 @@
 // TrnLesson front side hook
 (function(ui) {
 	if (!ui) return;
-	var app = ui.getAjax();
+	const app = ui.getAjax();
 	
 	function setWiredUriTag(attribute) {
 		const elements = $(attribute).find($('div')).find($('a'));
@@ -25,7 +25,7 @@
 	// Hook called by each object instance
 	Simplicite.UI.hooks.TrnLesson = function(o, cbk) {
 		try {
-			var p = o.locals.ui;
+			const p = o.locals.ui;
 			if (p && (o.isMainInstance() || o.isPanelInstance())) {
 				p.list.onload = function(ctn, obj, params) {
 					setWiredUriTag('[data-field="trnLsnFrontPath"]');

@@ -1,8 +1,15 @@
 package com.simplicite.commons.Training;
 
-import com.simplicite.util.*;
-import com.simplicite.util.tools.*;
+
 import org.json.JSONObject;
+
+import com.simplicite.util.AppLog;
+import com.simplicite.util.Grant;
+import com.simplicite.util.ModuleDB;
+import com.simplicite.util.ObjectDB;
+import com.simplicite.util.ObjectField;
+import com.simplicite.util.Tool;
+import com.simplicite.util.tools.RESTTool;
 
 /**
  * Shared code EsiHelper
@@ -33,8 +40,9 @@ public class TrnEsiHelper implements java.io.Serializable {
 		if(TrnTools.isElasticSearchMode()){
 			return new TrnEsiHelper(g, TrnTools.getEsiConfig());
 		}
-		else
+		else {
 			return null;
+        }
 	}
 	
 	public String getDefaultIndex(){
@@ -71,27 +79,32 @@ public class TrnEsiHelper implements java.io.Serializable {
 	}
 	
 	public void indexAllModules(){
-		for(String mdl : getModules())
-			if(!ModuleDB.isSystemModule(mdl))
+		for(String mdl : getModules()) {
+            if(!ModuleDB.isSystemModule(mdl)) {
 				indexModule(mdl);
+            }
+        }	
 	}
 	
 	public void indexModule(String mdl){
-		for(String obj : getObjects(mdl))
+		for(String obj : getObjects(mdl)) {
 			indexObject(obj);
+        }
 	}
 	
-	private void indexObject(String objectName){
+	private void indexObject(String objectName) {
 		ObjectDB o = g.getTmpObject(objectName);
-		synchronized(o){
-			if(o.isIndexable()){
+		synchronized(o) {
+			if(o.isIndexable()) {
 				o.resetFilters();
-				for(String[] rslt : o.search()){
+				for(String[] rslt : o.search()) {
 					JSONObject doc = new JSONObject();
-					for(ObjectField f : o.getFields())
-						if(f.isIndexable())
-							doc.put(f.getName(), rslt[o.getFieldIndex(f.getName())]);
-					indexEsDoc(o.getName()+":"+rslt[0], doc);
+					for(ObjectField f : o.getFields()) {
+                        if(f.isIndexable()) {
+                            doc.put(f.getName(), rslt[o.getFieldIndex(f.getName())]);
+                        }
+                    }
+                    indexEsDoc(o.getName()+":"+rslt[0], doc);
 				}
 			}
 		}
@@ -100,7 +113,7 @@ public class TrnEsiHelper implements java.io.Serializable {
 	public void deleteEsLesson(String lsnId) {
 		String url = esInstance+"/"+esIndex+"/_doc/"+lsnId;
 		try {
-			String result = RESTTool.delete(url, esUser, esPassword);
+			RESTTool.delete(url, esUser, esPassword);
 			AppLog.info("Deleted lesson index: " + url, Grant.getSystemAdmin());
 		} catch(Exception e) {
 			AppLog.error("Error deleting lesson: "+url + " : " + e.getMessage(), e, Grant.getSystemAdmin());
@@ -123,6 +136,5 @@ public class TrnEsiHelper implements java.io.Serializable {
 			return Tool.getColumnOfMatrixAsArray(o.search(), o.getFieldIndex("obo_name"));
 		}
 	}
-	 
 }
 

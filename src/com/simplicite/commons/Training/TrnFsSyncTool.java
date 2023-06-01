@@ -1,21 +1,37 @@
 package com.simplicite.commons.Training;
 
-import java.util.*;
-
 import com.simplicite.objects.Training.TrnTagLsn;
-import com.simplicite.util.*;
+import com.simplicite.util.AppLog;
+import com.simplicite.util.Grant;
+import com.simplicite.util.ObjectDB;
+import com.simplicite.util.Tool;
 import com.simplicite.util.engine.Platform;
-import com.simplicite.util.exceptions.*;
-import com.simplicite.util.tools.*;
+import com.simplicite.util.exceptions.CreateException;
+import com.simplicite.util.exceptions.DeleteException;
+import com.simplicite.util.exceptions.GetException;
+import com.simplicite.util.exceptions.ValidateException;
+import com.simplicite.util.tools.BusinessObjectTool;
+import com.simplicite.util.tools.FileTool;
+
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.SequenceInputStream;
+import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Vector;
+
 import org.json.JSONObject;
 import org.json.JSONArray;
 import org.apache.commons.io.FilenameUtils;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
-import java.io.*;
-import java.nio.file.Files;
+
 
 /**
  * Shared code TrnFsSyncTool
@@ -39,6 +55,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	private ObjectDB lessonContent;
 	private ObjectDB picture;
 	private ObjectDB tag;
+    private TrnTagLsn tagLsn;
 	private ObjectDB tagTranslation;
 	private ObjectDB urlRewriting;
 	private ObjectDB theme;
@@ -71,7 +88,6 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	public TrnFsSyncTool(Grant g) {
 		this.g = g;
         String baseContentDir = Platform.getContentDir();
-        //AppLog.info(baseContentDir, g);
 		contentDir = new File(baseContentDir, CONTENT_FOLDERNAME);
 		hashStoreFile = new File(baseContentDir, HASHSTORE_FILENAME);
 		langCodes = TrnTools.getLangs(g);
@@ -90,7 +106,9 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	}
 
 	private void dropCategory(boolean loadAccess) throws DeleteException {
-		if(loadAccess) loadTrnObjectAccess();
+		if(loadAccess) {
+            loadTrnObjectAccess();
+        } 
 		synchronized(category){
 			category.resetFilters();
 			category.setFieldFilter("trnCatId.trnCatPath", "is null");
@@ -102,7 +120,9 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	}
 
 	private void dropTag(boolean loadAccess) throws DeleteException {
-		if(loadAccess) loadTrnObjectAccess();
+		if(loadAccess) {
+            loadTrnObjectAccess();
+        } 
 		synchronized(tag){
 			tag.resetFilters();
 			for(String[] row : tag.search()){
@@ -238,6 +258,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		lessonContent = g.getObject("sync_TrnLsnTranslate", "TrnLsnTranslate");
 		picture = g.getObject("sync_TrnPicture", "TrnPicture");
 		tag = g.getObject("sync_TrnTag", "TrnTag");
+        tagLsn = (TrnTagLsn) g.getObject("sync_TrnTagLsn", "TrnTagLsn");
 		tagTranslation = g.getObject("sync_TrnTagTranslate", "TrnTagTranslate");
 		urlRewriting = g.getObject("sync_TrnUrlRewriting", "TrnUrlRewriting");
         theme = g.getObject("sync_TrnSiteTheme", "TrnSiteTheme");
@@ -265,18 +286,24 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		foundPaths.add(relativePath);
 		
 		File[] files = dir.listFiles();
-		for(File file : files)
-			if(file.isDirectory())
+		for(File file : files) {
+            if(file.isDirectory()) {
 				syncPath(relativePath+file.getName()+"/");
+            }
+        }
+			
 	}
 	
 	private void updateDbWithDir(File dir) throws TrnSyncException{
-		if(TrnVerifyContent.isCategory(dir))
+		if(TrnVerifyContent.isCategory(dir)) {
 			upsertCategory(dir);
-		else if(TrnVerifyContent.isLesson(dir))
+        }
+		else if(TrnVerifyContent.isLesson(dir)) {
             upsertLessonAndContent(dir);
-		else
+        }
+		else {
 			throw new TrnSyncException("TRN_SYNC_ERROR_NOT_CATEGORY_NOR_LESSON", dir);
+        }
 	}
 
     private void syncTags() throws TrnSyncException {
@@ -299,12 +326,8 @@ public class TrnFsSyncTool implements java.io.Serializable {
 				String tagCode = tagObject.optString("code");
 				String rowId = upsertTag(tagCode);
                 foundTags.add(rowId); // to keep track of added tags, needed to clean deleted tags
-                JSONObject tradObj = tagObject.optJSONObject("translation");
-                for(String lang : langCodes) {
-                    if(tradObj.has(lang)) {
-                        upsertTagTranslation(rowId, lang, tradObj.getString(lang));
-                    }
-                }
+                JSONObject tradJSON = tagObject.optJSONObject("translation");
+                upsertTagTranslations(tradJSON, rowId);
 			}
 		} catch(Exception e) {
 			throw new TrnSyncException("TRN_SYNC_UPSERT_TAGS_FROM_JSON", e.getMessage());
@@ -332,16 +355,26 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		}
 	}
 
+    private void upsertTagTranslations(JSONObject tradJSON, String tagRowId) throws TrnSyncException {
+        for(String lang : langCodes) {
+            if(tradJSON.has(lang)) {
+                upsertTagTranslation(tagRowId, lang, tradJSON.getString(lang));
+            }
+        }
+    }
+
 	private void upsertTagTranslation(String tagRowId, String lang, String translation) throws TrnSyncException {
 		try {
 			BusinessObjectTool bot = new BusinessObjectTool(tagTranslation);
 			String translateRowId = getTagTranslateRowId(tagRowId, lang, translation);
 			synchronized(tagTranslation) {
 				tagTranslation.resetValues();
-				if(Tool.isEmpty(translateRowId))
+				if(Tool.isEmpty(translateRowId)) {
 					bot.selectForCreate();
-				else
+                }
+				else {
 					bot.selectForUpdate(translateRowId);
+                }
 				tagTranslation.setFieldValue("trnTagTranslateLang", lang);
 				tagTranslation.setFieldValue("trnTagTranslateTrad", translation);
 				tagTranslation.setFieldValue("trnTaglangTagId", tagRowId);
@@ -408,10 +441,12 @@ public class TrnFsSyncTool implements java.io.Serializable {
 			BusinessObjectTool bot = new BusinessObjectTool(category);
 			synchronized(category){
 				category.resetValues();
-				if(Tool.isEmpty(rowId))
+				if(Tool.isEmpty(rowId)) {
 					bot.selectForCreate();
-				else
+                }
+				else {
 					bot.selectForUpdate(rowId);
+                }
 				category.setFieldValue("trnCatOrder", name[1]);
 				category.setFieldValue("trnCatPublish", jsonCatPublish(json));
 				category.setFieldValue("trnCatCode", name[2]);
@@ -502,15 +537,15 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	private void upsertLessonAndContent(File dir) throws TrnSyncException{
 		try{
 			String relativePath = getRelativePath(dir);
-			String rowId = getLsnRowIdFromPath(relativePath);
+			String lsnRowId = getLsnRowIdFromPath(relativePath);
 			
 			JSONObject json = getLsnData(dir);
 
-			rowId = upsertLesson(rowId, json, relativePath, dir);
+			lsnRowId = upsertLesson(lsnRowId, json, relativePath, dir);
 			// create tag N-N lesson if tag exists and if association does not already exist
-			upsertTrnTagLsn(rowId, json, relativePath);
+			upsertTrnTagLsnRecords(lsnRowId, json, relativePath);
 			// create contents
-			upsertLessonTranslations(rowId, json);
+			upsertLessonTranslations(lsnRowId, json);
 		}
 		catch(Exception e){
 			throw new TrnSyncException("TRN_SYNC_UPSERT_LESSON_AND_CONTENT", e.getMessage()+" "+lesson.toJSON()+ " "+dir.getPath());
@@ -545,34 +580,39 @@ public class TrnFsSyncTool implements java.io.Serializable {
         }
     }
 
-    private void upsertTrnTagLsn(String rowId, JSONObject json, String relativePath) throws TrnSyncException {
+    private void upsertTrnTagLsnRecords(String lsnRowId, JSONObject json, String relativePath) throws TrnSyncException {
         try {
-            TrnTagLsn tagLsn = (TrnTagLsn) g.getObject("sync_TrnTagLsn", "TrnTagLsn");
             BusinessObjectTool bot = new BusinessObjectTool(tagLsn);
             JSONArray tags = json.optJSONArray("tags");
             if(!Tool.isEmpty(tags) && tags != null) {
                 for(int i = 0; i < tags.length(); i++) {
                     String tagCode = tags.getString(i);
                     String tagRowId = getTagRowIdFromCode(tagCode);
-                    if(Tool.isEmpty(tagRowId)) 
-                        throw new TrnSyncException("TRN_SYNC_UPSERT_TAG_LSN", "tag does not exist" + tagCode);
-                    String lsnRowId = getLsnRowIdFromPath(relativePath);
-                    if(Tool.isEmpty(lsnRowId)) 
-                        throw new TrnSyncException("TRN_SYNC_UPSERT_TAG_LSN", "lesson does not exist" + tagCode);
-                    String tagLsnRowId = tagLsn.getTagLsnRowId(tagRowId, lsnRowId);
-                    if(Tool.isEmpty(tagLsnRowId)) {
-                        synchronized(tagLsn) {
-                            bot.selectForCreate();
-                            tagLsn.setFieldValue("trnTaglsnLsnId", rowId);
-                            tagLsn.setFieldValue("trnLsnPath", relativePath);
-                            tagLsn.setFieldValue("trnTaglsnTagId", tagRowId);
-                            bot.validateAndCreate();
-                        }
-                    }
+                    upsertTrnTagLsn(lsnRowId, tagRowId, tagCode, relativePath, bot);
                 }
             }
         } catch(Exception e) {
-            throw new TrnSyncException("TRN_SYNC_UPSERT_TRN_TAG_LSN", e.getMessage());
+            throw new TrnSyncException("TRN_SYNC_UPSERT_TRN_TAG_LSN_RECORDS", e.getMessage());
+        }
+    }
+
+    private void upsertTrnTagLsn(String lsnRowId, String tagRowId, String tagCode, String relativePath, BusinessObjectTool bot) throws TrnSyncException, GetException, CreateException, ValidateException {
+        if(Tool.isEmpty(tagRowId)) {
+            throw new TrnSyncException("TRN_SYNC_UPSERT_TAG_LSN_NO_TAG_ROW_ID", "tag does not exist: " + tagCode);
+        }
+        try {
+            String tagLsnRowId = tagLsn.getTagLsnRowId(tagRowId, lsnRowId);
+            if(Tool.isEmpty(tagLsnRowId)) {
+                synchronized(tagLsn) {
+                    bot.selectForCreate();
+                    tagLsn.setFieldValue("trnTaglsnLsnId", lsnRowId);
+                    tagLsn.setFieldValue("trnLsnPath", relativePath);
+                    tagLsn.setFieldValue("trnTaglsnTagId", tagRowId);
+                    bot.validateAndCreate();
+                }
+            }
+        } catch(Exception e) {
+            throw new TrnSyncException("TRN_SYNC_UPSERT_TAG_LSN", e.getMessage());   
         }
     }
 
@@ -599,7 +639,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
                         translate.setFieldFilter("trnLtrLsnId", rowId);
                         translate.setFieldFilter("trnLtrLang", "ANY");
                         List<String[]> res = translate.search();
-                        if(res.size() > 0) {
+                        if(!res.isEmpty()) {
                             translate.setValues(res.get(0));
                             translate.delete();
                         }
@@ -864,7 +904,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
         }
     }
 	
-	private void storeHashes() throws TrnSyncException{
+	private void storeHashes() {
 		Tool.objectToFile(hashStore, hashStoreFile);
 	}
 	

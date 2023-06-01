@@ -1,6 +1,6 @@
 package com.simplicite.adapters.Training;
 
-import java.util.*;
+import java.util.List;
 import java.util.regex.PatternSyntaxException;
 import java.io.File;
 import java.io.InputStream;
@@ -10,10 +10,13 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.charset.StandardCharsets;
 
-import com.simplicite.util.*;
-import com.simplicite.util.integration.*;
-import com.simplicite.util.tools.*;
-import com.simplicite.util.exceptions.*;
+import com.simplicite.util.AppLog;
+import com.simplicite.util.ObjectDB;
+import com.simplicite.util.exceptions.CreateException;
+import com.simplicite.util.exceptions.DeleteException;
+import com.simplicite.util.exceptions.ValidateException;
+import com.simplicite.util.integration.SimpleAdapter;
+import com.simplicite.util.tools.BusinessObjectTool;
 import com.simplicite.util.tools.ZIPTool;
 
 import org.json.*;
@@ -294,23 +297,6 @@ public class TrainingContentAdapter extends SimpleAdapter {
 		for (String extension : VIDEO_EXTENSIONS)
 			if (fileName.endsWith(extension)) return true;
 		return false; 
-	}
-	
-	// Category deleting is configured to cascade : deleting all root categories will delete all the courses related data (categories, lessons, pictures ...)
-	private void eraseRootCategories(){
-		ObjectDB category = getGrant().getObject("Erase_TrnCategory", "TrnCategory");
-		category.resetFilters();
-		category.setFieldFilter("trnCatId", "is null");
-		for (String[] row : category.search()) {
-			category.setValues(row);
-			try {
-				new BusinessObjectTool(category).delete();
-			} catch(DeleteException e) {
-				AppLog.error(getClass(), "eraseRootCategories", "DeleteException while deleting root categories", e, getGrant());
-			} catch(Exception e) {
-				AppLog.error(getClass(), "eraseRootCategories", "Global Exception while deleting root categories", e, getGrant());
-			}
-		}
 	}
 	
 	private void eraseParentlessLessons(){
