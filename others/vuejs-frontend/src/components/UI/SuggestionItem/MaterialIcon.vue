@@ -10,7 +10,7 @@ export default {
     },
     computed: {
         materialIconCode: function(){
-            var materialCode = '';
+            let materialCode = '';
             switch(this.cat){
             case "Configuration":
                 materialCode = "design_services"

@@ -63,7 +63,6 @@ export default {
     },
     methods: {
         nodeClicked(node) {
-
             if (node.is_category) {
 				this.$store.commit('tree/TOGGLE_NODE_OPEN', node.path);
 				this.selectedNodeType = "category";
