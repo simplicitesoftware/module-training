@@ -810,9 +810,6 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		
 		lsn.put("order", getLsnOrder(dir));
 		lsn.put("code", getLsnCode(dir));
-        if(lsn.getString("code").equals("treeview")) {
-            String test = "";
-        }
 		
 		JSONObject lsnJson = new JSONObject(FileTool.readFile(dir.getPath()+"/lesson.json"));
         if(!lsnJson.has("ANY")) lsnJson.put("ANY", new JSONObject());

@@ -27,7 +27,7 @@ public class TrnLsnTranslate extends TrnObject {
         // if LINEAR, then change content images link, might want to limit this to filesystem mode
         try {
             if(lsn.getFieldValue("trnLsnVisualization").equals("LINEAR")) {
-                setFieldValue("trnLtrHtmlContent", setLinearPictureContent(html));
+                setFieldValue("trnLtrHtmlContent", setLinearPictureContent(html, lsn.getRowId()));
             }
         } catch(Exception e) {
             AppLog.error(getClass(), "preSave", "An error occured during the parsing of linear content pictures", e, getGrant());
@@ -58,12 +58,12 @@ public class TrnLsnTranslate extends TrnObject {
 	}
 
     // When fetching a linear lesson, converts pictures old urls to current 
-	private String setLinearPictureContent(String htmlContent) throws Exception {
+	private String setLinearPictureContent(String htmlContent, String lsnRowId) throws Exception {
         try {
             Matcher m = PATTERN_LINEAR_PICS.matcher(htmlContent);
             ObjectDB picObject = getGrant().getTmpObject("TrnPicture");
             picObject.resetFilters();
-            picObject.setFieldFilter("trnPicLsnId", getRowId());
+            picObject.setFieldFilter("trnPicLsnId", lsnRowId);
             List<String[]> pics = picObject.search();
             // rebuilding string with StringBuilder
             StringBuilder out = new StringBuilder();
