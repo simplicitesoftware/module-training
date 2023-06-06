@@ -13,7 +13,6 @@ import org.json.JSONObject;
  */
 public class TrnLesson extends TrnObject {
 	private static final long serialVersionUID = 1L;
-	private static final Pattern PATTERN_LINEAR_PICS = Pattern.compile("src\\s*=\\s*\\\"(.+?)\\\"");
     private TrnLsnTranslate lsnTranslate;
 
 	@Override
@@ -186,12 +185,7 @@ public class TrnLesson extends TrnObject {
 				f = lsnTranslate.getField("trnLtrHtmlContent");
 				if(!f.isEmpty() && !json.has("html") && includeHtml) {
 					String htmlContent = f.getValue();
-					// if LINEAR, then change content images link
-					if(json.get("viz").equals("LINEAR")) {
-						json.put("html", setLinearPictureContent(htmlContent));
-					} else {
-						json.put("html", htmlContent);
-					}
+                    json.put("html", htmlContent);
 				}
 			}
 			// if lang is not any and there is no content found from the language, try to add content from any
@@ -199,47 +193,5 @@ public class TrnLesson extends TrnObject {
 				fillJsonFront(json, "ANY", includeHtml);
 			}
 		}
-	}
-
-	// When fetching a linear lesson, converts pictures old urls to current 
-	private String setLinearPictureContent(String htmlContent) throws Exception {
-        try {
-            Matcher m = PATTERN_LINEAR_PICS.matcher(htmlContent);
-            ObjectDB picObject = getGrant().getTmpObject("TrnPicture");
-            picObject.resetFilters();
-            picObject.setFieldFilter("trnPicLsnId", getRowId());
-            List<String[]> pics = picObject.search();
-            // rebuilding string with StringBuilder
-            StringBuilder out = new StringBuilder();
-            int nextIndex = 0;
-            while(m.find()) {
-                String imgPath = m.group(1);
-                for(String[] pic : pics) {
-                    // optimiser en cherchant les documents par doc name ?
-                    // ou possible de fetch la liste des docs correspondants aux images de la leçon ?
-                    picObject.setValues(pic);
-                    String docId = picObject.getFieldValue("trnPicImage");
-                    DocumentDB doc = DocumentDB.getDocument(docId, getGrant());
-                    String frontUrl = getGrant().getContextURL() + doc.getURL("").replace("/ui", "");;
-                    String docName = doc.getName();
-                    if(imgPath.contains(docName)) {
-                        // append the content of html from the nextIndex (beginning of string to copy) to start index (end of string to copy)
-                        // in a nutshell add all the htmlContent before the match (match not included)
-                        int startIndex = m.start();
-                        out.append(htmlContent, nextIndex, startIndex)
-                        // then append the new Url
-                        .append("src=\""+frontUrl+"\"");
-                        nextIndex = m.end();
-                        break;
-                    }
-                }
-            }
-            if(nextIndex < htmlContent.length()) {
-                out.append(htmlContent, nextIndex, htmlContent.length());
-            }
-            return out.toString();
-        } catch(Exception e) {
-            throw new Exception("An error occured while parsing linear picture content: "+e.getMessage());
-        }
 	}
 }
