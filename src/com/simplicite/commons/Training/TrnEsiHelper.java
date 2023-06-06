@@ -110,13 +110,13 @@ public class TrnEsiHelper implements java.io.Serializable {
 		}
 	}
 
-	public void deleteEsLesson(String lsnId) {
+	public void deleteEsLesson(String lsnId, String lsnCode) {
 		String url = esInstance+"/"+esIndex+"/_doc/"+lsnId;
 		try {
 			RESTTool.delete(url, esUser, esPassword);
 			AppLog.info("Deleted lesson index: " + url, Grant.getSystemAdmin());
 		} catch(Exception e) {
-			AppLog.error("Error deleting lesson: "+url + " : " + e.getMessage(), e, Grant.getSystemAdmin());
+			AppLog.error("Error deleting elastic index lesson: "+lsnCode+" on "+url + " : " + e.getMessage(), e, Grant.getSystemAdmin());
 		}
 	}
 	

@@ -1,7 +1,6 @@
 package com.simplicite.commons.Training;
 
 import com.simplicite.util.*;
-import org.json.JSONObject;
 import com.simplicite.objects.Training.TrnLesson;
 
 /**
@@ -38,8 +37,8 @@ public class TrnIndexer implements java.io.Serializable {
 	}
 
 	private static void deleteLessonIndex(TrnEsiHelper es, TrnLesson lsn) throws Exception {
-		if(es!=null) 
-			es.deleteEsLesson(lsn.getRowId());
-		
+		if(es!=null) {
+			es.deleteEsLesson(lsn.getRowId(), lsn.getFieldValue("trnLsnCode"));
+        } 
 	}
 }

@@ -529,47 +529,53 @@ public class TrnFsSyncTool implements java.io.Serializable {
     private String getPageRowIdFromCode(String code) {
         return Tool.isEmpty(code) ? "" : g.simpleQuery("select row_id from trn_page where trn_page_code='"+code+"'");
     }
-
-    private String getThemeRowId() {
-        return g.simpleQuery("select row_id from trn_site_theme");
-    }
 	
 	private void upsertLessonAndContent(File dir) throws TrnSyncException{
 		try{
 			String relativePath = getRelativePath(dir);
 			String lsnRowId = getLsnRowIdFromPath(relativePath);
 			
-			JSONObject json = getLsnData(dir);
+			JSONObject lsnData = getLsnData(dir);
 
-			lsnRowId = upsertLesson(lsnRowId, json, relativePath, dir);
-			// create tag N-N lesson if tag exists and if association does not already exist
-			upsertTrnTagLsnRecords(lsnRowId, json, relativePath);
-			// create contents
-			upsertLessonTranslations(lsnRowId, json);
+			lsnRowId = upsertLesson(lsnRowId, lsnData, relativePath, dir);
+			createTrnTagLsnRecords(lsnRowId, lsnData, relativePath);
+            upsertLangSpecificContent(lsnRowId, lsnData);
 		}
 		catch(Exception e){
 			throw new TrnSyncException("TRN_SYNC_UPSERT_LESSON_AND_CONTENT", e.getMessage()+" "+lesson.toJSON()+ " "+dir.getPath());
 		}
 	}
 
+    private void upsertLangSpecificContent(String lsnRowId, JSONObject lsnData) throws TrnSyncException {
+        for(String lang : langCodes) {
+            JSONObject content = lsnData.getJSONObject("contents");
+            if(content.has(lang)) {
+                JSONObject specificLangJson = content.getJSONObject(lang);
+                createPics(lsnRowId, specificLangJson, lang);
+                upsertLessonTranslation(lsnRowId, specificLangJson, lsnData.getString("code"), lang);
+            }
+        }
+    }
+
     // upsert lesson only (no content), returns lesson row_id 
-    private String upsertLesson(String rowId, JSONObject json, String relativePath, File dir) throws TrnSyncException {
+    private String upsertLesson(String rowId, JSONObject lsnData, String relativePath, File dir) throws TrnSyncException {
         try {
             BusinessObjectTool bot = new BusinessObjectTool(lesson);
             synchronized(lesson){
                 lesson.resetValues();
+                // if lesson already exists
                 if(!Tool.isEmpty(rowId)){
                     bot.selectForDelete(rowId);
                     bot.delete();
                 }
                 
                 bot.selectForCreate();
-                lesson.setFieldValue("trnLsnOrder", json.getString("order"));
-                lesson.setFieldValue("trnLsnCode", json.getString("code"));
+                lesson.setFieldValue("trnLsnOrder", lsnData.getString("order"));
+                lesson.setFieldValue("trnLsnCode", lsnData.getString("code"));
                 lesson.setFieldValue("trnLsnPath", relativePath);
                 lesson.setFieldValue("trnLsnCatId", getCatRowIdFromPath(getParentRelativePath(dir)));
-                lesson.setFieldValue("trnLsnPublish", json.getBoolean("published"));
-                lesson.setFieldValue("trnLsnVisualization", json.getString("viz"));
+                lesson.setFieldValue("trnLsnPublish", lsnData.getBoolean("published"));
+                lesson.setFieldValue("trnLsnVisualization", lsnData.getString("viz"));
                 
                 lesson.populate(true);
                 bot.validateAndSave(true);
@@ -580,15 +586,13 @@ public class TrnFsSyncTool implements java.io.Serializable {
         }
     }
 
-    private void upsertTrnTagLsnRecords(String lsnRowId, JSONObject json, String relativePath) throws TrnSyncException {
+    private void createTrnTagLsnRecords(String lsnRowId, JSONObject json, String relativePath) throws TrnSyncException {
         try {
             BusinessObjectTool bot = new BusinessObjectTool(tagLsn);
             JSONArray tags = json.optJSONArray("tags");
-            if(!Tool.isEmpty(tags) && tags != null) {
+            if(!Tool.isEmpty(tags)) {
                 for(int i = 0; i < tags.length(); i++) {
-                    String tagCode = tags.getString(i);
-                    String tagRowId = getTagRowIdFromCode(tagCode);
-                    upsertTrnTagLsn(lsnRowId, tagRowId, tagCode, relativePath, bot);
+                    createTrnTagLsn(lsnRowId, tags.getString(i), relativePath, bot);
                 }
             }
         } catch(Exception e) {
@@ -596,47 +600,36 @@ public class TrnFsSyncTool implements java.io.Serializable {
         }
     }
 
-    private void upsertTrnTagLsn(String lsnRowId, String tagRowId, String tagCode, String relativePath, BusinessObjectTool bot) throws TrnSyncException, GetException, CreateException, ValidateException {
+    private void createTrnTagLsn(String lsnRowId, String tagCode, String relativePath, BusinessObjectTool bot) throws TrnSyncException, GetException, CreateException, ValidateException {
+        String tagRowId = getTagRowIdFromCode(tagCode);
         if(Tool.isEmpty(tagRowId)) {
             throw new TrnSyncException("TRN_SYNC_UPSERT_TAG_LSN_NO_TAG_ROW_ID", "tag does not exist: " + tagCode);
         }
         try {
-            String tagLsnRowId = tagLsn.getTagLsnRowId(tagRowId, lsnRowId);
-            if(Tool.isEmpty(tagLsnRowId)) {
-                synchronized(tagLsn) {
-                    bot.selectForCreate();
-                    tagLsn.setFieldValue("trnTaglsnLsnId", lsnRowId);
-                    tagLsn.setFieldValue("trnLsnPath", relativePath);
-                    tagLsn.setFieldValue("trnTaglsnTagId", tagRowId);
-                    bot.validateAndCreate();
-                }
+            synchronized(tagLsn) {
+                bot.selectForCreate();
+                tagLsn.setFieldValue("trnTaglsnLsnId", lsnRowId);
+                tagLsn.setFieldValue("trnLsnPath", relativePath);
+                tagLsn.setFieldValue("trnTaglsnTagId", tagRowId);
+                bot.validateAndCreate();
             }
         } catch(Exception e) {
             throw new TrnSyncException("TRN_SYNC_UPSERT_TAG_LSN", e.getMessage());   
         }
     }
 
-    private void upsertLessonTranslations(String rowId, JSONObject json) throws TrnSyncException {
-        BusinessObjectTool bot = new BusinessObjectTool(lessonContent);
-        for(String lang : langCodes){
-            if(json.getJSONObject("contents").has(lang)){					
-                upsertLessonTranslation(rowId, json, lang, bot);
-            }
-        }
-    }
-
-    private void upsertLessonTranslation(String rowId, JSONObject json, String lang, BusinessObjectTool bot) throws TrnSyncException {
+    private void upsertLessonTranslation(String lsnRowId, JSONObject specificLangJson, String lsnCode, String lang) throws TrnSyncException {
         try {
-            JSONObject content = json.getJSONObject("contents").getJSONObject(lang);
-            if(content.has("markdown") && content.has("title") || content.has("video")) {
+            BusinessObjectTool bot = new BusinessObjectTool(lessonContent);		
+            if(specificLangJson.has("markdown") && specificLangJson.has("title") || specificLangJson.has("video")) {
                 synchronized(lessonContent){
                     bot.selectForCreate();
-                    setLessonTranslation(rowId, content, json, lang);
+                    setLessonTranslation(lsnRowId, specificLangJson, lsnCode, lang);
                     // validateAndUpdate not working
                     if(lang.equals("ANY")) {
                         ObjectDB translate = g.getObject("trn_any_content", "TrnLsnTranslate");
                         translate.resetFilters();
-                        translate.setFieldFilter("trnLtrLsnId", rowId);
+                        translate.setFieldFilter("trnLtrLsnId", lsnRowId);
                         translate.setFieldFilter("trnLtrLang", "ANY");
                         List<String[]> res = translate.search();
                         if(!res.isEmpty()) {
@@ -645,17 +638,16 @@ public class TrnFsSyncTool implements java.io.Serializable {
                         }
                     }
                     bot.validateAndCreate();
-                    createPics(rowId, content, lang);
                 }
             }
         } catch(Exception e) {
-            throw new TrnSyncException("TRN_SYNC_UPSERT_LESSON_TRANSLATION", e.getMessage()+" "+json.toString(2));
+            throw new TrnSyncException("TRN_SYNC_UPSERT_LESSON_TRANSLATION", e.getMessage()+" "+specificLangJson.toString(2));
         }
     }
 
-    private void setLessonTranslation(String rowId, JSONObject content, JSONObject json, String lang) throws TrnSyncException {
+    private void setLessonTranslation(String lsnRowId, JSONObject content, String lsnCode, String lang) throws TrnSyncException {
         try {
-            lessonContent.setFieldValue("trnLtrLsnId", rowId);
+            lessonContent.setFieldValue("trnLtrLsnId", lsnRowId);
             lessonContent.setFieldValue("trnLtrLang", lang);
             if(content.has("markdown")  && content.has("title")) {
                 String ltrContent = FileTool.readFile(new File(content.getString("markdown")));
@@ -668,7 +660,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
                 File video = new File(content.getString("video"));
                 lessonContent.getField("trnLtrVideo").setDocument(lessonContent, video.getName(), new FileInputStream(video));
                 if(lessonContent.getFieldValue("trnLtrTitle").isEmpty()) {
-                    lessonContent.setFieldValue("trnLtrTitle", json.get("code"));
+                    lessonContent.setFieldValue("trnLtrTitle", lsnCode);
                 }
             }
         } catch(Exception e) {
@@ -676,22 +668,27 @@ public class TrnFsSyncTool implements java.io.Serializable {
         }
     }
 
-    private void createPics(String rowId, JSONObject content, String lang) throws TrnSyncException {
-        try {
-            if(content.has("pics")){
-                JSONArray pics = content.getJSONArray("pics");
-                BusinessObjectTool bot = new BusinessObjectTool(picture);
-                synchronized(picture){
-                    for(int i=0; i<pics.length(); i++){
-                        File f = new File(pics.getString(i));
-                        picture.resetValues();
-                        picture.getField("trnPicImage").setDocument(picture, f.getName(), new FileInputStream(f));
-                        picture.setFieldValue("trnPicLang", lang);
-                        picture.setFieldValue("trnPicLsnId", rowId);
-                        bot.validateAndCreate();
-                    }
+    private void createPics(String lsnRowId, JSONObject specificLangJson, String lang) throws TrnSyncException {
+        if(specificLangJson.has("pics")) {
+            JSONArray pics = specificLangJson.getJSONArray("pics");
+            BusinessObjectTool bot = new BusinessObjectTool(picture);
+            synchronized(picture){
+                for(int i=0; i<pics.length(); i++){
+                    createPic(lsnRowId, pics.getString(i), lang, bot);
                 }
             }
+        }
+        
+    }
+
+    private void createPic(String lsnRowId, String picName, String lang, BusinessObjectTool bot) throws TrnSyncException {
+        try {
+            File f = new File(picName);
+            picture.resetValues();
+            picture.getField("trnPicImage").setDocument(picture, f.getName(), new FileInputStream(f));
+            picture.setFieldValue("trnPicLang", lang);
+            picture.setFieldValue("trnPicLsnId", lsnRowId);
+            bot.validateAndCreate();            
         } catch(Exception e) {
             throw new TrnSyncException("TRN_CREATE_PICS", e.getMessage());
         }
@@ -813,22 +810,24 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		
 		lsn.put("order", getLsnOrder(dir));
 		lsn.put("code", getLsnCode(dir));
+        if(lsn.getString("code").equals("treeview")) {
+            String test = "";
+        }
 		
-		JSONObject json = new JSONObject(FileTool.readFile(dir.getPath()+"/lesson.json"));
-        if(!json.has("ANY")) json.put("ANY", new JSONObject());
-		lsn.put("published", json.optBoolean("published", true));
-		lsn.put("viz", json.optString("display", "TUTO"));
-		lsn.put("tags", json.optJSONArray("tags"));
+		JSONObject lsnJson = new JSONObject(FileTool.readFile(dir.getPath()+"/lesson.json"));
+        if(!lsnJson.has("ANY")) lsnJson.put("ANY", new JSONObject());
+		lsn.put("published", lsnJson.optBoolean("published", true));
+		lsn.put("viz", lsnJson.optString("display", "TUTO"));
+		lsn.put("tags", lsnJson.optJSONArray("tags"));
 		
 		JSONObject contents = new JSONObject();
-		JSONObject content;
 		File f;
 		
 		JSONObject pictures = getPics(dir);
 		
 		for(String lang : langCodes){
-			if(json.has(lang)){
-				content = json.getJSONObject(lang);
+			if(lsnJson.has(lang)){
+				JSONObject content = lsnJson.getJSONObject(lang);
 				
 				// add markdown content
 				f = getLsnMdFile(dir, lang);

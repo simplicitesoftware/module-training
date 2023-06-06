@@ -1,9 +1,6 @@
 package com.simplicite.commons.Training;
 
-import java.util.*;
 import com.simplicite.util.*;
-import com.simplicite.util.tools.*;
-import org.json.JSONObject;
 
 /**
  * Shared code TrnObject
