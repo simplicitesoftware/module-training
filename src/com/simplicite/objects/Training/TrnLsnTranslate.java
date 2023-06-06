@@ -27,12 +27,14 @@ public class TrnLsnTranslate extends TrnObject {
         // if LINEAR, then change content images link, might want to limit this to filesystem mode
         try {
             if(lsn.getFieldValue("trnLsnVisualization").equals("LINEAR")) {
-                setFieldValue("trnLtrHtmlContent", setLinearPictureContent(html, lsn.getRowId()));
+                html = setLinearPictureContent(html, lsn.getRowId());   
             }
         } catch(Exception e) {
             AppLog.error(getClass(), "preSave", "An error occured during the parsing of linear content pictures", e, getGrant());
             return e.getMessage();
         }
+
+        setFieldValue("trnLtrHtmlContent", html);
         
 		// Remove HTML tags (https://stackoverflow.com/a/9036849/1612642)
 		setFieldValue("trnLtrRawContent", Jsoup.parse(html).text());
