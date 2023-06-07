@@ -65,11 +65,9 @@ export default {
         nodeClicked(node) {
             if (node.is_category) {
 				this.$store.commit('tree/TOGGLE_NODE_OPEN', node.path);
-				this.selectedNodeType = "category";
 			} else {
 				this.$router.push('/lesson' + node.path).catch(err => console.error(err));
-				this.selectedNodeType = "lesson";
-			} 
+			}
         },
     }
 }

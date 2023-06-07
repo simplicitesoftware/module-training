@@ -3,7 +3,6 @@ import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from 'vue-router'
 import Vuex from 'vuex'
-import VueHighlightJS from 'vue-highlightjs'
 import router from './router'
 import store from './state/store'
 import ReactiveSearch from '@appbaseio/reactivesearch-vue';
@@ -13,7 +12,6 @@ import simplicite from 'simplicite';
 import AsyncComputed from 'vue-async-computed';
 import vClickOutside from 'v-click-outside'
 
-Vue.use(VueHighlightJS);
 Vue.config.productionTip = false;
 Vue.use(VueRouter);
 Vue.use(Vuex); // enable vuex store management system 

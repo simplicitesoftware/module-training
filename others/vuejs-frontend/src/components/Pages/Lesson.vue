@@ -1,41 +1,41 @@
 <template>
-  <div class="lesson" :class="lessonViz">
-    <div class="grid">
-      <div class="grid-item lesson-block">
-        <div v-if="lesson.row_id" class="lesson-wrapper">
-          <ul class="breadcrumb">
-            <li class="breadcrumb__item" v-for="(item, index) in breadCrumbItems" :key="index">
-              <span>{{item.title}}</span>
-              <span class="breadcrumb__divider" v-if="index !== breadCrumbItems.length-1">></span>
-            </li>
-          </ul>
-          <ul v-if="lessonTags.length > 0" class="tag">
-            <li class="tag__list" v-for="(tag, index) in lessonTags" :key="index">
-              <span class="tag__item">{{tag}}</span>
-              <span class="breadcrumb__divider" v-if="index !== breadCrumbItems.length-1"></span>
-            </li>
-          </ul>
-          <div class="lesson-html-content" v-highlightjs v-if="lesson.html" v-html="lesson.html"></div>
-          <EmptyContent v-else/>
-        </div>
-        <Spinner v-else/>
-      </div>
-      <div v-if="lesson.viz !== 'LINEAR'" class="grid-item slider-block">
-        <Slider v-if="lessonImages.length" :slides="lessonImages" ref="slider"/>
-        <EmptyContent v-else/>
-      </div>
-      <div v-if="lesson.viz !== 'LINEAR'" class="grid-item video-block">
-        <div v-if="lesson" class="video-wrapper">
-          <video v-if="videoUrl" class="video-player" controls muted poster="../../../public/media.svg"
-                 :src="videoUrl" preload="none">
-            Sorry, your browser doesn't support embedded videos.
-          </video>
-          <EmptyContent v-else/>
-        </div>
-        <Spinner v-else/>
-      </div>
-    </div>
-  </div>
+	<div class="lesson" :class="lessonViz">
+		<div class="grid">
+			<div class="grid-item lesson-block">
+				<div v-if="lesson.row_id" class="lesson-wrapper">
+				<ul class="breadcrumb">
+					<li class="breadcrumb__item" v-for="(item, index) in breadCrumbItems" :key="index">
+						<span>{{item.title}}</span>
+						<span class="breadcrumb__divider" v-if="index !== breadCrumbItems.length-1">></span>
+					</li>
+				</ul>
+				<ul v-if="lessonTags.length > 0" class="tag">
+					<li class="tag__list" v-for="(tag, index) in lessonTags" :key="index">
+						<span class="tag__item">{{tag}}</span>
+						<span class="breadcrumb__divider" v-if="index !== breadCrumbItems.length-1"></span>
+					</li>
+				</ul>
+				<div class="lesson-html-content" v-if="lesson.html" v-html="lesson.html"></div>
+					<EmptyContent v-else/>
+				</div>
+				<Spinner v-else/>
+			</div>
+			<div v-if="lesson.viz !== 'LINEAR'" class="grid-item slider-block">
+				<Slider v-if="lessonImages.length" :slides="lessonImages" ref="slider"/>
+				<EmptyContent v-else/>
+			</div>
+			<div v-if="lesson.viz !== 'LINEAR'" class="grid-item video-block">
+				<div v-if="lesson" class="video-wrapper">
+					<video v-if="videoUrl" class="video-player" controls muted poster="../../../public/media.svg"
+							:src="videoUrl" preload="none">
+						Sorry, your browser doesn't support embedded videos.
+					</video>
+					<EmptyContent v-else/>
+				</div>
+				<Spinner v-else/>
+			</div>
+		</div>
+	</div>
 </template>
 
 <script>
@@ -44,6 +44,7 @@
 	import EmptyContent from "../UI/EmptyContent";
 	import Slider from "../UI/Slider";
 	import {mapGetters, mapState} from "vuex";
+	import hljs from "highlight.js";
 
 	function getDocumentURL(vm) {
 		return new Promise((resolve, reject) => {
@@ -125,6 +126,7 @@
 					smp: this.$smp,
 					lesson: lesson
 				}).then(() => {
+					hljs.highlightAll();
 					if(this.$route.hash) {
 						const id = this.$route.hash.replace('#', '');
 						const el = document.getElementById(id);
@@ -176,6 +178,9 @@
 			},
 		},
 		async created() {
+			hljs.configure({
+				cssSelector: "code" 
+			});
 			if(Object.prototype.hasOwnProperty.call(this.$router.currentRoute.params, "lessonPath") && this.tree.length) {
 				this.openLessonFromPath();
 			} else if(Object.prototype.hasOwnProperty.call(this.$router.currentRoute.params, "pagePath")) {
@@ -228,16 +233,16 @@
 			list-style: none
 			margin: 15px 0 0 0
 			padding-left: 0
-		&__item
-			background-color: #ddd
-			border: none
-			color: black
-			padding: 8px 13px
-			text-align: center
-			text-decoration: none
-			display: inline-block
-			margin: 4px 2px
-			border-radius: 10px
+			&__item
+				background-color: #ddd
+				border: none
+				color: black
+				padding: 8px 13px
+				text-align: center
+				text-decoration: none
+				display: inline-block
+				margin: 4px 2px
+				border-radius: 10px
 
 .lesson-html-content
 	/* ::v-deep is used instead of >>> because we are using sass. It is a deep selector to apply styles to the v-html content*/
