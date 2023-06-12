@@ -101,7 +101,7 @@ export default {
 			border-bottom: 1px solid #eee
 			background-color: white
 			padding-bottom: 1em
-			order-radius: map-get($radius, regular)
+			border-radius: map-get($radius, regular)
 			@include box-shadow
 			overflow: auto
 			.content-block

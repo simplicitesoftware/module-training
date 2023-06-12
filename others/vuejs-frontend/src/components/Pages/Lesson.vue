@@ -2,23 +2,23 @@
 	<div class="lesson" :class="lessonViz">
 		<div class="grid">
 			<div class="grid-item lesson-block">
-				<div v-if="lesson.row_id" class="lesson-wrapper">
-				<ul class="breadcrumb">
-					<li class="breadcrumb__item" v-for="(item, index) in breadCrumbItems" :key="index">
-						<span>{{item.title}}</span>
-						<span class="breadcrumb__divider" v-if="index !== breadCrumbItems.length-1">></span>
-					</li>
-				</ul>
-				<ul v-if="lessonTags.length > 0" class="tag">
-					<li class="tag__list" v-for="(tag, index) in lessonTags" :key="index">
-						<span class="tag__item">{{tag}}</span>
-						<span class="breadcrumb__divider" v-if="index !== breadCrumbItems.length-1"></span>
-					</li>
-				</ul>
-				<div class="lesson-html-content" v-if="lesson.html" v-html="lesson.html"></div>
+				<Spinner v-if="spinner"/>
+				<div v-else-if="lesson.html" class="lesson-wrapper">
+					<ul class="breadcrumb">
+						<li class="breadcrumb__item" v-for="(item, index) in breadCrumbItems" :key="index">
+							<span>{{item.title}}</span>
+							<span class="breadcrumb__divider" v-if="index !== breadCrumbItems.length-1">></span>
+						</li>
+					</ul>
+					<ul v-if="lessonTags.length > 0" class="tag">
+						<li class="tag__list" v-for="(tag, index) in lessonTags" :key="index">
+							<span class="tag__item">{{tag}}</span>
+							<span class="breadcrumb__divider" v-if="index !== breadCrumbItems.length-1"></span>
+						</li>
+					</ul>
+					<div class="lesson-html-content" v-if="lesson.html" v-html="lesson.html"></div>
 					<EmptyContent v-else/>
 				</div>
-				<Spinner v-else/>
 			</div>
 			<div v-if="lesson.viz !== 'LINEAR'" class="grid-item slider-block">
 				<Slider v-if="lessonImages.length" :slides="lessonImages" ref="slider"/>
@@ -44,7 +44,29 @@
 	import EmptyContent from "../UI/EmptyContent";
 	import Slider from "../UI/Slider";
 	import {mapGetters, mapState} from "vuex";
-	import hljs from "highlight.js";
+	import hljs from "highlight.js/lib/core";
+	import javascript from 'highlight.js/lib/languages/javascript';
+	import java from 'highlight.js/lib/languages/java';
+	import xml from 'highlight.js/lib/languages/xml';
+	import markdown from 'highlight.js/lib/languages/markdown';
+	import json from 'highlight.js/lib/languages/json';
+	import plaintext from 'highlight.js/lib/languages/plaintext';
+	import less from 'highlight.js/lib/languages/less';
+	import bash from 'highlight.js/lib/languages/bash';
+	import awk from 'highlight.js/lib/languages/awk';
+	import css from 'highlight.js/lib/languages/css';
+
+	// manually importing required languages for performances reasons
+	hljs.registerLanguage('javascript', javascript);
+	hljs.registerLanguage('java', java);
+	hljs.registerLanguage('xml', xml);
+	hljs.registerLanguage('markdown', markdown);
+	hljs.registerLanguage('json', json);
+	hljs.registerLanguage('plaintext', plaintext);
+	hljs.registerLanguage('less', less);
+	hljs.registerLanguage('bash', bash);
+	hljs.registerLanguage('awk', awk);
+	hljs.registerLanguage('css', css);
 
 	function getDocumentURL(vm) {
 		return new Promise((resolve, reject) => {
@@ -65,7 +87,8 @@
 		components: {Slider, Spinner, EmptyContent},
 		data: () => ({
 			alreadyScrolledImages: [],
-			lessonViz: 'linear'
+			lessonViz: 'linear',
+			spinner: true
 		}),
 		watch: {
 			lesson: function (newLesson, oldLesson) {
@@ -126,22 +149,24 @@
 					smp: this.$smp,
 					lesson: lesson
 				}).then(() => {
-					hljs.highlightAll();
+					this.spinner = false;
 					if(this.$route.hash) {
 						const id = this.$route.hash.replace('#', '');
 						const el = document.getElementById(id);
 						el.scrollIntoView();
 					}
+				}).finally(() => {
+					hljs.highlightAll();
 				})
 			},
-			async openLessonFromPath() {
+			openLessonFromPath() {
 				let path = "/" + this.$router.currentRoute.params.lessonPath;
 				if(path.includes(".md")){
 					const mdLessonPath = path.split(".md");
 					path = mdLessonPath[0];
 				}
 				const lesson = this.getLessonFromPath(path);
-				if(!lesson) await this.$router.push('/404');
+				if(!lesson) this.$router.push('/404');
 				else this.openLesson(lesson); 
 			},
 			async openPage() {
@@ -179,7 +204,7 @@
 		},
 		async created() {
 			hljs.configure({
-				cssSelector: "code" 
+				cssSelector: "code"
 			});
 			if(Object.prototype.hasOwnProperty.call(this.$router.currentRoute.params, "lessonPath") && this.tree.length) {
 				this.openLessonFromPath();
