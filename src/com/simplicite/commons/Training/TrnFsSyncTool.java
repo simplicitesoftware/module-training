@@ -81,8 +81,14 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	}
 	
 	public static void triggerSync() throws TrnSyncException {
-		TrnFsSyncTool t = new TrnFsSyncTool(Grant.getSystemAdmin());
-		t.sync();
+        try {
+            Grant g = Grant.getSystemAdmin();
+            AppLog.info("Triggering synchronisation", g);
+            TrnFsSyncTool t = new TrnFsSyncTool(g);
+            t.sync();
+        } catch(Exception e) {
+            throw new TrnSyncException("Synchronization failed: "+e.getMessage());
+        }
 	}
 	
 	public TrnFsSyncTool(Grant g) {

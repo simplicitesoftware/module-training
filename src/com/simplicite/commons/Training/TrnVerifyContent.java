@@ -10,6 +10,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 import org.json.JSONArray;
+import org.json.JSONException;
 
 // This code is also used in the content migration script. 
 // see CheckDocs2.java -> https://github.com/simplicitesoftware/migdocs2
@@ -86,33 +87,45 @@ public class TrnVerifyContent implements java.io.Serializable {
     }
 
     private static void validateTagsJson(File f) throws TrnSyncException {
-        JSONArray tags = new JSONArray(readFile(f.getPath()));
-        for(int i = 0; i < tags.length(); i++) {
-            JSONObject tag = tags.getJSONObject(i);
-            if(StringUtils.isEmpty(tag.getString("code")) 
-            || StringUtils.isEmpty(tag.getJSONObject("translation").toString())) {
-                throw new TrnSyncException("TRN_SYNC_ROOT_TAGS_JSON_NON_CONFORMITY", f);
+        try {
+            JSONArray tags = new JSONArray(readFile(f.getPath()));
+            for(int i = 0; i < tags.length(); i++) {
+                JSONObject tag = tags.getJSONObject(i);
+                if(StringUtils.isEmpty(tag.getString("code")) 
+                || StringUtils.isEmpty(tag.getJSONObject("translation").toString())) {
+                    throw new TrnSyncException("TRN_SYNC_ROOT_TAGS_JSON_NON_CONFORMITY", f);
+                }
             }
+        } catch(JSONException e) {
+            throw new TrnSyncException("tags.json unvalid format: "+e.getMessage());
         }
     }
 
     private static void validateUrlRewritingJson(File f) throws TrnSyncException {
-        JSONArray urlRewriting = new JSONArray(readFile(f.getPath()));
-        for(int i = 0; i < urlRewriting.length(); i++) {
-            JSONObject row = urlRewriting.getJSONObject(i);
-            if(StringUtils.isEmpty(row.getString("sourceUrl")) 
-            || StringUtils.isEmpty(row.getString("destinationUrl"))) {
-                throw new TrnSyncException("TRN_SYNC_ROOT_URL_REWRITING_JSON_NON_CONFORMITY", f);
+        try {
+            JSONArray urlRewriting = new JSONArray(readFile(f.getPath()));
+            for(int i = 0; i < urlRewriting.length(); i++) {
+                JSONObject row = urlRewriting.getJSONObject(i);
+                if(StringUtils.isEmpty(row.getString("sourceUrl")) 
+                || StringUtils.isEmpty(row.getString("destinationUrl"))) {
+                    throw new TrnSyncException("TRN_SYNC_ROOT_URL_REWRITING_JSON_NON_CONFORMITY", f);
+                }
             }
+        } catch(JSONException e) {
+            throw new TrnSyncException("url_rewriting.json unvalid format: "+e.getMessage());
         }
     }
 
     private static void validateThemeJson(File f) throws TrnSyncException {
-        JSONObject json = new JSONObject(readFile(f.getPath()));
-        if(StringUtils.isEmpty(json.getString("main_color"))
-        || StringUtils.isEmpty(json.getString("secondary_color"))
-        || StringUtils.isEmpty(json.getString("logo_path"))) {
-            throw new TrnSyncException("TRN_SYNC_ROOT_THEME_JSON_NON_CONFORMITY");
+        try {
+            JSONObject json = new JSONObject(readFile(f.getPath()));
+            if(StringUtils.isEmpty(json.getString("main_color"))
+            || StringUtils.isEmpty(json.getString("secondary_color"))
+            || StringUtils.isEmpty(json.getString("logo_path"))) {
+                throw new TrnSyncException("TRN_SYNC_ROOT_THEME_JSON_NON_CONFORMITY");
+            }
+        } catch(JSONException e) {
+            throw new TrnSyncException("theme.json unvalid format: "+e.getMessage());
         }
     }
 	
@@ -153,7 +166,7 @@ public class TrnVerifyContent implements java.io.Serializable {
 	
 	private static boolean isPic(File f){
 		String extension = FilenameUtils.getExtension(f.getName()).toLowerCase();
-		return "png".equals(extension) || "jpg".equals(extension);
+		return "png".equals(extension) || "jpg".equals(extension) || "gif".equals(extension) || "svg".equals(extension);
 	}
 	
 	private static boolean isVideo(File f){
