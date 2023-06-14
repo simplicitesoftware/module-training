@@ -164,7 +164,7 @@ public class TrnVerifyContent implements java.io.Serializable {
 		return FilenameUtils.getExtension(f.getName()).equalsIgnoreCase("md");
 	}
 	
-	private static boolean isPic(File f){
+	public static boolean isPic(File f){
 		String extension = FilenameUtils.getExtension(f.getName()).toLowerCase();
 		return "png".equals(extension) || "jpg".equals(extension) || "gif".equals(extension) || "svg".equals(extension);
 	}
