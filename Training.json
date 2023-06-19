@@ -3548,6 +3548,25 @@
    "list": [
     {
      "object": "ObjectExternal",
+     "userkey": "TrnCommunityIndexService",
+     "item": {
+      "obe_name": "TrnCommunityIndexService",
+      "obe_type": "E",
+      "obe_url": null,
+      "obe_comment": null,
+      "obe_help": null,
+      "obe_class": null,
+      "obe_script_id": {
+       "path": "src/com/simplicite/extobjects/Training/TrnCommunityIndexService.java",
+       "mime": "text/plain",
+       "name": "TrnCommunityIndexService.java"
+      },
+      "obe_icon": null,
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "ObjectExternal",
      "userkey": "TrnExtUrlRedirector",
      "item": {
       "obe_name": "TrnExtUrlRedirector",
@@ -7390,6 +7409,19 @@
     },
     {
      "object": "Function",
+     "userkey": "TRN_COMMUNITY_INDEX_SERVICE_E",
+     "item": {
+      "fct_name": "TRN_COMMUNITY_INDEX_SERVICE_E",
+      "fct_object_id__obj_type": "E",
+      "fct_object_id__obj_name": "TrnCommunityIndexService",
+      "fct_function": "L",
+      "fct_action_id__act_name": null,
+      "fct_view_id__viw_name": null,
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "Function",
      "userkey": "TRN_CTR_CRUD",
      "item": {
       "fct_name": "TRN_CTR_CRUD",
@@ -7795,6 +7827,20 @@
       "grt_function_id__fct_name": "TRN_CTR_R",
       "grt_function_id__fct_object_id__obj_type": "O",
       "grt_function_id__fct_object_id__obj_name": "TrnCategoryTranslate",
+      "grt_function_id__fct_action_id__act_name": null,
+      "grt_function_id__fct_function": "L",
+      "grt_activ": true,
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "Grant",
+     "userkey": "PUBLIC~TRN_COMMUNITY_INDEX_SERVICE_E~TrnCommunityIndexService~",
+     "item": {
+      "grt_group_id__grp_name": "PUBLIC",
+      "grt_function_id__fct_name": "TRN_COMMUNITY_INDEX_SERVICE_E",
+      "grt_function_id__fct_object_id__obj_type": "E",
+      "grt_function_id__fct_object_id__obj_name": "TrnCommunityIndexService",
       "grt_function_id__fct_action_id__act_name": null,
       "grt_function_id__fct_function": "L",
       "grt_activ": true,
@@ -11076,6 +11122,18 @@
    "list": [
     {
      "object": "TranslateExternal",
+     "userkey": "O~TrnCommunityIndexService~ENU",
+     "item": {
+      "tsl_typeObject": "O",
+      "tsl_id__obe_name": "TrnCommunityIndexService",
+      "tsl_lang": "ENU",
+      "tsl_value": "Community index service",
+      "tsl_help": null,
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "TranslateExternal",
      "userkey": "O~TrnExtUrlRedirector~ENU",
      "item": {
       "tsl_typeObject": "O",
@@ -11166,6 +11224,18 @@
       "tsl_id__obe_name": "TrnTreeService",
       "tsl_lang": "ENU",
       "tsl_value": "TrnTreeService",
+      "tsl_help": null,
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "TranslateExternal",
+     "userkey": "O~TrnCommunityIndexService~FRA",
+     "item": {
+      "tsl_typeObject": "O",
+      "tsl_id__obe_name": "TrnCommunityIndexService",
+      "tsl_lang": "FRA",
+      "tsl_value": "Community index service",
       "tsl_help": null,
       "row_module_id__mdl_name": "Training"
      }
