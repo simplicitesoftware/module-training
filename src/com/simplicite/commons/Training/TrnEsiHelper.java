@@ -1,6 +1,5 @@
 package com.simplicite.commons.Training;
 
-
 import org.json.JSONObject;
 
 import com.simplicite.util.AppLog;

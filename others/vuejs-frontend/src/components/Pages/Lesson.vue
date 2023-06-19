@@ -57,7 +57,7 @@
 	import css from 'highlight.js/lib/languages/css';
 	import dockerfile from 'highlight.js/lib/languages/dockerfile';
 	import yaml from 'highlight.js/lib/languages/yaml';
-
+    import ldif from 'highlight.js/lib/languages/ldif';
 
 	// manually importing required languages for performances reasons
 	hljs.registerLanguage('javascript', javascript);
@@ -72,6 +72,7 @@
 	hljs.registerLanguage('css', css);
 	hljs.registerLanguage('dockerfile', dockerfile);
 	hljs.registerLanguage('yaml', yaml);
+    hljs.registerLanguage('ldif', ldif);
 
 	function getDocumentURL(vm) {
 		return new Promise((resolve, reject) => {
