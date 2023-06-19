@@ -55,6 +55,9 @@
 	import bash from 'highlight.js/lib/languages/bash';
 	import awk from 'highlight.js/lib/languages/awk';
 	import css from 'highlight.js/lib/languages/css';
+	import dockerfile from 'highlight.js/lib/languages/dockerfile';
+	import yaml from 'highlight.js/lib/languages/yaml';
+
 
 	// manually importing required languages for performances reasons
 	hljs.registerLanguage('javascript', javascript);
@@ -67,6 +70,8 @@
 	hljs.registerLanguage('bash', bash);
 	hljs.registerLanguage('awk', awk);
 	hljs.registerLanguage('css', css);
+	hljs.registerLanguage('dockerfile', dockerfile);
+	hljs.registerLanguage('yaml', yaml);
 
 	function getDocumentURL(vm) {
 		return new Promise((resolve, reject) => {

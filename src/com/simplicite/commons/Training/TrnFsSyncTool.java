@@ -81,8 +81,14 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	}
 	
 	public static void triggerSync() throws TrnSyncException {
-		TrnFsSyncTool t = new TrnFsSyncTool(Grant.getSystemAdmin());
-		t.sync();
+        try {
+            Grant g = Grant.getSystemAdmin();
+            AppLog.info("Triggering synchronisation", g);
+            TrnFsSyncTool t = new TrnFsSyncTool(g);
+            t.sync();
+        } catch(Exception e) {
+            throw new TrnSyncException("Synchronization failed: "+e.getMessage());
+        }
 	}
 	
 	public TrnFsSyncTool(Grant g) {
@@ -780,15 +786,10 @@ public class TrnFsSyncTool implements java.io.Serializable {
 			pics.put(lang, new JSONArray());
 		
 		for(File f : lsnDir.listFiles())
-			if(isPic(f))
+			if(TrnVerifyContent.isPic(f))
 				pics.getJSONArray(getLocale(f)).put(f.getPath());
 		
 		return pics;
-	}
-
-    private boolean isPic(File f){
-		String extension = FilenameUtils.getExtension(f.getName()).toLowerCase();
-		return "png".equals(extension) || "jpg".equals(extension);
 	}
 	
 	private String getLocale(File f){
