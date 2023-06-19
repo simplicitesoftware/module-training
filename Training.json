@@ -6,7 +6,7 @@
   "mdl_prefix": "trn",
   "mdl_version": "2.8",
   "mdl_type": "A",
-  "mdl_url": "{\n\t\"type\": \"git\",\n\t\"origin\": { \n\t\t\"uri\": \"https://github.com/simplicitesoftware/module-training.git\",\n\t\t\"branch\": \"master\"\n\t}\n}",
+  "mdl_url": "{\n\t\"type\": \"git\",\n\t\"origin\": { \n\t\t\"uri\": \"https://github.com/simplicitesoftware/module-training.git\",\n\t\t\"branch\": \"master\",\n\t\t\"username\": \"germainaubert\",\n        \"password\": \"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\"\n\t}\n}",
   "mdl_comment": "The module for the Simplicité Training platform.\n\nThis module objective is to offer an easy way to deploy a custom documentation.\nIt's a *Category* / *Lesson* / *Translations* model with a few additions such as *tags* or *pages*.\n\nThe training module not only gives the ability to manage content, but it also serves a Vue.js front end (see the external object *TrnFront*).\n<br>\nThe front end is served on the root url of your instance. For further details on the site mapping, see system parameter *URI_MAPPING*.\n\nMore info available on the front end default home page."
  },
  "links": [
@@ -22,7 +22,6 @@
      "item": {
       "sys_code": "TRN_CONFIG",
       "sys_value": "{\n    \"content_edition\": {\n        \"mode\": \"UI\"\n    },\n    \"content_indexation\": {\n        \"engine\": \"simplicite\"\n    }\n}",
-      "sys_value2": "",
       "sys_type": "PRV",
       "sys_desc": "Module Training configurations\n---\n\n---\n\n<table>\n<tr>\n<td>UI<\/td>\n<td>\n\n```json\n{\n    \"content_edition\": {\n        \"mode\": \"UI\"\n    },\n    \"content_indexation\": {\n        \"engine\": \"simplicite\"\n    }\n}\n```\n\n<\/td>\n<td>\nEditing through UI, using Simplicité indexing.\n<\/td>\n<\/tr>\n<tr>\n<td>UI + ElasticSearch<\/td>\n<td>\n\n```json\n{\n    \"content_edition\": {\n        \"mode\": \"UI\"\n    },\n    \"content_indexation\": {\n        \"engine\": \"elasticsearch\",\n        \"esi_config\": {\n            \"instance\": \"<instance url>\",\n            \"index\": \"<elasticsearch index>\",\n            \"public_credentials\":\"<user:password>\"\n        }\n    }\n}\n```\n\n<\/td>\n<td>\nThe ElasticSearch mode works with every configuration, just change the value of the attribute <strong>engine<\/strong> to <strong>elasticsearch<\/strong>, and add the <strong>esi_config<\/strong> object as shown in the example.\n<\/td>\n<\/tr>\n<tr>\n<td>FILESYSTEM<\/td>\n<td>\n\n```json\n{\n    \"content_edition\": {\n        \"mode\": \"FILESYSTEM\",\n    },\n    \"content_indexation\": {\n        \"engine\": \"simplicite\"\n    }\n}\n```\n\n<\/td>\n<td>\nThe content cannot be changed through the UI. Instead, the content is handled by the filesystem and is loaded in the module using the synchronisation mechanism.\n<\/td>\n<\/tr>\n<tr>\n<td>FILESYSTEM<\/br>{ Git { Simple }}<\/td>\n<td>\n\n```json\n{\n    \"content_edition\": {\n        \"mode\": \"FILESYSTEM\",\n        \"git_checkout_service\": {\n            \"repository\": {\n                \"uri\": \"<uri>\",\n                \"branch\": \"<branch>\"\n            }\n        }\n    },\n    \"content_indexation\": {\n        \"engine\": \"simplicite\"\n    }\n}\n```\n\n<\/td>\n<td>\nSame as above, but the content is fetched from a git repository.\n<\/td>\n<\/tr>\n<tr>\n<td>FILESYSTEM<\/br>{ Git { Authentified }}<\/td>\n<td>\n\n```json\n{\n    \"content_edition\": {\n        \"mode\": \"FILESYSTEM\",\n        \"git_checkout_service\": {\n            \"repository\": {\n                \"uri\": \"<uri>\",\n                \"branch\": \"<branch\",\n                \"creds\": {\n                    \"username\": \"<username>\",\n                    \"token\": \"<token>\"\n                } \n            }\n        }\n    },\n    \"content_indexation\": {\n        \"engine\": \"simplicite\"\n    }\n}\n```\n\n<\/td>\n<td>\nSame as above, with git credentials.\n<\/td>\n<\/tr>\n<\/table>\n\n<style>\n    td {\n        padding: 10px\n    }\n<\/style>",
       "row_module_id__mdl_name": "Training"
@@ -34,7 +33,6 @@
      "item": {
       "sys_code": "URI_MAPPINGS",
       "sys_value": "[]",
-      "sys_value2": "[\n\t{ \"source\": \"^/sitemap.txt$\", \"destination\": \"/api/ext/TrnSitemap\" },\n\t{ \"source\": \"^$|^/$|(^/(?:lesson|page|category|sandbox|sandbox\\\\-demand|tag\\\\-no\\\\-content|js|css|img|public|404).*)$\", \"destination\": \"/ext/TrnFront$1\" },\n\t{ \"source\": \"^(.*)$\", \"destination\": \"/ext/TrnExtUrlRedirector$1\" }\n]",
       "sys_type": "PRV",
       "sys_desc": "Optional custom URI mappings, e.g.\n\n```json\n[\n\t{ \"source\": \"^/v1(.+)$\", \"destination\": \"/api/ext/MyAPIv1$1\" },\n\t{ \"source\": \"^/site$\",   \"destination\": \"/ext/MyWebSiteSite\" }\n]\n```",
       "row_module_id__mdl_name": "Training"
@@ -123,7 +121,7 @@
      "usr_menu": true,
      "usr_menu_defcollapsed": false,
      "usr_menu_defdomain_id__obd_name": null,
-     "usr_last_logon": "2023-05-17 10:25:26",
+     "usr_last_logon": "2023-06-13 14:39:07",
      "usr_dateformat": null,
      "usr_numformat": null,
      "usr_lang_pref": "FRA",
@@ -137,36 +135,19 @@
    "label": "User parameter",
    "icon": "img/system/system_param",
    "field": "row_module_id",
-   "list": [
-    {
-     "object": "UserSysParam",
-     "userkey": "training-sync~DISPOSITION",
-     "item": {
-      "usp_user_id__usr_login": "training-sync",
-      "usp_param_id__sys_code": "DISPOSITION",
-      "usp_value": null,
-      "usp_param_id__sys_type": "LFL",
-      "usp_param_id__sys_value": "default",
-      "usp_param_id__sys_value2": null,
-      "usp_param_id__sys_desc": "Webapp disposition, ex: default, myapp, ...",
-      "row_module_id__mdl_name": "Training"
-     }
-    },
-    {
-     "object": "UserSysParam",
-     "userkey": "training-sync~FORCE_CHANGE_PASSWORD",
-     "item": {
-      "usp_user_id__usr_login": "training-sync",
-      "usp_param_id__sys_code": "FORCE_CHANGE_PASSWORD",
-      "usp_value": "yes",
-      "usp_param_id__sys_type": "PRV",
-      "usp_param_id__sys_value": "empty",
-      "usp_param_id__sys_value2": null,
-      "usp_param_id__sys_desc": "Force password change (set at user level)",
-      "row_module_id__mdl_name": "Training"
-     }
+   "list": [{
+    "object": "UserSysParam",
+    "userkey": "training-sync~FORCE_CHANGE_PASSWORD",
+    "item": {
+     "usp_user_id__usr_login": "training-sync",
+     "usp_param_id__sys_code": "FORCE_CHANGE_PASSWORD",
+     "usp_value": "yes",
+     "usp_param_id__sys_type": "PRV",
+     "usp_param_id__sys_value": "empty",
+     "usp_param_id__sys_desc": "Force password change (set at user level)",
+     "row_module_id__mdl_name": "Training"
     }
-   ]
+   }]
   },
   {
    "object": "Group",
@@ -3986,7 +3967,7 @@
       "obo_list_edit": ["N"],
       "obo_useform": true,
       "obo_title": null,
-      "obo_icon": "img/color/document",
+      "obo_icon": "img/color/copy_file",
       "obo_refcount": false,
       "obo_tree": false,
       "obo_viewmode": "T",
@@ -4140,7 +4121,7 @@
       "obo_list_edit": ["N"],
       "obo_useform": true,
       "obo_title": null,
-      "obo_icon": "img/color/picture",
+      "obo_icon": "img/color/panorama",
       "obo_refcount": false,
       "obo_tree": false,
       "obo_viewmode": "T",
