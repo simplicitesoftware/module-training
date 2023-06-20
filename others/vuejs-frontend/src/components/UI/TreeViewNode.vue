@@ -46,12 +46,12 @@ export default {
             'padding-left': `10px`,
             '--background-color': this.themeValues.primaryColor,  
             } // Root elements
-            else if (this.node.title) return {
+            else if (this.node.is_category) return {
             'padding-left': `${(this.depth + 1) * 20}px`,
             '--background-color': this.themeValues.primaryColor,
             } // Lessons elements. +5 is here because of the margin on the span element. This way it is more clean
             else return {
-            'padding-left': `${this.depth * 20}px`,
+            'padding-left': `${(this.depth + 1) * 24}px`,
             '--background-color': this.themeValues.primaryColor,
             }
         },
@@ -98,10 +98,10 @@ export default {
 		&:hover
 			cursor: pointer
 			background-color: var(--background-color)
-			filter: brightness(120%)
+			filter: brightness(150%)
 		&.active
 			background-color: var(--background-color)
-			filter: brightness(120%)
+			filter: brightness(150%)
 		span
 			margin-left: map-get($margins, x-small)
 		.tree__arrow
