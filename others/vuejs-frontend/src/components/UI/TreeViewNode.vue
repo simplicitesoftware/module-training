@@ -98,10 +98,10 @@ export default {
 		&:hover
 			cursor: pointer
 			background-color: var(--background-color)
-			filter: brightness(150%)
+			filter: brightness(130%)
 		&.active
 			background-color: var(--background-color)
-			filter: brightness(150%)
+			filter: brightness(130%)
 		span
 			margin-left: map-get($margins, x-small)
 		.tree__arrow
