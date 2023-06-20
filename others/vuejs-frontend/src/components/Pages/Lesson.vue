@@ -162,7 +162,6 @@
 					hljs.highlightAll();
                     if(this.$route.hash) {
 						const id = this.$route.hash.replace('#', '');
-                        console.log(document)
 						const el = document.getElementById(id);
 						el.scrollIntoView();
 					}
