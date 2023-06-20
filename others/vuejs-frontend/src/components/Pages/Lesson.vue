@@ -58,6 +58,7 @@
 	import dockerfile from 'highlight.js/lib/languages/dockerfile';
 	import yaml from 'highlight.js/lib/languages/yaml';
     import ldif from 'highlight.js/lib/languages/ldif';
+    import nginx from 'highlight.js/lib/languages/nginx';
 
 	// manually importing required languages for performances reasons
 	hljs.registerLanguage('javascript', javascript);
@@ -73,6 +74,7 @@
 	hljs.registerLanguage('dockerfile', dockerfile);
 	hljs.registerLanguage('yaml', yaml);
     hljs.registerLanguage('ldif', ldif);
+    hljs.registerLanguage('nginx', nginx);
 
 	function getDocumentURL(vm) {
 		return new Promise((resolve, reject) => {
@@ -156,13 +158,14 @@
 					lesson: lesson
 				}).then(() => {
 					this.spinner = false;
-					if(this.$route.hash) {
+				}).finally(() => {
+					hljs.highlightAll();
+                    if(this.$route.hash) {
 						const id = this.$route.hash.replace('#', '');
+                        console.log(document)
 						const el = document.getElementById(id);
 						el.scrollIntoView();
 					}
-				}).finally(() => {
-					hljs.highlightAll();
 				})
 			},
 			openLessonFromPath() {
