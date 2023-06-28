@@ -781,7 +781,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
     private JSONObject getPics(File lsnDir) {
         JSONObject pics = new JSONObject();
         for (String lang : langCodes) {
-            pics.put(lang, new JSONArray());    
+            pics.put(lang, new JSONArray());
         }
 
         for (File f : lsnDir.listFiles()) {
@@ -850,5 +850,4 @@ public class TrnFsSyncTool implements java.io.Serializable {
         return lsn;
     }
 
-    
 }

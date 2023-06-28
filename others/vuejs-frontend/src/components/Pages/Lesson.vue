@@ -59,6 +59,7 @@
 	import yaml from 'highlight.js/lib/languages/yaml';
     import ldif from 'highlight.js/lib/languages/ldif';
     import nginx from 'highlight.js/lib/languages/nginx';
+    import apache from 'highlight.js/lib/languages/apache';
 
 	// manually importing required languages for performances reasons
 	hljs.registerLanguage('javascript', javascript);
@@ -75,6 +76,7 @@
 	hljs.registerLanguage('yaml', yaml);
     hljs.registerLanguage('ldif', ldif);
     hljs.registerLanguage('nginx', nginx);
+    hljs.registerLanguage('apache', apache);
 
 	function getDocumentURL(vm) {
 		return new Promise((resolve, reject) => {
