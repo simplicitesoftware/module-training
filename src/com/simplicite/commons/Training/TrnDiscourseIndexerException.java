@@ -3,23 +3,23 @@ package com.simplicite.commons.Training;
 import kong.unirest.json.JSONObject;
 
 /**
- * Shared code TrnSyncCommunityException
+ * Shared code TrnDiscourseIndexerException
  */
-public class TrnSyncCommunityException extends Exception {
+public class TrnDiscourseIndexerException extends Exception {
 	private static final long serialVersionUID = 1L;
 
 	private final String additional;
-	public TrnSyncCommunityException(String msg){
+	public TrnDiscourseIndexerException(String msg){
 		super(msg);
 		this.additional = "";
 	}
 	
-	public TrnSyncCommunityException(String msg, String additional){
+	public TrnDiscourseIndexerException(String msg, String additional){
 		super(msg);
 		this.additional = additional;
 	}
 	
-	public TrnSyncCommunityException(String msg, JSONObject json){
+	public TrnDiscourseIndexerException(String msg, JSONObject json){
 		super(msg);
 		this.additional = json.toString();
 	}

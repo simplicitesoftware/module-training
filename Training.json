@@ -75,7 +75,7 @@
      "mod_doc": {
       "path": "files/Model/TrainingModel.svg",
       "mime": "image/svg+xml",
-      "name": "model.svg"
+      "name": "TrainingModel.svg"
      },
      "mod_json": null,
      "mod_image": {
@@ -8862,11 +8862,11 @@
     },
     {
      "object": "Script",
-     "userkey": "TrnSyncCommunity",
+     "userkey": "TrnDiscourseIndexer",
      "item": {
-      "scr_code": "TrnSyncCommunity",
+      "scr_code": "TrnDiscourseIndexer",
       "scr_file": {
-       "path": "src/com/simplicite/commons/Training/TrnSyncCommunity.java",
+       "path": "src/com/simplicite/commons/Training/TrnDiscourseIndexer.java",
        "mime": "text/plain",
        "name": "TrnSyncCommunity.java"
       },
@@ -8876,13 +8876,27 @@
     },
     {
      "object": "Script",
-     "userkey": "TrnSyncCommunityException",
+     "userkey": "TrnDiscourseIndexerException",
      "item": {
-      "scr_code": "TrnSyncCommunityException",
+      "scr_code": "TrnDiscourseIndexerException",
       "scr_file": {
-       "path": "src/com/simplicite/commons/Training/TrnSyncCommunityException.java",
+       "path": "src/com/simplicite/commons/Training/TrnDiscourseIndexerException.java",
        "mime": "text/plain",
        "name": "TrnSyncCommunityException.java"
+      },
+      "scr_type": "JSR",
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "Script",
+     "userkey": "TrnDiscourseTool",
+     "item": {
+      "scr_code": "TrnDiscourseTool",
+      "scr_file": {
+       "path": "src/com/simplicite/commons/Training/TrnDiscourseTool.java",
+       "mime": "text/plain",
+       "name": "TrnDiscourseTool.java"
       },
       "scr_type": "JSR",
       "row_module_id__mdl_name": "Training"

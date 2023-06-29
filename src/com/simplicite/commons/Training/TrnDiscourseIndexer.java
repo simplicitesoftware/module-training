@@ -6,9 +6,9 @@ import com.simplicite.util.Grant;
 
 
 /**
- * Shared code TrnSyncCommunity
+ * Shared code TrnDiscourseIndexer
  */
-public class TrnSyncCommunity implements java.io.Serializable {
+public class TrnDiscourseIndexer implements java.io.Serializable {
   private static final long serialVersionUID = 1L;
 
   private final String DISCOURSE_URL;
@@ -17,7 +17,7 @@ public class TrnSyncCommunity implements java.io.Serializable {
 
   Grant g;
 
-  public TrnSyncCommunity(Grant g) {
+  public TrnDiscourseIndexer(Grant g) {
     this.g = g;
     this.DISCOURSE_URL = "test";
     this.DISCOURSE_TAGS = new JSONArray();
