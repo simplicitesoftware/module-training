@@ -8865,7 +8865,11 @@
      "userkey": "TrnSyncCommunity",
      "item": {
       "scr_code": "TrnSyncCommunity",
-      "scr_file": null,
+      "scr_file": {
+       "path": "src/com/simplicite/commons/Training/TrnSyncCommunity.java",
+       "mime": "text/plain",
+       "name": "TrnSyncCommunity.java"
+      },
       "scr_type": "JSR",
       "row_module_id__mdl_name": "Training"
      }
