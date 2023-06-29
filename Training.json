@@ -8859,6 +8859,16 @@
       "scr_type": "JSR",
       "row_module_id__mdl_name": "Training"
      }
+    },
+    {
+     "object": "Script",
+     "userkey": "TrnSyncCommunity",
+     "item": {
+      "scr_code": "TrnSyncCommunity",
+      "scr_file": null,
+      "scr_type": "JSR",
+      "row_module_id__mdl_name": "Training"
+     }
     }
    ]
   },
