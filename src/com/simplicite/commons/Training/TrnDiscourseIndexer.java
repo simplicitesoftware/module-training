@@ -8,8 +8,6 @@ import com.simplicite.util.Grant;
 import com.simplicite.util.exceptions.HTTPException;
 import com.simplicite.util.tools.RESTTool;
 
-import kong.unirest.json.JSONObject;
-
 /**
  * Shared code TrnDiscourseIndexer
  */
@@ -40,5 +38,4 @@ public class TrnDiscourseIndexer implements java.io.Serializable {
             AppLog.error(getClass(), "indexAll", "Error: ", e, g);
         }
     }
-
 }
