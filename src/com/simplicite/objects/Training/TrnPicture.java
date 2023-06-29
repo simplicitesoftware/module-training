@@ -1,9 +1,10 @@
 package com.simplicite.objects.Training;
 
-import java.util.*;
-import com.simplicite.util.*;
-import com.simplicite.util.tools.*;
-import com.simplicite.commons.Training.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.simplicite.commons.Training.TrnObject;
+import com.simplicite.util.ObjectField;
 
 /**
  * Business object TrnPicture

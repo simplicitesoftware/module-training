@@ -2,8 +2,10 @@ package com.simplicite.objects.Training;
 
 import com.simplicite.util.ObjectDB;
 import com.simplicite.util.AppLog;
-import com.simplicite.commons.Training.*;
-import org.json.*;
+
+import org.json.JSONObject;
+
+import com.simplicite.commons.Training.TrnObject;
 
 /**
  * Business object TrnTag
@@ -47,8 +49,7 @@ public class TrnTag extends TrnObject {
 				tsl.setFieldValue(TAG_ID, getRowId());
 				tsl.getTool().validateAndCreate();
 			}
-		}
-		catch(Exception e){
+		}catch(Exception e){
 			AppLog.error(e, getGrant());
 		}
 

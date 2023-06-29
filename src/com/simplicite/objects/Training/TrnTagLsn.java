@@ -1,13 +1,9 @@
 package com.simplicite.objects.Training;
 
-import java.util.*;
-
-import com.simplicite.util.*;
-import com.simplicite.util.exceptions.*;
-import com.simplicite.util.tools.*;
-import com.simplicite.commons.Training.*;
 import org.json.JSONArray;
 
+import com.simplicite.commons.Training.TrnObject;
+import com.simplicite.util.Tool;
 
 /**
  * Business object TrnTagLsn
