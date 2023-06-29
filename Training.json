@@ -75,7 +75,7 @@
      "mod_doc": {
       "path": "files/Model/TrainingModel.svg",
       "mime": "image/svg+xml",
-      "name": "TrainingModel.svg"
+      "name": "model.svg"
      },
      "mod_json": null,
      "mod_image": {
@@ -8869,6 +8869,20 @@
        "path": "src/com/simplicite/commons/Training/TrnSyncCommunity.java",
        "mime": "text/plain",
        "name": "TrnSyncCommunity.java"
+      },
+      "scr_type": "JSR",
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "Script",
+     "userkey": "TrnSyncCommunityException",
+     "item": {
+      "scr_code": "TrnSyncCommunityException",
+      "scr_file": {
+       "path": "src/com/simplicite/commons/Training/TrnSyncCommunityException.java",
+       "mime": "text/plain",
+       "name": "TrnSyncCommunityException.java"
       },
       "scr_type": "JSR",
       "row_module_id__mdl_name": "Training"
