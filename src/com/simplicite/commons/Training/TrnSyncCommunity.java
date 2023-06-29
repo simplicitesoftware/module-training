@@ -1,17 +1,27 @@
 package com.simplicite.commons.Training;
 
-import java.util.*;
+import org.json.JSONArray;
 
-import com.simplicite.util.*;
-import com.simplicite.bpm.*;
-import com.simplicite.util.exceptions.*;
-import com.simplicite.util.tools.*;
+import com.simplicite.util.Grant;
+
 
 /**
  * Shared code TrnSyncCommunity
  */
 public class TrnSyncCommunity implements java.io.Serializable {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	
+  private final String DISCOURSE_URL;
+  private final JSONArray DISCOURSE_TAGS;
+  private final String AUTH_TOKEN; 
+
+  Grant g;
+
+  public TrnSyncCommunity(Grant g) {
+    this.g = g;
+    this.DISCOURSE_URL = "test";
+    this.DISCOURSE_TAGS = new JSONArray();
+    this.AUTH_TOKEN= "test";
+  }
+
 }
