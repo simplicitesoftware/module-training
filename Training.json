@@ -7299,6 +7299,31 @@
    "list": [
     {
      "object": "Action",
+     "userkey": "discourseIndexer",
+     "item": {
+      "act_name": "discourseIndexer",
+      "act_type": "L",
+      "act_async": "0",
+      "act_job_depth": null,
+      "act_method": "indexDiscourse",
+      "act_script": null,
+      "act_url": null,
+      "act_image": "img/color/chat",
+      "act_confirm": true,
+      "act_confirm_expr": null,
+      "act_confirm_ui": null,
+      "act_plus": false,
+      "act_comment": null,
+      "row_module_id__mdl_name": "Training",
+      "act_exec": "BCK",
+      "act_count": null,
+      "act_order": 3,
+      "act_color": null,
+      "act_color_bg": null
+     }
+    },
+    {
+     "object": "Action",
      "userkey": "forceDirSync",
      "item": {
       "act_name": "forceDirSync",
@@ -7377,6 +7402,19 @@
       "fct_object_id__obj_name": "TrnCategory",
       "fct_function": "CMS",
       "fct_action_id__act_name": null,
+      "fct_view_id__viw_name": null,
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "Function",
+     "userkey": "TRN_CAT_DISCOURSE_INDEXER_A",
+     "item": {
+      "fct_name": "TRN_CAT_DISCOURSE_INDEXER_A",
+      "fct_object_id__obj_type": "O",
+      "fct_object_id__obj_name": "TrnCategory",
+      "fct_function": "A",
+      "fct_action_id__act_name": "discourseIndexer",
       "fct_view_id__viw_name": null,
       "row_module_id__mdl_name": "Training"
      }
@@ -8095,6 +8133,20 @@
       "grt_function_id__fct_object_id__obj_name": "TrnCategory",
       "grt_function_id__fct_action_id__act_name": null,
       "grt_function_id__fct_function": "CMS",
+      "grt_activ": true,
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "Grant",
+     "userkey": "TRN_ADMIN~TRN_CAT_DISCOURSE_INDEXER_A~TrnCategory~discourseIndexer",
+     "item": {
+      "grt_group_id__grp_name": "TRN_ADMIN",
+      "grt_function_id__fct_name": "TRN_CAT_DISCOURSE_INDEXER_A",
+      "grt_function_id__fct_object_id__obj_type": "O",
+      "grt_function_id__fct_object_id__obj_name": "TrnCategory",
+      "grt_function_id__fct_action_id__act_name": "discourseIndexer",
+      "grt_function_id__fct_function": "A",
       "grt_activ": true,
       "row_module_id__mdl_name": "Training"
      }
@@ -8868,7 +8920,7 @@
       "scr_file": {
        "path": "src/com/simplicite/commons/Training/TrnDiscourseIndexer.java",
        "mime": "text/plain",
-       "name": "TrnSyncCommunity.java"
+       "name": "TrnDiscourseIndexer.java"
       },
       "scr_type": "JSR",
       "row_module_id__mdl_name": "Training"
@@ -8882,7 +8934,7 @@
       "scr_file": {
        "path": "src/com/simplicite/commons/Training/TrnDiscourseIndexerException.java",
        "mime": "text/plain",
-       "name": "TrnSyncCommunityException.java"
+       "name": "TrnDiscourseIndexerException.java"
       },
       "scr_type": "JSR",
       "row_module_id__mdl_name": "Training"
@@ -8912,6 +8964,18 @@
    "list": [
     {
      "object": "TranslateAction",
+     "userkey": "A~discourseIndexer~ENU",
+     "item": {
+      "tsl_typeAction": "A",
+      "tsl_id__act_name": "discourseIndexer",
+      "tsl_lang": "ENU",
+      "tsl_value": "Index Community",
+      "tsl_simplehelp": null,
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "TranslateAction",
      "userkey": "A~forceDirSync~ENU",
      "item": {
       "tsl_typeAction": "A",
@@ -8930,6 +8994,18 @@
       "tsl_id__act_name": "sitemapGeneration",
       "tsl_lang": "ENU",
       "tsl_value": "Sitemap generation",
+      "tsl_simplehelp": null,
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "TranslateAction",
+     "userkey": "A~discourseIndexer~FRA",
+     "item": {
+      "tsl_typeAction": "A",
+      "tsl_id__act_name": "discourseIndexer",
+      "tsl_lang": "FRA",
+      "tsl_value": "Indéxer Community",
       "tsl_simplehelp": null,
       "row_module_id__mdl_name": "Training"
      }

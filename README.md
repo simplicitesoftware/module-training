@@ -43,6 +43,7 @@ The object that serves as container for lessons, or other categories (reflexivit
 
 ### Custom actions
 
+* `discourseIndexer`: 
 * `forceDirSync`: 
 
 `TrnCategoryTranslate` business object definition
