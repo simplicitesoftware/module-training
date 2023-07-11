@@ -117,14 +117,14 @@ export default {
 		valueSelected(val, event, item) {
 			this.isSugOpen = false;
 			if(item !== undefined){
-				this.$router.push('/lesson' + item.trnLsnFrontPath).catch(err => console.error(err));
+				this.$router.push('/resource' + item.trnLsnFrontPath).catch(err => console.error(err));
 			}
 		},
 		suggestionSelected(suggestion) {
 			this.isSugOpen = false;
 			this.inputValue = '';
 			const lsn = this.getLessonFromPath(suggestion.path);
-			if (lsn && !lsn.is_category) this.$router.push('/lesson' + suggestion.path).catch(err => console.error(err));
+			if (lsn && !lsn.is_category) this.$router.push('/resource' + suggestion.path).catch(err => console.error(err));
 			else this.$store.commit("tree/OPEN_NODE", suggestion.path);
 		},
 		queryIndex(){

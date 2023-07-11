@@ -66,7 +66,7 @@ export default {
             if (node.is_category) {
 				this.$store.commit('tree/TOGGLE_NODE_OPEN', node.path);
 			} else {
-				this.$router.push('/lesson' + node.path).catch(err => console.error(err));
+				this.$router.push('/resource' + node.path).catch(err => console.error(err));
 			}
         },
     }
