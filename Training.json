@@ -4,7 +4,7 @@
  "item": {
   "mdl_name": "Training",
   "mdl_prefix": "trn",
-  "mdl_version": "2.8",
+  "mdl_version": "2.9",
   "mdl_type": "A",
   "mdl_url": "{\n\t\"type\": \"git\",\n\t\"origin\": { \n\t\t\"uri\": \"https://github.com/simplicitesoftware/module-training.git\",\n\t\t\"branch\": \"master\",\n\t}\n}",
   "mdl_comment": "The module for the Simplicité Training platform.\n\nThis module objective is to offer an easy way to deploy a custom documentation.\nIt's a *Category* / *Lesson* / *Translations* model with a few additions such as *tags* or *pages*.\n\nThe training module not only gives the ability to manage content, but it also serves a Vue.js front end (see the external object *TrnFront*).\n<br>\nThe front end is served on the root url of your instance. For further details on the site mapping, see system parameter *URI_MAPPING*.\n\nMore info available on the front end default home page."
@@ -24,6 +24,17 @@
       "sys_value": "{\n    \"content_edition\": {\n        \"mode\": \"UI\"\n    },\n    \"content_indexation\": {\n        \"engine\": \"simplicite\"\n    }\n}",
       "sys_type": "PRV",
       "sys_desc": "Module Training configurations\n---\n\n---\n\n<table>\n<tr>\n<td>UI<\/td>\n<td>\n\n```json\n{\n    \"content_edition\": {\n        \"mode\": \"UI\"\n    },\n    \"content_indexation\": {\n        \"engine\": \"simplicite\"\n    }\n}\n```\n\n<\/td>\n<td>\nEditing through UI, using Simplicité indexing.\n<\/td>\n<\/tr>\n<tr>\n<td>UI + ElasticSearch<\/td>\n<td>\n\n```json\n{\n    \"content_edition\": {\n        \"mode\": \"UI\"\n    },\n    \"content_indexation\": {\n        \"engine\": \"elasticsearch\",\n        \"esi_config\": {\n            \"instance\": \"<instance url>\",\n            \"index\": \"<elasticsearch index>\",\n            \"public_credentials\":\"<user:password>\"\n        }\n    }\n}\n```\n\n<\/td>\n<td>\nThe ElasticSearch mode works with every configuration, just change the value of the attribute <strong>engine<\/strong> to <strong>elasticsearch<\/strong>, and add the <strong>esi_config<\/strong> object as shown in the example.\n<\/td>\n<\/tr>\n<tr>\n<td>FILESYSTEM<\/td>\n<td>\n\n```json\n{\n    \"content_edition\": {\n        \"mode\": \"FILESYSTEM\",\n    },\n    \"content_indexation\": {\n        \"engine\": \"simplicite\"\n    }\n}\n```\n\n<\/td>\n<td>\nThe content cannot be changed through the UI. Instead, the content is handled by the filesystem and is loaded in the module using the synchronisation mechanism.\n<\/td>\n<\/tr>\n<tr>\n<td>FILESYSTEM<\/br>{ Git { Simple }}<\/td>\n<td>\n\n```json\n{\n    \"content_edition\": {\n        \"mode\": \"FILESYSTEM\",\n        \"git_checkout_service\": {\n            \"repository\": {\n                \"uri\": \"<uri>\",\n                \"branch\": \"<branch>\"\n            }\n        }\n    },\n    \"content_indexation\": {\n        \"engine\": \"simplicite\"\n    }\n}\n```\n\n<\/td>\n<td>\nSame as above, but the content is fetched from a git repository.\n<\/td>\n<\/tr>\n<tr>\n<td>FILESYSTEM<\/br>{ Git { Authentified }}<\/td>\n<td>\n\n```json\n{\n    \"content_edition\": {\n        \"mode\": \"FILESYSTEM\",\n        \"git_checkout_service\": {\n            \"repository\": {\n                \"uri\": \"<uri>\",\n                \"branch\": \"<branch\",\n                \"creds\": {\n                    \"username\": \"<username>\",\n                    \"token\": \"<token>\"\n                } \n            }\n        }\n    },\n    \"content_indexation\": {\n        \"engine\": \"simplicite\"\n    }\n}\n```\n\n<\/td>\n<td>\nSame as above, with git credentials.\n<\/td>\n<\/tr>\n<\/table>\n\n<style>\n    td {\n        padding: 10px\n    }\n<\/style>",
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "SystemParam",
+     "userkey": "TRN_DISCOURSE_INDEX",
+     "item": {
+      "sys_code": "TRN_DISCOURSE_INDEX",
+      "sys_value": "{}",
+      "sys_type": null,
+      "sys_desc": null,
       "row_module_id__mdl_name": "Training"
      }
     },
@@ -210,7 +221,7 @@
       "rsp_group_id__grp_name": "TRN_ADMIN",
       "rsp_start_dt": "2022-11-22",
       "rsp_end_dt": null,
-      "rsp_activ": true,
+      "rsp_activ": false,
       "row_module_id__mdl_name": "Training"
      }
     },
@@ -5200,7 +5211,7 @@
       "obf_field_id__fld_type": "1",
       "obf_order": 3,
       "obf_group_by": null,
-      "obf_dfault_order": null,
+      "obf_dfault_order": 2,
       "obf_input": null,
       "obf_ref_field_id__fld_name": null,
       "obf_ref_object_id__obo_name": null,
@@ -5453,6 +5464,42 @@
       "obf_order": 130,
       "obf_group_by": null,
       "obf_dfault_order": null,
+      "obf_input": null,
+      "obf_ref_field_id__fld_name": "trnLsnCatId",
+      "obf_ref_object_id__obo_name": "TrnCategory",
+      "obf_cascad": null,
+      "obf_card": null,
+      "obf_visible": null,
+      "obf_ref_export": true,
+      "obf_copy": null,
+      "obf_ref_order": null,
+      "obf_fld_visible": "3",
+      "obf_fld_required": null,
+      "obf_fld_updatable": null,
+      "obf_fld_research": null,
+      "obf_fld_more": "0",
+      "obf_fld_listmore": null,
+      "obf_fld_researchreq": null,
+      "obf_fld_dfault": null,
+      "obf_field_id__fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_field_id__fld_exportable": true,
+      "obf_fld_uk": null,
+      "obf_area_id__ofa_name": "TrnLesson-Main",
+      "obf_area_id__ofa_position": 1,
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "ObjectFieldSystem",
+     "userkey": "TrnLesson~trnCatOrder~140",
+     "item": {
+      "obf_object_id__obo_name": "TrnLesson",
+      "obf_field_id__fld_name": "trnCatOrder",
+      "obf_field_id__fld_type": "1",
+      "obf_order": 140,
+      "obf_group_by": null,
+      "obf_dfault_order": 1,
       "obf_input": null,
       "obf_ref_field_id__fld_name": "trnLsnCatId",
       "obf_ref_object_id__obo_name": "TrnCategory",

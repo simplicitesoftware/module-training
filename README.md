@@ -85,6 +85,7 @@ The lesson object for the training, that will hold the content of a lesson.
 | `trnLsnCatId` link to **`TrnCategory`**                      | id                                       | yes      | yes       |          | -                                                                                |
 | _Ref. `trnLsnCatId.trnCatPath`_                              | _text(400)_                              |          |           |          | -                                                                                |
 | _Ref. `trnLsnCatId.trnCatFrontPath`_                         | _text(400)_                              |          |           |          | -                                                                                |
+| _Ref. `trnLsnCatId.trnCatOrder`_                             | _int(100)_                               |          |           |          | -                                                                                |
 | `trnTagLsnVirtual` link to **`TrnTag`**                      | id                                       |          | yes       |          | -                                                                                |
 
 ### Lists

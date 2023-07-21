@@ -96,7 +96,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
       loadTrnObjects();
       dropCategory(false);
       dropTag(false);
-      AppLog.info("Successfully droped data", g);
+      AppLog.info("Successfully droped data (categories and tags)", g);
     } catch (DeleteException e) {
       throw new TrnSyncException("TRN_DROP_ERROR", e.getMessage());
     }
@@ -227,20 +227,24 @@ public class TrnFsSyncTool implements java.io.Serializable {
           e, g);
     }
   }
-
+  
+  private final List<String> TRN_OBJECTS = Arrays.asList(
+  	"TrnCategory",
+  	"TrnCategoryTranslate",
+  	"TrnLesson",
+  	"TrnLsnTranslate",
+  	"TrnPicture",
+  	"TrnTag",
+  	"TrnTagLsn",
+  	"TrnTagTranslate",
+  	"TrnPage",
+  	"TrnSiteTheme",
+  	"TrnPage"
+  );
   private void loadTrnObjectAccess() {
     boolean[] crud = new boolean[] { true, true, true, true };
-    g.changeAccess("TrnCategory", crud);
-    g.changeAccess("TrnCategoryTranslate", crud);
-    g.changeAccess("TrnLesson", crud);
-    g.changeAccess("TrnLsnTranslate", crud);
-    g.changeAccess("TrnPicture", crud);
-    g.changeAccess("TrnTag", crud);
-    g.changeAccess("TrnTagLsn", crud);
-    g.changeAccess("TrnTagTranslate", crud);
-    g.changeAccess("TrnPage", crud);
-    g.changeAccess("TrnSiteTheme", crud);
-    g.changeAccess("TrnPage", crud);
+    for(String obj : TRN_OBJECTS)
+    	g.changeAccess(obj, crud);
   }
 
   private void loadTrnObjects() {

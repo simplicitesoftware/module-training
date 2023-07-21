@@ -1,5 +1,10 @@
 package com.simplicite.commons.Training;
 
+import java.net.URI;
+import java.net.http.HttpRequest;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -40,6 +45,7 @@ public class TrnDiscourseIndexer implements java.io.Serializable {
       for (int i = 0; i < categories.length(); i++) {
         String category = (String) categories.get(i);
         indexTopics(category, 0);
+        break;
       }
     } catch (JSONException e) {
       AppLog.error(getClass(), "indexAll", "JSON error: ", e, g);
@@ -53,7 +59,9 @@ public class TrnDiscourseIndexer implements java.io.Serializable {
   // each request fetches 30 topics
   // need to recursively fetch pages until response topics array is empty
   private void indexTopics(String category, int page) throws HTTPException, JSONException {
-    String res = RESTTool.get(getCategoryFetchUrl(category, page), username, authToken);
+    String catUrl = getCategoryFetchUrl(category, page);
+    AppLog.info("TOPICS FROM CATEGORY =========> " + catUrl, g);
+    String res = RESTTool.get(catUrl);
     JSONObject json = new JSONObject(res);
     JSONObject topicList = json.getJSONObject("topic_list");
     JSONArray topics = topicList.getJSONArray("topics");
@@ -82,7 +90,15 @@ public class TrnDiscourseIndexer implements java.io.Serializable {
 
   // fetches all posts from topic and create a single string containing the content of every post
   private String getPostsAsSingleString(int topicId) throws HTTPException, JSONException {
-    String res = RESTTool.get(getPostFetchUrl(topicId), username, authToken);
+    String postUrl = getPostFetchUrl(topicId);
+    AppLog.info("POSTS FROM TOPIC =========> " + postUrl, g);
+    // set headers
+
+    Map<String, Object> headers = new HashMap<>();
+    headers.put("Api-Username", username);
+    headers.put("Api-Key", authToken);
+
+    String res = RESTTool.get(postUrl, null, null, headers);
     JSONObject json = new JSONObject(res);
     JSONObject postStream = json.getJSONObject("post_stream");
     JSONArray posts = postStream.getJSONArray("posts");

@@ -51,7 +51,11 @@ public class TrnEsiHelper implements java.io.Serializable {
     String url = esInstance + "/" + esIndex + "/_doc/" + id;
     try {
       RESTTool.post(doc, "application/json", url, esUser, esPassword);
-      AppLog.info("Indexing at " + url + " : " + doc.getString("path"), Grant.getSystemAdmin());
+      if(doc.has("path")) {
+        AppLog.info("Indexing at " + url + " : " + doc.getString("path"), Grant.getSystemAdmin());
+      } else if(doc.has("url")) {
+        AppLog.info("Indexing at " + url + " : " + doc.getString("url"), Grant.getSystemAdmin());
+      }
     } catch (Exception e) {
       AppLog.error("Error calling elasticsearch", e, g);
     }

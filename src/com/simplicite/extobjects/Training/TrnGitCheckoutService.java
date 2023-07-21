@@ -9,10 +9,15 @@ import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.merge.ContentMergeStrategy;
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 import org.eclipse.jgit.transport.RefSpec;
+import org.eclipse.jgit.transport.SshSessionFactory;
+import org.eclipse.jgit.transport.SshTransport;
+import org.eclipse.jgit.transport.Transport;
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
+import org.eclipse.jgit.transport.sshd.SshdSessionFactory;
 import org.eclipse.jgit.util.FileUtils;
 import org.eclipse.jgit.api.CloneCommand;
 import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.TransportConfigCallback;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.json.JSONObject;
 
@@ -20,7 +25,7 @@ import com.simplicite.commons.Training.TrnConfigException;
 import com.simplicite.commons.Training.TrnFsSyncTool;
 import com.simplicite.commons.Training.TrnSyncException;
 import com.simplicite.commons.Training.TrnTools;
-import com.simplicite.util.AppLog;
+import com.simplicite.util.*;
 import com.simplicite.util.engine.Platform;
 import com.simplicite.util.tools.Parameters;
 
@@ -143,8 +148,18 @@ public class TrnGitCheckoutService extends com.simplicite.webapp.services.RESTSe
 
   private void setUsernameTokenCredentials() throws TrnConfigException {
     JSONObject jsonCreds = TrnTools.getGitCredentials();
-    credentials = new UsernamePasswordCredentialsProvider(jsonCreds.getString("username"),
-        jsonCreds.getString("token"));
+    credentials = new UsernamePasswordCredentialsProvider(
+    	jsonCreds.getString("username"),
+        jsonCreds.getString("token")
+    );
+    
+    // quickfix use ssh  
+    credentials = null; 
+	SshdSessionFactory sshSessionFactory = new org.eclipse.jgit.transport.sshd.SshdSessionFactoryBuilder()
+	        .setPreferredAuthentications("publickey")
+	        .setHomeDirectory(org.eclipse.jgit.util.FS.DETECTED.userHome())
+	        .setSshDirectory(new File(org.eclipse.jgit.util.FS.DETECTED.userHome(), "/.ssh"))
+	        .build(null);
   }
 
   @Override
