@@ -31,7 +31,7 @@ public class TrnGitCheckoutService extends com.simplicite.webapp.services.RESTSe
 	private static final long serialVersionUID = 1L;
 	private static final String CONTENT_FOLDER_NAME = "docs";
 	// credentialsProvider are used only in a https scenario
-	// they will remain null if the url is in a ssl format
+	// they will remain null if the url is in a ssh format
 	private UsernamePasswordCredentialsProvider credentialsProvider;
 
 	@Override
@@ -40,7 +40,7 @@ public class TrnGitCheckoutService extends com.simplicite.webapp.services.RESTSe
 			String branch = TrnTools.getGitBranch();
 			File contentDir = getContentDir();
 			String msg;
-			setUsernameTokenCredentials();
+			setAuthentication();
 			if (!contentDir.exists()) {
 				String gitUrl = TrnTools.getGitUrl();
 				performClone(gitUrl, branch, contentDir);
@@ -144,8 +144,8 @@ public class TrnGitCheckoutService extends com.simplicite.webapp.services.RESTSe
 		AppLog.info("The pull command fallback has deleted and cloned back the repository", getGrant());
 	}
 
-	private void setUsernameTokenCredentials() throws TrnConfigException {
-		if (TrnTools.isGitUrlSSL()) {
+	private void setAuthentication() throws TrnConfigException {
+		if (TrnTools.isGitUrlSSH()) {
 			new org.eclipse.jgit.transport.sshd.SshdSessionFactoryBuilder()
 					.setPreferredAuthentications("publickey")
 					.setHomeDirectory(org.eclipse.jgit.util.FS.DETECTED.userHome())

@@ -18,7 +18,7 @@ import com.simplicite.util.tools.SyntaxTool;
  */
 public class TrnTools implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
-	private static final Pattern SSL_URL_PATTERN = Pattern.compile("^[a-zA-Z\\d]+@[a-zA-Z\\.:\\/\\d]+$");
+	private static final Pattern SSH_URL_PATTERN = Pattern.compile("^[a-zA-Z\\d]+@[a-zA-Z\\.:\\/\\d]+$");
 
 	public static String toSnake(String str) {
 		return SyntaxTool.forceCase(StringUtils.stripAccents(str), SyntaxTool.SNAKE, true);
@@ -116,15 +116,15 @@ public class TrnTools implements java.io.Serializable {
 		}
 	}
 
-	// return true if url is ssl url, false if other
-	public static boolean isGitUrlSSL() throws TrnConfigException {
+	// return true if url is ssh url, false if other
+	public static boolean isGitUrlSSH() throws TrnConfigException {
 		try {
-			Matcher matcher = SSL_URL_PATTERN.matcher(getGitUrl());
-      		if (matcher.find()) {
-				return true;
-			} else {
-				return false;
+			Matcher matcher = SSH_URL_PATTERN.matcher(getGitUrl());
+			boolean res = false;
+			if (matcher.find()) {
+				res = true;
 			}
+			return res;
 		} catch (Exception e) {
 			throw new TrnConfigException(e.getMessage());
 		}
