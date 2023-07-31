@@ -11,7 +11,7 @@ import TagNotContent from "./components/UI/TagNoContent"
 //1. Routes definition
 const routes = [
     { path: '/', component: Home, name: 'Home' },
-    { path: '/resource/:lessonPath(.*)', component: Lesson, name: 'Lesson' },
+    { path: '/lesson/:lessonPath(.*)', component: Lesson, name: 'Lesson' },
     { path: '/page/:pagePath(.*)', component: Lesson, name: 'Page' },
     { path: '/category/:categoryPath(.*)', component: Lesson, name: 'Category'},
     { path: '/sandbox/:demandId', component: SandBoxDeployment, name:'SandBoxDeployment' },

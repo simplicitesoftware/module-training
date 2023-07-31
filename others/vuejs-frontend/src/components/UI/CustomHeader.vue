@@ -63,7 +63,7 @@ export default {
             let path = '';
             if (direction === -1) path = this.getLessonFromPath(this.lesson.path).previous_path;
             if (direction === 1) path = this.getLessonFromPath(this.lesson.path).next_path;
-            if (path) this.$router.push('/resource/' + path.toString().substring(1)).catch(err => console.error(err));
+            if (path) this.$router.push('/lesson/' + path.toString().substring(1)).catch(err => console.error(err));
             else if (direction === -1) this.shakeElement("previous-button");
             else if (direction === 1) this.shakeElement("next-button");
         },
