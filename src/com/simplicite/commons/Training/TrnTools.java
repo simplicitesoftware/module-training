@@ -18,7 +18,8 @@ import com.simplicite.util.tools.SyntaxTool;
  */
 public class TrnTools implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
-	private static final Pattern SSH_URL_PATTERN = Pattern.compile("^[a-zA-Z\\d]+@[a-zA-Z\\.:\\/\\d]+$");
+	private static final Pattern SSH_URL_PATTERN = Pattern.compile(
+        "^[\\p{IsAlphabetic}\\d]+@[\\p{IsAlphabetic}\\.:\\/\\d-_]+$");
 
 	public static String toSnake(String str) {
 		return SyntaxTool.forceCase(StringUtils.stripAccents(str), SyntaxTool.SNAKE, true);
