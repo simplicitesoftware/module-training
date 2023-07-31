@@ -146,6 +146,7 @@ public class TrnGitCheckoutService extends com.simplicite.webapp.services.RESTSe
 
 	private void setAuthentication() throws TrnConfigException {
 		if (TrnTools.isGitUrlSSH()) {
+			credentialsProvider = null;
 			new org.eclipse.jgit.transport.sshd.SshdSessionFactoryBuilder()
 					.setPreferredAuthentications("publickey")
 					.setHomeDirectory(org.eclipse.jgit.util.FS.DETECTED.userHome())
