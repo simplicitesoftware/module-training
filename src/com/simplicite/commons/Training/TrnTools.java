@@ -121,10 +121,8 @@ public class TrnTools implements java.io.Serializable {
 		try {
 			Matcher matcher = SSL_URL_PATTERN.matcher(getGitUrl());
       		if (matcher.find()) {
-				AppLog.info("URL is SSL", Grant.getSystemAdmin());
 				return true;
 			} else {
-				AppLog.info("URL is not SSL", Grant.getSystemAdmin());
 				return false;
 			}
 		} catch (Exception e) {

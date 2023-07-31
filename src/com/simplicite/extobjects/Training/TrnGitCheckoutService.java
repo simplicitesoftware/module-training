@@ -146,16 +146,16 @@ public class TrnGitCheckoutService extends com.simplicite.webapp.services.RESTSe
 
 	private void setUsernameTokenCredentials() throws TrnConfigException {
 		if (TrnTools.isGitUrlSSL()) {
-			JSONObject jsonCreds = TrnTools.getGitCredentials();
-			credentialsProvider = new UsernamePasswordCredentialsProvider(
-					jsonCreds.getString("username"),
-					jsonCreds.getString("token"));
-		} else {
 			new org.eclipse.jgit.transport.sshd.SshdSessionFactoryBuilder()
 					.setPreferredAuthentications("publickey")
 					.setHomeDirectory(org.eclipse.jgit.util.FS.DETECTED.userHome())
 					.setSshDirectory(new File(org.eclipse.jgit.util.FS.DETECTED.userHome(), "/.ssh"))
 					.build(null);
+		} else {
+			JSONObject jsonCreds = TrnTools.getGitCredentials();
+			credentialsProvider = new UsernamePasswordCredentialsProvider(
+					jsonCreds.getString("username"),
+					jsonCreds.getString("token"));
 		}
 	}
 
