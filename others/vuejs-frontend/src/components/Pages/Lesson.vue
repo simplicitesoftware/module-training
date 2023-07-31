@@ -290,11 +290,12 @@
 			display: inline
 			padding: 3px
 			border-radius: 3px
-		
-		pre
+			font-family: monospace
+			
 		code.hljs
 			border-radius: 10px
 			margin-bottom: 8px
+			font-family: monospace
 
 		img
 			width: 60%
@@ -303,6 +304,7 @@
 			overflow: clip
 		pre
 			margin-bottom: 10px
+
 		table
 			width: 100%      
 			margin: 8px 0 15px 10px
@@ -381,11 +383,13 @@
 			background-color: $color-error
 
 		blockquote > p::before
-			content: '" '
+			content: ''
 		blockquote > p::after
-			content: ' "'
+			content: ''
 		blockquote > p
-			font-style: italic
+			background: #ffe9e3
+			padding: map_get($paddings, "medium")
+			border-radius: map-get($radius, regular)
 		strong
 			text-decoration: underline
 		a

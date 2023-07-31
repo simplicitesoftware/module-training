@@ -69,7 +69,6 @@
 @import "assets/sass/variables"
 
 *
-    font-family: 'Source Sans Pro', sans-serif
     box-sizing: border-box
     margin: 0
     outline: none
@@ -80,6 +79,8 @@ button
     color: inherit
 
 .app
+    font-family: 'Source Sans Pro', sans-serif
+    
     height: 100%
     display: flex
     flex-direction: column
