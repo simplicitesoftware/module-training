@@ -8,7 +8,7 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "zip": "jar -cfM ../../resources/ObjectExternal/TrnFront/site.zip -C ./dist/ .",
-    "sim-deploy": "npm run build && npm run zip"
+    "deploy": "npm run build && npm run zip"
   },
   "dependencies": {
     "@appbaseio/reactivesearch-vue": "^1.16.0",
