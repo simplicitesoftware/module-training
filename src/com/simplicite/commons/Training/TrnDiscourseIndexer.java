@@ -1,10 +1,5 @@
 package com.simplicite.commons.Training;
 
-import java.net.URI;
-import java.net.http.HttpRequest;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -96,11 +91,11 @@ public class TrnDiscourseIndexer implements java.io.Serializable {
 		AppLog.info("POSTS FROM TOPIC =========> " + postUrl, g);
 		// set headers
 
-		Map<String, Object> headers = new HashMap<>();
-		headers.put("Api-Username", username);
-		headers.put("Api-Key", authToken);
+		// Map<String, Object> headers = new HashMap<>();
+		// headers.put("Api-Username", username);
+		// headers.put("Api-Key", authToken);
 
-		String res = RESTTool.get(postUrl, null, null, headers);
+		String res = RESTTool.get(postUrl);
 		JSONObject json = new JSONObject(res);
 		JSONObject postStream = json.getJSONObject("post_stream");
 		JSONArray posts = postStream.getJSONArray("posts");
@@ -118,10 +113,10 @@ public class TrnDiscourseIndexer implements java.io.Serializable {
 	}
 
 	// url to fetch posts from topic
-	// max 1000 posts, see
+	// max 1000 posts ?
 	// https://meta.discourse.org/t/fetch-all-posts-from-a-topic-using-the-api/260886
 	private String getPostFetchUrl(int topicId) {
-		return url + "/t/" + topicId + ".json?print=true";
+		return url + "/t/" + topicId + ".json";
 	}
 
 	// url to fetch topics from a given category
