@@ -386,7 +386,7 @@
 			content: ''
 		blockquote > p::after
 			content: ''
-		blockquote > p
+		blockquote
 			background: #ffe9e3
 			padding: map_get($paddings, "medium")
 			border-radius: map-get($radius, regular)
