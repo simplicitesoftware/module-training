@@ -9000,6 +9000,16 @@
       "scr_type": "JSR",
       "row_module_id__mdl_name": "Training"
      }
+    },
+    {
+     "object": "Script",
+     "userkey": "TrnTokenBucket",
+     "item": {
+      "scr_code": "TrnTokenBucket",
+      "scr_file": null,
+      "scr_type": "JSR",
+      "row_module_id__mdl_name": "Training"
+     }
     }
    ]
   },
