@@ -9006,7 +9006,11 @@
      "userkey": "TrnTokenBucket",
      "item": {
       "scr_code": "TrnTokenBucket",
-      "scr_file": null,
+      "scr_file": {
+       "path": "src/com/simplicite/commons/Training/TrnTokenBucket.java",
+       "mime": "text/plain",
+       "name": "TrnTokenBucket.java"
+      },
       "scr_type": "JSR",
       "row_module_id__mdl_name": "Training"
      }
