@@ -19,8 +19,8 @@ public class TrnDiscourseIndexer implements java.io.Serializable {
 	private final String url;
 	private final JSONArray categories;
 	private final TrnEsiHelper esiHelper;
-	private int totalTopics = 0;
-	private int totalPosts = 0;
+	private int totalTopics;
+	private int totalPosts;
 
 	Grant g;
 

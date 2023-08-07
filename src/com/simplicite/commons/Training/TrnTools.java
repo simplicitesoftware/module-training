@@ -19,7 +19,7 @@ import com.simplicite.util.tools.SyntaxTool;
 public class TrnTools implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 	private static final Pattern SSH_URL_PATTERN = Pattern.compile(
-        "^[\\p{IsAlphabetic}\\d]+@[\\p{IsAlphabetic}\\.:\\/\\d-_]+$");
+			"^[\\p{IsAlphabetic}\\d]+@[\\p{IsAlphabetic}\\.:\\/\\d-_]+$");
 
 	public static String toSnake(String str) {
 		return SyntaxTool.forceCase(StringUtils.stripAccents(str), SyntaxTool.SNAKE, true);
@@ -93,9 +93,49 @@ public class TrnTools implements java.io.Serializable {
 		}
 	}
 
-	public static JSONObject getEsiConfig() throws TrnConfigException {
+	private static JSONObject getEsiConfig() throws TrnConfigException {
 		try {
 			return getContentIndexation().getJSONObject("esi_config");
+		} catch (Exception e) {
+			throw new TrnConfigException(e.getMessage());
+		}
+	}
+
+	public static boolean hasEsiFrontInstance() throws TrnConfigException {
+		try {
+			return getEsiConfig().has("front_instance");
+		} catch (Exception e) {
+			throw new TrnConfigException(e.getMessage());
+		}
+	}
+
+	public static String getEsiFrontInstance() throws TrnConfigException {
+		try {
+			return getEsiConfig().getString("front_instance");
+		} catch (Exception e) {
+			throw new TrnConfigException(e.getMessage());
+		}
+	}
+
+	public static String getEsiUrl() throws TrnConfigException {
+		try {
+			return getEsiConfig().getString("instance");
+		} catch (Exception e) {
+			throw new TrnConfigException(e.getMessage());
+		}
+	}
+
+	public static String getEsiIndex() throws TrnConfigException {
+		try {
+			return getEsiConfig().getString("index");
+		} catch (Exception e) {
+			throw new TrnConfigException(e.getMessage());
+		}
+	}
+
+	public static String getEsiCredentials() throws TrnConfigException {
+		try {
+			return getEsiConfig().getString("public_credentials");
 		} catch (Exception e) {
 			throw new TrnConfigException(e.getMessage());
 		}
