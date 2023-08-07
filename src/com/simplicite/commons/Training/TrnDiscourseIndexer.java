@@ -8,44 +8,6 @@ import com.simplicite.util.AppLog;
 import com.simplicite.util.Grant;
 import com.simplicite.util.exceptions.HTTPException;
 import com.simplicite.util.tools.RESTTool;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-
-// Token bucket algorithm
-class TokenBucket {
-	private final int capacity;
-	private int tokens;
-	private long lastRefillTimestamp;
-	private final Lock lock = new ReentrantLock();
-
-	public TokenBucket(int capacity) {
-		this.capacity = capacity;
-		this.tokens = capacity;
-		this.lastRefillTimestamp = System.currentTimeMillis();
-	}
-
-	public boolean getToken() {
-		lock.lock();
-		try {
-			long currentTime = System.currentTimeMillis();
-			long elapsedTime = currentTime - lastRefillTimestamp;
-			// Refill 1 token per second
-			int tokensToAdd = (int) (elapsedTime / 1000);
-			tokens = Math.min(tokens + tokensToAdd, capacity);
-			lastRefillTimestamp = currentTime;
-
-			if (tokens > 0) {
-				tokens--;
-				// Grant a token
-				return true; 
-			}
-			// No tokens available
-			return false; 
-		} finally {
-			lock.unlock();
-		}
-	}
-}
 
 /**
  * Shared code TrnDiscourseIndexer
@@ -53,51 +15,48 @@ class TokenBucket {
 public class TrnDiscourseIndexer implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private static final TokenBucket tokenBucket = new TokenBucket(60);
-	private static final int second = 1000;
+	private static final TrnTokenBucket tokenBucket = new TrnTokenBucket(40);
 	private final String url;
-	// private final String username;
-	// private final String authToken;
 	private final JSONArray categories;
 	private final TrnEsiHelper esiHelper;
-	
+	private int totalTopics = 0;
+	private int totalPosts = 0;
 
 	Grant g;
 
 	public TrnDiscourseIndexer(Grant g) throws JSONException, TrnConfigException {
 		this.g = g;
 		this.url = TrnDiscourseTool.getUrl();
-		// this.username = TrnDiscourseTool.getUsername();
-		// this.authToken = TrnDiscourseTool.getToken();
 		this.categories = TrnDiscourseTool.getCategories();
 		this.esiHelper = TrnEsiHelper.getEsHelper(g);
 	}
 
 	// loop on categories from the parameter TRN_DISCOURSE_INDEX
 	// get every topic from given category
-	// then concatenate every post content from one topic in a single string for
-	// indexation
+	// then concatenate every post content from one topic in a single string for indexation
 	public void indexAll() {
 		try {
 			for (int i = 0; i < categories.length(); i++) {
 				String category = (String) categories.get(i);
 				indexTopics(category, 0);
-				break;
 			}
+			AppLog.info("Discourse indexation done. Total: "+totalTopics+" topics, "+totalPosts+" posts", g);
 		} catch (JSONException e) {
 			AppLog.error(getClass(), "indexAll", "JSON error: ", e, g);
 		} catch (HTTPException e) {
 			AppLog.error(getClass(), "indexAll", "HTTP error: ", e, g);
+		} catch (TrnDiscourseIndexerException e) {
+			AppLog.error(getClass(), "indexAll", "Discourse indexation error: ", e, g);
 		} catch (Exception e) {
 			AppLog.error(getClass(), "indexAll", "Error: ", e, g);
 		}
 	}
 
 	// each request fetches 30 topics
-	// need to recursively fetch pages until response topics array is empty
-	private void indexTopics(String category, int page) throws HTTPException, JSONException, Exception {
+	// need to fetch pages until response topics array is empty
+	private void indexTopics(String category, int page) throws HTTPException, JSONException, TrnDiscourseIndexerException {
 		String catUrl = getCategoryFetchUrl(category, page);
-		AppLog.info("TOPICS FROM CATEGORY =========> " + catUrl, g);
+		AppLog.info("TOPICS FROM CATEGORY: " + catUrl, g);
 		String res = makeRequest(catUrl);
 		JSONObject json = new JSONObject(res);
 		JSONObject topicList = json.getJSONObject("topic_list");
@@ -110,7 +69,8 @@ public class TrnDiscourseIndexer implements java.io.Serializable {
 		}
 	}
 
-	private void indexSingleTopic(String category, JSONObject topic) throws HTTPException, JSONException, Exception {
+	private void indexSingleTopic(String category, JSONObject topic) 
+		throws HTTPException, JSONException, TrnDiscourseIndexerException {
 		int topicId = topic.getInt("id");
 		String esTopicId = "topic_" + topicId;
 		String topicSlug = topic.getString("slug");
@@ -123,13 +83,14 @@ public class TrnDiscourseIndexer implements java.io.Serializable {
 
 		// complete doc with topic informations
 		esiHelper.indexEsDoc(esTopicId, doc);
+		totalTopics++;
 	}
 
 	// fetches all posts from topic and create a single string containing the
 	// content of every post
-	private String getPostsAsSingleString(int topicId) throws HTTPException, JSONException, Exception {
+	private String getPostsAsSingleString(int topicId) throws HTTPException, JSONException, TrnDiscourseIndexerException {
 		String postUrl = getPostFetchUrl(topicId);
-		AppLog.info("POSTS FROM TOPIC =========> " + postUrl, g);
+		AppLog.info("POSTS FROM TOPIC: " + postUrl, g);
 
 		String res = makeRequest(postUrl);
 		JSONObject json = new JSONObject(res);
@@ -140,19 +101,20 @@ public class TrnDiscourseIndexer implements java.io.Serializable {
 		for (int i = 0; i < posts.length(); i++) {
 			postsString.append(posts.getJSONObject(i).getString("cooked"));
 		}
+		totalPosts += posts.length();
 		return postsString.toString();
 	}
 
-	private static String makeRequest(String url) throws HTTPException, Exception {
+	private static String makeRequest(String url) throws HTTPException, TrnDiscourseIndexerException {
 		if(tokenBucket.getToken()) {
 			return RESTTool.get(url);
 		} else {
 			while(!tokenBucket.getToken()) {
 				try {
-					Thread.sleep(serialVersionUID);
+					Thread.sleep(1000);
 				} catch(InterruptedException e) {
 					Thread.currentThread().interrupt();
-					throw new Exception(e);
+					throw new TrnDiscourseIndexerException(e.getMessage());
 				}
 			}
 			// Token should be acquired at this point
