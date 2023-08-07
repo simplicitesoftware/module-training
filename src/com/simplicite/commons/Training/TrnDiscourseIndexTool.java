@@ -10,7 +10,7 @@ import com.simplicite.util.tools.*;
 /**
  * Shared code TrnCommunityIndexTool
  */
-public class TrnCommunityIndexTool implements java.io.Serializable {
+public class TrnDiscourseIndexTool implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 
 	

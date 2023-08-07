@@ -12,7 +12,7 @@ import com.simplicite.util.tools.RESTTool;
 /**
  * Shared code TrnDiscourseIndexer
  */
-public class TrnDiscourseIndexer implements java.io.Serializable {
+public class TrnCommunityIndexer implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private static final TrnTokenBucket tokenBucket = new TrnTokenBucket(40);
@@ -24,7 +24,7 @@ public class TrnDiscourseIndexer implements java.io.Serializable {
 
 	Grant g;
 
-	public TrnDiscourseIndexer(Grant g) throws JSONException, TrnConfigException {
+	public TrnCommunityIndexer(Grant g) throws JSONException, TrnConfigException {
 		this.g = g;
 		this.url = TrnDiscourseTool.getUrl();
 		this.categories = TrnDiscourseTool.getCategories();

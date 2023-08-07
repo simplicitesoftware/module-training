@@ -8942,11 +8942,11 @@
     },
     {
      "object": "Script",
-     "userkey": "TrnDiscourseIndexer",
+     "userkey": "TrnCommunityIndexer",
      "item": {
-      "scr_code": "TrnDiscourseIndexer",
+      "scr_code": "TrnCommunityIndexer",
       "scr_file": {
-       "path": "src/com/simplicite/commons/Training/TrnDiscourseIndexer.java",
+       "path": "src/com/simplicite/commons/Training/TrnCommunityIndexer.java",
        "mime": "text/plain",
        "name": "TrnDiscourseIndexer.java"
       },
@@ -8998,11 +8998,11 @@
     },
     {
      "object": "Script",
-     "userkey": "TrnCommunityIndexTool",
+     "userkey": "TrnDiscourseIndexTool",
      "item": {
-      "scr_code": "TrnCommunityIndexTool",
+      "scr_code": "TrnDiscourseIndexTool",
       "scr_file": {
-       "path": "src/com/simplicite/commons/Training/TrnCommunityIndexTool.java",
+       "path": "src/com/simplicite/commons/Training/TrnDiscourseIndexTool.java",
        "mime": "text/plain",
        "name": "TrnCommunityIndexTool.java"
       },
