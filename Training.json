@@ -8948,7 +8948,7 @@
       "scr_file": {
        "path": "src/com/simplicite/commons/Training/TrnCommunityIndexer.java",
        "mime": "text/plain",
-       "name": "TrnDiscourseIndexer.java"
+       "name": "TrnCommunityIndexer.java"
       },
       "scr_type": "JSR",
       "row_module_id__mdl_name": "Training"
@@ -8991,20 +8991,6 @@
        "path": "src/com/simplicite/commons/Training/TrnTokenBucket.java",
        "mime": "text/plain",
        "name": "TrnTokenBucket.java"
-      },
-      "scr_type": "JSR",
-      "row_module_id__mdl_name": "Training"
-     }
-    },
-    {
-     "object": "Script",
-     "userkey": "TrnDiscourseIndexTool",
-     "item": {
-      "scr_code": "TrnDiscourseIndexTool",
-      "scr_file": {
-       "path": "src/com/simplicite/commons/Training/TrnDiscourseIndexTool.java",
-       "mime": "text/plain",
-       "name": "TrnCommunityIndexTool.java"
       },
       "scr_type": "JSR",
       "row_module_id__mdl_name": "Training"
