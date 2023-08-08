@@ -8995,6 +8995,20 @@
       "scr_type": "JSR",
       "row_module_id__mdl_name": "Training"
      }
+    },
+    {
+     "object": "Script",
+     "userkey": "TrnDiscourseHook",
+     "item": {
+      "scr_code": "TrnDiscourseHook",
+      "scr_file": {
+       "path": "src/com/simplicite/commons/Training/TrnDiscourseHook.java",
+       "mime": "text/plain",
+       "name": "TrnDiscourseIndexer.java"
+      },
+      "scr_type": "JSR",
+      "row_module_id__mdl_name": "Training"
+     }
     }
    ]
   },
