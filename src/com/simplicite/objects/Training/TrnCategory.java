@@ -219,7 +219,7 @@ public class TrnCategory extends TrnObject {
 
   public void indexDiscourse() {
     try {
-      TrnDiscourseIndexer tdi = new TrnDiscourseIndexer(getGrant());
+      TrnCommunityIndexer tdi = new TrnCommunityIndexer(getGrant());
       tdi.indexAll();
     } catch(TrnConfigException e) {
       AppLog.error(getClass(), "indexDiscourse", "TrnConfig error: ", e, getGrant());

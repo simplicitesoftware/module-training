@@ -26,9 +26,8 @@ public class TrnCommunityIndexService extends com.simplicite.webapp.services.RES
 				AppLog.info("TODO error handler and throw", Grant.getSystemAdmin());
 			}
 			JSONObject body = params.getJSONObject();
-				AppLog.info("POST FROM DISCOURSE", Grant.getSystemAdmin());
-				//RESTTool.post(TrnTools.getEsiUrl());
-			}
+			AppLog.info("POST FROM DISCOURSE", Grant.getSystemAdmin());
+			//RESTTool.post(TrnTools.getEsiUrl());
 			AppLog.info("TrnCommunityIndexService " + params.toString(), getGrant());
 			setHTTPStatus(200);
 			return "OK";
