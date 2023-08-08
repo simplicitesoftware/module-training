@@ -34,7 +34,7 @@ public class TrnEsiHelper implements java.io.Serializable {
 		}
 	}
 
-	public static TrnEsiHelper getEsHelper(Grant g) throws TrnConfigException {
+	public static TrnEsiHelper getEsiHelper(Grant g) throws TrnConfigException {
 		if (TrnTools.isElasticSearchMode()) {
 			return new TrnEsiHelper(g);
 		} else {
@@ -46,8 +46,8 @@ public class TrnEsiHelper implements java.io.Serializable {
 		return esIndex;
 	}
 
-	public void indexEsDoc(String id, JSONObject doc) {
-		String url = getEsiUrl() + "_doc/" + id;
+	public void indexEsiDoc(String docId, JSONObject doc) {
+		String url = (docId);
 		try {
 			RESTTool.post(doc, "application/json", url, esUser, esPassword);
 			if (doc.has("path")) {
@@ -103,26 +103,27 @@ public class TrnEsiHelper implements java.io.Serializable {
 							doc.put(f.getName(), rslt[o.getFieldIndex(f.getName())]);
 						}
 					}
-					indexEsDoc(o.getName() + ":" + rslt[0], doc);
+					indexEsiDoc(o.getName() + ":" + rslt[0], doc);
 				}
 			}
 		}
 	}
 
-	public void deleteEsLesson(String lsnId, String lsnCode) {
-		String url = getEsiUrl() + "_doc/" + lsnId;
+	public void deleteEsiDoc(String docId) {
+		String url = getEsiUrl() + "_doc/" + docId;
 		try {
 			RESTTool.delete(url, esUser, esPassword);
-			AppLog.info("Deleted lesson index: " + url, Grant.getSystemAdmin());
+			AppLog.info("Deleted index doc: " + url, Grant.getSystemAdmin());
 		} catch (Exception e) {
-			AppLog.warning("Error deleting elastic index lesson: " + lsnCode + " on " + url + " : " + e.getMessage(), e,
-					Grant.getSystemAdmin());
+			AppLog.warning("Error deleting elastic index doc: " + url + " : " + e.getMessage(), e,Grant.getSystemAdmin());
 		}
 	}
 
 	public String getEsiDoc(String docId) throws HTTPException {
-		return RESTTool.get(getEsiUrl()+"_doc/"+docId);
-	} 
+		return RESTTool.get(getEsiDocUrl(docId));
+	}
+
+	
 
 	private String[] getModules() {
 		ObjectDB m = g.getTmpObject("Module");
@@ -143,5 +144,17 @@ public class TrnEsiHelper implements java.io.Serializable {
 
 	private String getEsiUrl() {
 		return esInstance + "/" + esIndex + "/";
+	}
+
+	public String getEsiDocUrl(String docId)  {
+		return getEsiUrl()+"_doc/"+docId;
+	}
+
+	public static String getTopicId(String docId) {
+		return "topic_" + docId;
+	}
+
+	public static String getTopicId(int docId) {
+		return "topic_" + docId;
 	}
 }

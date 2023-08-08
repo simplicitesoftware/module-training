@@ -18,13 +18,13 @@ public class TrnDiscourseHook implements java.io.Serializable {
 	private final Grant g;
 
 	public TrnDiscourseHook(Grant g) throws TrnConfigException {
-		this.esiHelper = TrnEsiHelper.getEsHelper(g);
+		this.esiHelper = TrnEsiHelper.getEsiHelper(g);
 		this.g = g;
 	}
 
 	private void upsertTopic(JSONObject body) throws HTTPException {
 		// need to fetch topic, if it exists need to set the posts array
-		String id = "topic_"+body.getInt("id");
+		String id = TrnEsiHelper.getTopicId(body.getInt("id"));
 		JSONObject topicRes = new JSONObject(esiHelper.getEsiDoc(id));
 		//if();
 		JSONObject doc = new JSONObject();
@@ -32,12 +32,12 @@ public class TrnDiscourseHook implements java.io.Serializable {
 		doc.put("slug", body.getString("slug"));
 		doc.put("category_id", body.getString("category_id"));
 		doc.put("posts", new ArrayList<>());
-		esiHelper.indexEsDoc(id, doc);
+		esiHelper.indexEsiDoc(id, doc);
 	}
 
 	// delete every post associated to the topic
 	private void deleteTopic(JSONObject body) {
-
+		esiHelper.deleteEsiDoc(TrnEsiHelper.getTopicId(body.getInt("id")));
 	}
 
 	private void upsertPost(JSONObject body) {
@@ -45,7 +45,7 @@ public class TrnDiscourseHook implements java.io.Serializable {
 		// append to 
 		//doc.put(null, doc)
 		//String postId = String.valueOf(body.getInt("id"));
-		//esiHelper.indexEsDoc(postId, body);
+		//esiHelper.indexEsiDoc(postId, body);
 	}
 
 	private void deletePost(JSONObject body) {
@@ -56,7 +56,7 @@ public class TrnDiscourseHook implements java.io.Serializable {
 
 	}
 
-	public void handleHook(JSONObject body, String action) {
+	public void handleHook(JSONObject body, String action) throws HTTPException {
 		if(body.has("topic")) {
 			handleTopic(body, action);
 		} else if(body.has("post")) {
@@ -66,10 +66,10 @@ public class TrnDiscourseHook implements java.io.Serializable {
 		}
 	}
 
-	private void handleTopic(JSONObject body, String action) {
+	private void handleTopic(JSONObject body, String action) throws HTTPException {
 		if("topic_created".equals(action) || "topic_edited".equals(action)) {
 			upsertTopic(body);
-		} else if("topic_detroyed".equals(action)) {
+		} else if("topic_destroyed".equals(action)) {
 			deleteTopic(body);
 		} else {
 			AppLog.info("Ignored discourse topic action: " + action + ". Topic id: " + body.getInt("id"), g);
@@ -79,7 +79,7 @@ public class TrnDiscourseHook implements java.io.Serializable {
 	public void handlePost(JSONObject body, String action) {
 		if("post_created".equals(action) || "post_edited".equals(action)) {
 			upsertPost(body);
-		} else if("post_detroyed".equals(action)) {
+		} else if("post_destroyed".equals(action)) {
 			deletePost(body);
 		} else {
 			AppLog.info("Ignored discourse post action: " + action + ". Post id: " + body.getInt("id"), g);

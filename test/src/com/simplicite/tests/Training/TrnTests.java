@@ -28,7 +28,7 @@ public class TrnTests {
 	public void testSync() {
 		try {
             if(TrnTools.isElasticSearchMode()) {
-                TrnEsiHelper eh = TrnEsiHelper.getEsHelper(Grant.getSystemAdmin());
+                TrnEsiHelper eh = TrnEsiHelper.getEsiHelper(Grant.getSystemAdmin());
                 eh.deleteIndex();
                 eh.createIndex();
             }

@@ -10,7 +10,7 @@ public class TrnIndexer implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public static void forceIndex(Grant g) throws Exception{
-		TrnEsiHelper es = TrnEsiHelper.getEsHelper(g);
+		TrnEsiHelper es = TrnEsiHelper.getEsiHelper(g);
 		if(es!=null){
 			TrnLesson lsn = (TrnLesson) g.getTmpObject("TrnLesson");
 			synchronized(lsn){
@@ -24,21 +24,21 @@ public class TrnIndexer implements java.io.Serializable {
 	}
 	
 	public static void indexLesson(TrnLesson lsn) throws Exception{
-		indexLesson(TrnEsiHelper.getEsHelper(lsn.getGrant()), lsn);
+		indexLesson(TrnEsiHelper.getEsiHelper(lsn.getGrant()), lsn);
 	}
 	
 	private static void indexLesson(TrnEsiHelper es, TrnLesson lsn) throws Exception{
 		if(es!=null)
-			es.indexEsDoc(lsn.getRowId(), lsn.getLessonJSON(null, true));
+			es.indexEsiDoc(lsn.getRowId(), lsn.getLessonJSON(null, true));
 	}
 
 	public static void deleteLessonIndex(TrnLesson lsn) throws Exception {
-		deleteLessonIndex(TrnEsiHelper.getEsHelper(lsn.getGrant()) , lsn);
+		deleteLessonIndex(TrnEsiHelper.getEsiHelper(lsn.getGrant()) , lsn);
 	}
 
 	private static void deleteLessonIndex(TrnEsiHelper es, TrnLesson lsn) throws Exception {
 		if(es!=null) {
-			es.deleteEsLesson(lsn.getRowId(), lsn.getFieldValue("trnLsnCode"));
+			es.deleteEsiDoc(lsn.getRowId(), lsn.getFieldValue("trnLsnCode"));
         } 
 	}
 }

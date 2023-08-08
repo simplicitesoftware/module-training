@@ -12,7 +12,7 @@ import com.simplicite.util.tools.RESTTool;
 /**
  * Shared code TrnDiscourseIndexer
  */
-public class TrnCommunityIndexer implements java.io.Serializable {
+public class TrnDiscourseIndexer implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private static final TrnTokenBucket tokenBucket = new TrnTokenBucket(40);
@@ -24,7 +24,7 @@ public class TrnCommunityIndexer implements java.io.Serializable {
 
 	Grant g;
 
-	public TrnCommunityIndexer(Grant g) throws JSONException, TrnConfigException {
+	public TrnDiscourseIndexer(Grant g) throws JSONException, TrnConfigException {
 		this.g = g;
 		this.url = TrnDiscourseTool.getUrl();
 		this.categories = TrnDiscourseTool.getCategories();
@@ -55,7 +55,7 @@ public class TrnCommunityIndexer implements java.io.Serializable {
 	// each request fetches 30 topics
 	// need to fetch pages until response topics array is empty
 	private void indexTopics(String category, int page) throws HTTPException, JSONException, TrnDiscourseIndexerException {
-		String catUrl = TrnDiscourseTool.getCategoryFetchUrl(url, category, page);
+		String catUrl = getCategoryFetchUrl(category, page);
 		AppLog.info("TOPICS FROM CATEGORY: " + catUrl, g);
 		String res = makeRequest(catUrl);
 		JSONObject json = new JSONObject(res);
@@ -76,9 +76,8 @@ public class TrnCommunityIndexer implements java.io.Serializable {
 		String topicSlug = topic.getString("slug");
 
 		JSONObject doc = new JSONObject();
-        // todo, complete with category name / id, topic title, name
 		doc.put("slug", topicSlug);
-		doc.put("url", TrnDiscourseTool.getTopicUrl(url, topicId, topicSlug));
+		doc.put("url", getTopicUrl(topicId, topicSlug));
 		doc.put("category", category);
 		doc.put("posts", getPostsAsSingleString(topicId));
 
@@ -90,7 +89,7 @@ public class TrnCommunityIndexer implements java.io.Serializable {
 	// fetches all posts from topic and create a single string containing the
 	// content of every post
 	private String getPostsAsSingleString(int topicId) throws HTTPException, JSONException, TrnDiscourseIndexerException {
-		String postUrl = TrnDiscourseTool.getPostFetchUrl(url, topicId);
+		String postUrl = getPostFetchUrl(topicId);
 		AppLog.info("POSTS FROM TOPIC: " + postUrl, g);
 
 		String res = makeRequest(postUrl);
@@ -121,7 +120,24 @@ public class TrnCommunityIndexer implements java.io.Serializable {
 			// Token should be acquired at this point
 			return RESTTool.get(url);
 		}
-	}	
+	}
+
+	// url to access the topic page
+	private String getTopicUrl(int topicId, String topicSlug) {
+		return url + "/t/" + topicSlug + "/" + topicId;
+	}
+
+	// url to fetch posts from topic
+	// max 1000 posts ?
+	// https://meta.discourse.org/t/fetch-all-posts-from-a-topic-using-the-api/260886
+	private String getPostFetchUrl(int topicId) {
+		return url + "/t/" + topicId + ".json";
+	}
+
+	// url to fetch topics from a given category
+	private String getCategoryFetchUrl(String category, int page) {
+		return url + "/c/" + category + ".json?page=" + page;
+	}
 }
 
 
