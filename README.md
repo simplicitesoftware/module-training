@@ -262,8 +262,8 @@ This object will hold the static contents of the front-end application
 | `trnSourceUrl`                                               | url(255)                                 | yes*     | yes       |          | -                                                                                |
 | `trnDestinationUrl`                                          | url(255)                                 | yes*     | yes       |          | -                                                                                |
 
-`TrnCommunityIndexService` external object definition
------------------------------------------------------
+`TrnDiscourseHookService` external object definition
+----------------------------------------------------
 
 
 

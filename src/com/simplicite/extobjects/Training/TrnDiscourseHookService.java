@@ -8,15 +8,15 @@ import com.simplicite.util.*;
 import com.simplicite.util.tools.*;
 
 /**
- * External object TrnCommunityIndexService
+ * External object TrnDiscourseHookService
  */
-public class TrnCommunityIndexService extends com.simplicite.webapp.services.RESTServiceExternalObject {
+public class TrnDiscourseHookService extends com.simplicite.webapp.services.RESTServiceExternalObject {
 	private static final long serialVersionUID = 1L;
 
 	@Override
 	public Object post(Parameters params) {
 		try {
-			AppLog.info("TrnCommunityIndexService " + params.toString(), getGrant());
+			AppLog.info("TrnDiscourseHookService " + params.toString(), getGrant());
 			Grant g = Grant.getSystemAdmin();
 			String event = params.getHeader("x-discourse-event");
 			JSONObject body = params.getJSONObject();

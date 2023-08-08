@@ -3546,16 +3546,16 @@
    "list": [
     {
      "object": "ObjectExternal",
-     "userkey": "TrnCommunityIndexService",
+     "userkey": "TrnDiscourseHookService",
      "item": {
-      "obe_name": "TrnCommunityIndexService",
+      "obe_name": "TrnDiscourseHookService",
       "obe_type": "E",
       "obe_url": null,
       "obe_comment": null,
       "obe_help": null,
       "obe_class": null,
       "obe_script_id": {
-       "path": "src/com/simplicite/extobjects/Training/TrnCommunityIndexService.java",
+       "path": "src/com/simplicite/extobjects/Training/TrnDiscourseHookService.java",
        "mime": "text/plain",
        "name": "TrnCommunityIndexService.java"
       },
@@ -7479,7 +7479,7 @@
      "item": {
       "fct_name": "TRN_COMMUNITY_INDEX_SERVICE_E",
       "fct_object_id__obj_type": "E",
-      "fct_object_id__obj_name": "TrnCommunityIndexService",
+      "fct_object_id__obj_name": "TrnDiscourseHookService",
       "fct_function": "L",
       "fct_action_id__act_name": null,
       "fct_view_id__viw_name": null,
@@ -7901,12 +7901,12 @@
     },
     {
      "object": "Grant",
-     "userkey": "PUBLIC~TRN_COMMUNITY_INDEX_SERVICE_E~TrnCommunityIndexService~",
+     "userkey": "PUBLIC~TRN_COMMUNITY_INDEX_SERVICE_E~TrnDiscourseHookService~",
      "item": {
       "grt_group_id__grp_name": "PUBLIC",
       "grt_function_id__fct_name": "TRN_COMMUNITY_INDEX_SERVICE_E",
       "grt_function_id__fct_object_id__obj_type": "E",
-      "grt_function_id__fct_object_id__obj_name": "TrnCommunityIndexService",
+      "grt_function_id__fct_object_id__obj_name": "TrnDiscourseHookService",
       "grt_function_id__fct_action_id__act_name": null,
       "grt_function_id__fct_function": "L",
       "grt_activ": true,
@@ -9004,7 +9004,7 @@
       "scr_file": {
        "path": "src/com/simplicite/commons/Training/TrnDiscourseHook.java",
        "mime": "text/plain",
-       "name": "TrnDiscourseIndexer.java"
+       "name": "TrnDiscourseHook.java"
       },
       "scr_type": "JSR",
       "row_module_id__mdl_name": "Training"
@@ -11310,10 +11310,10 @@
    "list": [
     {
      "object": "TranslateExternal",
-     "userkey": "O~TrnCommunityIndexService~ENU",
+     "userkey": "O~TrnDiscourseHookService~ENU",
      "item": {
       "tsl_typeObject": "O",
-      "tsl_id__obe_name": "TrnCommunityIndexService",
+      "tsl_id__obe_name": "TrnDiscourseHookService",
       "tsl_lang": "ENU",
       "tsl_value": "Community index service",
       "tsl_help": null,
@@ -11418,10 +11418,10 @@
     },
     {
      "object": "TranslateExternal",
-     "userkey": "O~TrnCommunityIndexService~FRA",
+     "userkey": "O~TrnDiscourseHookService~FRA",
      "item": {
       "tsl_typeObject": "O",
-      "tsl_id__obe_name": "TrnCommunityIndexService",
+      "tsl_id__obe_name": "TrnDiscourseHookService",
       "tsl_lang": "FRA",
       "tsl_value": "Community index service",
       "tsl_help": null,
