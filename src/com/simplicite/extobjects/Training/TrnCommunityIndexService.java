@@ -15,8 +15,17 @@ public class TrnCommunityIndexService extends com.simplicite.webapp.services.RES
 	@Override
 	public Object post(Parameters params) {
 		try {
+			String event = params.getHeader("x-discourse-event");
+			if(event.equals("post_created")) {
+				
+			} else if(event.equals("post_detroyed")) {
+
+			} else if(event.equals("post_edited")) {
+				
+			} else {
+				AppLog.info("TODO error handler and throw", Grant.getSystemAdmin());
+			}
 			JSONObject body = params.getJSONObject();
-			if(body.has("post")) {
 				AppLog.info("POST FROM DISCOURSE", Grant.getSystemAdmin());
 				//RESTTool.post(TrnTools.getEsiUrl());
 			}
