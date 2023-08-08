@@ -8,6 +8,7 @@ import com.simplicite.util.ModuleDB;
 import com.simplicite.util.ObjectDB;
 import com.simplicite.util.ObjectField;
 import com.simplicite.util.Tool;
+import com.simplicite.util.exceptions.HTTPException;
 import com.simplicite.util.tools.RESTTool;
 
 /**
@@ -46,7 +47,7 @@ public class TrnEsiHelper implements java.io.Serializable {
 	}
 
 	public void indexEsDoc(String id, JSONObject doc) {
-		String url = esInstance + "/" + esIndex + "/_doc/" + id;
+		String url = getEsiUrl() + "_doc/" + id;
 		try {
 			RESTTool.post(doc, "application/json", url, esUser, esPassword);
 			if (doc.has("path")) {
@@ -60,16 +61,15 @@ public class TrnEsiHelper implements java.io.Serializable {
 	}
 
 	public void deleteIndex() {
-		String url = esInstance + "/" + esIndex;
 		try {
-			RESTTool.delete(url, esUser, esPassword);
+			RESTTool.delete(getEsiUrl(), esUser, esPassword);
 		} catch (Exception e) {
 			AppLog.error("Error deleting index " + esIndex + " on elasticsearch instance " + esInstance, e, g);
 		}
 	}
 
 	public void createIndex() {
-		String url = esInstance + "/" + esIndex;
+		String url = getEsiUrl();
 		try {
 			RESTTool.put("simplicite", url, esUser, esPassword);
 		} catch (Exception e) {
@@ -110,7 +110,7 @@ public class TrnEsiHelper implements java.io.Serializable {
 	}
 
 	public void deleteEsLesson(String lsnId, String lsnCode) {
-		String url = esInstance + "/" + esIndex + "/_doc/" + lsnId;
+		String url = getEsiUrl() + "_doc/" + lsnId;
 		try {
 			RESTTool.delete(url, esUser, esPassword);
 			AppLog.info("Deleted lesson index: " + url, Grant.getSystemAdmin());
@@ -119,6 +119,10 @@ public class TrnEsiHelper implements java.io.Serializable {
 					Grant.getSystemAdmin());
 		}
 	}
+
+	public String getEsiDoc(String docId) throws HTTPException {
+		return RESTTool.get(getEsiUrl()+"_doc/"+docId);
+	} 
 
 	private String[] getModules() {
 		ObjectDB m = g.getTmpObject("Module");
@@ -135,5 +139,9 @@ public class TrnEsiHelper implements java.io.Serializable {
 			o.setFieldFilter("mdl_name", mdl);
 			return Tool.getColumnOfMatrixAsArray(o.search(), o.getFieldIndex("obo_name"));
 		}
+	}
+
+	private String getEsiUrl() {
+		return esInstance + "/" + esIndex + "/";
 	}
 }

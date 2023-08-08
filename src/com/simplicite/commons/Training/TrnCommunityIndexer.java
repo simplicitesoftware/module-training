@@ -76,6 +76,7 @@ public class TrnCommunityIndexer implements java.io.Serializable {
 		String topicSlug = topic.getString("slug");
 
 		JSONObject doc = new JSONObject();
+        // todo, complete with category name / id, topic title, name
 		doc.put("slug", topicSlug);
 		doc.put("url", TrnDiscourseTool.getTopicUrl(url, topicId, topicSlug));
 		doc.put("category", category);
