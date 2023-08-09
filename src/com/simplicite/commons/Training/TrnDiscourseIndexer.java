@@ -72,7 +72,7 @@ public class TrnDiscourseIndexer implements java.io.Serializable {
 	private void indexSingleTopic(String category, JSONObject topic) 
 		throws HTTPException, JSONException, TrnDiscourseIndexerException {
 		int topicId = topic.getInt("id");
-		String esTopicId = "topic_" + topicId;
+		int esTopicId = TrnDiscourseTool.getEsiTopicId(topicId);
 		String topicSlug = topic.getString("slug");
 
 		JSONObject doc = new JSONObject();
@@ -90,8 +90,6 @@ public class TrnDiscourseIndexer implements java.io.Serializable {
 	// content of every post
 	private String getPostsAsSingleString(int topicId) throws HTTPException, JSONException, TrnDiscourseIndexerException {
 		String postUrl = getPostFetchUrl(topicId);
-		AppLog.info("POSTS FROM TOPIC: " + postUrl, g);
-
 		String res = makeRequest(postUrl);
 		JSONObject json = new JSONObject(res);
 		JSONObject postStream = json.getJSONObject("post_stream");

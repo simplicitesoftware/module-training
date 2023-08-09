@@ -73,7 +73,7 @@ public class TrnCommunityIndexer implements java.io.Serializable {
 	private void indexSingleTopic(String category, JSONObject topic) 
 		throws HTTPException, JSONException, TrnDiscourseIndexerException {
 		int topicId = topic.getInt("id");
-		String esTopicId = TrnDiscourseTool.getEsiTopicId(topicId);
+		int esTopicId = TrnDiscourseTool.getEsiTopicId(topicId);
 		String topicSlug = topic.getString("slug");
 
 		JSONObject doc = new JSONObject();
@@ -81,7 +81,7 @@ public class TrnCommunityIndexer implements java.io.Serializable {
         doc.put("title", topic.getString("title"));
 		doc.put("slug", topicSlug);
 		doc.put("url", TrnDiscourseTool.getTopicUrl(url, topicId, topicSlug));
-        doc.put("category_id", topic.getString("category_id"));
+        doc.put("category_id", topic.getInt("category_id"));
 		doc.put("posts", getPostsAsArray(topicId));
 
 		// complete doc with topic informations
@@ -102,10 +102,10 @@ public class TrnCommunityIndexer implements java.io.Serializable {
 
 		JSONArray postsArray = new JSONArray();
 		for (int i = 0; i < posts.length(); i++) {
-            JSONObject postsObject = new JSONObject();
-            postsObject.put("id", posts.getJSONObject(i).getString("id"));
-            postsObject.put("content", posts.getJSONObject(i).getString("cooked"));
-            postsArray.put(i, postsArray);
+            JSONObject postObject = new JSONObject();
+            postObject.put("id", posts.getJSONObject(i).getInt("id"));
+            postObject.put("content", posts.getJSONObject(i).getString("cooked"));
+            postsArray.put(i, postObject);
 		}
 		totalPosts += posts.length();
 		return postsArray;

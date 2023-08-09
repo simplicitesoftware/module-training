@@ -27,7 +27,7 @@ public class TrnDiscourseHook implements java.io.Serializable {
 	private void upsertTopic(JSONObject body) throws HTTPException {
 		// need to fetch topic, if it exists need to set the posts array
 		int topicId = body.getInt("id");
-		String esTopiciId = TrnDiscourseTool.getEsiTopicId(topicId);
+		int esTopiciId = TrnDiscourseTool.getEsiTopicId(topicId);
 		JSONObject remoteTopic = new JSONObject(esiHelper.getEsiDoc(esTopiciId));
 		//if();
 		String topicSlug = body.getString("slug"); 
@@ -35,7 +35,7 @@ public class TrnDiscourseHook implements java.io.Serializable {
 		doc.put("title", body.getString("title"));
 		doc.put("slug", topicSlug);
 		doc.put("url", TrnDiscourseTool.getTopicUrl(discourseUrl, topicId, topicSlug));
-		doc.put("category_id", body.getString("category_id"));
+		doc.put("category_id", body.getInt("category_id"));
 		doc.put("posts", new ArrayList<>());
 		esiHelper.indexEsiDoc(esTopiciId, doc);
 	}
@@ -49,7 +49,7 @@ public class TrnDiscourseHook implements java.io.Serializable {
 	private void upsertPost(JSONObject body) throws HTTPException {
 		int postId = body.getInt("id");
 		int topicId = body.getInt("topic_id");
-		String esiTopicId = TrnDiscourseTool.getEsiTopicId(topicId);
+		int esiTopicId = TrnDiscourseTool.getEsiTopicId(topicId);
 		JSONObject remoteTopic = new JSONObject(esiHelper.getEsiDoc(esiTopicId));
 		
 		JSONObject doc = new JSONObject();

@@ -29,7 +29,7 @@ public class TrnIndexer implements java.io.Serializable {
 	
 	private static void indexLesson(TrnEsiHelper es, TrnLesson lsn) throws Exception{
 		if(es!=null)
-			es.indexEsiDoc(lsn.getRowId(), lsn.getLessonJSON(null, true));
+			es.indexEsiDoc(Integer.parseInt(lsn.getRowId()), lsn.getLessonJSON(null, true));
 	}
 
 	public static void deleteLessonIndex(TrnLesson lsn) throws Exception {
@@ -38,7 +38,7 @@ public class TrnIndexer implements java.io.Serializable {
 
 	private static void deleteLessonIndex(TrnEsiHelper es, TrnLesson lsn) throws Exception {
 		if(es!=null) {
-			es.deleteEsiDoc(lsn.getRowId());
+			es.deleteEsiDoc(Integer.parseInt(lsn.getRowId()));
         } 
 	}
 }

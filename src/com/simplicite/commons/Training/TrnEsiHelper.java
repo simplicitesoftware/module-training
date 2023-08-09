@@ -46,8 +46,8 @@ public class TrnEsiHelper implements java.io.Serializable {
 		return esIndex;
 	}
 
-	public void indexEsiDoc(String docId, JSONObject doc) {
-		String url = (docId);
+	public void indexEsiDoc(int docId, JSONObject doc) {
+		String url = getEsiDocUrl(docId);
 		try {
 			RESTTool.post(doc, "application/json", url, esUser, esPassword);
 			if (doc.has("path")) {
@@ -77,39 +77,7 @@ public class TrnEsiHelper implements java.io.Serializable {
 		}
 	}
 
-	public void indexAllModules() {
-		for (String mdl : getModules()) {
-			if (!ModuleDB.isSystemModule(mdl)) {
-				indexModule(mdl);
-			}
-		}
-	}
-
-	public void indexModule(String mdl) {
-		for (String obj : getObjects(mdl)) {
-			indexObject(obj);
-		}
-	}
-
-	private void indexObject(String objectName) {
-		ObjectDB o = g.getTmpObject(objectName);
-		synchronized (o) {
-			if (o.isIndexable()) {
-				o.resetFilters();
-				for (String[] rslt : o.search()) {
-					JSONObject doc = new JSONObject();
-					for (ObjectField f : o.getFields()) {
-						if (f.isIndexable()) {
-							doc.put(f.getName(), rslt[o.getFieldIndex(f.getName())]);
-						}
-					}
-					indexEsiDoc(o.getName() + ":" + rslt[0], doc);
-				}
-			}
-		}
-	}
-
-	public void deleteEsiDoc(String docId) {
+	public void deleteEsiDoc(int docId) {
 		String url = getEsiUrl() + "_doc/" + docId;
 		try {
 			RESTTool.delete(url, esUser, esPassword);
@@ -119,32 +87,15 @@ public class TrnEsiHelper implements java.io.Serializable {
 		}
 	}
 
-	public String getEsiDoc(String docId) throws HTTPException {
+	public String getEsiDoc(int docId) throws HTTPException {
 		return RESTTool.get(getEsiDocUrl(docId));
-	}
-
-	private String[] getModules() {
-		ObjectDB m = g.getTmpObject("Module");
-		synchronized (m) {
-			m.resetFilters();
-			return Tool.getColumnOfMatrixAsArray(m.search(), m.getFieldIndex("mdl_name"));
-		}
-	}
-
-	private String[] getObjects(String mdl) {
-		ObjectDB o = g.getTmpObject("ObjectInternal");
-		synchronized (o) {
-			o.resetFilters();
-			o.setFieldFilter("mdl_name", mdl);
-			return Tool.getColumnOfMatrixAsArray(o.search(), o.getFieldIndex("obo_name"));
-		}
 	}
 
 	private String getEsiUrl() {
 		return esInstance + "/" + esIndex + "/";
 	}
 
-	public String getEsiDocUrl(String docId)  {
+	public String getEsiDocUrl(int docId)  {
 		return getEsiUrl()+"_doc/"+docId;
 	}
 }

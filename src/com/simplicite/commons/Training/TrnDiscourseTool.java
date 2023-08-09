@@ -53,7 +53,7 @@ public class TrnDiscourseTool implements java.io.Serializable {
 		return "topic_" + docId;
 	}
 
-	public static String getEsiTopicId(int docId) {
-		return "topic_" + docId;
+	public static int getEsiTopicId(int docId) {
+		return 100000 + docId;
 	}
 }
