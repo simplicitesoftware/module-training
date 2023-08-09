@@ -38,7 +38,7 @@ public class TrnIndexer implements java.io.Serializable {
 
 	private static void deleteLessonIndex(TrnEsiHelper es, TrnLesson lsn) throws Exception {
 		if(es!=null) {
-			es.deleteEsiDoc(lsn.getRowId(), lsn.getFieldValue("trnLsnCode"));
+			es.deleteEsiDoc(lsn.getRowId());
         } 
 	}
 }

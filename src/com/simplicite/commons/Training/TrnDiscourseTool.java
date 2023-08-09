@@ -48,4 +48,12 @@ public class TrnDiscourseTool implements java.io.Serializable {
 	public static String getCategoryFetchUrl(String url, String category, int page) {
 		return url + "/c/" + category + ".json?page=" + page;
 	}
+
+	public static String getEsiTopicId(String docId) {
+		return "topic_" + docId;
+	}
+
+	public static String getEsiTopicId(int docId) {
+		return "topic_" + docId;
+	}
 }

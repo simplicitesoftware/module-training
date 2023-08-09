@@ -123,8 +123,6 @@ public class TrnEsiHelper implements java.io.Serializable {
 		return RESTTool.get(getEsiDocUrl(docId));
 	}
 
-	
-
 	private String[] getModules() {
 		ObjectDB m = g.getTmpObject("Module");
 		synchronized (m) {
@@ -148,13 +146,5 @@ public class TrnEsiHelper implements java.io.Serializable {
 
 	public String getEsiDocUrl(String docId)  {
 		return getEsiUrl()+"_doc/"+docId;
-	}
-
-	public static String getTopicId(String docId) {
-		return "topic_" + docId;
-	}
-
-	public static String getTopicId(int docId) {
-		return "topic_" + docId;
 	}
 }

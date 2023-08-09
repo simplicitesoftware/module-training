@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.mongodb.util.JSON;
 import com.simplicite.util.AppLog;
 import com.simplicite.util.Grant;
 import com.simplicite.util.exceptions.HTTPException;
@@ -72,15 +73,16 @@ public class TrnCommunityIndexer implements java.io.Serializable {
 	private void indexSingleTopic(String category, JSONObject topic) 
 		throws HTTPException, JSONException, TrnDiscourseIndexerException {
 		int topicId = topic.getInt("id");
-		String esTopicId = "topic_" + topicId;
+		String esTopicId = TrnDiscourseTool.getEsiTopicId(topicId);
 		String topicSlug = topic.getString("slug");
 
 		JSONObject doc = new JSONObject();
         // todo, complete with category name / id, topic title, name
+        doc.put("title", topic.getString("title"));
 		doc.put("slug", topicSlug);
 		doc.put("url", TrnDiscourseTool.getTopicUrl(url, topicId, topicSlug));
-		doc.put("category", category);
-		doc.put("posts", getPostsAsSingleString(topicId));
+        doc.put("category_id", topic.getString("category_id"));
+		doc.put("posts", getPostsAsArray(topicId));
 
 		// complete doc with topic informations
 		esiHelper.indexEsiDoc(esTopicId, doc);
@@ -89,7 +91,7 @@ public class TrnCommunityIndexer implements java.io.Serializable {
 
 	// fetches all posts from topic and create a single string containing the
 	// content of every post
-	private String getPostsAsSingleString(int topicId) throws HTTPException, JSONException, TrnDiscourseIndexerException {
+	private JSONArray getPostsAsArray(int topicId) throws HTTPException, JSONException, TrnDiscourseIndexerException {
 		String postUrl = TrnDiscourseTool.getPostFetchUrl(url, topicId);
 		AppLog.info("POSTS FROM TOPIC: " + postUrl, g);
 
@@ -98,12 +100,15 @@ public class TrnCommunityIndexer implements java.io.Serializable {
 		JSONObject postStream = json.getJSONObject("post_stream");
 		JSONArray posts = postStream.getJSONArray("posts");
 
-		StringBuilder postsString = new StringBuilder();
+		JSONArray postsArray = new JSONArray();
 		for (int i = 0; i < posts.length(); i++) {
-			postsString.append(posts.getJSONObject(i).getString("cooked"));
+            JSONObject postsObject = new JSONObject();
+            postsObject.put("id", posts.getJSONObject(i).getString("id"));
+            postsObject.put("content", posts.getJSONObject(i).getString("cooked"));
+            postsArray.put(i, postsArray);
 		}
 		totalPosts += posts.length();
-		return postsString.toString();
+		return postsArray;
 	}
 
 	private static String makeRequest(String url) throws HTTPException, TrnDiscourseIndexerException {
