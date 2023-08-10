@@ -120,7 +120,7 @@ public class TrnCommunityIndexer implements java.io.Serializable {
 		for (int i = 0; i < posts.length(); i++) {
 			JSONObject postObject = new JSONObject();
 			postObject.put("id", posts.getJSONObject(i).getInt("id"));
-			postObject.put("content", posts.getJSONObject(i).getString("cooked"));
+			postObject.put("content", posts.getJSONObject(i).getString("raw"));
 			postsArray.put(i, postObject);
 		}
 		totalPosts += posts.length();

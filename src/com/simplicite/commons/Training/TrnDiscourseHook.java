@@ -61,7 +61,7 @@ public class TrnDiscourseHook implements java.io.Serializable {
 		JSONObject post = new JSONObject();
 		int postId = body.getInt("id");
 		post.put("id", postId);
-		post.put("content", body.getString("cooked"));
+		post.put("content", body.getString("raw"));
 		JSONArray posts = topic.getJSONArray("posts");
 		removePostFromArray(posts, postId);
 		posts.put(post);

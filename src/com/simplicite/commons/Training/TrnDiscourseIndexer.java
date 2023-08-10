@@ -97,7 +97,7 @@ public class TrnDiscourseIndexer implements java.io.Serializable {
 
 		StringBuilder postsString = new StringBuilder();
 		for (int i = 0; i < posts.length(); i++) {
-			postsString.append(posts.getJSONObject(i).getString("cooked"));
+			postsString.append(posts.getJSONObject(i).getString("raw"));
 		}
 		totalPosts += posts.length();
 		return postsString.toString();
