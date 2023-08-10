@@ -41,7 +41,7 @@ public class TrnDiscourseTool implements java.io.Serializable {
 	// max 1000 posts ?
 	// https://meta.discourse.org/t/fetch-all-posts-from-a-topic-using-the-api/260886
 	public static String getPostFetchUrl(String url, int topicId) {
-		return url + "/t/" + topicId + ".json";
+		return url + "/t/" + topicId + ".json?include_raw=true";
 	}
 
 	// url to fetch topics from a given category

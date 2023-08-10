@@ -96,7 +96,7 @@ public class TrnCommunityIndexer implements java.io.Serializable {
 		doc.put("category_id", categoryId);
 		// get category name using category_id
 		String catInfoUrl = TrnDiscourseTool.getCategoryInfoUrl(url, categoryId);
-		JSONObject catInfo = new JSONObject(RESTTool.get(catInfoUrl));
+		JSONObject catInfo = new JSONObject(makeRequest(catInfoUrl));
 		doc.put("category", catInfo.getJSONObject("category").getString("name"));
 		doc.put("posts", getPostsAsArray(topicId));
 
