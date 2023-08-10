@@ -57,16 +57,18 @@ public class TrnDiscourseHook implements java.io.Serializable {
 		// get ids and the topic doc stored in elasticsearch
 		int topicId = body.getInt("topic_id");
 		int esiTopicId = TrnDiscourseTool.getEsiTopicId(topicId);
+		int postId = body.getInt("id");
+
 		String resTopic =  esiHelper.getEsiDoc(esiTopicId);
 		if(resTopic.isEmpty()) {
-			throw new TrnDiscourseIndexerException("Unable to ")
+			AppLog.warning(getClass(), "upsertPost", "Ignoring upsert post as associated topic does not exist. Topic id: "+topicId+" postId: "+postId, null, g);
+			return;
 		}
 		JSONObject remoteTopic = new JSONObject();
 		JSONObject topic = remoteTopic.getJSONObject("_source");
 
 		// create post object
 		JSONObject post = new JSONObject();
-		int postId = body.getInt("id");
 
 		post.put("id", postId);
 		post.put("content", body.getString("raw"));
@@ -120,7 +122,7 @@ public class TrnDiscourseHook implements java.io.Serializable {
 		}
 	}
 
-	private void handleTopic(JSONObject body, String action) throws HTTPException {
+	private void handleTopic(JSONObject body, String action) throws HTTPException, TrnDiscourseIndexerException, TrnConfigException {
 		if ("topic_created".equals(action) || "topic_edited".equals(action) || "topic_recovered".equals(action)) {
 			upsertTopic(body);
 		} else if ("topic_destroyed".equals(action)) {
