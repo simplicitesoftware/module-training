@@ -98,8 +98,13 @@ public class TrnEsiHelper implements java.io.Serializable {
 		}
 	}
 
-	public String getEsiDoc(int docId) throws HTTPException {
-		return RESTTool.get(getEsiDocUrl(docId), esUser, esPassword);
+	public String getEsiDoc(int docId) {
+		try {
+			return RESTTool.get(getEsiDocUrl(docId), esUser, esPassword);
+		} catch(HTTPException e) {
+			AppLog.error(getClass(), "getEsiDoc", e.getMessage(), e, g);
+			return null;
+		}
 	}
 
 	private String getEsiUrl() {

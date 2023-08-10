@@ -28,22 +28,27 @@ public class TrnDiscourseHook implements java.io.Serializable {
 		// need to fetch topic, if it exists need to set the posts array
 		int topicId = body.getInt("id");
 		int esTopiciId = TrnDiscourseTool.getEsiTopicId(topicId);
+
 		JSONObject remoteTopic = new JSONObject(esiHelper.getEsiDoc(esTopiciId));
 		JSONArray posts = new JSONArray();
-		if(remoteTopic.has("topic")) {
+		if(!remoteTopic.isEmpty() && remoteTopic.has("topic")) {
 			posts = remoteTopic.getJSONObject("topic").getJSONArray("posts");
 		}
+
 		String topicSlug = body.getString("slug");
 		JSONObject doc = new JSONObject();
+
 		doc.put("title", body.getString("title"));
 		doc.put("slug", topicSlug);
 		doc.put("url", TrnDiscourseTool.getTopicUrl(discourseUrl, topicId, topicSlug));
+
 		int categoryId = body.getInt("category_id");
 		doc.put("category_id", categoryId);
 		String catInfoUrl = TrnDiscourseTool.getCategoryInfoUrl(discourseUrl, categoryId);
 		JSONObject catInfo = new JSONObject(RESTTool.get(catInfoUrl));
 		doc.put("category", catInfo.getJSONObject("category").getString("name"));
 		doc.put("posts", posts);
+		
 		esiHelper.indexEsiDoc(esTopiciId, doc);
 	}
 
@@ -57,24 +62,34 @@ public class TrnDiscourseHook implements java.io.Serializable {
 		int esiTopicId = TrnDiscourseTool.getEsiTopicId(topicId);
 		JSONObject remoteTopic = new JSONObject(esiHelper.getEsiDoc(esiTopicId));
 		JSONObject topic = remoteTopic.getJSONObject("_source");
+
 		// create post object
 		JSONObject post = new JSONObject();
 		int postId = body.getInt("id");
+
 		post.put("id", postId);
 		post.put("content", body.getString("raw"));
+
 		JSONArray posts = topic.getJSONArray("posts");
 		removePostFromArray(posts, postId);
 		posts.put(post);
 		esiHelper.indexEsiDoc(esiTopicId, topic);
 	}
 
-	private void deletePost(JSONObject body) throws HTTPException {
+	private void deletePost(JSONObject body) throws TrnDiscourseIndexerException {
 		int topicId = body.getInt("topic_id");
 		int esiTopicId = TrnDiscourseTool.getEsiTopicId(topicId);
+		int postId = body.getInt("id");
+
 		JSONObject remoteTopic = new JSONObject(esiHelper.getEsiDoc(esiTopicId));
-		JSONArray posts = remoteTopic.getJSONArray("posts");
-		removePostFromArray(posts, body.getInt("id"));
-		esiHelper.indexEsiDoc(esiTopicId, remoteTopic);
+		if(remoteTopic.isEmpty()) {
+			throw new TrnDiscourseIndexerException("Trying to delete post but topic does not exist. Post id: "+postId+", topic id: "+topicId);
+		}
+		JSONObject topic = remoteTopic.getJSONObject("_source");
+		JSONArray posts = topic.getJSONArray("posts");
+		removePostFromArray(posts, postId);
+
+		esiHelper.indexEsiDoc(esiTopicId, topic);
 	}
 
 	private static void removePostFromArray(JSONArray posts, int postId) {
@@ -94,7 +109,7 @@ public class TrnDiscourseHook implements java.io.Serializable {
 		ci.indexAll();
 	}
 
-	public void handleHook(JSONObject body, String action) throws HTTPException, TrnConfigException {
+	public void handleHook(JSONObject body, String action) throws HTTPException, TrnConfigException, TrnDiscourseIndexerException {
 		if (body.has("topic")) {
 			handleTopic(body.getJSONObject("topic"), action);
 		} else if (body.has("post")) {
@@ -114,7 +129,7 @@ public class TrnDiscourseHook implements java.io.Serializable {
 		}
 	}
 
-	public void handlePost(JSONObject body, String action) throws HTTPException {
+	public void handlePost(JSONObject body, String action) throws HTTPException, TrnDiscourseIndexerException {
 		if ("post_created".equals(action) || "post_edited".equals(action) || "post_recovered".equals(action)) {
 			upsertPost(body);
 		} else if ("post_destroyed".equals(action)) {
