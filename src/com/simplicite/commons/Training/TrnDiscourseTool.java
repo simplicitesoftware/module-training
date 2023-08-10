@@ -56,4 +56,8 @@ public class TrnDiscourseTool implements java.io.Serializable {
 	public static int getEsiTopicId(int docId) {
 		return 100000 + docId;
 	}
+
+	public static String getCategoryInfoUrl(String url, int categoryId) {
+		return url + "/c/" + categoryId + "/show.json";
+	}
 }

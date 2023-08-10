@@ -4,7 +4,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.mongodb.util.JSON;
 import com.simplicite.util.AppLog;
 import com.simplicite.util.Grant;
 import com.simplicite.util.exceptions.HTTPException;
@@ -32,16 +31,21 @@ public class TrnCommunityIndexer implements java.io.Serializable {
 		this.esiHelper = TrnEsiHelper.getEsiHelper(g);
 	}
 
+	public TrnCommunityIndexer(Grant g, JSONArray categories) throws JSONException, TrnConfigException {
+		this.g = g;
+		this.url = TrnDiscourseTool.getUrl();
+		this.categories = categories;
+		this.esiHelper = TrnEsiHelper.getEsiHelper(g);
+	}
+
 	// loop on categories from the parameter TRN_DISCOURSE_INDEX
 	// get every topic from given category
-	// then concatenate every post content from one topic in a single string for indexation
+	// then concatenate every post content from one topic in a single string for
+	// indexation
 	public void indexAll() {
 		try {
-			for (int i = 0; i < categories.length(); i++) {
-				String category = (String) categories.get(i);
-				indexTopics(category, 0);
-			}
-			AppLog.info("Discourse indexation done. Total: "+totalTopics+" topics, "+totalPosts+" posts", g);
+			indexCategories();
+			AppLog.info("Discourse indexation done. Total: " + totalTopics + " topics, " + totalPosts + " posts", g);
 		} catch (JSONException e) {
 			AppLog.error(getClass(), "indexAll", "JSON error: ", e, g);
 		} catch (HTTPException e) {
@@ -53,11 +57,18 @@ public class TrnCommunityIndexer implements java.io.Serializable {
 		}
 	}
 
+	private void indexCategories() throws TrnDiscourseIndexerException, HTTPException {
+		for (int i = 0; i < categories.length(); i++) {
+			String category = (String) categories.get(i);
+			indexTopics(category, 0);
+		}
+	}
+
 	// each request fetches 30 topics
 	// need to fetch pages until response topics array is empty
-	private void indexTopics(String category, int page) throws HTTPException, JSONException, TrnDiscourseIndexerException {
+	private void indexTopics(String category, int page)
+			throws HTTPException, JSONException, TrnDiscourseIndexerException {
 		String catUrl = TrnDiscourseTool.getCategoryFetchUrl(url, category, page);
-		AppLog.info("TOPICS FROM CATEGORY: " + catUrl, g);
 		String res = makeRequest(catUrl);
 		JSONObject json = new JSONObject(res);
 		JSONObject topicList = json.getJSONObject("topic_list");
@@ -70,18 +81,23 @@ public class TrnCommunityIndexer implements java.io.Serializable {
 		}
 	}
 
-	private void indexSingleTopic(String category, JSONObject topic) 
-		throws HTTPException, JSONException, TrnDiscourseIndexerException {
+	private void indexSingleTopic(String category, JSONObject topic)
+			throws HTTPException, JSONException, TrnDiscourseIndexerException {
 		int topicId = topic.getInt("id");
 		int esTopicId = TrnDiscourseTool.getEsiTopicId(topicId);
 		String topicSlug = topic.getString("slug");
 
 		JSONObject doc = new JSONObject();
-        // todo, complete with category name / id, topic title, name
-        doc.put("title", topic.getString("title"));
+		// todo, complete with category name / id, topic title, name
+		doc.put("title", topic.getString("title"));
 		doc.put("slug", topicSlug);
 		doc.put("url", TrnDiscourseTool.getTopicUrl(url, topicId, topicSlug));
-        doc.put("category_id", topic.getInt("category_id"));
+		int categoryId = topic.getInt("category_id");
+		doc.put("category_id", categoryId);
+		// get category name using category_id
+		String catInfoUrl = TrnDiscourseTool.getCategoryInfoUrl(url, categoryId);
+		JSONObject catInfo = new JSONObject(RESTTool.get(catInfoUrl));
+		doc.put("category", catInfo.getJSONObject("category").getString("name"));
 		doc.put("posts", getPostsAsArray(topicId));
 
 		// complete doc with topic informations
@@ -102,23 +118,23 @@ public class TrnCommunityIndexer implements java.io.Serializable {
 
 		JSONArray postsArray = new JSONArray();
 		for (int i = 0; i < posts.length(); i++) {
-            JSONObject postObject = new JSONObject();
-            postObject.put("id", posts.getJSONObject(i).getInt("id"));
-            postObject.put("content", posts.getJSONObject(i).getString("cooked"));
-            postsArray.put(i, postObject);
+			JSONObject postObject = new JSONObject();
+			postObject.put("id", posts.getJSONObject(i).getInt("id"));
+			postObject.put("content", posts.getJSONObject(i).getString("cooked"));
+			postsArray.put(i, postObject);
 		}
 		totalPosts += posts.length();
 		return postsArray;
 	}
 
 	private static String makeRequest(String url) throws HTTPException, TrnDiscourseIndexerException {
-		if(tokenBucket.getToken()) {
+		if (tokenBucket.getToken()) {
 			return RESTTool.get(url);
 		} else {
-			while(!tokenBucket.getToken()) {
+			while (!tokenBucket.getToken()) {
 				try {
 					Thread.sleep(1000);
-				} catch(InterruptedException e) {
+				} catch (InterruptedException e) {
 					Thread.currentThread().interrupt();
 					throw new TrnDiscourseIndexerException(e.getMessage());
 				}
@@ -126,7 +142,5 @@ public class TrnCommunityIndexer implements java.io.Serializable {
 			// Token should be acquired at this point
 			return RESTTool.get(url);
 		}
-	}	
+	}
 }
-
-

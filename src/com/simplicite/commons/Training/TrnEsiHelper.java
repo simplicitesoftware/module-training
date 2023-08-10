@@ -68,6 +68,16 @@ public class TrnEsiHelper implements java.io.Serializable {
 		}
 	}
 
+	public void deleteByQuery(int categoryId) {
+		try {
+			RESTTool.delete(getEsiUrl()+"_delete_by_query?{\"query\":{\"match\":{\"category_id\": "+categoryId+"}}}", 
+				esUser, esPassword);
+		} catch (Exception e) {
+			AppLog.error("Error creating index " + esIndex + " on elasticsearch instance " + esInstance, e, g);
+
+		}
+	}
+
 	public void createIndex() {
 		String url = getEsiUrl();
 		try {
@@ -83,19 +93,20 @@ public class TrnEsiHelper implements java.io.Serializable {
 			RESTTool.delete(url, esUser, esPassword);
 			AppLog.info("Deleted index doc: " + url, Grant.getSystemAdmin());
 		} catch (Exception e) {
-			AppLog.warning("Error deleting elastic index doc: " + url + " : " + e.getMessage(), e,Grant.getSystemAdmin());
+			AppLog.warning("Error deleting elastic index doc: " + url + " : " + e.getMessage(), e,
+					Grant.getSystemAdmin());
 		}
 	}
 
 	public String getEsiDoc(int docId) throws HTTPException {
-		return RESTTool.get(getEsiDocUrl(docId));
+		return RESTTool.get(getEsiDocUrl(docId), esUser, esPassword);
 	}
 
 	private String getEsiUrl() {
 		return esInstance + "/" + esIndex + "/";
 	}
 
-	public String getEsiDocUrl(int docId)  {
-		return getEsiUrl()+"_doc/"+docId;
+	public String getEsiDocUrl(int docId) {
+		return getEsiUrl() + "_doc/" + docId;
 	}
 }
