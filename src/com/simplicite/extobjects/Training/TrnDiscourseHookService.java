@@ -5,7 +5,6 @@ import org.json.JSONObject;
 import com.simplicite.commons.Training.TrnConfigException;
 import com.simplicite.commons.Training.TrnDiscourseHook;
 import com.simplicite.commons.Training.TrnDiscourseIndexerException;
-import com.simplicite.commons.Training.TrnTools;
 import com.simplicite.util.*;
 import com.simplicite.util.exceptions.HTTPException;
 import com.simplicite.util.tools.*;

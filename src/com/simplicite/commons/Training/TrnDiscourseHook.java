@@ -1,7 +1,5 @@
 package com.simplicite.commons.Training;
 
-import java.util.*;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
