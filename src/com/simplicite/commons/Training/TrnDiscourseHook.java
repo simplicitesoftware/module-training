@@ -61,10 +61,10 @@ public class TrnDiscourseHook implements java.io.Serializable {
 
 		String resTopic =  esiHelper.getEsiDoc(esiTopicId);
 		if(resTopic.isEmpty()) {
-			AppLog.warning(getClass(), "upsertPost", "Ignoring upsert post as associated topic does not exist. Topic id: "+topicId+" postId: "+postId, null, g);
+			AppLog.info(getClass(), "upsertPost", "Ignoring upsert post as associated topic does not exist. Topic id: "+topicId+" postId: "+postId, g);
 			return;
 		}
-		JSONObject remoteTopic = new JSONObject();
+		JSONObject remoteTopic = new JSONObject(resTopic);
 		JSONObject topic = remoteTopic.getJSONObject("_source");
 
 		// create post object
@@ -79,15 +79,17 @@ public class TrnDiscourseHook implements java.io.Serializable {
 		esiHelper.indexEsiDoc(esiTopicId, topic);
 	}
 
-	private void deletePost(JSONObject body) throws TrnDiscourseIndexerException {
+	private void deletePost(JSONObject body) {
 		int topicId = body.getInt("topic_id");
 		int esiTopicId = TrnDiscourseTool.getEsiTopicId(topicId);
 		int postId = body.getInt("id");
 
-		JSONObject remoteTopic = new JSONObject(esiHelper.getEsiDoc(esiTopicId));
-		if(remoteTopic.isEmpty()) {
-			throw new TrnDiscourseIndexerException("Trying to delete post but topic does not exist. Post id: "+postId+", topic id: "+topicId);
+		String resTopic = esiHelper.getEsiDoc(esiTopicId);
+		if(resTopic.isEmpty()) {
+			AppLog.info(getClass(), "upsertPost", "Ignoring delete post as associated topic does not exist. Topic id: "+topicId+" postId: "+postId, g);
+			return;
 		}
+		JSONObject remoteTopic = new JSONObject(resTopic);
 		JSONObject topic = remoteTopic.getJSONObject("_source");
 		JSONArray posts = topic.getJSONArray("posts");
 		removePostFromArray(posts, postId);
@@ -103,23 +105,24 @@ public class TrnDiscourseHook implements java.io.Serializable {
 		}
 	}
 
-	private void deleteCategory(JSONObject body) {
-		esiHelper.deleteByQuery(body.getJSONObject("category").getInt("id"));
-	}
+	// private void deleteCategory(JSONObject body) {
+	// 	esiHelper.deleteByQuery(body.getJSONObject("category").getInt("id"));
+	// }
 
-	private void indexCategory(JSONObject body) throws TrnConfigException {
-		TrnCommunityIndexer ci = new TrnCommunityIndexer(g, new JSONArray(body.getJSONObject("category").getString("name")));
-		ci.indexAll();
-	}
+	// private void indexCategory(JSONObject body) throws TrnConfigException {
+	// 	TrnCommunityIndexer ci = new TrnCommunityIndexer(g, new JSONArray(body.getJSONObject("category").getString("name")));
+	// 	ci.indexAll();
+	// }
 
 	public void handleHook(JSONObject body, String action) throws HTTPException, TrnConfigException, TrnDiscourseIndexerException {
 		if (body.has("topic")) {
 			handleTopic(body.getJSONObject("topic"), action);
 		} else if (body.has("post")) {
 			handlePost(body.getJSONObject("post"), action);
-		} else if (body.has("category")) {
-			handleCategory(body.getJSONObject("category"), action);
 		}
+		// else if (body.has("category")) {
+		// 	handleCategory(body.getJSONObject("category"), action);
+		// }
 	}
 
 	private void handleTopic(JSONObject body, String action) throws HTTPException, TrnDiscourseIndexerException, TrnConfigException {
@@ -142,13 +145,13 @@ public class TrnDiscourseHook implements java.io.Serializable {
 		}
 	}
 
-	public void handleCategory(JSONObject body, String action) throws TrnConfigException {
-		if ("category_recovered".equals(action)) {
-			indexCategory(body);
-		} else if ("category_destroyed".equals(action)) {
-			deleteCategory(body);
-		} else {
-			AppLog.info("Ignored discourse category action: " + action + ". Category id: ", g);
-		}
-	}
+	// public void handleCategory(JSONObject body, String action) throws TrnConfigException {
+	// 	if ("category_recovered".equals(action)) {
+	// 		indexCategory(body);
+	// 	} else if ("category_destroyed".equals(action)) {
+	// 		deleteCategory(body);
+	// 	} else {
+	// 		AppLog.info("Ignored discourse category action: " + action + ". Category id: ", g);
+	// 	}
+	// }
 }
