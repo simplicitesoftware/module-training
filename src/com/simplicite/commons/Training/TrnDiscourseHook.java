@@ -24,16 +24,10 @@ public class TrnDiscourseHook implements java.io.Serializable {
 		this.g = g;
 	}
 
-	private void upsertTopic(JSONObject body) throws HTTPException {
+	private void upsertTopic(JSONObject body) throws HTTPException, TrnDiscourseIndexerException, TrnConfigException {
 		// need to fetch topic, if it exists need to set the posts array
 		int topicId = body.getInt("id");
 		int esTopiciId = TrnDiscourseTool.getEsiTopicId(topicId);
-
-		JSONObject remoteTopic = new JSONObject(esiHelper.getEsiDoc(esTopiciId));
-		JSONArray posts = new JSONArray();
-		if(!remoteTopic.isEmpty() && remoteTopic.has("topic")) {
-			posts = remoteTopic.getJSONObject("topic").getJSONArray("posts");
-		}
 
 		String topicSlug = body.getString("slug");
 		JSONObject doc = new JSONObject();
@@ -47,7 +41,10 @@ public class TrnDiscourseHook implements java.io.Serializable {
 		String catInfoUrl = TrnDiscourseTool.getCategoryInfoUrl(discourseUrl, categoryId);
 		JSONObject catInfo = new JSONObject(RESTTool.get(catInfoUrl));
 		doc.put("category", catInfo.getJSONObject("category").getString("name"));
-		doc.put("posts", posts);
+
+		TrnCommunityIndexer ci = new TrnCommunityIndexer(g);
+		
+		doc.put("posts", ci.getPostsAsArray(topicId));
 		
 		esiHelper.indexEsiDoc(esTopiciId, doc);
 	}
@@ -56,11 +53,15 @@ public class TrnDiscourseHook implements java.io.Serializable {
 		esiHelper.deleteEsiDoc(TrnDiscourseTool.getEsiTopicId(body.getInt("id")));
 	}
 
-	private void upsertPost(JSONObject body) throws HTTPException {
+	private void upsertPost(JSONObject body) {
 		// get ids and the topic doc stored in elasticsearch
 		int topicId = body.getInt("topic_id");
 		int esiTopicId = TrnDiscourseTool.getEsiTopicId(topicId);
-		JSONObject remoteTopic = new JSONObject(esiHelper.getEsiDoc(esiTopicId));
+		String resTopic =  esiHelper.getEsiDoc(esiTopicId);
+		if(resTopic.isEmpty()) {
+			throw new TrnDiscourseIndexerException("Unable to ")
+		}
+		JSONObject remoteTopic = new JSONObject();
 		JSONObject topic = remoteTopic.getJSONObject("_source");
 
 		// create post object

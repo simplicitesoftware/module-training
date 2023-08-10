@@ -4,10 +4,6 @@ import org.json.JSONObject;
 
 import com.simplicite.util.AppLog;
 import com.simplicite.util.Grant;
-import com.simplicite.util.ModuleDB;
-import com.simplicite.util.ObjectDB;
-import com.simplicite.util.ObjectField;
-import com.simplicite.util.Tool;
 import com.simplicite.util.exceptions.HTTPException;
 import com.simplicite.util.tools.RESTTool;
 
@@ -102,8 +98,7 @@ public class TrnEsiHelper implements java.io.Serializable {
 		try {
 			return RESTTool.get(getEsiDocUrl(docId), esUser, esPassword);
 		} catch(HTTPException e) {
-			AppLog.error(getClass(), "getEsiDoc", e.getMessage(), e, g);
-			return null;
+			return "";
 		}
 	}
 

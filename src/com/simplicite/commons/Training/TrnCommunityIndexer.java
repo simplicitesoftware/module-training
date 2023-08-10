@@ -107,7 +107,7 @@ public class TrnCommunityIndexer implements java.io.Serializable {
 
 	// fetches all posts from topic and create a single string containing the
 	// content of every post
-	private JSONArray getPostsAsArray(int topicId) throws HTTPException, JSONException, TrnDiscourseIndexerException {
+	public JSONArray getPostsAsArray(int topicId) throws HTTPException, JSONException, TrnDiscourseIndexerException {
 		String postUrl = TrnDiscourseTool.getPostFetchUrl(url, topicId);
 		AppLog.info("POSTS FROM TOPIC: " + postUrl, g);
 
