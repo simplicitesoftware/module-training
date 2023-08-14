@@ -87,18 +87,20 @@ public class TrnCommunityIndexer implements java.io.Serializable {
 		int esTopicId = TrnDiscourseTool.getEsiTopicId(topicId);
 		String topicSlug = topic.getString("slug");
 
+        // get category name using category_id
+        int categoryId = topic.getInt("category_id");
+        String catInfoUrl = TrnDiscourseTool.getCategoryInfoUrl(url, categoryId);
+		JSONObject catInfo = new JSONObject(makeRequest(catInfoUrl));
+
 		JSONObject doc = new JSONObject();
 		// todo, complete with category name / id, topic title, name
-		doc.put("title", topic.getString("title"));
-		doc.put("slug", topicSlug);
-		doc.put("url", TrnDiscourseTool.getTopicUrl(url, topicId, topicSlug));
-		int categoryId = topic.getInt("category_id");
-		doc.put("category_id", categoryId);
-		// get category name using category_id
-		String catInfoUrl = TrnDiscourseTool.getCategoryInfoUrl(url, categoryId);
-		JSONObject catInfo = new JSONObject(makeRequest(catInfoUrl));
-		doc.put("category", catInfo.getJSONObject("category").getString("name"));
-		doc.put("posts", getPostsAsArray(topicId));
+		doc.put("title", topic.getString("title"))
+            .put("type", "discourse")
+            .put("slug", topicSlug)
+            .put("url", TrnDiscourseTool.getTopicUrl(url, topicId, topicSlug))
+            .put("category_id", categoryId)
+            .put("category", catInfo.getJSONObject("category").getString("name"))
+            .put("posts", getPostsAsArray(topicId));
 
 		// complete doc with topic informations
 		esiHelper.indexEsiDoc(esTopicId, doc);
@@ -119,8 +121,9 @@ public class TrnCommunityIndexer implements java.io.Serializable {
 		JSONArray postsArray = new JSONArray();
 		for (int i = 0; i < posts.length(); i++) {
 			JSONObject postObject = new JSONObject();
-			postObject.put("id", posts.getJSONObject(i).getInt("id"));
-			postObject.put("content", posts.getJSONObject(i).getString("raw"));
+			postObject.put("id", posts.getJSONObject(i).getInt("id"))
+			    .put("content", posts.getJSONObject(i).getString("raw"));
+                
 			postsArray.put(i, postObject);
 		}
 		totalPosts += posts.length();

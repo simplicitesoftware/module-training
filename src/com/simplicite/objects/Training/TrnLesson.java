@@ -143,6 +143,7 @@ public class TrnLesson extends TrnObject {
   private JSONObject initLessonJson() throws Exception {
     JSONObject json = (new JSONObject())
         .put("row_id", getRowId())
+        .put("type", "lesson")
         .put("path", getFieldValue("trnLsnFrontPath"))
         .put("viz", getFieldValue("trnLsnVisualization"));
 

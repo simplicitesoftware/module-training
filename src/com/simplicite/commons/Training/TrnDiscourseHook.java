@@ -29,20 +29,18 @@ public class TrnDiscourseHook implements java.io.Serializable {
 
 		String topicSlug = body.getString("slug");
 		JSONObject doc = new JSONObject();
-
-		doc.put("title", body.getString("title"));
-		doc.put("slug", topicSlug);
-		doc.put("url", TrnDiscourseTool.getTopicUrl(discourseUrl, topicId, topicSlug));
-
-		int categoryId = body.getInt("category_id");
-		doc.put("category_id", categoryId);
-		String catInfoUrl = TrnDiscourseTool.getCategoryInfoUrl(discourseUrl, categoryId);
+        int categoryId = body.getInt("category_id");
+        String catInfoUrl = TrnDiscourseTool.getCategoryInfoUrl(discourseUrl, categoryId);
 		JSONObject catInfo = new JSONObject(RESTTool.get(catInfoUrl));
-		doc.put("category", catInfo.getJSONObject("category").getString("name"));
+        TrnCommunityIndexer ci = new TrnCommunityIndexer(g);
 
-		TrnCommunityIndexer ci = new TrnCommunityIndexer(g);
-		
-		doc.put("posts", ci.getPostsAsArray(topicId));
+		doc.put("title", body.getString("title"))
+            .put("type", "discourse")
+            .put("slug", topicSlug)
+            .put("url", TrnDiscourseTool.getTopicUrl(discourseUrl, topicId, topicSlug))
+            .put("category_id", categoryId)
+            .put("category", catInfo.getJSONObject("category").getString("name"))
+            .put("posts", ci.getPostsAsArray(topicId));
 		
 		esiHelper.indexEsiDoc(esTopiciId, doc);
 	}
@@ -65,13 +63,13 @@ public class TrnDiscourseHook implements java.io.Serializable {
 		JSONObject remoteTopic = new JSONObject(resTopic);
 		JSONObject topic = remoteTopic.getJSONObject("_source");
 
-		// create post object
+        JSONArray posts = topic.getJSONArray("posts");
 		JSONObject post = new JSONObject();
 
-		post.put("id", postId);
-		post.put("content", body.getString("raw"));
 
-		JSONArray posts = topic.getJSONArray("posts");
+		post.put("id", postId)
+		    .put("content", body.getString("raw"));
+
 		removePostFromArray(posts, postId);
 		posts.put(post);
 		esiHelper.indexEsiDoc(esiTopicId, topic);
@@ -103,24 +101,12 @@ public class TrnDiscourseHook implements java.io.Serializable {
 		}
 	}
 
-	// private void deleteCategory(JSONObject body) {
-	// 	esiHelper.deleteByQuery(body.getJSONObject("category").getInt("id"));
-	// }
-
-	// private void indexCategory(JSONObject body) throws TrnConfigException {
-	// 	TrnCommunityIndexer ci = new TrnCommunityIndexer(g, new JSONArray(body.getJSONObject("category").getString("name")));
-	// 	ci.indexAll();
-	// }
-
 	public void handleHook(JSONObject body, String action) throws HTTPException, TrnConfigException, TrnDiscourseIndexerException {
 		if (body.has("topic")) {
 			handleTopic(body.getJSONObject("topic"), action);
 		} else if (body.has("post")) {
 			handlePost(body.getJSONObject("post"), action);
 		}
-		// else if (body.has("category")) {
-		// 	handleCategory(body.getJSONObject("category"), action);
-		// }
 	}
 
 	private void handleTopic(JSONObject body, String action) throws HTTPException, TrnDiscourseIndexerException, TrnConfigException {
@@ -142,14 +128,4 @@ public class TrnDiscourseHook implements java.io.Serializable {
 			AppLog.info("Ignored discourse post action: " + action + ". Post id: " + body.getInt("id"), g);
 		}
 	}
-
-	// public void handleCategory(JSONObject body, String action) throws TrnConfigException {
-	// 	if ("category_recovered".equals(action)) {
-	// 		indexCategory(body);
-	// 	} else if ("category_destroyed".equals(action)) {
-	// 		deleteCategory(body);
-	// 	} else {
-	// 		AppLog.info("Ignored discourse category action: " + action + ". Category id: ", g);
-	// 	}
-	// }
 }
