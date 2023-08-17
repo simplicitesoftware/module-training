@@ -13,6 +13,7 @@
 <script>
 import SuggestionItem from "./SuggestionItem.vue";
 import { mapGetters } from "vuex";
+import shared from "../../../shared";
 
 export default {
     name: "SimpliciteSuggestions",
@@ -21,15 +22,20 @@ export default {
     },
     props: {
         simpliciteHits: Array,
+        contentMaxLength: Number,
         inputValue: {
             type: String,
             default: "",
         },
     },
+    watch: {
+        simpliciteHits: async function () {
+			this.suggestions = await this.createSuggestions();
+        },
+    },
     data: function () {
         return {
             suggestions: [],
-            contentMaxLength: 1000,
             suggestionMaxLength: 10,
             keyRegex: /(\*|[A-Za-z]+) (.*)/,
             frontPathRegex: /[A-Za-z- _]* (.+)/,
@@ -45,21 +51,31 @@ export default {
     },
     // async operation is made on component creation
     async created() {
-        for (
-            let i = 0;
-            this.suggestions.length < this.suggestionMaxLength &&
-            this.simpliciteHits.length > i;
-            i++
-        ) {
-            await this.setSuggestion(this.simpliciteHits[i].row_id);
-        }
+        this.truncateContent = shared.truncateContent;
+        this.highlightedContent = shared.highlightedContent;
+		this.suggestions = await this.createSuggestions();
     },
     methods: {
         suggestionSelected(suggestion) {
             this.$emit("suggestionSelected", suggestion);
         },
-        async setSuggestion(translateRowId) {
-            const suggestion = new Object();
+        async createSuggestions() {
+			let newSuggestions = [];
+            for (
+                let i = 0;
+                newSuggestions.length < this.suggestionMaxLength &&
+                this.simpliciteHits.length > i;
+                i++
+            ) {
+                const suggestion = await this.getSuggestion(this.simpliciteHits[i].row_id);
+                if(Object.keys(suggestion).length > 0) {
+                    newSuggestions.push(suggestion);
+                }
+            }
+			return newSuggestions;
+        },
+        async getSuggestion(translateRowId) {
+            let suggestion = new Object();
             let translateRes = await this.searchTranslate(translateRowId);
             if (translateRes) {
                 if (translateRes.trnLtrLang === this.lang) {
@@ -67,7 +83,7 @@ export default {
                         translateRes.trnLtrLsnId
                     );
                     if (lessonRes) {
-                        await this.validateAndSetSuggestion(
+                        suggestion = await this.validateAndSetSuggestion(
                             suggestion,
                             lessonRes,
                             translateRes
@@ -84,7 +100,7 @@ export default {
                                 this.lang
                             );
                         if (!currentLangTranslate) {
-                            await this.validateAndSetSuggestion(
+                            suggestion = await this.validateAndSetSuggestion(
                                 suggestion,
                                 lessonRes,
                                 translateRes
@@ -93,9 +109,10 @@ export default {
                     }
                 }
             }
+            return suggestion;
         },
         async validateAndSetSuggestion(suggestion, lessonRes, translateRes) {
-            suggestion.path = lessonRes.trnLsnFrontPath;
+            
             const catPublished = await this.isCategoryPublished(
                 lessonRes.trnLsnCatId,
                 true
@@ -103,8 +120,12 @@ export default {
             if (catPublished) {
                 if (translateRes.trnLtrRawContent && lessonRes.trnLsnPublish) {
                     this.formatContent(suggestion, translateRes);
+                    suggestion.path = lessonRes.trnLsnFrontPath;
+                    suggestion.type = "simplicite";
+                    suggestion.row_id = translateRes.row_id;
                 }
             }
+            return suggestion;
         },
         async searchTranslateLang(rowId, lang) {
             const res = await this.translate.search({
@@ -163,35 +184,20 @@ export default {
             return false;
         },
         formatContent(suggestion, translate) {
-            suggestion.content = this.higlightedContent(
-                translate.trnLtrRawContent
+            suggestion.content = this.highlightedContent(
+                translate.trnLtrRawContent,
+                this.inputValue
             );
-            suggestion.title = this.higlightedContent(translate.trnLtrTitle);
+            suggestion.title = this.highlightedContent(
+                translate.trnLtrTitle,
+                this.inputValue
+            );
             suggestion.type = "simplicite";
-            if (suggestion.content.length > 1000)
+            if (suggestion.content.length > this.contentMaxLength)
                 suggestion.content = this.truncateContent(
                     suggestion.content,
                     this.contentMaxLength
                 );
-            this.suggestions.push(suggestion);
-        },
-        higlightedContent(content) {
-            return content.replaceAll(
-                this.inputValue,
-                "<em>" + this.inputValue + "</em>"
-            );
-        },
-        truncateContent(content, index) {
-            if (
-                content[index] === " " ||
-                content[index] === "." ||
-                content[index] === "?" ||
-                content[index] === ";"
-            ) {
-                return content.substring(0, index) + " [...]";
-            } else {
-                return this.truncateContent(content, index + 1);
-            }
         },
     },
 };

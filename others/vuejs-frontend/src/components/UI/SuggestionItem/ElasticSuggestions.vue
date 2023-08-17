@@ -13,6 +13,7 @@
 <script>
 import { mapGetters } from "vuex";
 import SuggestionItem from "./SuggestionItem.vue";
+import shared from "../../../shared";
 
 export default {
     name: "ElasticSuggestions",
@@ -21,15 +22,19 @@ export default {
     },
     data: function () {
         return {
-            contentMaxLength: 800,
             suggestions: [],
+			truncateContent: () => {},
+			highlightedContent: () => {}
         };
     },
     props: {
         elasticHits: Array,
         inputValue: String,
+		contentMaxLength: Number
     },
     created() {
+		this.truncateContent = shared.truncateContent;
+		this.highlightedContent = shared.highlightedContent;
         this.suggestions = this.formatHits();
     },
     watch: {
@@ -85,7 +90,7 @@ export default {
                     hit.highlight["raw_content_" + lang]
                 );
             } else if (hit._source["raw_content_" + lang]) {
-                return hit._source["raw_content_" + lang];
+                return this.formatSourceContent(hit._source["raw_content_" + lang]);
             } else if (lang !== "any") {
                 return this.getLessonHighlightContent(hit, "any");
             }
@@ -97,16 +102,21 @@ export default {
                     hit.highlight["posts.content"]
                 );
             } else if (hit._source["posts"]) {
-                return this.formatDiscourseSourceContent(hit._source["posts"]);
+				const posts = hit._source["posts"];
+				let postString = "";
+				for(const post of posts) {
+					postString += post.content + " ";
+				}	
+                return this.formatSourceContent(postString);
             }
             return "";
         },
-		formatDiscourseSourceContent(posts) {
-			let postString = "";
-			for(const post of posts) {
-				postString += post.content + " [...]";
+		formatSourceContent(content) {
+			let highlightedContent = this.highlightedContent(content, this.inputValue);
+			if(highlightedContent.length > this.contentMaxLength) {
+				highlightedContent = this.truncateContent(highlightedContent, this.contentMaxLength);
 			}
-			return postString
+			return highlightedContent;
 		},
         getLessonTitle(hit, lang) {
             if (hit.highlight["title_" + lang]) {
@@ -122,7 +132,7 @@ export default {
             if (hit.highlight["title"]) {
                 return hit.highlight["title"][0];
             } else if (hit._source["title"]) {
-                return hit._source["title"];
+				return this.highlightedContent(hit._source["title"], this.inputValue);
             }
             return "";
         },

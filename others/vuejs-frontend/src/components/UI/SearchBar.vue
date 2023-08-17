@@ -12,10 +12,10 @@
 			<div v-if="isSugOpen" class="result-list-container">
 				<div class="" v-if="suggestions">
 					<div v-if="this.$SEARCH_TYPE=='elasticsearch'" class="">
-						<ElasticSuggestions :elasticHits="suggestions" :inputValue="inputValue" @suggestionSelected="suggestionSelected"/>
+						<ElasticSuggestions :elasticHits="suggestions" :inputValue="inputValue" :contentMaxLength="contentMaxLength" @suggestionSelected="suggestionSelected"/>
 					</div>
 					<div v-if="this.$SEARCH_TYPE=='simplicite'" class="">
-						<SimpliciteSuggestions :simpliciteHits="suggestions" :inputValue="inputValue" @suggestionSelected="suggestionSelected"/>
+						<SimpliciteSuggestions :simpliciteHits="suggestions" :contentMaxLength="contentMaxLength" :inputValue="inputValue" @suggestionSelected="suggestionSelected"/>
 					</div>
 				</div>
 				<div class="result-list-empty" v-else>
@@ -50,7 +50,7 @@ export default {
 			currentLangSearchFields : [
 				{
 					field: 'title',
-					weight: '2'
+					weight: '5'
 				},
 				{
 					field: 'raw_content',
@@ -60,7 +60,7 @@ export default {
 			anySearchFields: [
 				{
 					field: 'title_any',
-					weight: '1'
+					weight: '5'
 				},
 				{
 					field: 'raw_content_any',
@@ -68,7 +68,7 @@ export default {
 				},
                 {
                     field: 'title',
-                    weight: '1'
+                    weight: '5'
                 },
                 {
                     field: "posts.content",
@@ -82,6 +82,7 @@ export default {
 			suggestions:null,
 			sugsExist:false,
 			timeout:null,
+            contentMaxLength: 500
 		}
 	},
 	computed:{
@@ -131,9 +132,15 @@ export default {
 		suggestionSelected(suggestion) {
 			this.isSugOpen = false;
 			this.inputValue = '';
-			const lsn = this.getLessonFromPath(suggestion.path);
-			if (lsn && !lsn.is_category) this.$router.push('/lesson' + suggestion.path).catch(err => console.error(err));
-			else this.$store.commit("tree/OPEN_NODE", suggestion.path);
+            if(suggestion.type === "lesson") {
+                const lsn = this.getLessonFromPath(suggestion.path);
+                if (lsn && !lsn.is_category) this.$router.push('/lesson' + suggestion.path).catch(err => console.error(err));
+                else this.$store.commit("tree/OPEN_NODE", suggestion.path);
+            } else if(suggestion.type === "discourse") {
+                window.open(suggestion.path);
+            } else if(suggestion.type === "simplicite") {
+                console.log("implementing simplicite suggestion on click redirection");
+            }
 		},
 		queryIndex(){
             // try hack

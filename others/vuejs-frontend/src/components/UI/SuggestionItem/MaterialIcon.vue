@@ -16,7 +16,6 @@ export default {
         type: String,
     },
     created() {
-        console.log(this.type);
         switch (this.type) {
             case "simplicite":
                 this.material = false;
