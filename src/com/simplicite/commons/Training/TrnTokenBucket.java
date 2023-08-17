@@ -3,8 +3,6 @@ package com.simplicite.commons.Training;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import com.simplicite.util.AppLog;
-import com.simplicite.util.Grant;
 /**
  * Shared code TrnTokenBucket
  */
@@ -31,7 +29,6 @@ public class TrnTokenBucket implements java.io.Serializable {
 			int tokensToAdd = (int) (elapsedTime / 1000);
 			tokens = Math.min(tokens + tokensToAdd, capacity);
 			lastRefillTimestamp = currentTime;
-			AppLog.info(String.valueOf(tokens), Grant.getSystemAdmin());
 			if (tokens > 0) {
 				tokens--;
 				// Grant a token
