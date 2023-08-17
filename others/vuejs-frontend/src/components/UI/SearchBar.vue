@@ -50,23 +50,31 @@ export default {
 			currentLangSearchFields : [
 				{
 					field: 'title',
-					weight: '10'
+					weight: '2'
 				},
 				{
 					field: 'raw_content',
-					weight: '5'
+					weight: '1'
 				}
 			],
 			anySearchFields: [
 				{
 					field: 'title_any',
-					weight: '9'
+					weight: '1'
 				},
 				{
 					field: 'raw_content_any',
 					weight: '1'
-				}
-			],
+				},
+                {
+                    field: 'title',
+                    weight: '1'
+                },
+                {
+                    field: "posts.content",
+                    weight: '1'
+                }			
+            ],
 			hover: false,
 			isSugOpen:false,
 			queryInput:'',
@@ -128,6 +136,10 @@ export default {
 			else this.$store.commit("tree/OPEN_NODE", suggestion.path);
 		},
 		queryIndex(){
+            // try hack
+            const tempSuggestions = this.suggestions;
+            this.suggestions = null;
+            this.suggestions = tempSuggestions;
 			if(this.$SEARCH_TYPE == "elasticsearch"){
 				this.searchElasticSearch(this.inputValue)
 			}
@@ -151,11 +163,13 @@ export default {
 			fetch(this.$smp.parameters.url+"/api/rest/?_indexsearch="+inputValue, requestOptions)
 			.then(response => response.json())
 			.then(async (json) => {
-				const hits = json.filter(elem => elem.object === "TrnLsnTranslate");
-				if(hits.length != 0){
-					this.suggestions = hits
-					this.isSugOpen = true;
-				}
+                if(json.length > 0) {
+                    const hits = json.filter(elem => elem.object === "TrnLsnTranslate");
+                    if(hits.length != 0){
+                        this.suggestions = hits
+                        this.isSugOpen = true;
+                    }
+                }
 				else{
 					this.suggestions = null
 				}
@@ -211,7 +225,7 @@ export default {
 						this.isSugOpen = true;
 					}
 					else{
-						this.suggestions = null
+						this.suggestions = null;
 					}
 				}
 			})

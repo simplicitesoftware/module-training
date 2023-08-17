@@ -7,7 +7,7 @@
       </div>
     </div>
     <div class="result-body">
-      <MaterialIcon :cat="suggestion.cat"></MaterialIcon>
+      <MaterialIcon :type="suggestion.type"></MaterialIcon>
       <div class="result-text">
         <div v-html="suggestion.content"></div>
       </div>

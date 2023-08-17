@@ -28,6 +28,7 @@ public class TrnDiscourseHook implements java.io.Serializable {
 		int esTopiciId = TrnDiscourseTool.getEsiTopicId(topicId);
 
 		String topicSlug = body.getString("slug");
+        
 		JSONObject doc = new JSONObject();
         int categoryId = body.getInt("category_id");
         String catInfoUrl = TrnDiscourseTool.getCategoryInfoUrl(discourseUrl, categoryId);
