@@ -1,6 +1,8 @@
 <template>
-    <div v-if="material" class="result-icon material-icons" v-html="iconSrc"></div>
-    <img v-else class="result-icon" :src="iconSrc" alt="type">
+    <div class="result">
+        <div v-if="material" class="icon material-icons" v-html="iconSrc"></div>
+        <img v-else class="svg" :src="iconSrc" alt="type">
+    </div>
 </template>
 
 <script>
@@ -38,12 +40,16 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.result-icon
+.result
     align-self: center
     margin: 1rem
     border-radius: 3px
     padding: 0.5rem
     background: linear-gradient(to bottom, #F2F2F2 18%, #ebebeb)
-    width: 48px
-    height: auto
+    
+    .icon
+    .svg
+        width: 25px
+        
+    
 </style>
