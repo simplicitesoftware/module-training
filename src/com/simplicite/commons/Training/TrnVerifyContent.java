@@ -176,7 +176,7 @@ public class TrnVerifyContent implements java.io.Serializable {
 	public static boolean isCategory(String path) {
 		String[] splitPath = path.split("/");
 		for (String categoryName : splitPath) {
-			if (!PATTERN_CATEGORY.matcher(categoryName).matches()) {
+			if (!categoryName.isEmpty() && !PATTERN_CATEGORY.matcher(categoryName).matches()) {
 				return false;
 			}
 		}

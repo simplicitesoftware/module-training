@@ -200,7 +200,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		}
 		deleteRecord(rowId, bot, object);
 		hashTool.removePathFromStore(path);
-		AppLog.info("Successfully deleted path " + path, g);
+		AppLog.info("Deleted path " + path, g);
 	}
 
 	private static String removeLastCharacter(String str) {
@@ -231,7 +231,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 			synchronized (bot.getObject()) {
 				bot.getForDelete(rowId);
 				ReturnMessage msg = bot.delete();
-				AppLog.info("Successfully deleted " + objectName + " row_id: " + rowId + " " + msg, g);
+				AppLog.info("Deleted " + objectName + " row_id: " + rowId + " " + msg.getMessage(), g);
 			}
 		} catch (Exception e) {
 			AppLog.warning(getClass(), "deleteRecord", "TRN_WARN_UNABLE_TO_DELETE_" + objectName + ": row_id=" + rowId,
