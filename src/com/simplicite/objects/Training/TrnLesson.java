@@ -47,11 +47,7 @@ public class TrnLesson extends TrnObject {
 
   @Override
   public List<String> postValidate() {
-    if (!isSyncInstance())
-      setFieldValue("trnLsnPath", getPath());
-
     setFieldValue("trnLsnFrontPath", TrnTools.path2Front(getFieldValue("trnLsnPath")));
-
     return Collections.emptyList();
   }
 
@@ -111,11 +107,6 @@ public class TrnLesson extends TrnObject {
     }
     TrnCategory cat = TrnCategory.getCategoryObject(getGrant(), getFieldValue("trnLsnCatId"));
     return cat.isCategoryPublishedRecursive();
-  }
-
-  private String getPath() {
-    return getFieldValue("trnLsnCatId.trnCatPath") + "/" + "LSN_" + getFieldValue("trnLsnOrder") + "_"
-        + TrnTools.toSnake(getFieldValue("trnLsnCode"));
   }
 
   // set lang as null for index json
