@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -85,6 +86,12 @@ public class TrnHashTool implements java.io.Serializable {
 	public void removePathFromStore(String path) {
 		hashStore.remove(path);
 	}
+
+    public void clearAllPath(ArrayList<String> pathList) {
+        for(String path : pathList) {
+            removePathFromStore(path);
+        }
+    }
 
 	private static String calculateHash(File fileOrFolder) throws IOException {
 		String contentToHash = getFolderContents(fileOrFolder);

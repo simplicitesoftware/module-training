@@ -177,29 +177,33 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	}
 
 	private void deleteDeletedPaths() {
+        // prevent concurrent access to the store key list
+        ArrayList<String> deleteFromStore = new ArrayList<>();
 		for (String path : hashTool.getStoreKeySet()) {
 			if (!foundPaths.contains(path) && !path.equals(TAG_JSON_NAME) && !path.equals(URL_REWRITING_JSON_NAME)
 					&& !path.equals(THEME_JSON_NAME)) {
 				deletePath(path);
+                deleteFromStore.add(path);
 			}
 		}
+        hashTool.clearAllPath(deleteFromStore);
 	}
 
 	private void deletePath(String path) {
-		BusinessObjectTool bot;
 		String rowId;
-		String object;
+		String objectName;
+		ObjectDB object;
+        path = removeLastCharacter(path);
 		if (TrnVerifyContent.isCategory(path)) {
-			bot = new BusinessObjectTool(category);
+			object = category;
 			rowId = getCatRowIdFromPath(path);
-			object = "CATEGORY";
+			objectName = "CATEGORY";
 		} else {
-			bot = new BusinessObjectTool(lesson);
-			rowId = getLsnRowIdFromPath(removeLastCharacter(path));
-			object = "LESSON";
+			object = lesson;
+			rowId = getLsnRowIdFromPath(path);
+			objectName = "LESSON";
 		}
-		deleteRecord(rowId, bot, object);
-		hashTool.removePathFromStore(path);
+		deleteRecord(rowId, object, objectName);
 		AppLog.info("Deleted path " + path, g);
 	}
 
@@ -214,20 +218,20 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	private void deleteDiff(ArrayList<String> foundObject, ObjectDB object, String objectName) {
 		if (foundObject.isEmpty())
 			return;
-		BusinessObjectTool bot = new BusinessObjectTool(object);
 		object.resetFilters();
 		for (String[] row : object.search()) {
 			object.resetValues();
 			object.setValues(row);
 			String rowId = object.getRowId();
 			if (!foundObject.contains(rowId)) {
-				deleteRecord(rowId, bot, objectName);
+				deleteRecord(rowId, object, objectName);
 			}
 		}
 	}
 
-	private void deleteRecord(String rowId, BusinessObjectTool bot, String objectName) {
+	private void deleteRecord(String rowId, ObjectDB object, String objectName) {
 		try {
+			BusinessObjectTool bot = new BusinessObjectTool(object);
 			synchronized (bot.getObject()) {
 				bot.getForDelete(rowId);
 				ReturnMessage msg = bot.delete();
@@ -248,7 +252,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 			"TrnTag",
 			"TrnTagLsn",
 			"TrnTagTranslate",
-			"TrnPage",
+			"TrnUrlRewriting",
 			"TrnSiteTheme",
 			"TrnPage");
 
