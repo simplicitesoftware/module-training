@@ -139,7 +139,7 @@ export default {
             } else if(suggestion.type === "discourse") {
                 window.open(suggestion.path);
             } else if(suggestion.type === "simplicite") {
-                console.log("implementing simplicite suggestion on click redirection");
+                this.$router.push('/lesson' + suggestion.path).catch(err => console.log(err));
             }
 		},
 		queryIndex(){
