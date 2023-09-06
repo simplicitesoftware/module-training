@@ -79,7 +79,7 @@ public class TrnLesson extends TrnObject {
 	public String preDelete() {
 		try {
 			if (isLessonPublishedRecursive()) {
-				TrnIndexer.deleteLessonIndex(this);
+				TrnEsIndexer.deleteLessonIndex(this);
 			}
 		} catch (Exception e) {
 			AppLog.error("Error removing index doc of lesson " + getFieldValue("trnLsnCode") + " : " + e.getMessage(),
@@ -93,7 +93,7 @@ public class TrnLesson extends TrnObject {
 		try {
 			boolean res = isLessonPublishedRecursive();
 			if (res) {
-				TrnIndexer.indexLesson(this);
+				TrnEsIndexer.indexLesson(this);
 			}
 		} catch (TrnConfigException e) {
 			AppLog.error(getClass(), "index", e.getMessage(), e, getGrant());

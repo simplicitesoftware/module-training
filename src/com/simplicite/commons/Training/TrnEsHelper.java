@@ -8,9 +8,9 @@ import com.simplicite.util.exceptions.HTTPException;
 import com.simplicite.util.tools.RESTTool;
 
 /**
- * Shared code EsiHelper
+ * Shared code EsHelper
  */
-public class TrnEsiHelper implements java.io.Serializable {
+public class TrnEsHelper implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Grant g;
@@ -19,20 +19,20 @@ public class TrnEsiHelper implements java.io.Serializable {
 	private String esUser;
 	private String esPassword;
 
-	public TrnEsiHelper(Grant g) throws TrnConfigException {
+	public TrnEsHelper(Grant g) throws TrnConfigException {
 		this.g = g;
-		this.esInstance = TrnTools.getEsiUrl();
-		this.esIndex = TrnTools.getEsiIndex();
-		String esCredentials = TrnTools.getEsiCredentials();
+		this.esInstance = TrnTools.getEsUrl();
+		this.esIndex = TrnTools.getEsIndex();
+		String esCredentials = TrnTools.getEsCredentials();
 		if (!esCredentials.isEmpty()) {
 			this.esUser = esCredentials.split(":")[0];
 			this.esPassword = esCredentials.split(":")[1];
 		}
 	}
 
-	public static TrnEsiHelper getEsiHelper(Grant g) throws TrnConfigException {
+	public static TrnEsHelper getEsHelper(Grant g) throws TrnConfigException {
 		if (TrnTools.isElasticSearchMode()) {
-			return new TrnEsiHelper(g);
+			return new TrnEsHelper(g);
 		} else {
 			return null;
 		}
@@ -42,8 +42,8 @@ public class TrnEsiHelper implements java.io.Serializable {
 		return esIndex;
 	}
 
-	public void indexEsiDoc(int docId, JSONObject doc) {
-		String url = getEsiDocUrl(docId);
+	public void indexEsDoc(int docId, JSONObject doc) {
+		String url = getEsDocUrl(docId);
 		try {
 			RESTTool.post(doc, "application/json", url, esUser, esPassword);
 			if (doc.has("path")) {
@@ -58,7 +58,7 @@ public class TrnEsiHelper implements java.io.Serializable {
 
 	public void deleteIndex() {
 		try {
-			RESTTool.delete(getEsiUrl(), esUser, esPassword);
+			RESTTool.delete(getEsUrl(), esUser, esPassword);
 		} catch (Exception e) {
 			AppLog.error("Error deleting index " + esIndex + " on elasticsearch instance " + esInstance, e, g);
 		}
@@ -66,7 +66,7 @@ public class TrnEsiHelper implements java.io.Serializable {
 
 	public void deleteByQuery(int categoryId) {
 		try {
-			RESTTool.delete(getEsiUrl()+"_delete_by_query?{\"query\":{\"match\":{\"category_id\": "+categoryId+"}}}", 
+			RESTTool.delete(getEsUrl()+"_delete_by_query?{\"query\":{\"match\":{\"category_id\": "+categoryId+"}}}", 
 				esUser, esPassword);
 		} catch (Exception e) {
 			AppLog.error("Error creating index " + esIndex + " on elasticsearch instance " + esInstance, e, g);
@@ -75,7 +75,7 @@ public class TrnEsiHelper implements java.io.Serializable {
 	}
 
 	public void createIndex() {
-		String url = getEsiUrl();
+		String url = getEsUrl();
 		try {
 			RESTTool.put("simplicite", url, esUser, esPassword);
 		} catch (Exception e) {
@@ -83,8 +83,8 @@ public class TrnEsiHelper implements java.io.Serializable {
 		}
 	}
 
-	public void deleteEsiDoc(int docId) {
-		String url = getEsiUrl() + "_doc/" + docId;
+	public void deleteEsDoc(int docId) {
+		String url = getEsUrl() + "_doc/" + docId;
 		try {
 			RESTTool.delete(url, esUser, esPassword);
 			AppLog.info("Deleted index doc: " + url, Grant.getSystemAdmin());
@@ -94,19 +94,19 @@ public class TrnEsiHelper implements java.io.Serializable {
 		}
 	}
 
-	public String getEsiDoc(int docId) {
+	public String getEsDoc(int docId) {
 		try {
-			return RESTTool.get(getEsiDocUrl(docId), esUser, esPassword);
+			return RESTTool.get(getEsDocUrl(docId), esUser, esPassword);
 		} catch(HTTPException e) {
 			return "";
 		}
 	}
 
-	private String getEsiUrl() {
+	private String getEsUrl() {
 		return esInstance + "/" + esIndex + "/";
 	}
 
-	public String getEsiDocUrl(int docId) {
-		return getEsiUrl() + "_doc/" + docId;
+	public String getEsDocUrl(int docId) {
+		return getEsUrl() + "_doc/" + docId;
 	}
 }

@@ -49,11 +49,11 @@ public class TrnDiscourseTool implements java.io.Serializable {
 		return url + "/c/" + category + ".json?page=" + page;
 	}
 
-	public static String getEsiTopicId(String docId) {
+	public static String getEsTopicId(String docId) {
 		return "topic_" + docId;
 	}
 
-	public static int getEsiTopicId(int docId) {
+	public static int getEsTopicId(int docId) {
 		return 100000 + docId;
 	}
 

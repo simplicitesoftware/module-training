@@ -230,7 +230,7 @@ public class TrnCategory extends TrnObject {
 
   public void reIndexAll() {
     try {
-      TrnIndexer.forceIndex((getGrant()));
+      TrnEsIndexer.forceIndex((getGrant()));
     } catch (Exception e) {
       AppLog.error(getClass(), "reIndexAll", e.getMessage(), e, Grant.getSystemAdmin());
     }

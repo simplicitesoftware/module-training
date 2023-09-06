@@ -7,8 +7,8 @@ import com.simplicite.util.exceptions.*;
 import com.simplicite.util.tools.*;
 
 /**
- * External object TrnIndexService
+ * External object TrnSearchService
  */
-public class TrnIndexService extends com.simplicite.webapp.services.RESTServiceExternalObject { 
+public class TrnSearchService extends com.simplicite.webapp.services.RESTServiceExternalObject { 
 	
 }

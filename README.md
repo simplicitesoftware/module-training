@@ -286,16 +286,10 @@ This object will hold the static contents of the front-end application
 Provides the ability to checkout on repository in the content folder and trigger a synchronisation.
 
 
-`TrnIndexService` external object definition
---------------------------------------------
-
-Service searching for a query through elasticsearch and fallbacks to simplicite indexation when elasticsearch is not available.
-
-
-`TrnPublicService` external object definition
+`TrnSearchService` external object definition
 ---------------------------------------------
 
-
+Service searching for a query through elasticsearch and fallbacks to simplicite indexation when elasticsearch is not available.
 
 
 `TrnSitemap` external object definition

@@ -3635,37 +3635,18 @@
     },
     {
      "object": "ObjectExternal",
-     "userkey": "TrnIndexService",
+     "userkey": "TrnSearchService",
      "item": {
-      "obe_name": "TrnIndexService",
+      "obe_name": "TrnSearchService",
       "obe_type": "E",
       "obe_url": null,
       "obe_comment": "Service searching for a query through elasticsearch and fallbacks to simplicite indexation when elasticsearch is not available.",
       "obe_help": null,
       "obe_class": null,
       "obe_script_id": {
-       "path": "src/com/simplicite/extobjects/Training/TrnIndexService.java",
+       "path": "src/com/simplicite/extobjects/Training/TrnSearchService.java",
        "mime": "text/plain",
-       "name": "TrnIndexService.java"
-      },
-      "obe_icon": null,
-      "row_module_id__mdl_name": "Training"
-     }
-    },
-    {
-     "object": "ObjectExternal",
-     "userkey": "TrnPublicService",
-     "item": {
-      "obe_name": "TrnPublicService",
-      "obe_type": "E",
-      "obe_url": null,
-      "obe_comment": null,
-      "obe_help": null,
-      "obe_class": null,
-      "obe_script_id": {
-       "path": "src/com/simplicite/extobjects/Training/TrnPublicService.java",
-       "mime": "text/plain",
-       "name": "TrnPublicService.java"
+       "name": "TrnSearchService.java"
       },
       "obe_icon": null,
       "row_module_id__mdl_name": "Training"
@@ -7595,7 +7576,7 @@
      "item": {
       "fct_name": "TRN_INDEX_SERVICE_E",
       "fct_object_id__obj_type": "E",
-      "fct_object_id__obj_name": "TrnIndexService",
+      "fct_object_id__obj_name": "TrnSearchService",
       "fct_function": "L",
       "fct_action_id__act_name": null,
       "fct_view_id__viw_name": null,
@@ -7700,19 +7681,6 @@
       "fct_name": "TRN_PIC_R",
       "fct_object_id__obj_type": "O",
       "fct_object_id__obj_name": "TrnPicture",
-      "fct_function": "L",
-      "fct_action_id__act_name": null,
-      "fct_view_id__viw_name": null,
-      "row_module_id__mdl_name": "Training"
-     }
-    },
-    {
-     "object": "Function",
-     "userkey": "TRN_PUBLIC_SERVICE_E",
-     "item": {
-      "fct_name": "TRN_PUBLIC_SERVICE_E",
-      "fct_object_id__obj_type": "E",
-      "fct_object_id__obj_name": "TrnPublicService",
       "fct_function": "L",
       "fct_action_id__act_name": null,
       "fct_view_id__viw_name": null,
@@ -8008,20 +7976,6 @@
     },
     {
      "object": "Grant",
-     "userkey": "PUBLIC~TRN_INDEX_SERVICE_E~TrnIndexService~",
-     "item": {
-      "grt_group_id__grp_name": "PUBLIC",
-      "grt_function_id__fct_name": "TRN_INDEX_SERVICE_E",
-      "grt_function_id__fct_object_id__obj_type": "E",
-      "grt_function_id__fct_object_id__obj_name": "TrnIndexService",
-      "grt_function_id__fct_action_id__act_name": null,
-      "grt_function_id__fct_function": "L",
-      "grt_activ": true,
-      "row_module_id__mdl_name": "Training"
-     }
-    },
-    {
-     "object": "Grant",
      "userkey": "PUBLIC~TRN_LSN_R~TrnLesson~",
      "item": {
       "grt_group_id__grp_name": "PUBLIC",
@@ -8078,12 +8032,12 @@
     },
     {
      "object": "Grant",
-     "userkey": "PUBLIC~TRN_PUBLIC_SERVICE_E~TrnPublicService~",
+     "userkey": "PUBLIC~TRN_INDEX_SERVICE_E~TrnSearchService~",
      "item": {
       "grt_group_id__grp_name": "PUBLIC",
-      "grt_function_id__fct_name": "TRN_PUBLIC_SERVICE_E",
+      "grt_function_id__fct_name": "TRN_INDEX_SERVICE_E",
       "grt_function_id__fct_object_id__obj_type": "E",
-      "grt_function_id__fct_object_id__obj_name": "TrnPublicService",
+      "grt_function_id__fct_object_id__obj_name": "TrnSearchService",
       "grt_function_id__fct_action_id__act_name": null,
       "grt_function_id__fct_function": "L",
       "grt_activ": true,
@@ -8923,13 +8877,13 @@
     },
     {
      "object": "Script",
-     "userkey": "TrnIndexer",
+     "userkey": "TrnEsIndexer",
      "item": {
-      "scr_code": "TrnIndexer",
+      "scr_code": "TrnEsIndexer",
       "scr_file": {
-       "path": "src/com/simplicite/commons/Training/TrnIndexer.java",
+       "path": "src/com/simplicite/commons/Training/TrnEsIndexer.java",
        "mime": "text/plain",
-       "name": "TrnIndexer.java"
+       "name": "TrnEsIndexer.java"
       },
       "scr_type": "JSR",
       "row_module_id__mdl_name": "Training"
@@ -8937,13 +8891,13 @@
     },
     {
      "object": "Script",
-     "userkey": "TrnEsiHelper",
+     "userkey": "TrnEsHelper",
      "item": {
-      "scr_code": "TrnEsiHelper",
+      "scr_code": "TrnEsHelper",
       "scr_file": {
-       "path": "src/com/simplicite/commons/Training/TrnEsiHelper.java",
+       "path": "src/com/simplicite/commons/Training/TrnEsHelper.java",
        "mime": "text/plain",
-       "name": "TrnEsiHelper.java"
+       "name": "TrnEsHelper.java"
       },
       "scr_type": "JSR",
       "row_module_id__mdl_name": "Training"
@@ -9071,6 +9025,26 @@
        "mime": "text/plain",
        "name": "TrnDiscourseHook.java"
       },
+      "scr_type": "JSR",
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "Script",
+     "userkey": "TrnGitCheckout",
+     "item": {
+      "scr_code": "TrnGitCheckout",
+      "scr_file": null,
+      "scr_type": "JSR",
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "Script",
+     "userkey": "TrnSearch",
+     "item": {
+      "scr_code": "TrnSearch",
+      "scr_file": null,
       "scr_type": "JSR",
       "row_module_id__mdl_name": "Training"
      }
@@ -11423,24 +11397,12 @@
     },
     {
      "object": "TranslateExternal",
-     "userkey": "O~TrnIndexService~ENU",
+     "userkey": "O~TrnSearchService~ENU",
      "item": {
       "tsl_typeObject": "O",
-      "tsl_id__obe_name": "TrnIndexService",
+      "tsl_id__obe_name": "TrnSearchService",
       "tsl_lang": "ENU",
       "tsl_value": "Index service",
-      "tsl_help": null,
-      "row_module_id__mdl_name": "Training"
-     }
-    },
-    {
-     "object": "TranslateExternal",
-     "userkey": "O~TrnPublicService~ENU",
-     "item": {
-      "tsl_typeObject": "O",
-      "tsl_id__obe_name": "TrnPublicService",
-      "tsl_lang": "ENU",
-      "tsl_value": "Public service",
       "tsl_help": null,
       "row_module_id__mdl_name": "Training"
      }
@@ -11543,24 +11505,12 @@
     },
     {
      "object": "TranslateExternal",
-     "userkey": "O~TrnIndexService~FRA",
+     "userkey": "O~TrnSearchService~FRA",
      "item": {
       "tsl_typeObject": "O",
-      "tsl_id__obe_name": "TrnIndexService",
+      "tsl_id__obe_name": "TrnSearchService",
       "tsl_lang": "FRA",
       "tsl_value": "Index service",
-      "tsl_help": null,
-      "row_module_id__mdl_name": "Training"
-     }
-    },
-    {
-     "object": "TranslateExternal",
-     "userkey": "O~TrnPublicService~FRA",
-     "item": {
-      "tsl_typeObject": "O",
-      "tsl_id__obe_name": "TrnPublicService",
-      "tsl_lang": "FRA",
-      "tsl_value": "Public service",
       "tsl_help": null,
       "row_module_id__mdl_name": "Training"
      }

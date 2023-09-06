@@ -18,7 +18,7 @@ public class TrnCommunityIndexer implements java.io.Serializable {
 	private static final TrnTokenBucket tokenBucket = new TrnTokenBucket(40);
 	private final String url;
 	private final JSONArray categories;
-	private final TrnEsiHelper esiHelper;
+	private final TrnEsHelper esHelper;
 	private int totalTopics;
 	private int totalPosts;
 
@@ -28,14 +28,14 @@ public class TrnCommunityIndexer implements java.io.Serializable {
 		this.g = g;
 		this.url = TrnDiscourseTool.getUrl();
 		this.categories = TrnDiscourseTool.getCategories();
-		this.esiHelper = TrnEsiHelper.getEsiHelper(g);
+		this.esHelper = TrnEsHelper.getEsHelper(g);
 	}
 
 	public TrnCommunityIndexer(Grant g, JSONArray categories) throws JSONException, TrnConfigException {
 		this.g = g;
 		this.url = TrnDiscourseTool.getUrl();
 		this.categories = categories;
-		this.esiHelper = TrnEsiHelper.getEsiHelper(g);
+		this.esHelper = TrnEsHelper.getEsHelper(g);
 	}
 
 	// loop on categories from the parameter TRN_DISCOURSE_INDEX
@@ -84,7 +84,7 @@ public class TrnCommunityIndexer implements java.io.Serializable {
 	private void indexSingleTopic(String category, JSONObject topic)
 			throws HTTPException, JSONException, TrnDiscourseIndexerException {
 		int topicId = topic.getInt("id");
-		int esTopicId = TrnDiscourseTool.getEsiTopicId(topicId);
+		int esTopicId = TrnDiscourseTool.getEsTopicId(topicId);
 		String topicSlug = topic.getString("slug");
 
         // get category name using category_id
@@ -103,7 +103,7 @@ public class TrnCommunityIndexer implements java.io.Serializable {
             .put("posts", getPostsAsArray(topicId));
 
 		// complete doc with topic informations
-		esiHelper.indexEsiDoc(esTopicId, doc);
+		esHelper.indexEsDoc(esTopicId, doc);
 		totalTopics++;
 	}
 

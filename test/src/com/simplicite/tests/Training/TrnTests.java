@@ -11,7 +11,7 @@ import static org.junit.Assert.fail;
 
 import com.simplicite.commons.Training.TrnFsSyncTool;
 import com.simplicite.commons.Training.TrnTools;
-import com.simplicite.commons.Training.TrnEsiHelper;
+import com.simplicite.commons.Training.TrnEsHelper;
 /**
  * Unit tests TrnTests
  */
@@ -28,7 +28,7 @@ public class TrnTests {
 	public void testSync() {
 		try {
             if(TrnTools.isElasticSearchMode()) {
-                TrnEsiHelper eh = TrnEsiHelper.getEsiHelper(Grant.getSystemAdmin());
+                TrnEsHelper eh = TrnEsHelper.getEsHelper(Grant.getSystemAdmin());
                 eh.deleteIndex();
                 eh.createIndex();
             }

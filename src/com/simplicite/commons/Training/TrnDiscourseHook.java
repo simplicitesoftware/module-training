@@ -12,12 +12,12 @@ import com.simplicite.util.tools.*;
  */
 public class TrnDiscourseHook implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
-	private final TrnEsiHelper esiHelper;
+	private final TrnEsHelper esHelper;
 	private final String discourseUrl;
 	private final Grant g;
 
 	public TrnDiscourseHook(Grant g) throws TrnConfigException {
-		this.esiHelper = TrnEsiHelper.getEsiHelper(g);
+		this.esHelper = TrnEsHelper.getEsHelper(g);
 		this.discourseUrl = TrnDiscourseTool.getUrl();
 		this.g = g;
 	}
@@ -25,7 +25,7 @@ public class TrnDiscourseHook implements java.io.Serializable {
 	private void upsertTopic(JSONObject body) throws HTTPException, TrnDiscourseIndexerException, TrnConfigException {
 		// need to fetch topic, if it exists need to set the posts array
 		int topicId = body.getInt("id");
-		int esTopiciId = TrnDiscourseTool.getEsiTopicId(topicId);
+		int esTopiciId = TrnDiscourseTool.getEsTopicId(topicId);
 
 		String topicSlug = body.getString("slug");
         
@@ -43,20 +43,20 @@ public class TrnDiscourseHook implements java.io.Serializable {
             .put("category", catInfo.getJSONObject("category").getString("name"))
             .put("posts", ci.getPostsAsArray(topicId));
 		
-		esiHelper.indexEsiDoc(esTopiciId, doc);
+		esHelper.indexEsDoc(esTopiciId, doc);
 	}
 
 	private void deleteTopic(JSONObject body) {
-		esiHelper.deleteEsiDoc(TrnDiscourseTool.getEsiTopicId(body.getInt("id")));
+		esHelper.deleteEsDoc(TrnDiscourseTool.getEsTopicId(body.getInt("id")));
 	}
 
 	private void upsertPost(JSONObject body) {
 		// get ids and the topic doc stored in elasticsearch
 		int topicId = body.getInt("topic_id");
-		int esiTopicId = TrnDiscourseTool.getEsiTopicId(topicId);
+		int esTopicId = TrnDiscourseTool.getEsTopicId(topicId);
 		int postId = body.getInt("id");
 
-		String resTopic =  esiHelper.getEsiDoc(esiTopicId);
+		String resTopic =  esHelper.getEsDoc(esTopicId);
 		if(resTopic.isEmpty()) {
 			AppLog.info(getClass(), "upsertPost", "Ignoring upsert post as associated topic does not exist. Topic id: "+topicId+" postId: "+postId, g);
 			return;
@@ -73,15 +73,15 @@ public class TrnDiscourseHook implements java.io.Serializable {
 
 		removePostFromArray(posts, postId);
 		posts.put(post);
-		esiHelper.indexEsiDoc(esiTopicId, topic);
+		esHelper.indexEsDoc(esTopicId, topic);
 	}
 
 	private void deletePost(JSONObject body) {
 		int topicId = body.getInt("topic_id");
-		int esiTopicId = TrnDiscourseTool.getEsiTopicId(topicId);
+		int esTopicId = TrnDiscourseTool.getEsTopicId(topicId);
 		int postId = body.getInt("id");
 
-		String resTopic = esiHelper.getEsiDoc(esiTopicId);
+		String resTopic = esHelper.getEsDoc(esTopicId);
 		if(resTopic.isEmpty()) {
 			AppLog.info(getClass(), "upsertPost", "Ignoring delete post as associated topic does not exist. Topic id: "+topicId+" postId: "+postId, g);
 			return;
@@ -91,7 +91,7 @@ public class TrnDiscourseHook implements java.io.Serializable {
 		JSONArray posts = topic.getJSONArray("posts");
 		removePostFromArray(posts, postId);
 
-		esiHelper.indexEsiDoc(esiTopicId, topic);
+		esHelper.indexEsDoc(esTopicId, topic);
 	}
 
 	private static void removePostFromArray(JSONArray posts, int postId) {

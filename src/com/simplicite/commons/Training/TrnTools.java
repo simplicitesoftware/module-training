@@ -93,49 +93,49 @@ public class TrnTools implements java.io.Serializable {
 		}
 	}
 
-	private static JSONObject getEsiConfig() throws TrnConfigException {
+	private static JSONObject getEsConfig() throws TrnConfigException {
 		try {
-			return getContentIndexation().getJSONObject("esi_config");
+			return getContentIndexation().getJSONObject("es_config");
 		} catch (Exception e) {
 			throw new TrnConfigException(e.getMessage());
 		}
 	}
 
-	public static boolean hasEsiFrontInstance() throws TrnConfigException {
+	public static boolean hasEsFrontInstance() throws TrnConfigException {
 		try {
-			return getEsiConfig().has("front_instance");
+			return getEsConfig().has("front_instance");
 		} catch (Exception e) {
 			throw new TrnConfigException(e.getMessage());
 		}
 	}
 
-	public static String getEsiFrontInstance() throws TrnConfigException {
+	public static String getEsFrontInstance() throws TrnConfigException {
 		try {
-			return getEsiConfig().getString("front_instance");
+			return getEsConfig().getString("front_instance");
 		} catch (Exception e) {
 			throw new TrnConfigException(e.getMessage());
 		}
 	}
 
-	public static String getEsiUrl() throws TrnConfigException {
+	public static String getEsUrl() throws TrnConfigException {
 		try {
-			return getEsiConfig().getString("instance");
+			return getEsConfig().getString("instance");
 		} catch (Exception e) {
 			throw new TrnConfigException(e.getMessage());
 		}
 	}
 
-	public static String getEsiIndex() throws TrnConfigException {
+	public static String getEsIndex() throws TrnConfigException {
 		try {
-			return getEsiConfig().getString("index");
+			return getEsConfig().getString("index");
 		} catch (Exception e) {
 			throw new TrnConfigException(e.getMessage());
 		}
 	}
 
-	public static String getEsiCredentials() throws TrnConfigException {
+	public static String getEsCredentials() throws TrnConfigException {
 		try {
-			return getEsiConfig().getString("public_credentials");
+			return getEsConfig().getString("public_credentials");
 		} catch (Exception e) {
 			throw new TrnConfigException(e.getMessage());
 		}
