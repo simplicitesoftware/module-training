@@ -9056,6 +9056,34 @@
       "scr_type": "JSR",
       "row_module_id__mdl_name": "Training"
      }
+    },
+    {
+     "object": "Script",
+     "userkey": "TrnSearchElastic",
+     "item": {
+      "scr_code": "TrnSearchElastic",
+      "scr_file": {
+       "path": "src/com/simplicite/commons/Training/TrnSearchElastic.java",
+       "mime": "text/plain",
+       "name": "TrnSearchElastic.java"
+      },
+      "scr_type": "JSR",
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "Script",
+     "userkey": "TrnSearchSimplicite",
+     "item": {
+      "scr_code": "TrnSearchSimplicite",
+      "scr_file": {
+       "path": "src/com/simplicite/commons/Training/TrnSearchSimplicite.java",
+       "mime": "text/plain",
+       "name": "TrnSearchSimplicite.java"
+      },
+      "scr_type": "JSR",
+      "row_module_id__mdl_name": "Training"
+     }
     }
    ]
   },
