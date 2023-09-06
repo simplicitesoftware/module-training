@@ -9034,7 +9034,11 @@
      "userkey": "TrnGitCheckout",
      "item": {
       "scr_code": "TrnGitCheckout",
-      "scr_file": null,
+      "scr_file": {
+       "path": "src/com/simplicite/commons/Training/TrnGitCheckout.java",
+       "mime": "text/plain",
+       "name": "TrnGitCheckout.java"
+      },
       "scr_type": "JSR",
       "row_module_id__mdl_name": "Training"
      }
