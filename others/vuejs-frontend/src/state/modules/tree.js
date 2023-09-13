@@ -7,7 +7,7 @@ export default {
 	},
 	getters: {
 		breadCrumbItems(state, getters, rootState) {
-			let parents = rootState.lesson.lesson.path.replaceAll("-", "_").split('/');
+			let parents = rootState.lesson.lesson.path.split('/');
 			parents.splice(0, 1);
 			let cursor = state.tree;
 			let path = "";
@@ -18,7 +18,7 @@ export default {
 				path += "/" + val;
 				if (idx === parents.length - 1) {
 					let foundLsn = cursor.find((item) => {
-						if(item.path && item.path.replaceAll("-", "_") === path) {
+						if(item.path && item.path === path) {
 							return true
 						}
 					})
@@ -149,7 +149,7 @@ export default {
 
 // tree explorer that takes a function as an argument => used for mutations
 function treeExplorer(tree, path, f, searchType) {
-	path = path.replaceAll("-", "_");
+	//path = path;
 	let parents = path.split('/');
 	parents.splice(0, 1);
 	let cursor = tree;
@@ -164,13 +164,13 @@ function treeExplorer(tree, path, f, searchType) {
 			decomposed.splice(0, 1);
 			if (parents.length === decomposed.length) {
 				return cursor.find((item) => {
-					if (item.path && item.path.replaceAll("-", "_") === path && !item.is_category) {
+					if (item.path && item.path === path && !item.is_category) {
 						return true;
 					}
 				});
 			} else {
 				foundNode = cursor.find((item) => {
-					if (item.path && item.path.replaceAll("-", "_") === path) {
+					if (item.path && item.path === path) {
 						return true;
 					}
 				});
