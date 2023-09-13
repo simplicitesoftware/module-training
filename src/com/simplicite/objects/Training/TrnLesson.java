@@ -138,8 +138,10 @@ public class TrnLesson extends TrnObject {
 		JSONObject json = (new JSONObject())
 				.put("row_id", getRowId())
 				.put("type", "lesson")
+                .put("order", getFieldValue("trnLsnOrder"))
 				.put("path", getFieldValue("trnLsnFrontPath"))
-				.put("viz", getFieldValue("trnLsnVisualization"));
+				.put("viz", getFieldValue("trnLsnVisualization"))
+                .put("is_category", false);
 
 		TrnCategory cat = (TrnCategory) getGrant().getTmpObject("TrnCategory");
 		json.put("catPath", cat.getCatFrontPath(getFieldValue("trnLsnCatId")));

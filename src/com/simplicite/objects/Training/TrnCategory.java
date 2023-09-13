@@ -144,6 +144,7 @@ public class TrnCategory extends TrnObject {
     JSONObject json = new JSONObject()
         .put("row_id", getRowId())
         .put("path", getFieldValue("trnCatFrontPath"))
+        .put("order", getFieldValue("trnCatOrder"))
         .put("is_category", true);
 
     ObjectDB content = getGrant().getTmpObject("TrnCategoryTranslate");

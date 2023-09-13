@@ -88,19 +88,55 @@ public class TrnTreeService extends RESTServiceExternalObject  {
 	private JSONArray getCategoriesRecursive(String parentId, JSONArray tags, String lang){
 		JSONArray cats = new JSONArray();
 		for(JSONObject cat : getCategories(parentId, lang)){
-			cat.put("categories", getCategoriesRecursive(cat.getString("row_id"), tags, lang));
-			cat.put("lessons", getLessons(cat.getString("row_id"), tagLsn, lang, tags));
-			if(cat.getJSONArray("lessons").length() == 0 && cat.getJSONArray("categories").length() == 0) continue;
+            JSONArray items = new JSONArray();
+            items.putAll(getCategoriesRecursive(cat.getString("row_id"), tags, lang));
+            items.putAll(getLessons(cat.getString("row_id"), tagLsn, lang, tags));
+            cat.put("items", orderMenuItems(items));
+			if(cat.getJSONArray("items").length() == 0) continue;
 			cats.put(cat);
 		}
-		return cats;
+        return cats;
 	}
+
+    private List<JSONObject> convertJSONArrayToList(JSONArray json) {
+        List<JSONObject> list = new ArrayList<JSONObject>();
+        for (int i=0; i<json.length(); i++) {
+            list.add(json.getJSONObject(i));
+        }
+        return list;
+    }
+
+    private JSONArray orderMenuItems(JSONArray items) {
+        List<JSONObject> list = convertJSONArrayToList(items);
+        Collections.sort(list, new Comparator<JSONObject>() {
+            @Override
+            public int compare(JSONObject item1, JSONObject item2) {
+                String val1 = new String();
+                String val2 = new String();
+                try {
+                    val1 = item1.getString("order");
+                    val2 = item2.getString("order");
+                } catch(JSONException e) {
+                    AppLog.error(getClass(), "orderMenuItems", "JSON error. Cannot order menu items", e, getGrant());
+                }
+                return val1.compareTo(val2);
+            }
+        });
+
+        JSONArray orderedArray = new JSONArray();
+        for(int i = 0; i < items.length(); i++) {
+            orderedArray.put(list.get(i));
+            if("/docs".equals(list.get(i).getString("path"))) {
+                String test = "";
+            }
+        }
+        return orderedArray;
+    }
 	
 	private List<JSONObject> getCategories(String parentId, String lang){
 		List<JSONObject> catList = new ArrayList<>();
 		synchronized(tmpCategory){
 			tmpCategory.resetFilters();
-			tmpCategory.setFieldOrder("trnCatOrder", 1);
 	    	tmpCategory.setFieldFilter("trnCatId", parentId);
 	  		tmpCategory.setFieldFilter("trnCatPublish", "1");
 			for(String[] row : tmpCategory.search()){

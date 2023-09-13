@@ -1,6 +1,6 @@
 <template>
-    <div id="app" class="app">
-        <CustomHeader v-if="isStyleLoaded"/>
+    <div v-if="isStyleLoaded" id="app" class="app">
+        <CustomHeader/>
         <main>
             <nav class="navigation-drawer" v-show="isDrawerOpen" :style="{background: `linear-gradient(${themeValues.primaryColor} 65%, ${themeValues.secondaryColor})`}">
                 <TreeViewNode v-for="(motherCategory, index) in tree" :key="index" :node="motherCategory" :depth="0"/>
@@ -12,6 +12,7 @@
         </main>
         <LightBox/>
     </div>
+    <Spinner v-else/>
 </template>
 
 <script>

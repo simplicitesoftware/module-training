@@ -3,15 +3,14 @@
     <p :style="indent" @click="nodeClicked(node)" class="tree__root-label"
     nodeClass
     :class="nodeClass">
-		<i v-if="(node.categories && node.categories.length) || (node.lessons && node.lessons.length)"
+		<i v-if="(node.items && node.items.length)"
 			class="material-icons tree__arrow" :class="[node.open ? 'down-arrow' : '']" >keyboard_arrow_right</i>
 		<i v-if="node.is_category" class="material-icons tree__node-type">folder</i>
 		<i v-else class="material-icons tree__node-type">menu_book</i>
 		<span>{{node.title}}</span>
     </p>
     <div v-show="node.open" class="tree__subtree">
-		<TreeViewNode v-for="(subCategory) in node.categories" v-bind:key="'category/'+subCategory.path" :node="subCategory" :depth="depth+1"/>
-		<TreeViewNode v-for="(lesson) in node.lessons" v-bind:key="'lesson/'+lesson.path" :node="lesson" :depth="depth+1"/>
+		<TreeViewNode v-for="(item) in node.items" v-bind:key="item.row_id" :node="item" :depth="depth+1"/>
     </div>
 </div>
 
@@ -66,7 +65,7 @@ export default {
             if (node.is_category) {
 				this.$store.commit('tree/TOGGLE_NODE_OPEN', node.path);
 			} else {
-				this.$router.push('/lesson' + node.path).catch(err => console.error(err));
+				this.$router.push("/lesson" + node.path).catch(err => console.error(err));
 			}
         },
     }

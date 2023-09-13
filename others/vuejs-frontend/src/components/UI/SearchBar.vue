@@ -73,7 +73,7 @@ export default {
                 {
                     field: "posts.content",
                     weight: '1'
-                }			
+                }
             ],
 			hover: false,
 			isSugOpen:false,
@@ -173,12 +173,12 @@ export default {
                 if(json.length > 0) {
                     const hits = json.filter(elem => elem.object === "TrnLsnTranslate");
                     if(hits.length != 0){
-                        this.suggestions = hits
+                        this.suggestions = hits;
                         this.isSugOpen = true;
                     }
                 }
 				else{
-					this.suggestions = null
+					this.suggestions = null;
 				}
 			})
 			.catch(error => console.log('error', error));
