@@ -39,6 +39,8 @@ function setSimplicitePublicSession() {
 
 (() => {
     Vue.prototype.$smp = setSimplicitePublicSession();
+    // temporary default to this value while index service is being implemented
+    Vue.prototype.$SEARCH_TYPE = "simplicite";
     new Vue({
         el: "#app",
         store, //injects the store into all child components so they can use it

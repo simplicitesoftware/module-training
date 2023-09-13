@@ -143,6 +143,7 @@ export default {
             }
 		},
 		queryIndex(){
+            // TODO, update and call search service
             // try hack
             const tempSuggestions = this.suggestions;
             this.suggestions = null;
