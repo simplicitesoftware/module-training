@@ -1,10 +1,10 @@
 package com.simplicite.extobjects.Training;
 
-import java.util.*;
-
+import com.simplicite.commons.Training.TrnSearch;
 import com.simplicite.commons.Training.TrnTools;
-import com.simplicite.util.*;
-import com.simplicite.util.tools.*;
+import com.simplicite.util.AppLog;
+import com.simplicite.util.Grant;
+import com.simplicite.util.tools.Parameters;
 
 /**
  * External object TrnSearchService
@@ -15,21 +15,11 @@ public class TrnSearchService extends com.simplicite.webapp.services.RESTService
 	public Object get(Parameters params) {
         Grant g = getGrant();
         try {
-            
             String query = params.getParameter("query");
+            String frontLang = params.getParameter("lang");
             String indexEngine = TrnTools.getIndexEngine();
-            ArrayList<Object> searchResults = new ArrayList<>();
-            if("elasticsearch".equals(indexEngine)) {
-
-            } else if("simplicite".equals(indexEngine)) {
-
-            } else {
-                AppLog.warning(getClass(), "get", 
-                    "Unkown index engine: "+indexEngine+"found in TRN_CONFIG. Fallback to simplicite engine.",
-                    null, g);
-            }
-
-            return searchResults;
+        
+            return TrnSearch.search(indexEngine, query, frontLang, g);
         } catch(Exception e) {
             AppLog.error(getClass(), "get", e.getMessage(), e, g);
             return "Unable to get results for the requested query";

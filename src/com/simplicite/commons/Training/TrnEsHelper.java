@@ -1,11 +1,16 @@
 package com.simplicite.commons.Training;
 
+import java.util.ArrayList;
+
 import org.json.JSONObject;
+import org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder;
 
 import com.simplicite.util.AppLog;
 import com.simplicite.util.Grant;
 import com.simplicite.util.exceptions.HTTPException;
 import com.simplicite.util.tools.RESTTool;
+
+import kong.unirest.Unirest;
 
 /**
  * Shared code EsHelper
@@ -101,6 +106,22 @@ public class TrnEsHelper implements java.io.Serializable {
 			return "";
 		}
 	}
+
+    public ArrayList<String> searchRequest(JSONObject fullQuery) {
+        try {
+            Unirest.get(getEsSearchUrl())
+                .header("Content-Type", "application/json")
+                .header("Authorization", "Basic " + Base64Coder.encodeString(TrnTools.getEsCredentials()))
+                .queryString("query", fullQuery.toString());
+        } catch(Exception e) {
+
+        }
+        return new ArrayList<>();
+    }
+
+    private String getEsSearchUrl() {
+        return this.getEsUrl() + "_search";
+    }
 
 	private String getEsUrl() {
 		return esInstance + "/" + esIndex + "/";
