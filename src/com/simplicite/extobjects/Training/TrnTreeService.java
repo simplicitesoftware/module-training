@@ -108,28 +108,23 @@ public class TrnTreeService extends RESTServiceExternalObject  {
 
     private JSONArray orderMenuItems(JSONArray items) {
         List<JSONObject> list = convertJSONArrayToList(items);
+        
         Collections.sort(list, new Comparator<JSONObject>() {
             @Override
             public int compare(JSONObject item1, JSONObject item2) {
-                String val1 = new String();
-                String val2 = new String();
                 try {
-                    val1 = item1.getString("order");
-                    val2 = item2.getString("order");
+                	return item1.getInt("order") - item2.getInt("order");
                 } catch(JSONException e) {
                     AppLog.error(getClass(), "orderMenuItems", "JSON error. Cannot order menu items", e, getGrant());
+                    return 0;
                 }
-                return val1.compareTo(val2);
             }
         });
 
         JSONArray orderedArray = new JSONArray();
-        for(int i = 0; i < items.length(); i++) {
-            orderedArray.put(list.get(i));
-            if("/docs".equals(list.get(i).getString("path"))) {
-                String test = "";
-            }
-        }
+        for(JSONObject o : list)
+			orderedArray.put(o);
+        
         return orderedArray;
     }
 	
