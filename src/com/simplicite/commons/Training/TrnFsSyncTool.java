@@ -78,8 +78,26 @@ public class TrnFsSyncTool implements java.io.Serializable {
 			AppLog.info("Triggering synchronisation", g);
 			TrnFsSyncTool t = new TrnFsSyncTool(g);
 			t.sync();
+			logSync(true, null);
 		} catch (Exception e) {
+			logSync(false, e.getMessage());
 			throw new TrnSyncException("Synchronization failed: " + e.getMessage());
+		}
+	}
+	
+	private static void logSync(boolean ok, String msg){
+		Grant g = Grant.getSystemAdmin();
+		try{
+			boolean[] oldcrud = g.changeAccess("TrnSyncSupervisor", true,true,false,false);
+			ObjectDB o = g.getTmpObject("TrnSyncSupervisor");
+			o.getTool().getForCreate();
+			o.setFieldValue("trnSyncDate", Tool.getCurrentDatetime());
+			o.setFieldValue("trnSyncStatus", ok ? "OK" : "KO");
+			o.setFieldValue("trnSyncLog", msg);
+			o.getTool().validateAndCreate();
+			g.changeAccess("TrnSyncSupervisor", oldcrud);
+		} catch(Exception e){
+			AppLog.error("Error logging sync", e, g);
 		}
 	}
 

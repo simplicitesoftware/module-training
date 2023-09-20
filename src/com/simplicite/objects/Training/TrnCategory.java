@@ -198,45 +198,6 @@ public class TrnCategory extends TrnObject {
     return true;
   }
 
-  @Override
-  public boolean isActionEnable(String[] row, String action) {
-    // deactivate sync action if ui mode
-    try {
-      if (TrnTools.isUiMode() && "forceDirSync".equals(action))
-        return false;
-    } catch (TrnConfigException e) {
-      AppLog.error(getClass(), "isActionEnable", e.getMessage(), e, getGrant());
-    }
-    return true;
-  }
-
-  public void forceDirSync() {
-    try {
-      TrnFsSyncTool.triggerSync();
-    } catch (TrnSyncException e) {
-      AppLog.error(getClass(), "forceDirSync", e.getMessage(), e, Grant.getSystemAdmin());
-    }
-  }
-
-  public void indexDiscourse() {
-    try {
-      TrnCommunityIndexer tdi = new TrnCommunityIndexer(getGrant());
-      tdi.indexAll();
-    } catch(TrnConfigException e) {
-      AppLog.error(getClass(), "indexDiscourse", "TrnConfig error: ", e, getGrant());
-    } catch(JSONException e) {
-      AppLog.error(getClass(), "indexDiscourse", "JSON error: ", e, getGrant());
-    }
-  }
-
-  public void reIndexAll() {
-    try {
-      TrnEsIndexer.forceIndex((getGrant()));
-    } catch (Exception e) {
-      AppLog.error(getClass(), "reIndexAll", e.getMessage(), e, Grant.getSystemAdmin());
-    }
-  }
-
   public static TrnCategory getCategoryObject(Grant g, String id) throws Exception {
     TrnCategory cat = (TrnCategory) g.getObject("temp_TrnCategory", "TrnCategory");
     cat.resetFilters();

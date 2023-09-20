@@ -22,6 +22,32 @@ The front end is served on the root url of your instance. For further details on
 
 More info available on the front end default home page.
 
+`TrnSyncSupervisor` business object definition
+----------------------------------------------
+
+
+
+### Fields
+
+| Name                                                         | Type                                     | Required | Updatable | Personal | Description                                                                      |
+|--------------------------------------------------------------|------------------------------------------|----------|-----------|----------|----------------------------------------------------------------------------------|
+| `trnSyncStatus`                                              | enum(2) using `TRN_SYNC_STATUS` list     | yes      | yes       |          | -                                                                                |
+| `trnSyncDate`                                                | datetime                                 | yes*     | yes       |          | -                                                                                |
+| `trnSyncLog`                                                 | text(10000)                              |          | yes       |          | -                                                                                |
+
+### Lists
+
+* `TRN_SYNC_STATUS`
+    - `OK` OK
+    - `KO` KO
+
+### Custom actions
+
+* `discourseIndexer`: 
+* `dropData`: 
+* `esIndexation`: 
+* `forceDirSync`: 
+
 `TrnCategory` business object definition
 ----------------------------------------
 
@@ -40,11 +66,6 @@ The object that serves as container for lessons, or other categories (reflexivit
 | _Ref. `trnCatId.trnCatPath`_                                 | _text(400)_                              |          |           |          | -                                                                                |
 | _Ref. `trnCatId.trnCatCode`_                                 | _char(100)_                              |          |           |          | -                                                                                |
 | _Ref. `trnCatId.trnCatFrontPath`_                            | _text(400)_                              |          |           |          | -                                                                                |
-
-### Custom actions
-
-* `discourseIndexer`: 
-* `forceDirSync`: 
 
 `TrnCategoryTranslate` business object definition
 -------------------------------------------------

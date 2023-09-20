@@ -91,6 +91,10 @@ components:
         label3:
           description: 'Label #3'
           type: string
+    ArrayOfTrnSyncSupervisor:
+      type: array
+      items:
+        $ref: '#/components/schemas/TrnSyncSupervisor'
     PlaceMapData:
       type: object
       properties:
@@ -278,6 +282,25 @@ components:
           type: string
         trnCatId__trnCatPath:
           description: Parent category
+          type: string
+    TrnSyncSupervisor:
+      type: object
+      properties:
+        trnSyncDate:
+          description: Date
+          type: string
+          example: yyyy-MM-dd HH:mm:ss
+        trnSyncLog:
+          description: Log
+          type: string
+        trnSyncStatus:
+          description: Status
+          type: string
+          enum:
+          - OK
+          - KO
+        row_id:
+          description: Unique technical row ID
           type: string
     ArrayOfTrnPicture:
       type: array
@@ -478,53 +501,6 @@ servers:
 - url: /api
 openapi: 3.0.2
 paths:
-  /rest/TrnCategory/{row_id}/action:forceDirSync:
-    get:
-      summary: Call a custom action for a TrnCategory business object record or for
-        all records
-      security:
-      - bearerAuth: []
-      operationId: obj-trncategory-action-forcedirsync
-      responses:
-        '200':
-          description: Success in calling the custom action
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ActionResult'
-        '400':
-          description: Bad request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error400'
-        '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error401'
-        '500':
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error500'
-        '404':
-          description: Not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error404'
-      parameters:
-      - schema:
-          type: string
-        in: path
-        name: row_id
-        description: Row ID (or empty or _ for all row IDs)
-        required: true
-      tags:
-      - TrnCategory
   /login:
     get:
       summary: Login (obtain bearer token)
@@ -751,6 +727,53 @@ paths:
         required: true
       tags:
       - TrnLesson
+  /rest/TrnSyncSupervisor/{row_id}/action:dropData:
+    get:
+      summary: Call a custom action for a TrnSyncSupervisor business object record
+        or for all records
+      security:
+      - bearerAuth: []
+      operationId: obj-trnsyncsupervisor-action-dropdata
+      responses:
+        '200':
+          description: Success in calling the custom action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActionResult'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error400'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        required: true
+      tags:
+      - TrnSyncSupervisor
   /rest/TrnCategoryTranslate:
     get:
       summary: Search TrnCategoryTranslate business object records or get contextualized
@@ -839,6 +862,201 @@ paths:
         required: false
       tags:
       - TrnCategoryTranslate
+  /rest/TrnSyncSupervisor/{row_id}:
+    post:
+      summary: Create a new TrnSyncSupervisor business object record
+      security:
+      - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrnSyncSupervisor'
+      operationId: obj-trnsyncsupervisor-create
+      responses:
+        '200':
+          description: Success in creating a new business object record
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrnSyncSupervisor'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error400'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500'
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        required: true
+      tags:
+      - TrnSyncSupervisor
+    get:
+      summary: Get a TrnSyncSupervisor business object record
+      security:
+      - bearerAuth: []
+      operationId: obj-trnsyncsupervisor-get
+      responses:
+        '200':
+          description: Success in getting a single business object record
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrnSyncSupervisor'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        required: true
+      - schema:
+          type: boolean
+        in: query
+        name: _inline_documents
+        description: Inline documents?
+        required: false
+      - schema:
+          type: boolean
+        in: query
+        name: _inline_thumbnails
+        description: Inline documents' thumbnails?
+        required: false
+      - schema:
+          type: boolean
+        in: query
+        name: _inline_objects
+        description: Inline objects?
+        required: false
+      tags:
+      - TrnSyncSupervisor
+    delete:
+      summary: Delete a TrnSyncSupervisor business object record
+      security:
+      - bearerAuth: []
+      operationId: obj-trnsyncsupervisor-delete
+      responses:
+        '200':
+          description: Success in deleting a business object record
+          content:
+            application/json: {}
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error400'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        required: true
+      tags:
+      - TrnSyncSupervisor
+    put:
+      summary: Update a TrnSyncSupervisor business object record
+      security:
+      - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrnSyncSupervisor'
+      operationId: obj-trnsyncsupervisor-update
+      responses:
+        '200':
+          description: Success in updating a business object record
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrnSyncSupervisor'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error400'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        required: true
+      tags:
+      - TrnSyncSupervisor
   /rest/TrnUrlRewriting/{row_id}:
     post:
       summary: Create a new TrnUrlRewriting business object record
@@ -1196,53 +1414,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TrnCategory'
-        '400':
-          description: Bad request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error400'
-        '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error401'
-        '500':
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error500'
-        '404':
-          description: Not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error404'
-      parameters:
-      - schema:
-          type: string
-        in: path
-        name: row_id
-        description: Row ID (or empty or _ for all row IDs)
-        required: true
-      tags:
-      - TrnCategory
-  /rest/TrnCategory/{row_id}/action:discourseIndexer:
-    get:
-      summary: Call a custom action for a TrnCategory business object record or for
-        all records
-      security:
-      - bearerAuth: []
-      operationId: obj-trncategory-action-discourseindexer
-      responses:
-        '200':
-          description: Success in calling the custom action
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ActionResult'
         '400':
           description: Bad request
           content:
@@ -2728,6 +2899,75 @@ paths:
         required: false
       tags:
       - TrnPicture
+  /rest/TrnSyncSupervisor:
+    get:
+      summary: Search TrnSyncSupervisor business object records or get contextualized
+        metadata
+      security:
+      - bearerAuth: []
+      operationId: obj-trnsyncsupervisor-search
+      responses:
+        '200':
+          description: Success in searching business object records (or in getting
+            contextualized business object metadata, documentation, ...)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfTrnSyncSupervisor'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500'
+      parameters:
+      - schema:
+          type: boolean
+        in: query
+        name: _metadata
+        description: Metadata?
+        required: false
+      - schema:
+          type: boolean
+        in: query
+        name: _count
+        description: Count?
+        required: false
+      - schema:
+          type: boolean
+        in: query
+        name: _doc
+        description: Documentation?
+        required: false
+      - schema:
+          type: string
+          enum:
+          - OK
+          - KO
+        in: query
+        name: trnSyncStatus
+        description: Search filter for Status
+        required: false
+      - schema:
+          type: string
+        in: query
+        name: trnSyncDate
+        description: Search filter for Date
+        required: false
+      - schema:
+          type: string
+        in: query
+        name: trnSyncLog
+        description: Search filter for Log
+        required: false
+      tags:
+      - TrnSyncSupervisor
   /rest/TrnUrlRewriting:
     get:
       summary: Search TrnUrlRewriting business object records or get contextualized
@@ -2788,6 +3028,53 @@ paths:
         required: false
       tags:
       - TrnUrlRewriting
+  /rest/TrnSyncSupervisor/{row_id}/action:forceDirSync:
+    get:
+      summary: Call a custom action for a TrnSyncSupervisor business object record
+        or for all records
+      security:
+      - bearerAuth: []
+      operationId: obj-trnsyncsupervisor-action-forcedirsync
+      responses:
+        '200':
+          description: Success in calling the custom action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActionResult'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error400'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        required: true
+      tags:
+      - TrnSyncSupervisor
   /rest/TrnPicture/{row_id}:
     post:
       summary: Create a new TrnPicture business object record
@@ -2983,6 +3270,53 @@ paths:
         required: true
       tags:
       - TrnPicture
+  /rest/TrnSyncSupervisor/{row_id}/action:discourseIndexer:
+    get:
+      summary: Call a custom action for a TrnSyncSupervisor business object record
+        or for all records
+      security:
+      - bearerAuth: []
+      operationId: obj-trnsyncsupervisor-action-discourseindexer
+      responses:
+        '200':
+          description: Success in calling the custom action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActionResult'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error400'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        required: true
+      tags:
+      - TrnSyncSupervisor
   /:
     get:
       summary: Get user session information
@@ -3106,6 +3440,53 @@ paths:
         required: false
       tags:
       - TrnPage
+  /rest/TrnSyncSupervisor/{row_id}/action:esIndexation:
+    get:
+      summary: Call a custom action for a TrnSyncSupervisor business object record
+        or for all records
+      security:
+      - bearerAuth: []
+      operationId: obj-trnsyncsupervisor-action-esindexation
+      responses:
+        '200':
+          description: Success in calling the custom action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActionResult'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error400'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        required: true
+      tags:
+      - TrnSyncSupervisor
   /rest/TrnSiteContent/{row_id}:
     post:
       summary: Create a new TrnSiteContent business object record
@@ -4075,6 +4456,8 @@ tags:
   description: Site Contents
 - name: TrnSiteTheme
   description: Site theme
+- name: TrnSyncSupervisor
+  description: Sync Supervisor
 - name: TrnTag
   description: Tags
 - name: TrnTagLsn
