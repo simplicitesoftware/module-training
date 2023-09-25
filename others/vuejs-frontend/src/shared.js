@@ -1,5 +1,3 @@
-
-
 export default {
     highlightedContent: function(content, inputValue) {
         return content.replaceAll(

@@ -5,17 +5,14 @@ import VueRouter from "vue-router";
 import Vuex from "vuex";
 import router from "./router";
 import store from "./state/store";
-import ReactiveSearch from "@appbaseio/reactivesearch-vue";
-import "@/directives";
+//import "@/directives";
 import Meta from "vue-meta";
 import simplicite from "simplicite";
 import AsyncComputed from "vue-async-computed";
 import vClickOutside from "v-click-outside";
 
-Vue.config.productionTip = false;
 Vue.use(VueRouter);
 Vue.use(Vuex); // enable vuex store management system
-Vue.use(ReactiveSearch);
 Vue.use(Meta);
 Vue.use(AsyncComputed);
 Vue.use(vClickOutside);
@@ -37,7 +34,7 @@ function setSimplicitePublicSession() {
     return app;
 }
 
-(() => {
+window.onload = function() {
     Vue.prototype.$smp = setSimplicitePublicSession();
     // temporary default to this value while index service is being implemented
     Vue.prototype.$SEARCH_TYPE = "simplicite";
@@ -46,5 +43,5 @@ function setSimplicitePublicSession() {
         store, //injects the store into all child components so they can use it
         render: (h) => h(App),
         router: router,
-    }).$mount("#app");
-})();
+    });
+}

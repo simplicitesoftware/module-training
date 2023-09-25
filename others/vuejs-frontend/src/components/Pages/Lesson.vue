@@ -60,6 +60,7 @@
     import ldif from 'highlight.js/lib/languages/ldif';
     import nginx from 'highlight.js/lib/languages/nginx';
     import apache from 'highlight.js/lib/languages/apache';
+    import sql from 'highlight.js/lib/languages/sql';
 
 	// manually importing required languages for performances reasons
 	hljs.registerLanguage('javascript', javascript);
@@ -77,6 +78,7 @@
     hljs.registerLanguage('ldif', ldif);
     hljs.registerLanguage('nginx', nginx);
     hljs.registerLanguage('apache', apache);
+    hljs.registerLanguage('sql', sql);
 
 	function getDocumentURL(vm) {
 		return new Promise((resolve, reject) => {
