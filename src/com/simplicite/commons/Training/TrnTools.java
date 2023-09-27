@@ -204,4 +204,24 @@ public class TrnTools implements java.io.Serializable {
 	public static String getDefaultLang() {
 		return "ANY";
 	}
+
+    public static String highlightContent(String content, String inputValue) {
+        return content.replaceAll(inputValue, "<em>"+inputValue+"</em>");
+    }
+
+    public static String truncateContent(String content, int index) {
+        if(content.length() <= index) {
+            return content;
+        }
+        if(
+            content.charAt(index) == ' ' ||
+            content.charAt(index) == '.' ||
+            content.charAt(index) == '?' ||
+            content.charAt(index) == ';'
+        ) {
+            return content.substring(0, index) + " [...]";
+        } else {
+            return truncateContent(content, index + 1);
+        }
+    }
 }

@@ -2,6 +2,8 @@ package com.simplicite.commons.Training;
 
 import java.util.*;
 
+import org.json.JSONObject;
+
 import com.simplicite.util.*;
 import com.simplicite.bpm.*;
 import com.simplicite.util.exceptions.*;
@@ -13,8 +15,8 @@ import com.simplicite.util.tools.*;
 public class TrnSearch implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 
-    public static ArrayList<Object> search(String indexEngine, String query, String lang, Grant g) throws Exception {
-        ArrayList<Object> searchResults = new ArrayList<>();
+    public static ArrayList<JSONObject> search(String indexEngine, String query, String lang, Grant g) throws Exception {
+        ArrayList<JSONObject> searchResults = new ArrayList<>();
         if("elasticsearch".equals(indexEngine)) {
             try {
                 searchResults = TrnSearchElastic.search(query, lang, g);

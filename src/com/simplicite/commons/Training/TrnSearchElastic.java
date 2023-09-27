@@ -14,7 +14,7 @@ public class TrnSearchElastic implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
     private static final int maxResults = 10;
 
-	public static ArrayList<Object> search(String input, String lang, Grant g) throws TrnConfigException {
+	public static ArrayList<JSONObject> search(String input, String lang, Grant g) throws TrnConfigException {
         TrnEsHelper esHelper = new TrnEsHelper(g);
         esHelper.searchRequest(getFullQuery(input, lang));
         return new ArrayList<>();

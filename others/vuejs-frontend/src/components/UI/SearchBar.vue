@@ -10,14 +10,16 @@
 		</div>
 		<div class="suggestionRelative">
 			<div v-if="isSugOpen" class="result-list-container">
-				<div class="" v-if="suggestions">
-					<div v-if="this.$SEARCH_TYPE=='elasticsearch'" class="">
-						<ElasticSuggestions :elasticHits="suggestions" :inputValue="inputValue" :contentMaxLength="contentMaxLength" @suggestionSelected="suggestionSelected"/>
-					</div>
-					<div v-if="this.$SEARCH_TYPE=='simplicite'" class="">
-						<SimpliciteSuggestions :simpliciteHits="suggestions" :contentMaxLength="contentMaxLength" :inputValue="inputValue" @suggestionSelected="suggestionSelected"/>
-					</div>
-				</div>
+                <div v-if="suggestions">
+                    <div v-for="suggestion in suggestions || []" :key="suggestion.row_id">
+                        <SuggestionItem
+                            :suggestion="suggestion"
+                            :inputValue="inputValue"
+                            @suggestionItemSelected="suggestionSelected"
+                        />
+                    </div>
+                </div>
+				
 				<div class="result-list-empty" v-else>
 					{{emptyResult}}
 				</div>
@@ -29,16 +31,14 @@
 
 <script>
 
-import ElasticSuggestions from "./SuggestionItem/ElasticSuggestions.vue";
-import SimpliciteSuggestions from "./SuggestionItem/SimpliciteSuggestions.vue";
+import SuggestionItem from "./SuggestionItem/SuggestionItem.vue";
 import {mapGetters} from "vuex";
 
 export default {
 	
 	name: "SearchBar",
 	components :{
-		ElasticSuggestions,
-		SimpliciteSuggestions
+		SuggestionItem
 	},
 	props: {
 		themeValues: Object
@@ -90,19 +90,19 @@ export default {
 			lang: 'ui/lang',
 			langEsFormat: 'ui/langEsFormat'
 		}),
-		getsearchFields : function() {
-			return this.getQueryFormat(this.currentLangSearchFields, true).concat(this.getQueryFormat(this.anySearchFields, false));
-		},
-		gethighlightFields : function() {
-			const obj = new Object();
-			for(const f of this.currentLangSearchFields) {
-				obj[f.field+"_"+this.langEsFormat] = {};
-			}
-            for(const f of this.anySearchFields) {
-                obj[f.field] = {};
-            }
-			return obj;
-		},
+		// getsearchFields : function() {
+		// 	return this.getQueryFormat(this.currentLangSearchFields, true).concat(this.getQueryFormat(this.anySearchFields, false));
+		// },
+		// gethighlightFields : function() {
+		// 	const obj = new Object();
+		// 	for(const f of this.currentLangSearchFields) {
+		// 		obj[f.field+"_"+this.langEsFormat] = {};
+		// 	}
+        //     for(const f of this.anySearchFields) {
+        //         obj[f.field] = {};
+        //     }
+		// 	return obj;
+		// },
 		searchbarPlaceHolder : function(){
 			return "FRA" == this.lang ? "Rechercher" : "Search"
 		},
@@ -114,9 +114,9 @@ export default {
 		}),
 	},
 	methods: {
-		getQueryFormat(fields, formatLang) {
-			return fields.map((f) => f.field+(formatLang ? "_"+this.langEsFormat : "")+"^"+f.weight);
-		},
+		// getQueryFormat(fields, formatLang) {
+		// 	return fields.map((f) => f.field+(formatLang ? "_"+this.langEsFormat : "")+"^"+f.weight);
+		// },
 		hideSuggestions(){
 			this.isSugOpen = false;
 		},
@@ -130,6 +130,8 @@ export default {
 			}
 		},
 		suggestionSelected(suggestion) {
+            // check here
+            console.log(suggestion);
 			this.isSugOpen = false;
 			this.inputValue = '';
             if(suggestion.type === "lesson") {
@@ -143,22 +145,11 @@ export default {
             }
 		},
 		queryIndex(){
-            // TODO, update and call search service
-            // try hack
-            const tempSuggestions = this.suggestions;
-            this.suggestions = null;
-            this.suggestions = tempSuggestions;
+            // const tempSuggestions = this.suggestions;
+            // this.suggestions = null;
+            // this.suggestions = tempSuggestions;
             
             this.callSearchService(this.inputValue);
-			// if(this.$SEARCH_TYPE == "elasticsearch"){
-			// 	this.searchElasticSearch(this.inputValue)
-			// }
-			// else if(this.$SEARCH_TYPE == "simplicite"){
-			// 	this.searchSimplicite(this.inputValue)
-			// }
-			// else if(this.$SEARCH_TYPE == "community"){
-			// 	this.searchCommnuity(this.inputValue)
-			// }
 		},
         callSearchService(inputValue) {
 			const headers = new Headers();
@@ -173,9 +164,9 @@ export default {
 			fetch(this.$smp.parameters.url+"/api/ext/TrnSearchService/?query="+inputValue+"&lang="+this.lang, requestOptions)
 			.then(response => response.json())
 			.then(async (json) => {
-                console.log(json);
                 if(json.length > 0) {
-                    console.log("not empty");
+                    this.suggestions = json;
+                    this.isSugOpen = true;
                 }
 				else{
 					this.suggestions = null;
@@ -183,106 +174,60 @@ export default {
 			})
 			.catch(error => console.log('error', error));
         },
-		searchSimplicite(inputValue){
-			const headers = new Headers();
-			headers.append("Authorization", this.$smp.getBearerTokenHeader());
-			headers.append("Content-Type", "application/json");
+		// searchElasticSearch(inputValue){
 			
-			const requestOptions = {
-				method: 'GET',
-				headers: headers,
-				redirect: 'follow'
-			};
-			fetch(this.$smp.parameters.url+"/api/rest/?_indexsearch="+inputValue, requestOptions)
-			.then(response => response.json())
-			.then(async (json) => {
-                if(json.length > 0) {
-                    const hits = json.filter(elem => elem.object === "TrnLsnTranslate");
-                    if(hits.length != 0){
-                        this.suggestions = hits;
-                        this.isSugOpen = true;
-                    }
-                }
-				else{
-					this.suggestions = null;
-				}
-			})
-			.catch(error => console.log('error', error));
+		// 	const myHeaders = new Headers();
+		// 	if(process.env.NODE_ENV !== "local") {
+		// 		const authent = Buffer.from(this.$ES_CREDENTIALS, 'utf8').toString('base64');
+		// 		myHeaders.append("Authorization", "Basic "+authent);
+		// 	}
 			
-		},
-		searchElasticSearch(inputValue){
+		// 	myHeaders.append("Content-Type", "application/json");
+		// 	myHeaders.append("Origin", this.$ES_INSTANCE);
 			
-			const myHeaders = new Headers();
-			if(process.env.NODE_ENV !== "local") {
-				const authent = Buffer.from(this.$ES_CREDENTIALS, 'utf8').toString('base64');
-				myHeaders.append("Authorization", "Basic "+authent);
-			}
+		// 	// any results are not returned
+		// 	const json = {
+		// 		"query": {
+		// 			"multi_match": {
+		// 				"type": "phrase_prefix",
+		// 				"query": inputValue,
+		// 				"fields": this.getsearchFields
+		// 			}
+		// 		},
+		// 		"highlight": {
+		// 			"fields": this.gethighlightFields,
+		// 			"fragment_size":500
+		// 		},
+		// 		"size": 10
+		// 	};
 			
-			myHeaders.append("Content-Type", "application/json");
-			myHeaders.append("Origin", this.$ES_INSTANCE);
+		// 	const raw = JSON.stringify(json);
 			
-			// any results are not returned
-			const json = {
-				"query": {
-					"multi_match": {
-						"type": "phrase_prefix",
-						"query": inputValue,
-						"fields": this.getsearchFields
-					}
-				},
-				"highlight": {
-					"fields": this.gethighlightFields,
-					"fragment_size":500
-				},
-				"size": 10
-			};
+		// 	const requestOptions = {
+		// 		method: 'POST',
+		// 		headers: myHeaders,
+		// 		body: raw,
+		// 		redirect: 'follow'
+		// 	};
 			
-			const raw = JSON.stringify(json);
+		// 	const searchUrl = this.$ES_INSTANCE+"/"+this.$ES_INDEX+"/_search";
 			
-			const requestOptions = {
-				method: 'POST',
-				headers: myHeaders,
-				body: raw,
-				redirect: 'follow'
-			};
-			
-			const searchUrl = this.$ES_INSTANCE+"/"+this.$ES_INDEX+"/_search";
-			
-			fetch(searchUrl, requestOptions)
-			.then(response => response.json())
-			.then(json => {
-				if(json.hits) {
-					const hits = json.hits.hits
-					if(hits.length != 0){
-						this.suggestions = hits;
-						this.isSugOpen = true;
-					}
-					else{
-						this.suggestions = null;
-					}
-				}
-			})
-			.catch(error => console.log('error', error));
-		},
-		// to do
-		searchCommnuity(inputValue){
-			console.log(inputValue);
-			const myHeaders = new Headers();
-			myHeaders.append("key", "1d6d13346f39ffa120b0c0c3afe5212c23ea71a5d3a76bc18d9013e7d1fc2f98");
-			const requestOptions = {
-				method: 'GET',
-				headers: myHeaders,
-				redirect: 'follow'
-			};
-			
-			//fetch("https://community.simplicite.io/search.json?q=pouvoir créer un agenda", requestOptions)
-			fetch("https://community.simplicite.io/posts.json", requestOptions)
-			.then(response => response.json())
-			.then(json => {
-				this.suggestion =  json;
-			})
-			.catch(error => console.log('error', error));
-		},
+		// 	fetch(searchUrl, requestOptions)
+		// 	.then(response => response.json())
+		// 	.then(json => {
+		// 		if(json.hits) {
+		// 			const hits = json.hits.hits
+		// 			if(hits.length != 0){
+		// 				this.suggestions = hits;
+		// 				this.isSugOpen = true;
+		// 			}
+		// 			else{
+		// 				this.suggestions = null;
+		// 			}
+		// 		}
+		// 	})
+		// 	.catch(error => console.log('error', error));
+		// },
 	}
 };
 
