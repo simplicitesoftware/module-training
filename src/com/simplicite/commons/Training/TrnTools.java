@@ -9,7 +9,6 @@ import java.util.regex.Pattern;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 
-import com.simplicite.util.AppLog;
 import com.simplicite.util.Grant;
 import com.simplicite.util.tools.SyntaxTool;
 
@@ -206,7 +205,7 @@ public class TrnTools implements java.io.Serializable {
 	}
 
     public static String highlightContent(String content, String inputValue) {
-        return content.replaceAll(inputValue, "<em>"+inputValue+"</em>");
+        return content.replaceAll("(?i)("+inputValue+")", "<em>$1</em>");
     }
 
     public static String truncateContent(String content, int index) {
