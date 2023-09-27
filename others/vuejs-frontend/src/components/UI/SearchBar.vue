@@ -123,15 +123,7 @@ export default {
 		searchIconClick() {
 			this.isSugOpen = true;
 		},
-		valueSelected(val, event, item) {
-			this.isSugOpen = false;
-			if(item !== undefined){
-				this.$router.push('/lesson' + item.trnLsnFrontPath).catch(err => console.error(err));
-			}
-		},
 		suggestionSelected(suggestion) {
-            // check here
-            console.log(suggestion);
 			this.isSugOpen = false;
 			this.inputValue = '';
             if(suggestion.type === "lesson") {
@@ -145,10 +137,10 @@ export default {
             }
 		},
 		queryIndex(){
-            // const tempSuggestions = this.suggestions;
-            // this.suggestions = null;
-            // this.suggestions = tempSuggestions;
-            
+            if(this.inputValue === "") {
+                this.isSugOpen = false;
+                return;
+            }
             this.callSearchService(this.inputValue);
 		},
         callSearchService(inputValue) {
@@ -163,7 +155,7 @@ export default {
 			};
 			fetch(this.$smp.parameters.url+"/api/ext/TrnSearchService/?query="+inputValue+"&lang="+this.lang, requestOptions)
 			.then(response => response.json())
-			.then(async (json) => {
+			.then((json) => {
                 if(json.length > 0) {
                     this.suggestions = json;
                     this.isSugOpen = true;
@@ -173,7 +165,8 @@ export default {
 				}
 			})
 			.catch(error => console.log('error', error));
-        },
+        }
+
 		// searchElasticSearch(inputValue){
 			
 		// 	const myHeaders = new Headers();
