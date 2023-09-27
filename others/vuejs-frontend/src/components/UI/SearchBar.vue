@@ -140,32 +140,34 @@ export default {
             if(this.inputValue === "") {
                 this.isSugOpen = false;
                 return;
+            } else {
+                this.isSugOpen = true;
             }
             this.callSearchService(this.inputValue);
 		},
         callSearchService(inputValue) {
-			const headers = new Headers();
+            const headers = new Headers();
             headers.append("Authorization", this.$smp.getBearerTokenHeader());
-			headers.append("Content-Type", "application/json");
-			
-			const requestOptions = {
-				method: 'GET',
-				headers: headers,
-				redirect: 'follow'
-			};
-			fetch(this.$smp.parameters.url+"/api/ext/TrnSearchService/?query="+inputValue+"&lang="+this.lang, requestOptions)
-			.then(response => response.json())
-			.then((json) => {
+            headers.append("Content-Type", "application/json");
+            
+            const requestOptions = {
+                method: 'GET',
+                headers: headers,
+                redirect: 'follow'
+            };
+            fetch(this.$smp.parameters.url+"/api/ext/TrnSearchService/?query="+inputValue+"&lang="+this.lang, requestOptions)
+            .then(response => response.json())
+            .then((json) => {
                 if(json.length > 0) {
                     this.suggestions = json;
-                    this.isSugOpen = true;
                 }
-				else{
-					this.suggestions = null;
-				}
-			})
-			.catch(error => console.log('error', error));
+                else{
+                    this.suggestions = null;
+                }
+            })
+            .catch((error) => console.log(error));
         }
+			
 
 		// searchElasticSearch(inputValue){
 			
