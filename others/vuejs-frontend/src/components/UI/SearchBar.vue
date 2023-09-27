@@ -148,16 +148,41 @@ export default {
             const tempSuggestions = this.suggestions;
             this.suggestions = null;
             this.suggestions = tempSuggestions;
-			if(this.$SEARCH_TYPE == "elasticsearch"){
-				this.searchElasticSearch(this.inputValue)
-			}
-			else if(this.$SEARCH_TYPE == "simplicite"){
-				this.searchSimplicite(this.inputValue)
-			}
-			else if(this.$SEARCH_TYPE == "community"){
-				this.searchCommnuity(this.inputValue)
-			}
+            
+            this.callSearchService(this.inputValue);
+			// if(this.$SEARCH_TYPE == "elasticsearch"){
+			// 	this.searchElasticSearch(this.inputValue)
+			// }
+			// else if(this.$SEARCH_TYPE == "simplicite"){
+			// 	this.searchSimplicite(this.inputValue)
+			// }
+			// else if(this.$SEARCH_TYPE == "community"){
+			// 	this.searchCommnuity(this.inputValue)
+			// }
 		},
+        callSearchService(inputValue) {
+			const headers = new Headers();
+            headers.append("Authorization", this.$smp.getBearerTokenHeader());
+			headers.append("Content-Type", "application/json");
+			
+			const requestOptions = {
+				method: 'GET',
+				headers: headers,
+				redirect: 'follow'
+			};
+			fetch(this.$smp.parameters.url+"/api/ext/TrnSearchService/?query="+inputValue+"&lang="+this.lang, requestOptions)
+			.then(response => response.json())
+			.then(async (json) => {
+                console.log(json);
+                if(json.length > 0) {
+                    console.log("not empty");
+                }
+				else{
+					this.suggestions = null;
+				}
+			})
+			.catch(error => console.log('error', error));
+        },
 		searchSimplicite(inputValue){
 			const headers = new Headers();
 			headers.append("Authorization", this.$smp.getBearerTokenHeader());
