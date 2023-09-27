@@ -13,7 +13,7 @@ import com.simplicite.util.tools.*;
 public class TrnSearch implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 
-    public static ArrayList<Object> search(String indexEngine, String query, String lang, Grant g) {
+    public static ArrayList<Object> search(String indexEngine, String query, String lang, Grant g) throws Exception {
         ArrayList<Object> searchResults = new ArrayList<>();
         if("elasticsearch".equals(indexEngine)) {
             try {

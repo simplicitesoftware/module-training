@@ -22,8 +22,8 @@ public class TrnSearchService extends com.simplicite.webapp.services.RESTService
             return TrnSearch.search(indexEngine, query, frontLang, g);
         } catch(Exception e) {
             AppLog.error(getClass(), "get", e.getMessage(), e, g);
+            setHTTPStatus(500);
             return "Unable to get results for the requested query";
         }
-        
     }
 }
