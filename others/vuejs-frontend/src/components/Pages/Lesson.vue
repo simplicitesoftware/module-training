@@ -186,9 +186,13 @@
 					smp: this.$smp,
 					lesson: {row_id: undefined, viz: undefined},
 					path: "/" + this.$router.currentRoute.params.pagePath
-				}).catch(async e => {
+				})
+                .catch(async e => {
 					await this.$router.push('/404');
-				});
+				})
+                .finally(() => {
+                    this.spinner = false;
+                })
 			},
 			async openCategory() {
 				const cat = this.getCategoryFromPath("/" + this.$router.currentRoute.params.categoryPath);

@@ -38,17 +38,22 @@ export default {
     },
 
     async openPage({dispatch}, payload) {
-      return new Promise((resolve) => {
+      return new Promise((resolve, reject) => {
         let page = payload.smp.getBusinessObject("TrnPage");
         page.search({"trnPageTrnLessonid__trnLsnFrontPath": payload.path, "trnPageTrnLessonid__trnLsnPublish": true}, {inlineDocs: 'infos'})
         .then(async array => {
           if(array[0]) {
-            payload.lesson.row_id = array[0].TrnPage_TrnLesson_id;
-            payload.lesson.viz = array[0].TrnPage_TrnLesson_id__trnLsnVisualization;
+            payload.lesson.row_id = array[0].trnPageTrnLessonid;
+            payload.lesson.viz = array[0].trnPageTrnLessonid__trnLsnVisualization;
             await dispatch("fetchLesson", payload);
             resolve();
+          } else {
+            reject();
           }
-        }).catch(e => console.log(e));
+        }).catch((e) => {
+            console.log(e);
+            reject();
+        })
       })
     },
 

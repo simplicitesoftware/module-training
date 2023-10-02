@@ -1,5 +1,6 @@
 package com.simplicite.commons.Training;
 
+import com.simplicite.objects.Training.TrnLesson;
 import com.simplicite.objects.Training.TrnTagLsn;
 import com.simplicite.util.AppLog;
 import com.simplicite.util.Grant;
@@ -160,8 +161,6 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		loadTrnObjects();
 		// injects contents at `contentDir` into DB, sets new hashes (recursive)
 		syncPath("/");
-		upsertHomepage(); // homepage content depends on the lesson homepage, so it must be executed after
-							// syncPath
 		AppLog.info("Content has been synced", g);
 
 		// deletes from DB paths that are not in the file structure anymore
@@ -558,11 +557,6 @@ public class TrnFsSyncTool implements java.io.Serializable {
 				: g.simpleQuery("select row_id from trn_lesson where trn_lsn_path='" + path + "'");
 	}
 
-	private String getPageRowIdFromCode(String code) {
-		return Tool.isEmpty(code) ? ""
-				: g.simpleQuery("select row_id from trn_page where trn_page_code='" + code + "'");
-	}
-
 	private void upsertLessonAndContent(File dir) throws TrnSyncException {
 		try {
 			String relativePath = getRelativePath(dir);
@@ -613,7 +607,11 @@ public class TrnFsSyncTool implements java.io.Serializable {
 
 				lesson.populate(true);
 				bot.validateAndSave(true);
-				return lesson.getRowId();
+                rowId = lesson.getRowId();
+                if(lsnData.getBoolean("page")) {
+                    upsertPage(rowId, lsnData.getString("code"));
+                }
+				return rowId;
 			}
 		} catch (Exception e) {
 			throw new TrnSyncException("TRN_SYNC_UPSERT_LESSON", e.getMessage() + " " + lesson.toJSON());
@@ -761,31 +759,28 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		}
 	}
 
-	private void upsertHomepage() throws TrnSyncException {
-		try {
-			if (getPageRowIdFromCode("homepage").isEmpty()) {
-				lesson.resetFilters();
-				lesson.setFieldFilter("trnLsnFrontPath", "/pages/homepage");
-				List<String[]> res = lesson.search();
-				if (res.isEmpty()) {
-					throw new TrnSyncException("syncHomepage", "Unable to find lesson homepage");
-				}
-				lesson.setValues(res.get(0));
-				page.resetValues();
-				BusinessObjectTool bot = new BusinessObjectTool(page);
-				bot.selectForCreate();
-				synchronized (page) {
-					page.resetValues();
-					page.setFieldValue("trnPageCode", "homepage");
-					page.setFieldValue("trnPageType", "homepage");
-					page.setFieldValue("trnPageTrnLessonid", lesson.getRowId());
-					bot.validateAndSave();
-				}
-			}
-		} catch (Exception e) {
-			throw new TrnSyncException("TRN_SYNC_ERROR_SYNC_HOMEPAGE", e.getMessage());
-		}
-	}
+    private void upsertPage(String lsnRowId, String code) throws TrnSyncException {
+        String type;
+        if("homepage".equals(code)) {
+            type = "homepage";
+        } else {
+            type = "others";
+        }
+        try {
+            page.resetValues();
+            BusinessObjectTool bot = new BusinessObjectTool(page);
+            bot.selectForCreate();
+            synchronized (page) {
+                page.resetValues();
+                page.setFieldValue("trnPageCode", code);
+                page.setFieldValue("trnPageType", type);
+                page.setFieldValue("trnPageTrnLessonid", lsnRowId);
+                bot.validateAndSave();
+            }
+        } catch(Exception e) {
+            throw new TrnSyncException("TRN_SYNC_ERROR_SYNC_PAGE", e.getMessage());
+        }
+    }
 
 	private String getTagRowIdFromCode(String code) {
 		return Tool.isEmpty(code) ? "" : g.simpleQuery("select row_id from trn_tag where trn_tag_code='" + code + "'");
@@ -855,6 +850,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		lsn.put("published", lsnJson.optBoolean("published", true));
 		lsn.put("viz", lsnJson.optString("display", "TUTO"));
 		lsn.put("tags", lsnJson.optJSONArray("tags"));
+        lsn.put("page", lsnJson.optBoolean("page", false));
 
 		JSONObject contents = new JSONObject();
 		File f;
