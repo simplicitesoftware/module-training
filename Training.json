@@ -43,7 +43,7 @@
      "userkey": "URI_MAPPINGS",
      "item": {
       "sys_code": "URI_MAPPINGS",
-      "sys_value": "[]",
+      "sys_value": "[\n\t{ \"source\": \"^/sitemap.txt$\", \"destination\": \"/api/ext/TrnSitemap\" },\n\t{ \"source\": \"^$|^/$|(^/(?:lesson|page|category|sandbox|sandbox\\\\-demand|tag\\\\-no\\\\-content|js|css|img|public|404).*)$\", \"destination\": \"/ext/TrnFront$1\" },\n\t{ \"source\": \"^(.*)$\", \"destination\": \"/ext/TrnExtUrlRedirector$1\" }\n]",
       "sys_type": "PRV",
       "sys_desc": "Optional custom URI mappings, e.g.\n\n```json\n[\n\t{ \"source\": \"^/v1(.+)$\", \"destination\": \"/api/ext/MyAPIv1$1\" },\n\t{ \"source\": \"^/site$\",   \"destination\": \"/ext/MyWebSiteSite\" }\n]\n```",
       "row_module_id__mdl_name": "Training"
