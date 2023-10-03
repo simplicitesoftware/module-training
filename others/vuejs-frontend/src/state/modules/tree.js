@@ -63,7 +63,6 @@ export default {
 				let parentIndex = 0;
 				let path = "/" + parents[parentIndex];
 				let foundCat = undefined;
-
 				const recursiveCat = function (path, cursor) {
 					if (foundCat) return;
 					if (path === cursor.path) {
@@ -73,7 +72,7 @@ export default {
 						} else {
 							parentIndex++;
 							path += "/" + parents[parentIndex];
-							for (const cat of cursor.categories) {
+							for (const cat of cursor.items.filter((item) => item.is_category === true)) {
 								recursiveCat(path, cat);
 							}
 						}

@@ -127,13 +127,13 @@ export default {
 			this.isSugOpen = false;
 			this.inputValue = '';
             if(suggestion.type === "lesson") {
-                const lsn = this.getLessonFromPath(suggestion.path);
-                if (lsn && !lsn.is_category) this.$router.push('/lesson' + suggestion.path).catch(err => console.error(err));
-                else this.$store.commit("tree/OPEN_NODE", suggestion.path);
+                this.$router.push('/lesson' + suggestion.path).catch(err => console.error(err));
             } else if(suggestion.type === "discourse") {
                 window.open(suggestion.path);
             } else if(suggestion.type === "simplicite") {
                 this.$router.push('/lesson' + suggestion.path).catch(err => console.log(err));
+            }  else if(suggestion.type === "page") {
+                this.$router.push('/page' + suggestion.path).catch(err => console.log(err));
             }
 		},
 		queryIndex(){

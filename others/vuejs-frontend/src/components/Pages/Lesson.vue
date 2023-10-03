@@ -197,8 +197,10 @@
 			async openCategory() {
 				const cat = this.getCategoryFromPath("/" + this.$router.currentRoute.params.categoryPath);
 				if(cat) {
-					if(cat.lessons.length > 0) {
-						const lesson = this.getLessonFromPath(cat.lessons[0].path);
+                    // open first found lesson if it exists, otherwise just open node
+                    const foundLesson = cat.items.find((item) => item.is_category === false);
+					if(foundLesson) {
+						const lesson = this.getLessonFromPath(foundLesson.path);
 						this.openLesson(lesson);
 					} else {
 						await this.$router.push('/');

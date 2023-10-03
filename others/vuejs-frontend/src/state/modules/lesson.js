@@ -10,14 +10,7 @@ export default {
     },
     actions: {
         async openLesson({dispatch, commit} , payload) {
-            // isRoot prevents the following case :
-            // clicking on a lesson which has the same name as a category will open the lesson AND open the category node.
-            // this case can only occur on root lessons.
-            // needs a rework, only works as a dirty fix for /docs/versions (lesson and cat)
-            const isRoot =  payload.lesson.path.split('/').length < 4 ? true : false;
-            if(!isRoot) {
-                commit('tree/OPEN_NODE', payload.lesson.path, { root: true });
-            }
+            commit('tree/OPEN_NODE', payload.lesson.path, { root: true });
             await dispatch("fetchLesson", payload);
         },
     async openHomePage({dispatch}, payload) {
