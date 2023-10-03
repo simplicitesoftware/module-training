@@ -6,6 +6,7 @@ import org.json.JSONObject;
 
 import com.simplicite.objects.Training.TrnLsnTranslate;
 import com.simplicite.util.Grant;
+import com.simplicite.util.Tool;
 import com.simplicite.util.tools.IndexCore;
 import com.simplicite.util.tools.SearchItem;
 
@@ -30,7 +31,7 @@ public class TrnSearchSimplicite implements java.io.Serializable {
             String translateLang = lsnTranslate.getFieldValue("trnLtrLang");
             String rawContent = lsnTranslate.getFieldValue("trnLtrRawContent");
             if(lang.equals(translateLang) || "ANY".equals(translateLang) && !rawContent.isEmpty()) {
-                filteredResults.add(formatResult(lsnTranslate, query));
+                filteredResults.add(formatResult(lsnTranslate, query, g));
             }
             if(filteredResults.size() >= maxResult) {
                 break;
@@ -44,18 +45,30 @@ public class TrnSearchSimplicite implements java.io.Serializable {
         return searchResults;
     }
 
-    private static JSONObject formatResult(TrnLsnTranslate lsnTranslate, String query) {
+    private static JSONObject formatResult(TrnLsnTranslate lsnTranslate, String query, Grant g) {
         JSONObject json = new JSONObject();
         String title = TrnTools.highlightContent(lsnTranslate.getFieldValue("trnLtrTitle"), query);
         String content = lsnTranslate.getFieldValue("trnLtrRawContent"); 
         String truncated = TrnTools.truncateContent(content, contentMaxLength);
         String highlightedContent = TrnTools.highlightContent(truncated, query);
+        boolean isPage = isPage(lsnTranslate.getFieldValue("trnLtrLsnId"), g);
+        String type = isPage ? "page" : "lesson";
         
         json.put("title", title)
             .put("row_id", lsnTranslate.getRowId())
             .put("path", lsnTranslate.getFieldValue("trnLsnFrontPath"))
-            .put("type", "lesson")
+            .put("type", type)
             .put("content", highlightedContent);
+
         return json;
+    }
+
+    private static boolean isPage(String lsnRowId, Grant g) {
+        String res = g.simpleQuery("select row_id from trn_page where trn_page_trn_lessonid="+Tool.toSQL(lsnRowId));
+        if(res.isEmpty()) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }
