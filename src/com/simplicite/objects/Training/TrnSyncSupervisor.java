@@ -1,14 +1,8 @@
 package com.simplicite.objects.Training;
 
-import java.util.*;
-
 import com.simplicite.util.*;
-import com.simplicite.util.exceptions.*;
-import com.simplicite.util.tools.*;
-
 import com.simplicite.commons.Training.*;
-import org.json.JSONException;
-import org.json.JSONObject;
+
 /**
  * Business object TrnSyncSupervisor
  */
@@ -21,9 +15,7 @@ public class TrnSyncSupervisor extends ObjectDB {
 				return "Data drop only available in filesystem mode";
 			
 			if(TrnTools.isElasticSearchMode()) {
-                TrnEsHelper eh = TrnEsHelper.getEsHelper(Grant.getSystemAdmin());
-                eh.deleteIndex();
-                eh.createIndex();
+                resetIndex();
             }
             
 			TrnFsSyncTool.dropDbData();
@@ -68,6 +60,7 @@ public class TrnSyncSupervisor extends ObjectDB {
 			if(!TrnTools.isElasticSearchMode())
 				return "indexation only available with elastic search mode";
 				
+            resetIndex();
 			TrnEsIndexer.forceIndex((getGrant()));
 			return "All lessons reindexed in elastic node";
 		} catch (Exception e) {
@@ -75,4 +68,10 @@ public class TrnSyncSupervisor extends ObjectDB {
 			return "Error while indexing lessons in elastic node";
 		}
 	}
+
+    private void resetIndex() throws TrnConfigException {
+        TrnEsHelper eh = TrnEsHelper.getEsHelper(Grant.getSystemAdmin());
+        eh.deleteIndex();
+        eh.createIndex();
+    } 
 }
