@@ -47,9 +47,9 @@ public class TrnLesson extends TrnObject {
 
 	@Override
 	public List<String> postValidate() {
-        if(!isSyncInstance()) {
-            setFieldValue("trnLsnPath", getFieldValue("trnLsnCatId.trnCatPath") + "/" + getFieldValue("trnLsnCode"));
-        }
+		if (!isSyncInstance()) {
+			setFieldValue("trnLsnPath", getFieldValue("trnLsnCatId.trnCatPath") + "/" + getFieldValue("trnLsnCode"));
+		}
 		setFieldValue("trnLsnFrontPath", TrnTools.path2Front(getFieldValue("trnLsnPath")));
 		return Collections.emptyList();
 	}
@@ -106,13 +106,18 @@ public class TrnLesson extends TrnObject {
 	}
 
 	// check if lesson is published and if parent categories are published
-	private boolean isLessonPublishedRecursive() throws Exception {
-		String published = getFieldValue("trnLsnPublish");
-		if ("0".equals(published)) {
+	public boolean isLessonPublishedRecursive() {
+		try {
+			String published = getFieldValue("trnLsnPublish");
+			if ("0".equals(published)) {
+				return false;
+			}
+			TrnCategory cat = TrnCategory.getCategoryObject(getGrant(), getFieldValue("trnLsnCatId"));
+			return cat.isCategoryPublishedRecursive();
+		} catch (Exception e) {
+			AppLog.warning(e, getGrant());
 			return false;
 		}
-		TrnCategory cat = TrnCategory.getCategoryObject(getGrant(), getFieldValue("trnLsnCatId"));
-		return cat.isCategoryPublishedRecursive();
 	}
 
 	// set lang as null for index json
@@ -141,10 +146,10 @@ public class TrnLesson extends TrnObject {
 		JSONObject json = (new JSONObject())
 				.put("row_id", getRowId())
 				.put("type", "lesson")
-                .put("order", getFieldValue("trnLsnOrder"))
+				.put("order", getFieldValue("trnLsnOrder"))
 				.put("path", getFieldValue("trnLsnFrontPath"))
 				.put("viz", getFieldValue("trnLsnVisualization"))
-                .put("is_category", false);
+				.put("is_category", false);
 
 		TrnCategory cat = (TrnCategory) getGrant().getTmpObject("TrnCategory");
 		json.put("catPath", cat.getCatFrontPath(getFieldValue("trnLsnCatId")));

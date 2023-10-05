@@ -4,6 +4,7 @@ import java.util.*;
 
 import org.json.JSONObject;
 
+import com.simplicite.objects.Training.TrnLesson;
 import com.simplicite.objects.Training.TrnLsnTranslate;
 import com.simplicite.util.Grant;
 import com.simplicite.util.Tool;
@@ -25,9 +26,14 @@ public class TrnSearchSimplicite implements java.io.Serializable {
     private static ArrayList<JSONObject> getFilteredResults(String query, String lang, Grant g) throws Exception {
         List<SearchItem> searchResults = getSearchResults(query, g);
         TrnLsnTranslate lsnTranslate = (TrnLsnTranslate) g.getTmpObject("TrnLsnTranslate");
+        TrnLesson trnLesson = (TrnLesson) g.getTmpObject("TrnLesson");
         ArrayList<JSONObject> filteredResults =  new ArrayList<>();
-        for(SearchItem item : searchResults) {
+        for(SearchItem item : searchResults) {            
             lsnTranslate.setValues(item.values);
+            // check if lesson is published            
+            if(!isLessonPublished(lsnTranslate.getFieldValue("trnLtrLsnId"), trnLesson)) {
+                continue;
+            }
             String translateLang = lsnTranslate.getFieldValue("trnLtrLang");
             String rawContent = lsnTranslate.getFieldValue("trnLtrRawContent");
             if(lang.equals(translateLang) || "ANY".equals(translateLang) && !rawContent.isEmpty()) {
@@ -38,6 +44,18 @@ public class TrnSearchSimplicite implements java.io.Serializable {
             }
         }
         return filteredResults;
+    }
+
+    private static boolean isLessonPublished(String lsnRowId, TrnLesson trnLesson) {
+        trnLesson.resetFilters();
+        trnLesson.setFieldFilter("row_id", lsnRowId);
+        List<String[]> res = trnLesson.search();
+        if(res.size() > 0) {
+            trnLesson.setValues(res.get(0));
+            return trnLesson.isLessonPublishedRecursive();
+        } else {
+            return false;
+        }
     }
 
     private static List<SearchItem> getSearchResults(String query, Grant g) throws Exception {
