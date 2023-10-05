@@ -1,7 +1,5 @@
 package com.simplicite.commons.Training;
 
-import java.util.ArrayList;
-
 import org.json.JSONObject;
 import org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder;
 
@@ -11,6 +9,7 @@ import com.simplicite.util.exceptions.HTTPException;
 import com.simplicite.util.tools.RESTTool;
 
 import kong.unirest.Unirest;
+import kong.unirest.json.JSONArray;
 
 /**
  * Shared code EsHelper
@@ -107,16 +106,17 @@ public class TrnEsHelper implements java.io.Serializable {
 		}
 	}
 
-    public ArrayList<String> searchRequest(JSONObject fullQuery) {
-        try {
-            Unirest.get(getEsSearchUrl())
-                .header("Content-Type", "application/json")
-                .header("Authorization", "Basic " + Base64Coder.encodeString(TrnTools.getEsCredentials()))
-                .queryString("query", fullQuery.toString());
-        } catch(Exception e) {
-
-        }
-        return new ArrayList<>();
+    public JSONArray searchRequest(JSONObject fullQuery) throws TrnConfigException {
+        JSONArray res =  Unirest.post(getEsSearchUrl())
+            .header("Content-Type", "application/json")
+            .header("Authorization", "Basic " + Base64Coder.encodeString(TrnTools.getEsCredentials()))
+            .body(fullQuery.toString())
+            .asJson()
+            .getBody()
+            .getObject()
+            .getJSONObject("hits")
+            .getJSONArray("hits");
+        return res;
     }
 
     private String getEsSearchUrl() {

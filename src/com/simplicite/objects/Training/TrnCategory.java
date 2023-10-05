@@ -6,7 +6,6 @@ import com.simplicite.util.exceptions.*;
 import com.simplicite.util.tools.*;
 import com.simplicite.commons.Training.*;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -107,7 +106,6 @@ public class TrnCategory extends TrnObject {
     } catch (Exception e) {
       AppLog.error(e, getGrant());
     }
-
     return null;
   }
 
