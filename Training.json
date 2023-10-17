@@ -8005,7 +8005,7 @@
       "act_type": "B",
       "act_async": "2",
       "act_job_depth": null,
-      "act_method": "forceDirSync",
+      "act_method": "forceSync",
       "act_script": null,
       "act_url": null,
       "act_image": "icon/color/reload",
