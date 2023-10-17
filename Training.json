@@ -296,6 +296,16 @@
     },
     {
      "object": "FieldList",
+     "userkey": "TRN_SYNC_TYPE",
+     "item": {
+      "lov_name": "TRN_SYNC_TYPE",
+      "row_module_id__mdl_name": "Training",
+      "lov_model_id__mod_name": null,
+      "lov_model_id__mod_image": null
+     }
+    },
+    {
+     "object": "FieldList",
      "userkey": "TRNCTPLANGUAGE",
      "item": {
       "lov_name": "TRNCTPLANGUAGE",
@@ -450,6 +460,36 @@
       "lov_code": "KO",
       "lov_order_by": 20,
       "lov_label": "KO",
+      "row_module_id__mdl_name": "Training",
+      "lov_color": null,
+      "lov_color_bg": null,
+      "lov_icon": null,
+      "lov_display": ["L"]
+     }
+    },
+    {
+     "object": "FieldListCode",
+     "userkey": "TRN_SYNC_TYPE~FS",
+     "item": {
+      "lov_list_id__lov_name": "TRN_SYNC_TYPE",
+      "lov_code": "FS",
+      "lov_order_by": 1,
+      "lov_label": "Filesystem sync only",
+      "row_module_id__mdl_name": "Training",
+      "lov_color": null,
+      "lov_color_bg": null,
+      "lov_icon": null,
+      "lov_display": ["L"]
+     }
+    },
+    {
+     "object": "FieldListCode",
+     "userkey": "TRN_SYNC_TYPE~GIT",
+     "item": {
+      "lov_list_id__lov_name": "TRN_SYNC_TYPE",
+      "lov_code": "GIT",
+      "lov_order_by": 2,
+      "lov_label": "Git checkout + synchronization",
       "row_module_id__mdl_name": "Training",
       "lov_color": null,
       "lov_color_bg": null,
@@ -826,6 +866,50 @@
       "lov_code_id__lov_code": "KO",
       "lov_lang": "FRA",
       "lov_value": "Ko",
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "FieldListValue",
+     "userkey": "TRN_SYNC_TYPE~FS~ENU",
+     "item": {
+      "lov_code_id__lov_list_id__lov_name": "TRN_SYNC_TYPE",
+      "lov_code_id__lov_code": "FS",
+      "lov_lang": "ENU",
+      "lov_value": "Filesystem synchronization",
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "FieldListValue",
+     "userkey": "TRN_SYNC_TYPE~GIT~ENU",
+     "item": {
+      "lov_code_id__lov_list_id__lov_name": "TRN_SYNC_TYPE",
+      "lov_code_id__lov_code": "GIT",
+      "lov_lang": "ENU",
+      "lov_value": "Git checkout + synchronization",
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "FieldListValue",
+     "userkey": "TRN_SYNC_TYPE~GIT~FRA",
+     "item": {
+      "lov_code_id__lov_list_id__lov_name": "TRN_SYNC_TYPE",
+      "lov_code_id__lov_code": "GIT",
+      "lov_lang": "FRA",
+      "lov_value": "Git checkout + synchronisation",
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "FieldListValue",
+     "userkey": "TRN_SYNC_TYPE~FS~FRA",
+     "item": {
+      "lov_code_id__lov_list_id__lov_name": "TRN_SYNC_TYPE",
+      "lov_code_id__lov_code": "FS",
+      "lov_lang": "FRA",
+      "lov_value": "Synchronisation filesystem",
       "row_module_id__mdl_name": "Training"
      }
     },
@@ -2862,6 +2946,49 @@
       "fld_precision": null,
       "fld_fromdate_id__fld_name": null,
       "fld_dfault": null,
+      "fld_indexable": false,
+      "fld_autocomp": "0",
+      "fld_groupby": false,
+      "fld_updall": true,
+      "fld_case": null,
+      "fld_righttoleft": false,
+      "fld_rendering": null,
+      "fld_speech": null,
+      "fld_calc": null,
+      "fld_objlist": null,
+      "fld_comment": null,
+      "fld_classification": null,
+      "row_module_id__mdl_name": "Training",
+      "fld_incrementsyntax": null
+     }
+    },
+    {
+     "object": "Field",
+     "userkey": "trnSyncType",
+     "item": {
+      "fld_name": "trnSyncType",
+      "fld_dbname": "trn_sync_type",
+      "fld_visible": "3",
+      "fld_updatable": "1",
+      "fld_required": true,
+      "fld_fonctid": false,
+      "fld_research": null,
+      "fld_researchreq": "0",
+      "fld_sort": "C",
+      "fld_more": false,
+      "fld_listmore": false,
+      "fld_listsum": null,
+      "fld_exportable": true,
+      "fld_tray": null,
+      "fld_type": "7",
+      "fld_type_id__flt_code": null,
+      "fld_list_id__lov_name": "TRN_SYNC_TYPE",
+      "fld_copy": true,
+      "fld_size": 10,
+      "fld_minsize": null,
+      "fld_precision": null,
+      "fld_fromdate_id__fld_name": null,
+      "fld_dfault": "FS",
       "fld_indexable": false,
       "fld_autocomp": "0",
       "fld_groupby": false,
@@ -7872,9 +7999,9 @@
     },
     {
      "object": "Action",
-     "userkey": "forceDirSync",
+     "userkey": "forceSync",
      "item": {
-      "act_name": "forceDirSync",
+      "act_name": "forceSync",
       "act_type": "B",
       "act_async": "2",
       "act_job_depth": null,
@@ -7884,7 +8011,7 @@
       "act_image": "icon/color/reload",
       "act_confirm": true,
       "act_confirm_expr": null,
-      "act_confirm_ui": null,
+      "act_confirm_ui": "<div class=\"field\" data-field=\"trnSyncType\" data-display=\"input\">",
       "act_plus": false,
       "act_comment": null,
       "row_module_id__mdl_name": "Training",
@@ -7921,6 +8048,24 @@
      }
     }
    ]
+  },
+  {
+   "object": "ActionField",
+   "label": "Action field",
+   "icon": "object",
+   "field": "row_module_id",
+   "list": [{
+    "object": "ActionField",
+    "userkey": "forceSync~trnSyncType~10",
+    "item": {
+     "afd_action_id__act_name": "forceSync",
+     "afd_field_id__fld_name": "trnSyncType",
+     "afd_order": 10,
+     "afd_ref_field_id__fld_name": null,
+     "afd_ref_object_id__obo_name": null,
+     "row_module_id__mdl_name": "Training"
+    }
+   }]
   },
   {
    "object": "Function",
@@ -8255,13 +8400,13 @@
     },
     {
      "object": "Function",
-     "userkey": "TRN_SYNC_FORCE_DIR_SYNC_A",
+     "userkey": "TRN_SYNC_FORCE_SYNC_A",
      "item": {
-      "fct_name": "TRN_SYNC_FORCE_DIR_SYNC_A",
+      "fct_name": "TRN_SYNC_FORCE_SYNC_A",
       "fct_object_id__obj_type": "O",
       "fct_object_id__obj_name": "TrnSyncSupervisor",
       "fct_function": "A",
-      "fct_action_id__act_name": "forceDirSync",
+      "fct_action_id__act_name": "forceSync",
       "fct_view_id__viw_name": null,
       "row_module_id__mdl_name": "Training"
      }
@@ -8893,13 +9038,13 @@
     },
     {
      "object": "Grant",
-     "userkey": "TRN_ADMIN~TRN_SYNC_FORCE_DIR_SYNC_A~TrnSyncSupervisor~forceDirSync",
+     "userkey": "TRN_ADMIN~TRN_SYNC_FORCE_SYNC_A~TrnSyncSupervisor~forceSync",
      "item": {
       "grt_group_id__grp_name": "TRN_ADMIN",
-      "grt_function_id__fct_name": "TRN_SYNC_FORCE_DIR_SYNC_A",
+      "grt_function_id__fct_name": "TRN_SYNC_FORCE_SYNC_A",
       "grt_function_id__fct_object_id__obj_type": "O",
       "grt_function_id__fct_object_id__obj_name": "TrnSyncSupervisor",
-      "grt_function_id__fct_action_id__act_name": "forceDirSync",
+      "grt_function_id__fct_action_id__act_name": "forceSync",
       "grt_function_id__fct_function": "A",
       "grt_activ": true,
       "row_module_id__mdl_name": "Training"
@@ -9738,10 +9883,10 @@
     },
     {
      "object": "TranslateAction",
-     "userkey": "A~forceDirSync~ENU",
+     "userkey": "A~forceSync~ENU",
      "item": {
       "tsl_typeAction": "A",
-      "tsl_id__act_name": "forceDirSync",
+      "tsl_id__act_name": "forceSync",
       "tsl_lang": "ENU",
       "tsl_value": "Launch synchronization",
       "tsl_simplehelp": null,
@@ -9798,10 +9943,10 @@
     },
     {
      "object": "TranslateAction",
-     "userkey": "A~forceDirSync~FRA",
+     "userkey": "A~forceSync~FRA",
      "item": {
       "tsl_typeAction": "A",
-      "tsl_id__act_name": "forceDirSync",
+      "tsl_id__act_name": "forceSync",
       "tsl_lang": "FRA",
       "tsl_value": "Lancer synchronisation",
       "tsl_simplehelp": null,
@@ -10460,6 +10605,22 @@
       "tsl_id__fld_name": "trnSyncStatus",
       "tsl_lang": "ENU",
       "tsl_value": "Status",
+      "tsl_simplehelp": null,
+      "tsl_short_value": null,
+      "tsl_placeholder": null,
+      "tsl_listhelp": null,
+      "row_module_id__mdl_name": "Training",
+      "tsl_tooltip": null
+     }
+    },
+    {
+     "object": "TranslateField",
+     "userkey": "F~trnSyncType~ENU",
+     "item": {
+      "tsl_typeField": "F",
+      "tsl_id__fld_name": "trnSyncType",
+      "tsl_lang": "ENU",
+      "tsl_value": "Trn sync type",
       "tsl_simplehelp": null,
       "tsl_short_value": null,
       "tsl_placeholder": null,
@@ -11260,6 +11421,22 @@
       "tsl_id__fld_name": "trnSyncStatus",
       "tsl_lang": "FRA",
       "tsl_value": "Trn sync status",
+      "tsl_simplehelp": null,
+      "tsl_short_value": null,
+      "tsl_placeholder": null,
+      "tsl_listhelp": null,
+      "row_module_id__mdl_name": "Training",
+      "tsl_tooltip": null
+     }
+    },
+    {
+     "object": "TranslateField",
+     "userkey": "F~trnSyncType~FRA",
+     "item": {
+      "tsl_typeField": "F",
+      "tsl_id__fld_name": "trnSyncType",
+      "tsl_lang": "FRA",
+      "tsl_value": "Trn sync type",
       "tsl_simplehelp": null,
       "tsl_short_value": null,
       "tsl_placeholder": null,

@@ -303,7 +303,7 @@ paths:
         required: false
       - in: query
         name: trnCtrCatId__trnCatPath
-        description: Search filter for Category|Categories Category Path
+        description: Search filter for Category Category Path
         type: string
         required: false
       tags:
@@ -1109,6 +1109,44 @@ paths:
       - TrnLsnTranslate
       consumes:
       - application/json
+  /rest/TrnSyncSupervisor/{row_id}/action:forceSync:
+    get:
+      summary: Call a custom action for a TrnSyncSupervisor business object record
+        or for all records
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-trnsyncsupervisor-action-forcesync
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/ActionResult'
+          description: Success in calling the custom action
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      tags:
+      - TrnSyncSupervisor
   /rest/TrnTagTranslate/{row_id}:
     post:
       summary: Create a new TrnTagTranslate business object record
@@ -2008,7 +2046,7 @@ paths:
         required: false
       - in: query
         name: trnPicLsnId__trnLsnPath
-        description: Search filter for Lesson|Lessons Path
+        description: Search filter for Lesson Path
         type: string
         required: false
       tags:
@@ -2123,44 +2161,6 @@ paths:
         required: false
       tags:
       - TrnUrlRewriting
-  /rest/TrnSyncSupervisor/{row_id}/action:forceDirSync:
-    get:
-      summary: Call a custom action for a TrnSyncSupervisor business object record
-        or for all records
-      security:
-      - bearerAuth: []
-      produces:
-      - application/json
-      operationId: obj-trnsyncsupervisor-action-forcedirsync
-      responses:
-        '200':
-          schema:
-            $ref: '#/definitions/ActionResult'
-          description: Success in calling the custom action
-        '400':
-          schema:
-            $ref: '#/definitions/Error400'
-          description: Bad request
-        '401':
-          schema:
-            $ref: '#/definitions/Error401'
-          description: Unauthorized
-        '500':
-          schema:
-            $ref: '#/definitions/Error500'
-          description: Internal server error
-        '404':
-          schema:
-            $ref: '#/definitions/Error404'
-          description: Not found
-      parameters:
-      - in: path
-        name: row_id
-        description: Row ID (or empty or _ for all row IDs)
-        type: string
-        required: true
-      tags:
-      - TrnSyncSupervisor
   /rest/TrnPicture/{row_id}:
     post:
       summary: Create a new TrnPicture business object record
@@ -3411,7 +3411,7 @@ definitions:
         description: Unique technical row ID
         type: string
       trnCtrCatId__trnCatPath:
-        description: Category|Categories Category Path
+        description: Category Category Path
         type: string
       trnCtrLang:
         description: Language
@@ -3441,7 +3441,7 @@ definitions:
         description: Image
         type: object
       trnPicLsnId__trnLsnPath:
-        description: Lesson|Lessons Path
+        description: Lesson Path
         type: string
       trnPicLsnId:
         description: Lesson|Lessons

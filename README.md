@@ -46,7 +46,7 @@ More info available on the front end default home page.
 * `discourseIndexer`: 
 * `dropData`: 
 * `esIndexation`: 
-* `forceDirSync`: 
+* `forceSync`: 
 
 `TrnCategory` business object definition
 ----------------------------------------
