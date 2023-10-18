@@ -9,6 +9,11 @@ import com.simplicite.commons.Training.*;
 public class TrnSyncSupervisor extends ObjectDB {
 	private static final long serialVersionUID = 1L;
 
+	@Override
+	public void initList(ObjectDB parent) {
+		getField("trnSyncDate").setOrder(-1);
+	}
+
 	public String dropData() {
 		try {
 			if (!TrnTools.isFileSystemMode())
