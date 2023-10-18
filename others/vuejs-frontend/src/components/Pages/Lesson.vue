@@ -315,7 +315,7 @@
 
 		table
 			width: 100%      
-			margin: 8px 0 15px 10px
+			margin: 8px 0
 			color: $table-color-text
 			border-collapse: collapse
 		thead
@@ -381,8 +381,10 @@
 			border-radius: map-get($radius, regular)
 			padding: 0.7rem
 			margin: map-get($margins, x-small)
-		.info
-			ackground-color: $color-information
+		.info, .note
+			background-color: $color-information
+		.important
+			background-color: #ffc29e
 		.success
 			background-color: $color-success
 		.warning
@@ -395,9 +397,13 @@
 		blockquote > p::after
 			content: ''
 		blockquote
-			background: #ffe9e3
+			background-color: $color-information
 			padding: map_get($paddings, "medium")
 			border-radius: map-get($radius, regular)
+			margin-bottom: 10px
+			p, ul, li
+				margin-bottom: 0px
+            
 		strong
 			text-decoration: underline
 		a
