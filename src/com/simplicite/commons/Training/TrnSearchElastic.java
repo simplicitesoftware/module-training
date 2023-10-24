@@ -63,25 +63,26 @@ public class TrnSearchElastic implements java.io.Serializable {
 
     private static JSONObject format(kong.unirest.json.JSONObject res, String lang, String input) throws Exception {
         kong.unirest.json.JSONObject source = res.getJSONObject("_source");
+        String id = res.getString("_id");
         kong.unirest.json.JSONObject highlight = res.getJSONObject("highlight");
         String type = source.getString("type");
         if("lesson".equals(type)) {
-            return formatLesson(highlight, source, lang, input);
+            return formatLesson(highlight, source, lang, input, id);
         } else if("discourse".equals(type)) {
-            return formatDiscourse(highlight, source, lang, input);
+            return formatDiscourse(highlight, source, lang, input, id);
         } else {
             throw new Exception("elasticsearch doc format unknown: " + type);
         }
     }
 
-    private static JSONObject formatLesson(kong.unirest.json.JSONObject highlight, kong.unirest.json.JSONObject source, String lang, String input) throws Exception  {
+    private static JSONObject formatLesson(kong.unirest.json.JSONObject highlight, kong.unirest.json.JSONObject source, String lang, String input, String id) throws Exception  {
         JSONObject formated = new JSONObject();
         String title = getLessonTitle(highlight, source, lang, input);
         String content = getLessonContent(highlight, source, lang, input);
         formated.put("title", title)
-            .put("row_id", source.getString("row_id"))
-            .put("path", source.getString("path"))
+            .put("id", id)
             .put("type", "lesson")
+            .put("path", source.getString("path"))
             .put("content", content);
         return formated;
     }
@@ -122,18 +123,26 @@ public class TrnSearchElastic implements java.io.Serializable {
         return content.toString();
     }
 
-    private static JSONObject formatDiscourse(kong.unirest.json.JSONObject highlight, kong.unirest.json.JSONObject source, String lang, String input) throws Exception {
+    private static JSONObject formatDiscourse(kong.unirest.json.JSONObject highlight, kong.unirest.json.JSONObject source, String lang, String input, String id) throws Exception {
         JSONObject formated = new JSONObject();
         String title = getDiscourseTitle(highlight, source, input);
         String content = getDiscourseContent(highlight, source, input);
         formated.put("title", title)
-            .put("row_id", source.getString("row_id"))
-            .put("path", source.getString("path"))
-            .put("type", "lesson")
-            .put("content", content);
+            .put("id", id)
+            .put("type", "discourse")
+            .put("path", source.getString("category"))
+            .put("content", content)
+            .put("url", source.getString("url"));
 
         return formated;
     }
+
+                // title: this.getLessonTitle(hit, this.langEsFormat),
+                // id: hit._id,
+                // type: "lesson",
+                // path: hit._source.path,
+                // content: this.getLessonHighlightContent(hit, this.langEsFormat),
+                // cat: hit._source.catPath,
 
     private static String getDiscourseTitle(kong.unirest.json.JSONObject highlight, kong.unirest.json.JSONObject source, String input) throws Exception {
         if(highlight.has("title")) {

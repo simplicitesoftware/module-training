@@ -11,7 +11,7 @@
 		<div class="suggestionRelative">
 			<div v-if="isSugOpen" class="result-list-container">
                 <div v-if="suggestions">
-                    <div v-for="suggestion in suggestions || []" :key="suggestion.row_id">
+                    <div v-for="suggestion in suggestions || []" :key="suggestion.id">
                         <SuggestionItem
                             :suggestion="suggestion"
                             :inputValue="inputValue"
@@ -129,7 +129,7 @@ export default {
             if(suggestion.type === "lesson") {
                 this.$router.push('/lesson' + suggestion.path).catch(err => console.error(err));
             } else if(suggestion.type === "discourse") {
-                window.open(suggestion.path);
+                window.open(suggestion.url);
             } else if(suggestion.type === "simplicite") {
                 this.$router.push('/lesson' + suggestion.path).catch(err => console.log(err));
             }  else if(suggestion.type === "page") {

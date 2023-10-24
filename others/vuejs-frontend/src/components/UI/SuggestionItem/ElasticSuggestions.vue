@@ -13,7 +13,6 @@
 <script>
 import { mapGetters } from "vuex";
 import SuggestionItem from "./SuggestionItem.vue";
-import shared from "../../../shared";
 
 export default {
     name: "ElasticSuggestions",
@@ -23,8 +22,6 @@ export default {
     data: function () {
         return {
             suggestions: [],
-			truncateContent: () => {},
-			highlightedContent: () => {}
         };
     },
     props: {
@@ -33,8 +30,6 @@ export default {
 		contentMaxLength: Number
     },
     created() {
-		this.truncateContent = shared.truncateContent;
-		this.highlightedContent = shared.highlightedContent;
         this.suggestions = this.formatHits();
     },
     watch: {
