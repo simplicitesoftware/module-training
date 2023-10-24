@@ -3,9 +3,10 @@ package com.simplicite.commons.Training;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import com.simplicite.util.*;
-import com.simplicite.util.exceptions.*;
-import com.simplicite.util.tools.*;
+import com.simplicite.util.AppLog;
+import com.simplicite.util.Grant;
+import com.simplicite.util.exceptions.HTTPException;
+import com.simplicite.util.tools.RESTTool;
 
 /**
  * Shared code TrnDiscourseIndexer
@@ -28,20 +29,20 @@ public class TrnDiscourseHook implements java.io.Serializable {
 		int esTopiciId = TrnDiscourseTool.getEsTopicId(topicId);
 
 		String topicSlug = body.getString("slug");
-        
+		
 		JSONObject doc = new JSONObject();
-        int categoryId = body.getInt("category_id");
-        String catInfoUrl = TrnDiscourseTool.getCategoryInfoUrl(discourseUrl, categoryId);
+		int categoryId = body.getInt("category_id");
+		String catInfoUrl = TrnDiscourseTool.getCategoryInfoUrl(discourseUrl, categoryId);
 		JSONObject catInfo = new JSONObject(RESTTool.get(catInfoUrl));
-        TrnCommunityIndexer ci = new TrnCommunityIndexer(g);
+		TrnCommunityIndexer ci = new TrnCommunityIndexer(g);
 
 		doc.put("title", body.getString("title"))
-            .put("type", "discourse")
-            .put("slug", topicSlug)
-            .put("url", TrnDiscourseTool.getTopicUrl(discourseUrl, topicId, topicSlug))
-            .put("category_id", categoryId)
-            .put("category", catInfo.getJSONObject("category").getString("name"))
-            .put("posts", ci.getPostsAsArray(topicId));
+			.put("type", "discourse")
+			.put("slug", topicSlug)
+			.put("url", TrnDiscourseTool.getTopicUrl(discourseUrl, topicId, topicSlug))
+			.put("category_id", categoryId)
+			.put("category", catInfo.getJSONObject("category").getString("name"))
+			.put("posts", ci.getPostsAsArray(topicId));
 		
 		esHelper.indexEsDoc(esTopiciId, doc);
 	}
@@ -64,12 +65,12 @@ public class TrnDiscourseHook implements java.io.Serializable {
 		JSONObject remoteTopic = new JSONObject(resTopic);
 		JSONObject topic = remoteTopic.getJSONObject("_source");
 
-        JSONArray posts = topic.getJSONArray("posts");
+		JSONArray posts = topic.getJSONArray("posts");
 		JSONObject post = new JSONObject();
 
 
 		post.put("id", postId)
-		    .put("content", body.getString("raw"));
+			.put("content", body.getString("raw"));
 
 		removePostFromArray(posts, postId);
 		posts.put(post);

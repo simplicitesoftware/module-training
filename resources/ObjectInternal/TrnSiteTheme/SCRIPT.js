@@ -10,7 +10,7 @@
 				p.list.preload = function(ctn, obj) {
 					let row_id = app.DEFAULT_ROW_ID;
 					obj.resetFilters();
-					const res = obj.search((res) => {
+					obj.search((res) => {
 						if(res.length !== 0) {
 							row_id = res[0].row_id;
 						}
@@ -22,7 +22,7 @@
 		} catch (e) {
 			app.error("Error in Simplicite.UI.hooks.TrnSiteTheme: " + e.message);
 		} finally {
-			cbk && cbk(); // final callback
+			cbk?.(); // final callback
 		}
 	};
 })(window.$ui);

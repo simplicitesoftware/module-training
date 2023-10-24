@@ -44,7 +44,7 @@
 		} catch (e) {
 			app.error("Error in Simplicite.UI.hooks.TrnCategory: " + e.message);
 		} finally {
-			cbk && cbk(); // final callback
+			cbk?.(); // final callback
 		}
 	};
 	

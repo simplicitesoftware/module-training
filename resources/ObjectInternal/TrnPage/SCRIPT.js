@@ -45,7 +45,7 @@
 		} catch (e) {
 			app.error("Error in Simplicite.UI.hooks.TrnPage: " + e.message);
 		} finally {
-			cbk && cbk(); // final callback
+			cbk?.(); // final callback
 		}
 	};
 })(window.$ui);
