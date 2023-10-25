@@ -38,6 +38,8 @@ public class TrnGitCheckout implements java.io.Serializable {
         try {
             String branch = TrnTools.getGitBranch();
             File contentDir = getContentDir();
+            TrnSyncSupervisor.addInfoLog("Starting git checkout process on branch: "+branch+" on directory: "
+                +contentDir.getAbsolutePath());
             String msg;
             setAuthentication();
             if (!contentDir.exists()) {
@@ -49,11 +51,11 @@ public class TrnGitCheckout implements java.io.Serializable {
                 msg = "The content has been successfully updated. Current branch: " + branch + ".";
             }
             TrnFsSyncTool.triggerSyncFromCheckout();
-            TrnSyncSupervisor.addLog(msg);
+            TrnSyncSupervisor.addInfoLog(msg);
             TrnSyncSupervisor.logSync(true);
             return msg;
         } catch(Exception e) {
-            TrnSyncSupervisor.addLog("Error checking out: " + e.getMessage());
+            TrnSyncSupervisor.addErrorLog("Unable to check out: " + e.getMessage());
             TrnSyncSupervisor.logSync(false);
             throw new Exception(e);
         }

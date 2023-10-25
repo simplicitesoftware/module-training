@@ -1,9 +1,9 @@
 package com.simplicite.commons.Training;
 
-import java.util.*;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.io.File;
+import java.util.Arrays;
 import java.util.regex.Pattern;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.FileUtils;

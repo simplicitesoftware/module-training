@@ -1,5 +1,8 @@
 package com.simplicite.objects.Training;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import com.simplicite.commons.Training.TrnCommunityIndexer;
 import com.simplicite.commons.Training.TrnConfigException;
 import com.simplicite.commons.Training.TrnEsHelper;
@@ -99,9 +102,23 @@ public class TrnSyncSupervisor extends ObjectDB {
 		eh.createIndex();
 	}
 
-    public static void addLog(String logMsg) {
+    private static void addLog(String msg) {
         // see formating of the log message (date / hour ?)
-        logContainer.append(logMsg);
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuuu/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        logContainer.append(dtf.format(now)+" | "+msg+"\n");
+    }
+
+    public static void addInfoLog(String msg) {
+        addLog("INFO"+" | "+msg);
+    }
+
+    public static void addWarnLog(String msg) {
+        addLog("WARN"+" | "+msg);
+    }
+
+    public static void addErrorLog(String msg) {
+        addLog("ERROR"+" | "+msg);
     }
 
     public static void logSync(boolean ok)
