@@ -24,7 +24,7 @@ public class TrnGitCheckoutService extends com.simplicite.webapp.services.RESTSe
 		try {
             TrnGitCheckout tgc = new TrnGitCheckout(getGrant());
 			return tgc.checkout();
-		} catch (IOException | GitAPIException | TrnConfigException | TrnSyncException e) {
+		} catch (Exception e) {
 			setHTTPStatus(500);
 			AppLog.error(getClass(), "post", e.getMessage(), e, getGrant());
 			return "ERROR : " + e.getMessage();

@@ -1,13 +1,24 @@
 package com.simplicite.objects.Training;
 
-import com.simplicite.util.*;
-import com.simplicite.commons.Training.*;
+import com.simplicite.commons.Training.TrnCommunityIndexer;
+import com.simplicite.commons.Training.TrnConfigException;
+import com.simplicite.commons.Training.TrnEsHelper;
+import com.simplicite.commons.Training.TrnEsIndexer;
+import com.simplicite.commons.Training.TrnFsSyncTool;
+import com.simplicite.commons.Training.TrnGitCheckout;
+import com.simplicite.commons.Training.TrnTools;
+import com.simplicite.util.Action;
+import com.simplicite.util.AppLog;
+import com.simplicite.util.Grant;
+import com.simplicite.util.ObjectDB;
+import com.simplicite.util.Tool;
 
 /**
  * Business object TrnSyncSupervisor
  */
 public class TrnSyncSupervisor extends ObjectDB {
 	private static final long serialVersionUID = 1L;
+    private static StringBuilder logContainer = new StringBuilder();
 
 	@Override
 	public void initList(ObjectDB parent) {
@@ -43,7 +54,7 @@ public class TrnSyncSupervisor extends ObjectDB {
 				TrnGitCheckout tgc = new TrnGitCheckout(getGrant());
 				tgc.checkout();
 			} else if ("FS".equals(syncType)) {
-				TrnFsSyncTool.triggerSync();
+				TrnFsSyncTool.triggerSyncOnly();
 			} else {
 				throw new Exception("Unknown sync type");
 			}
@@ -86,5 +97,34 @@ public class TrnSyncSupervisor extends ObjectDB {
 		TrnEsHelper eh = TrnEsHelper.getEsHelper(Grant.getSystemAdmin());
 		eh.deleteIndex();
 		eh.createIndex();
+	}
+
+    public static void addLog(String logMsg) {
+        // see formating of the log message (date / hour ?)
+        logContainer.append(logMsg);
+    }
+
+    public static void logSync(boolean ok)
+    {
+		Grant g = Grant.getSystemAdmin();
+		try
+        {
+			boolean[] oldcrud = g.changeAccess("TrnSyncSupervisor", true,true,false,false);
+			ObjectDB o = g.getTmpObject("TrnSyncSupervisor");
+			o.getTool().getForCreate();
+			o.setFieldValue("trnSyncDate", Tool.getCurrentDatetime());
+			o.setFieldValue("trnSyncStatus", ok ? "OK" : "KO");
+			o.setFieldValue("trnSyncLog", logContainer.toString());
+			o.getTool().validateAndCreate();
+			g.changeAccess("TrnSyncSupervisor", oldcrud);
+		}
+        catch(Exception e)
+        {
+			AppLog.error("Error logging sync", e, g);
+		}
+        finally
+        {
+            logContainer = new StringBuilder();
+        }
 	}
 }

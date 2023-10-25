@@ -1,6 +1,7 @@
 package com.simplicite.commons.Training;
 
 import com.simplicite.objects.Training.TrnLesson;
+import com.simplicite.objects.Training.TrnSyncSupervisor;
 import com.simplicite.objects.Training.TrnTagLsn;
 import com.simplicite.util.AppLog;
 import com.simplicite.util.Grant;
@@ -75,30 +76,44 @@ public class TrnFsSyncTool implements java.io.Serializable {
 
 	public static void triggerSync() throws TrnSyncException {
 		try {
+			TrnSyncSupervisor.addLog("Triggering synchronisation");
 			Grant g = Grant.getSystemAdmin();
-			AppLog.info("Triggering synchronisation", g);
 			TrnFsSyncTool t = new TrnFsSyncTool(g);
 			t.sync();
-			logSync(true, null);
-		} catch (Exception e) {
-			logSync(false, e.getMessage());
-			throw new TrnSyncException("Synchronization failed: " + e.getMessage());
+			TrnSyncSupervisor.addLog("Synchronisation has been successfully executed");
+		}
+		catch(Exception e)
+		{
+			String msg = "Synchronization failed: " + e.getMessage();
+			TrnSyncSupervisor.addLog(msg);
+			throw new TrnSyncException(msg);
 		}
 	}
-	
-	private static void logSync(boolean ok, String msg){
-		Grant g = Grant.getSystemAdmin();
-		try{
-			boolean[] oldcrud = g.changeAccess("TrnSyncSupervisor", true,true,false,false);
-			ObjectDB o = g.getTmpObject("TrnSyncSupervisor");
-			o.getTool().getForCreate();
-			o.setFieldValue("trnSyncDate", Tool.getCurrentDatetime());
-			o.setFieldValue("trnSyncStatus", ok ? "OK" : "KO");
-			o.setFieldValue("trnSyncLog", msg);
-			o.getTool().validateAndCreate();
-			g.changeAccess("TrnSyncSupervisor", oldcrud);
-		} catch(Exception e){
-			AppLog.error("Error logging sync", e, g);
+
+	// differentiate sync from git checkout and sync from other sources
+	// because logs are handled differently 
+	public static void triggerSyncOnly() throws TrnSyncException 
+	{
+		try {
+			triggerSync();
+			TrnSyncSupervisor.logSync(true);
+		}
+		catch(Exception e)
+		{
+			TrnSyncSupervisor.logSync(false);
+			throw new TrnSyncException(e.getMessage());
+		}
+	}
+
+	public static void triggerSyncFromCheckout() throws TrnSyncException 
+	{
+		try 
+		{
+			triggerSync();
+		}
+		catch(Exception e)
+		{
+			throw new TrnSyncException(e.getMessage());
 		}
 	}
 
@@ -117,7 +132,8 @@ public class TrnFsSyncTool implements java.io.Serializable {
 			dropCategory(false);
 			dropTag(false);
 			AppLog.info("Successfully droped data (categories and tags)", g);
-		} catch (DeleteException e) {
+		}
+		catch (DeleteException e) {
 			throw new TrnSyncException("TRN_DROP_ERROR", e.getMessage());
 		}
 	}
@@ -194,28 +210,29 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	}
 
 	private void deleteDeletedPaths() {
-        // prevent concurrent access to the store key list
-        ArrayList<String> deleteFromStore = new ArrayList<>();
+		// prevent concurrent access to the store key list
+		ArrayList<String> deleteFromStore = new ArrayList<>();
 		for (String path : hashTool.getStoreKeySet()) {
 			if (!foundPaths.contains(path) && !path.equals(TAG_JSON_NAME) && !path.equals(URL_REWRITING_JSON_NAME)
 					&& !path.equals(THEME_JSON_NAME)) {
 				deletePath(path);
-                deleteFromStore.add(path);
+				deleteFromStore.add(path);
 			}
 		}
-        hashTool.clearAllPath(deleteFromStore);
+		hashTool.clearAllPath(deleteFromStore);
 	}
 
 	private void deletePath(String path) {
 		String rowId;
 		String objectName;
 		ObjectDB object;
-        path = removeLastCharacter(path);
+		path = removeLastCharacter(path);
 		if (TrnVerifyContent.isCategory(path)) {
 			object = category;
 			rowId = getCatRowIdFromPath(path);
 			objectName = "CATEGORY";
-		} else {
+		}
+		else {
 			object = lesson;
 			rowId = getLsnRowIdFromPath(path);
 			objectName = "LESSON";
@@ -254,24 +271,16 @@ public class TrnFsSyncTool implements java.io.Serializable {
 				ReturnMessage msg = bot.delete();
 				AppLog.info("Deleted " + objectName + " row_id: " + rowId + " " + msg.getMessage(), g);
 			}
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			AppLog.warning(getClass(), "deleteRecord", "TRN_WARN_UNABLE_TO_DELETE_" + objectName + ": row_id=" + rowId,
 					e, g);
 		}
 	}
 
-	private final List<String> TRN_OBJECTS = Arrays.asList(
-			"TrnCategory",
-			"TrnCategoryTranslate",
-			"TrnLesson",
-			"TrnLsnTranslate",
-			"TrnPicture",
-			"TrnTag",
-			"TrnTagLsn",
-			"TrnTagTranslate",
-			"TrnUrlRewriting",
-			"TrnSiteTheme",
-			"TrnPage");
+	private final List<String> TRN_OBJECTS = Arrays.asList("TrnCategory", "TrnCategoryTranslate", "TrnLesson",
+			"TrnLsnTranslate", "TrnPicture", "TrnTag", "TrnTagLsn", "TrnTagTranslate", "TrnUrlRewriting",
+			"TrnSiteTheme", "TrnPage");
 
 	private void loadTrnObjectAccess() {
 		boolean[] crud = new boolean[] { true, true, true, true };
@@ -306,7 +315,8 @@ public class TrnFsSyncTool implements java.io.Serializable {
 				syncTags();
 				syncUrlsRewriting();
 				syncTheme();
-			} else {
+			}
+			else {
 				updateDbWithDir(relativePath, dir);
 			}
 			hashTool.addPathToStore(relativePath, newHash);
@@ -329,9 +339,11 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	private void updateDbWithDir(String relativePath, File dir) throws TrnSyncException {
 		if (TrnVerifyContent.isCategory(dir)) {
 			upsertCategory(dir);
-		} else if (TrnVerifyContent.isLesson(dir)) {
+		}
+		else if (TrnVerifyContent.isLesson(dir)) {
 			upsertLessonAndContent(dir);
-		} else {
+		}
+		else {
 			throw new TrnSyncException("TRN_SYNC_ERROR_NOT_CATEGORY_NOR_LESSON", dir);
 		}
 	}
@@ -359,7 +371,8 @@ public class TrnFsSyncTool implements java.io.Serializable {
 				JSONObject tradJSON = tagObject.optJSONObject("translation");
 				upsertTagTranslations(tradJSON, rowId);
 			}
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			throw new TrnSyncException("TRN_SYNC_UPSERT_TAGS_FROM_JSON", e.getMessage());
 		}
 	}
@@ -380,7 +393,8 @@ public class TrnFsSyncTool implements java.io.Serializable {
 				rowId = tag.getRowId();
 				return rowId;
 			}
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			throw new TrnSyncException("TRN_SYNC_UPSERT_TAG", e.getMessage() + " " + code);
 		}
 	}
@@ -401,7 +415,8 @@ public class TrnFsSyncTool implements java.io.Serializable {
 				tagTranslation.resetValues();
 				if (Tool.isEmpty(translateRowId)) {
 					bot.selectForCreate();
-				} else {
+				}
+				else {
 					bot.selectForUpdate(translateRowId);
 				}
 				tagTranslation.setFieldValue("trnTagTranslateLang", lang);
@@ -410,7 +425,8 @@ public class TrnFsSyncTool implements java.io.Serializable {
 				bot.validateAndSave();
 				foundTagsTranslations.add(tagTranslation.getRowId());
 			}
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			throw new TrnSyncException("TRN_SYNC_UPSERT_TAG_TRANSLATION", e.getMessage());
 		}
 	}
@@ -435,7 +451,8 @@ public class TrnFsSyncTool implements java.io.Serializable {
 						jsonRecord.optString("destinationUrl"));
 				foundUrlsRewriting.add(rowId);
 			}
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			throw new TrnSyncException("TRN_SYNC_UPSERT_URLS_REWRITING_FROM_JSON", e.getMessage());
 		}
 	}
@@ -456,7 +473,8 @@ public class TrnFsSyncTool implements java.io.Serializable {
 				bot.validateAndSave();
 				return urlRewriting.getRowId();
 			}
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			throw new TrnSyncException("TRN_SYNC_UPSERT_URL_REWRITING", e.getMessage() + " " + urlRewriting.toJSON());
 		}
 	}
@@ -473,7 +491,8 @@ public class TrnFsSyncTool implements java.io.Serializable {
 				category.resetValues();
 				if (Tool.isEmpty(rowId)) {
 					bot.selectForCreate();
-				} else {
+				}
+				else {
 					bot.selectForUpdate(rowId);
 				}
 				category.setFieldValue("trnCatOrder", name[1]);
@@ -499,16 +518,15 @@ public class TrnFsSyncTool implements java.io.Serializable {
 				for (String[] row : jsonCatContents(json)) {
 					bot.getForCreate();
 					bot.getObject().setValuesFromJSONObject(new JSONObject() // or its alias getForUpsert
-							.put("trnCtrLang", row[0])
-							.put("trnCtrCatId", rowId)
-							.put("trnCtrTitle", row[1])
+							.put("trnCtrLang", row[0]).put("trnCtrCatId", rowId).put("trnCtrTitle", row[1])
 							.put("trnCtrDescription", row[2]), false, false);
 					bot.validateAndCreate();
 				}
 				// create "ANY" cat title if it does not exist
 				category.postCreate();
 			}
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			throw new TrnSyncException("TRN_SYNC_UPSERT_CATEGORY",
 					e.getMessage() + " " + category.toJSON() + " " + dir.getPath());
 		}
@@ -523,11 +541,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		for (String lang : langCodes) {
 			if (json.has(lang)) {
 				JSONObject content = json.getJSONObject(lang);
-				l.add(new String[] {
-						lang,
-						content.getString("title"),
-						content.optString("description", "")
-				});
+				l.add(new String[] { lang, content.getString("title"), content.optString("description", "") });
 			}
 		}
 		return l;
@@ -567,7 +581,8 @@ public class TrnFsSyncTool implements java.io.Serializable {
 			lsnRowId = upsertLesson(lsnRowId, lsnData, relativePath, dir);
 			createTrnTagLsnRecords(lsnRowId, lsnData, relativePath);
 			upsertLangSpecificContent(lsnRowId, lsnData);
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			throw new TrnSyncException("TRN_SYNC_UPSERT_LESSON_AND_CONTENT",
 					e.getMessage() + " " + lesson.toJSON() + " " + dir.getPath());
 		}
@@ -607,13 +622,14 @@ public class TrnFsSyncTool implements java.io.Serializable {
 
 				lesson.populate(true);
 				bot.validateAndSave(true);
-                rowId = lesson.getRowId();
-                if(lsnData.getBoolean("page")) {
-                    upsertPage(rowId, lsnData.getString("code"));
-                }
+				rowId = lesson.getRowId();
+				if (lsnData.getBoolean("page")) {
+					upsertPage(rowId, lsnData.getString("code"));
+				}
 				return rowId;
 			}
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			throw new TrnSyncException("TRN_SYNC_UPSERT_LESSON", e.getMessage() + " " + lesson.toJSON());
 		}
 	}
@@ -627,7 +643,8 @@ public class TrnFsSyncTool implements java.io.Serializable {
 					createTrnTagLsn(lsnRowId, tags.getString(i), relativePath, bot);
 				}
 			}
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			throw new TrnSyncException("TRN_SYNC_UPSERT_TRN_TAG_LSN_RECORDS", e.getMessage());
 		}
 	}
@@ -646,7 +663,8 @@ public class TrnFsSyncTool implements java.io.Serializable {
 				tagLsn.setFieldValue("trnTaglsnTagId", tagRowId);
 				bot.validateAndCreate();
 			}
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			throw new TrnSyncException("TRN_SYNC_UPSERT_TAG_LSN", e.getMessage());
 		}
 	}
@@ -674,7 +692,8 @@ public class TrnFsSyncTool implements java.io.Serializable {
 					bot.validateAndCreate();
 				}
 			}
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			throw new TrnSyncException("TRN_SYNC_UPSERT_LESSON_TRANSLATION",
 					e.getMessage() + " " + specificLangJson.toString(2));
 		}
@@ -700,7 +719,8 @@ public class TrnFsSyncTool implements java.io.Serializable {
 					lessonContent.setFieldValue("trnLtrTitle", lsnCode);
 				}
 			}
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			throw new TrnSyncException("TRN_SYNC_SET_LESSON_TRANSLATION", e.getMessage());
 		}
 	}
@@ -727,7 +747,8 @@ public class TrnFsSyncTool implements java.io.Serializable {
 			picture.setFieldValue("trnPicLang", lang);
 			picture.setFieldValue("trnPicLsnId", lsnRowId);
 			bot.validateAndCreate();
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			throw new TrnSyncException("TRN_CREATE_PICS", e.getMessage());
 		}
 	}
@@ -754,33 +775,36 @@ public class TrnFsSyncTool implements java.io.Serializable {
 				theme.getField("trnThemeIcon").setDocument(theme, icon.getName(), new FileInputStream(icon));
 				theme.getTool().validateAndSave();
 			}
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			throw new TrnSyncException("TRN_SYNC_ERROR_SYNC_THEME", e.getMessage());
 		}
 	}
 
-    private void upsertPage(String lsnRowId, String code) throws TrnSyncException {
-        String type;
-        if("homepage".equals(code)) {
-            type = "homepage";
-        } else {
-            type = "others";
-        }
-        try {
-            page.resetValues();
-            BusinessObjectTool bot = new BusinessObjectTool(page);
-            bot.selectForCreate();
-            synchronized (page) {
-                page.resetValues();
-                page.setFieldValue("trnPageCode", code);
-                page.setFieldValue("trnPageType", type);
-                page.setFieldValue("trnPageTrnLessonid", lsnRowId);
-                bot.validateAndSave();
-            }
-        } catch(Exception e) {
-            throw new TrnSyncException("TRN_SYNC_ERROR_SYNC_PAGE", e.getMessage());
-        }
-    }
+	private void upsertPage(String lsnRowId, String code) throws TrnSyncException {
+		String type;
+		if ("homepage".equals(code)) {
+			type = "homepage";
+		}
+		else {
+			type = "others";
+		}
+		try {
+			page.resetValues();
+			BusinessObjectTool bot = new BusinessObjectTool(page);
+			bot.selectForCreate();
+			synchronized (page) {
+				page.resetValues();
+				page.setFieldValue("trnPageCode", code);
+				page.setFieldValue("trnPageType", type);
+				page.setFieldValue("trnPageTrnLessonid", lsnRowId);
+				bot.validateAndSave();
+			}
+		}
+		catch (Exception e) {
+			throw new TrnSyncException("TRN_SYNC_ERROR_SYNC_PAGE", e.getMessage());
+		}
+	}
 
 	private String getTagRowIdFromCode(String code) {
 		return Tool.isEmpty(code) ? "" : g.simpleQuery("select row_id from trn_tag where trn_tag_code='" + code + "'");
@@ -804,7 +828,8 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	private File getLsnFile(File lsnDir, String lang, String extension) {
 		if (lang.equals("ANY")) {
 			lang = "";
-		} else {
+		}
+		else {
 			lang = "_" + lang;
 		}
 		return new File(lsnDir.getPath() + "/" + getLsnCode(lsnDir) + lang + "." + extension);
@@ -850,7 +875,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		lsn.put("published", lsnJson.optBoolean("published", true));
 		lsn.put("viz", lsnJson.optString("display", "TUTO"));
 		lsn.put("tags", lsnJson.optJSONArray("tags"));
-        lsn.put("page", lsnJson.optBoolean("page", false));
+		lsn.put("page", lsnJson.optBoolean("page", false));
 
 		JSONObject contents = new JSONObject();
 		File f;

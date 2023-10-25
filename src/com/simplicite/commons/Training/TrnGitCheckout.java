@@ -16,6 +16,7 @@ import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 import org.eclipse.jgit.util.FileUtils;
 import org.json.JSONObject;
 
+import com.simplicite.objects.Training.TrnSyncSupervisor;
 import com.simplicite.util.AppLog;
 import com.simplicite.util.Grant;
 import com.simplicite.util.engine.Platform;
@@ -33,21 +34,29 @@ public class TrnGitCheckout implements java.io.Serializable {
         this.g = g;
     }
 
-	public String checkout() throws TrnConfigException, GitAPIException, IOException, TrnSyncException {
-        String branch = TrnTools.getGitBranch();
-        File contentDir = getContentDir();
-        String msg;
-        setAuthentication();
-        if (!contentDir.exists()) {
-            String gitUrl = TrnTools.getGitUrl();
-            performClone(gitUrl, branch, contentDir);
-            msg = "Result: " + gitUrl + " has been successfully cloned. Current branch: " + branch + ".";
-        } else {
-            performPull(branch, contentDir);
-            msg = "The content has been successfully updated. Current branch: " + branch + ".";
+	public String checkout() throws Exception {
+        try {
+            String branch = TrnTools.getGitBranch();
+            File contentDir = getContentDir();
+            String msg;
+            setAuthentication();
+            if (!contentDir.exists()) {
+                String gitUrl = TrnTools.getGitUrl();
+                performClone(gitUrl, branch, contentDir);
+                msg = "Result: " + gitUrl + " has been successfully cloned. Current branch: " + branch + ".";
+            } else {
+                performPull(branch, contentDir);
+                msg = "The content has been successfully updated. Current branch: " + branch + ".";
+            }
+            TrnFsSyncTool.triggerSyncFromCheckout();
+            TrnSyncSupervisor.addLog(msg);
+            TrnSyncSupervisor.logSync(true);
+            return msg;
+        } catch(Exception e) {
+            TrnSyncSupervisor.addLog("Error checking out: " + e.getMessage());
+            TrnSyncSupervisor.logSync(false);
+            throw new Exception(e);
         }
-        TrnFsSyncTool.triggerSync();
-        return msg;
     }
 
     private void performClone(String remoteUrl, String branch, File contentDir) throws GitAPIException {
