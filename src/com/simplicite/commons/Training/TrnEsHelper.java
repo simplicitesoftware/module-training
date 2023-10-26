@@ -61,17 +61,12 @@ public class TrnEsHelper implements java.io.Serializable {
 		}
 	}
 
-	public void deleteIndex() {
-		try {
-			RESTTool.delete(getEsUrl(), esUser, esPassword);
-		} catch (Exception e) {
-			AppLog.error("Error deleting index " + esIndex + " on elasticsearch instance " + esInstance, e, g);
-		}
+	public void deleteIndex() throws HTTPException {
+        RESTTool.delete(getEsUrl(), esUser, esPassword);
 	}
 
 	public void createIndex() throws HTTPException {
-		String url = getEsUrl();
-        RESTTool.put("simplicite", url, esUser, esPassword);
+        RESTTool.put("simplicite", getEsUrl(), esUser, esPassword);
 		
 	}
 
