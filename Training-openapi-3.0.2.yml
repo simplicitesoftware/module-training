@@ -293,6 +293,15 @@ components:
         trnSyncLog:
           description: Log
           type: string
+        trnSyncType:
+          description: Type
+          type: string
+          enum:
+          - GIT
+          - SYNC
+          - REINDEX
+          - DROP
+          - DISCOURSE
         trnSyncStatus:
           description: Status
           type: string
@@ -3012,6 +3021,18 @@ paths:
         in: query
         name: trnSyncLog
         description: Search filter for Log
+        required: false
+      - schema:
+          type: string
+          enum:
+          - GIT
+          - SYNC
+          - REINDEX
+          - DROP
+          - DISCOURSE
+        in: query
+        name: trnSyncType
+        description: Search filter for Type
         required: false
       tags:
       - TrnSyncSupervisor

@@ -2108,6 +2108,17 @@ paths:
         description: Search filter for Log
         type: string
         required: false
+      - in: query
+        name: trnSyncType
+        description: Search filter for Type
+        type: string
+        required: false
+        enum:
+        - GIT
+        - SYNC
+        - REINDEX
+        - DROP
+        - DISCOURSE
       tags:
       - TrnSyncSupervisor
   /rest/TrnUrlRewriting:
@@ -3585,6 +3596,15 @@ definitions:
       trnSyncLog:
         description: Log
         type: string
+      trnSyncType:
+        description: Type
+        type: string
+        enum:
+        - GIT
+        - SYNC
+        - REINDEX
+        - DROP
+        - DISCOURSE
       trnSyncStatus:
         description: Status
         type: string
