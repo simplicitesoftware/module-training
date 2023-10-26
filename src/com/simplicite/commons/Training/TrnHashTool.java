@@ -10,6 +10,7 @@ import java.util.Set;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
+import com.simplicite.objects.Training.TrnSyncSupervisor;
 import com.simplicite.util.AppLog;
 import com.simplicite.util.Grant;
 import com.simplicite.util.Tool;
@@ -65,8 +66,9 @@ public class TrnHashTool implements java.io.Serializable {
 	public void deleteHashStore() throws TrnSyncException {
 		try {
 			Files.deleteIfExists(hashStoreFile.toPath());
+            TrnSyncSupervisor.addInfoLog("HashStore deleted");
 		} catch (Exception e) {
-			AppLog.error(getClass(), "deleteStore", e.getMessage(), e, Grant.getSystemAdmin());
+			TrnSyncSupervisor.addErrorLog("Unable to delete store: "+e.getMessage());
 			throw new TrnSyncException("TRN_SYNC_DELETE_STORE", hashStoreFile);
 		}
 	}

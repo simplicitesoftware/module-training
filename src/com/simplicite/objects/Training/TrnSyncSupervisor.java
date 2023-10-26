@@ -71,7 +71,7 @@ public class TrnSyncSupervisor extends ObjectDB {
 	public String indexDiscourse() {
 		try {
 			if (!TrnTools.isElasticSearchMode())
-				return "indexation only available with elastic search mode";
+				return "Indexation only available with elastic search mode";
 
 			TrnCommunityIndexer tdi = new TrnCommunityIndexer(getGrant());
 			tdi.indexAll();
@@ -100,6 +100,7 @@ public class TrnSyncSupervisor extends ObjectDB {
 		TrnEsHelper eh = TrnEsHelper.getEsHelper(Grant.getSystemAdmin());
 		eh.deleteIndex();
 		eh.createIndex();
+        addInfoLog("Reset index done");
 	}
 
     private static void addLog(String msg) {

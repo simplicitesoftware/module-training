@@ -3,7 +3,7 @@ package com.simplicite.commons.Training;
 import org.json.JSONObject;
 import org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder;
 
-import com.simplicite.util.AppLog;
+import com.simplicite.objects.Training.TrnSyncSupervisor;
 import com.simplicite.util.Grant;
 import com.simplicite.util.exceptions.HTTPException;
 import com.simplicite.util.tools.RESTTool;
@@ -51,12 +51,12 @@ public class TrnEsHelper implements java.io.Serializable {
 		try {
 			RESTTool.post(doc, "application/json", url, esUser, esPassword);
 			if (doc.has("path")) {
-				AppLog.info("Indexing at " + url + " : " + doc.getString("path"), Grant.getSystemAdmin());
+				TrnSyncSupervisor.addInfoLog("Indexing lesson: " + doc.getString("path"));
 			} else if (doc.has("url")) {
-				AppLog.info("Indexing at " + url + " : " + doc.getString("url"), Grant.getSystemAdmin());
+				TrnSyncSupervisor.addInfoLog("Indexing community topic: " + doc.getString("url"));
 			}
 		} catch (Exception e) {
-			AppLog.error("Error calling elasticsearch", e, g);
+			TrnSyncSupervisor.addErrorLog("Error calling elasticsearch on url: "+url+" doc: "+doc.toString());
 		}
 	}
 
@@ -64,17 +64,7 @@ public class TrnEsHelper implements java.io.Serializable {
 		try {
 			RESTTool.delete(getEsUrl(), esUser, esPassword);
 		} catch (Exception e) {
-			AppLog.error("Error deleting index " + esIndex + " on elasticsearch instance " + esInstance, e, g);
-		}
-	}
-
-	public void deleteByQuery(int categoryId) {
-		try {
-			RESTTool.delete(getEsUrl()+"_delete_by_query?{\"query\":{\"match\":{\"category_id\": "+categoryId+"}}}", 
-				esUser, esPassword);
-		} catch (Exception e) {
-			AppLog.error("Error creating index " + esIndex + " on elasticsearch instance " + esInstance, e, g);
-
+			TrnSyncSupervisor.addErrorLog("Error deleting index " + esIndex + " on elasticsearch instance " + esInstance);
 		}
 	}
 
@@ -83,7 +73,7 @@ public class TrnEsHelper implements java.io.Serializable {
 		try {
 			RESTTool.put("simplicite", url, esUser, esPassword);
 		} catch (Exception e) {
-			AppLog.error("Error creating index " + esIndex + " on elasticsearch instance " + esInstance, e, g);
+			TrnSyncSupervisor.addErrorLog("Error creating index " + esIndex + " on elasticsearch instance " + esInstance);
 		}
 	}
 
@@ -91,10 +81,9 @@ public class TrnEsHelper implements java.io.Serializable {
 		String url = getEsUrl() + "_doc/" + docId;
 		try {
 			RESTTool.delete(url, esUser, esPassword);
-			AppLog.info("Deleted index doc: " + url, Grant.getSystemAdmin());
+			TrnSyncSupervisor.addInfoLog("Deleted index doc: " + url);
 		} catch (Exception e) {
-			AppLog.warning("Error deleting elastic index doc: " + url + " : " + e.getMessage(), e,
-					Grant.getSystemAdmin());
+			TrnSyncSupervisor.addWarnLog("Error deleting elastic index doc: " + url + " : " + e.getMessage());
 		}
 	}
 

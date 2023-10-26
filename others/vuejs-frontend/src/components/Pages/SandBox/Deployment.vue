@@ -99,7 +99,6 @@
       }
 
     }
-
   }
 
   .sandbox-image {

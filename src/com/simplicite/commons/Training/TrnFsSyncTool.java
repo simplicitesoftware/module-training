@@ -73,7 +73,8 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	}
 
 	public static void triggerSync() throws TrnSyncException {
-		try {
+		try 
+        {
 			TrnSyncSupervisor.addInfoLog("Triggering synchronisation");
 			Grant g = Grant.getSystemAdmin();
 			TrnFsSyncTool t = new TrnFsSyncTool(g);
@@ -267,11 +268,11 @@ public class TrnFsSyncTool implements java.io.Serializable {
 			synchronized (bot.getObject()) {
 				bot.getForDelete(rowId);
 				ReturnMessage msg = bot.delete();
-				TrnSyncSupervisor.addInfoLog("Deleted " + objectName + " row_id: " + rowId + " " + msg.getMessage());
+				TrnSyncSupervisor.addInfoLog("Deleted " + objectName+" row_id=+"+rowId+" | " + msg.getMessage());
 			}
 		}
 		catch (Exception e) {
-			TrnSyncSupervisor.addWarnLog("Unable to delete " + objectName + ": row_id=" + rowId+" | "+e.getMessage());
+			TrnSyncSupervisor.addWarnLog("Unable to delete "+objectName+" "+e.getMessage()+" | "+object.toString());
 		}
 	}
 

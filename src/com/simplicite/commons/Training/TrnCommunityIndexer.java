@@ -4,7 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.simplicite.util.AppLog;
+import com.simplicite.objects.Training.TrnSyncSupervisor;
 import com.simplicite.util.Grant;
 import com.simplicite.util.exceptions.HTTPException;
 import com.simplicite.util.tools.RESTTool;
@@ -48,27 +48,34 @@ public class TrnCommunityIndexer implements java.io.Serializable
 	// indexation
 	public void indexAll() 
 	{
+        boolean success = false;
 		try 
 		{
+            TrnSyncSupervisor.addInfoLog("Starting discourse indexation");
 			indexCategories();
-			AppLog.info("Discourse indexation done. Total: " + totalTopics + " topics, " + totalPosts + " posts", g);
-		} 
+			TrnSyncSupervisor.addInfoLog("Discourse indexation done. Total: " + totalTopics + " topics, " + totalPosts + " posts");
+            success = true;
+		}
 		catch (JSONException e) 
 		{
-			AppLog.error(getClass(), indexAllField, "JSON error: ", e, g);
+			TrnSyncSupervisor.addErrorLog("JSON error: "+e.getMessage());
 		} 
 		catch (HTTPException e) 
 		{
-			AppLog.error(getClass(), indexAllField, "HTTP error: ", e, g);
+			TrnSyncSupervisor.addErrorLog("HTTP error: "+e.getMessage());
 		} 
 		catch (TrnDiscourseIndexerException e) 
 		{
-			AppLog.error(getClass(), indexAllField, "Discourse indexation error: ", e, g);
+			TrnSyncSupervisor.addErrorLog("Discourse indexation error: "+e.getMessage());
 		} 
 		catch (Exception e) 
 		{
-			AppLog.error(getClass(), indexAllField, "Error: ", e, g);
+			TrnSyncSupervisor.addErrorLog("Error: "+e.getMessage());
 		}
+        finally
+        {
+            TrnSyncSupervisor.logSync(success);
+        }
 	}
 
 	private void indexCategories() throws TrnDiscourseIndexerException, HTTPException 
@@ -113,7 +120,6 @@ public class TrnCommunityIndexer implements java.io.Serializable
 		JSONObject catInfo = new JSONObject(makeRequest(catInfoUrl));
 
 		JSONObject doc = new JSONObject();
-		// todo, complete with category name / id, topic title, name
 		doc.put("title", topic.getString("title"))
 			.put("type", "discourse")
 			.put("slug", topicSlug)
@@ -132,7 +138,6 @@ public class TrnCommunityIndexer implements java.io.Serializable
 	public JSONArray getPostsAsArray(int topicId) throws HTTPException, JSONException, TrnDiscourseIndexerException 
 	{
 		String postUrl = TrnDiscourseTool.getPostFetchUrl(url, topicId);
-		AppLog.info("POSTS FROM TOPIC: " + postUrl, g);
 
 		String res = makeRequest(postUrl);
 		JSONObject json = new JSONObject(res);

@@ -2,6 +2,7 @@ package com.simplicite.commons.Training;
 
 import com.simplicite.util.*;
 import com.simplicite.objects.Training.TrnLesson;
+import com.simplicite.objects.Training.TrnSyncSupervisor;
 
 /**
  * Shared code TrnEsIndexer
@@ -21,6 +22,8 @@ public class TrnEsIndexer implements java.io.Serializable {
 				}
 			}
 		}
+        TrnSyncSupervisor.addInfoLog("Reindexed lessons in elastic");
+        TrnSyncSupervisor.logSync(true);
 	}
 	
 	public static void indexLesson(TrnLesson lsn) throws Exception{
