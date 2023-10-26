@@ -268,7 +268,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 			synchronized (bot.getObject()) {
 				bot.getForDelete(rowId);
 				ReturnMessage msg = bot.delete();
-				TrnSyncSupervisor.addInfoLog("Deleted " + objectName+" row_id=+"+rowId+" | " + msg.getMessage());
+				TrnSyncSupervisor.addInfoLog("Deleted " + objectName+" row_id="+rowId+" | " + msg.getMessage());
 			}
 		}
 		catch (Exception e) {

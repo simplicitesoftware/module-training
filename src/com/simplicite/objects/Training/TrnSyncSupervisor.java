@@ -34,10 +34,6 @@ public class TrnSyncSupervisor extends ObjectDB {
 			if (!TrnTools.isFileSystemMode())
 				return "Data drop only available in FILESYSTEM mode";
 
-			if (TrnTools.isElasticSearchMode()) {
-				resetIndex();
-			}
-
 			TrnFsSyncTool.dropDbData();
 			TrnFsSyncTool.deleteStore();
             success = true;
@@ -56,8 +52,7 @@ public class TrnSyncSupervisor extends ObjectDB {
 		try {
 			if (!TrnTools.isFileSystemMode())
 				return "Synchronization only available in FILESYSTEM mode";
-
-			String syncType = action.getConfirmField("trnSyncType").getValue();
+			String syncType = action.getConfirmField("trnSyncActionType").getValue();
 			if ("GIT".equals(syncType)) {
 				TrnGitCheckout tgc = new TrnGitCheckout(getGrant());
 				tgc.checkout();
