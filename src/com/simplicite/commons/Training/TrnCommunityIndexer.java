@@ -5,6 +5,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.simplicite.objects.Training.TrnSyncSupervisor;
+import com.simplicite.util.AppLog;
 import com.simplicite.util.Grant;
 import com.simplicite.util.exceptions.HTTPException;
 import com.simplicite.util.tools.RESTTool;
@@ -49,32 +50,33 @@ public class TrnCommunityIndexer implements java.io.Serializable
 	public void indexAll() 
 	{
         boolean success = false;
+        String msg = null;
 		try 
 		{
-            TrnSyncSupervisor.addInfoLog("Starting discourse indexation");
+            AppLog.info("Starting discourse indexation", g);
 			indexCategories();
-			TrnSyncSupervisor.addInfoLog("Discourse indexation done. Total: " + totalTopics + " topics, " + totalPosts + " posts");
+			AppLog.info("Discourse indexation done. Total: " + totalTopics + " topics, " + totalPosts + " posts", g);
             success = true;
 		}
 		catch (JSONException e) 
 		{
-			TrnSyncSupervisor.addErrorLog("JSON error: "+e.getMessage());
+            msg = "JSON error: "+e.getMessage();
 		} 
 		catch (HTTPException e) 
 		{
-			TrnSyncSupervisor.addErrorLog("HTTP error: "+e.getMessage());
+            msg = "HTTP error: "+e.getMessage();
 		} 
 		catch (TrnDiscourseIndexerException e) 
 		{
-			TrnSyncSupervisor.addErrorLog("Discourse indexation error: "+e.getMessage());
+            msg = "Discourse indexation error: "+e.getMessage();
 		} 
 		catch (Exception e) 
 		{
-			TrnSyncSupervisor.addErrorLog("Error: "+e.getMessage());
+            msg = "Error: "+e.getMessage();
 		}
         finally
         {
-            TrnSyncSupervisor.logSync(success, "DISCOURSE");
+            TrnSyncSupervisor.logSync(success, "DISCOURSE", msg);
         }
 	}
 

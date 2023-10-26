@@ -4,6 +4,7 @@ import org.json.JSONObject;
 import org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder;
 
 import com.simplicite.objects.Training.TrnSyncSupervisor;
+import com.simplicite.util.AppLog;
 import com.simplicite.util.Grant;
 import com.simplicite.util.exceptions.HTTPException;
 import com.simplicite.util.tools.RESTTool;
@@ -51,12 +52,12 @@ public class TrnEsHelper implements java.io.Serializable {
 		try {
 			RESTTool.post(doc, "application/json", url, esUser, esPassword);
 			if (doc.has("path")) {
-				TrnSyncSupervisor.addInfoLog("Indexing lesson: " + doc.getString("path"));
+				AppLog.info("Indexing lesson: " + doc.getString("path"), g);
 			} else if (doc.has("url")) {
-				TrnSyncSupervisor.addInfoLog("Indexing community topic: " + doc.getString("url"));
+				AppLog.info("Indexing community topic: " + doc.getString("url"), g);
 			}
 		} catch (Exception e) {
-			TrnSyncSupervisor.addErrorLog("Error calling elasticsearch on url: "+url+" doc: "+doc.toString());
+			AppLog.error(getClass(), "indexEsDoc", "Error calling elasticsearch on url: "+url+" doc: "+doc.toString(), e, g);
 		}
 	}
 
@@ -64,7 +65,7 @@ public class TrnEsHelper implements java.io.Serializable {
 		try {
 			RESTTool.delete(getEsUrl(), esUser, esPassword);
 		} catch (Exception e) {
-			TrnSyncSupervisor.addErrorLog("Error deleting index " + esIndex + " on elasticsearch instance " + esInstance);
+			AppLog.error("Error deleting index " + esIndex + " on elasticsearch instance " + esInstance, e, g);
 		}
 	}
 
@@ -73,7 +74,7 @@ public class TrnEsHelper implements java.io.Serializable {
 		try {
 			RESTTool.put("simplicite", url, esUser, esPassword);
 		} catch (Exception e) {
-			TrnSyncSupervisor.addErrorLog("Error creating index " + esIndex + " on elasticsearch instance " + esInstance);
+			AppLog.error("Error creating index " + esIndex + " on elasticsearch instance " + esInstance, e, g);
 		}
 	}
 
@@ -81,9 +82,9 @@ public class TrnEsHelper implements java.io.Serializable {
 		String url = getEsUrl() + "_doc/" + docId;
 		try {
 			RESTTool.delete(url, esUser, esPassword);
-			TrnSyncSupervisor.addInfoLog("Deleted index doc: " + url);
+			AppLog.info("Deleted index doc: " + url, g);
 		} catch (Exception e) {
-			TrnSyncSupervisor.addWarnLog("Error deleting elastic index doc: " + url + " : " + e.getMessage());
+			AppLog.error("Error deleting elastic index doc: " + url, e, g);
 		}
 	}
 

@@ -21,7 +21,6 @@ import com.simplicite.util.Tool;
  */
 public class TrnSyncSupervisor extends ObjectDB {
 	private static final long serialVersionUID = 1L;
-    private static StringBuilder logContainer = new StringBuilder();
 
 	@Override
 	public void initList(ObjectDB parent) {
@@ -29,23 +28,18 @@ public class TrnSyncSupervisor extends ObjectDB {
 	}
 
 	public String dropData() {
-        boolean success = false;
 		try {
 			if (!TrnTools.isFileSystemMode())
 				return "Data drop only available in FILESYSTEM mode";
 
 			TrnFsSyncTool.dropDbData();
 			TrnFsSyncTool.deleteStore();
-            success = true;
+            TrnSyncSupervisor.logSync(true, "DROP", null);
 			return "Dropped data & hashes";
 		} catch (Exception e) {
-			TrnSyncSupervisor.addErrorLog(e.getMessage());
+            TrnSyncSupervisor.logSync(false, "DROP", null);
 			return "Error dropping data";
 		}
-        finally
-        {
-            TrnSyncSupervisor.logSync(success, "DROP");
-        }
 	}
 
 	public String forceSync(Action action) {
@@ -89,9 +83,10 @@ public class TrnSyncSupervisor extends ObjectDB {
 
 			resetIndex();
 			TrnEsIndexer.forceIndex((getGrant()));
+            TrnSyncSupervisor.logSync(true, "REINDEX", null);
 			return "All lessons reindexed in elastic node";
 		} catch (Exception e) {
-			AppLog.error(getClass(), "reIndexAll", e.getMessage(), e, Grant.getSystemAdmin());
+            TrnSyncSupervisor.logSync(false, "REINDEX", e.getMessage());
 			return "Error while indexing lessons in elastic node";
 		}
 	}
@@ -100,29 +95,9 @@ public class TrnSyncSupervisor extends ObjectDB {
 		TrnEsHelper eh = TrnEsHelper.getEsHelper(Grant.getSystemAdmin());
 		eh.deleteIndex();
 		eh.createIndex();
-        addInfoLog("Reset index done");
 	}
 
-    private static void addLog(String msg) {
-        // see formating of the log message (date / hour ?)
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuuu/MM/dd HH:mm:ss");
-        LocalDateTime now = LocalDateTime.now();
-        logContainer.append(dtf.format(now)+" | "+msg+"\n");
-    }
-
-    public static void addInfoLog(String msg) {
-        addLog("INFO"+" | "+msg);
-    }
-
-    public static void addWarnLog(String msg) {
-        addLog("WARN"+" | "+msg);
-    }
-
-    public static void addErrorLog(String msg) {
-        addLog("ERROR"+" | "+msg);
-    }
-
-    public static void logSync(boolean ok, String type)
+    public static void logSync(boolean ok, String type, String msg)
     {
 		Grant g = Grant.getSystemAdmin();
 		try
@@ -132,7 +107,7 @@ public class TrnSyncSupervisor extends ObjectDB {
 			o.getTool().getForCreate();
 			o.setFieldValue("trnSyncDate", Tool.getCurrentDatetime());
 			o.setFieldValue("trnSyncStatus", ok ? "OK" : "KO");
-			o.setFieldValue("trnSyncLog", logContainer.toString());
+			o.setFieldValue("trnSyncLog", msg);
             o.setFieldValue("trnSyncType", type);
 			o.getTool().validateAndCreate();
 			g.changeAccess("TrnSyncSupervisor", oldcrud);
@@ -141,9 +116,5 @@ public class TrnSyncSupervisor extends ObjectDB {
         {
 			AppLog.error("Error logging sync", e, g);
 		}
-        finally
-        {
-            logContainer = new StringBuilder();
-        }
 	}
 }

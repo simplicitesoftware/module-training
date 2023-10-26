@@ -2,6 +2,7 @@ package com.simplicite.commons.Training;
 
 import com.simplicite.objects.Training.TrnSyncSupervisor;
 import com.simplicite.objects.Training.TrnTagLsn;
+import com.simplicite.util.AppLog;
 import com.simplicite.util.Grant;
 import com.simplicite.util.ObjectDB;
 import com.simplicite.util.Tool;
@@ -75,17 +76,15 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	public static void triggerSync() throws TrnSyncException {
 		try 
         {
-			TrnSyncSupervisor.addInfoLog("Triggering synchronisation");
+			AppLog.info("Triggering synchronisation", Grant.getSystemAdmin());
 			Grant g = Grant.getSystemAdmin();
 			TrnFsSyncTool t = new TrnFsSyncTool(g);
 			t.sync();
-			TrnSyncSupervisor.addInfoLog("Synchronisation has been successfully executed");
+			AppLog.info("Synchronisation has been successfully executed", Grant.getSystemAdmin());
 		}
 		catch(Exception e)
 		{
-			String msg = "Synchronization failed: " + e.getMessage();
-			TrnSyncSupervisor.addErrorLog(msg);
-			throw new TrnSyncException(msg);
+			throw new TrnSyncException("Synchronization failed: " + e.getMessage());
 		}
 	}
 
@@ -95,11 +94,11 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	{
 		try {
 			triggerSync();
-			TrnSyncSupervisor.logSync(true, "SYNC");
+			TrnSyncSupervisor.logSync(true, "SYNC", null);
 		}
 		catch(Exception e)
 		{
-			TrnSyncSupervisor.logSync(false, "SYNC");
+			TrnSyncSupervisor.logSync(false, "SYNC", e.getMessage());
 			throw new TrnSyncException(e.getMessage());
 		}
 	}
@@ -130,7 +129,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 			loadTrnObjects();
 			dropCategory(false);
 			dropTag(false);
-			TrnSyncSupervisor.addInfoLog("Successfully droped data (categories and tags)");
+			AppLog.info("Successfully droped data (categories and tags)", g);
 		}
 		catch (DeleteException e) {
 			throw new TrnSyncException("TRN_DROP_ERROR", e.getMessage());
@@ -176,21 +175,21 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		loadTrnObjects();
 		// injects contents at `contentDir` into DB, sets new hashes (recursive)
 		syncPath("/");
-		TrnSyncSupervisor.addInfoLog("Content has been synced");
+		AppLog.info("Content has been synced", g);
 
 		// deletes from DB paths that are not in the file structure anymore
-		TrnSyncSupervisor.addInfoLog("Removing deleted items...");
+		AppLog.info("Removing deleted items...", g);
 		deleteDeleted();
 		// save new hashes (in glo.ser)
 		// NB: if there was an exception above, glo.ser not modified => sync() would
 		// rerun similarly
 		hashTool.storeHashes();
-		TrnSyncSupervisor.addInfoLog("Synchronization done");
+		AppLog.info("Synchronization done", g);
 	}
 
 	public void verifyContentStructure() throws TrnSyncException {
 		TrnVerifyContent.verifyContentStructure(contentDir, TrnTools.getLangs(g));
-		TrnSyncSupervisor.addInfoLog("Training content has been verified");
+		AppLog.info("Training content has been verified", g);
 	}
 
 	private void initFoundArrays() {
@@ -237,7 +236,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 			objectName = "LESSON";
 		}
 		deleteRecord(rowId, object, objectName);
-		TrnSyncSupervisor.addInfoLog("Deleted path " + path);
+		AppLog.info("Deleted path " + path, g);
 	}
 
 	private static String removeLastCharacter(String str) {
@@ -268,11 +267,11 @@ public class TrnFsSyncTool implements java.io.Serializable {
 			synchronized (bot.getObject()) {
 				bot.getForDelete(rowId);
 				ReturnMessage msg = bot.delete();
-				TrnSyncSupervisor.addInfoLog("Deleted " + objectName+" row_id="+rowId+" | " + msg.getMessage());
+				AppLog.info("Deleted " + objectName+" row_id="+rowId+" | " + msg.getMessage(), g);
 			}
 		}
 		catch (Exception e) {
-			TrnSyncSupervisor.addWarnLog("Unable to delete "+objectName+" "+e.getMessage()+" | "+object.toString());
+			AppLog.warning(getClass(), "deleteRecord", "Unable to delete "+objectName+" "+e.getMessage()+" | "+object.toString(), e, g);
 		}
 	}
 
@@ -350,10 +349,10 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		File f = new File(contentDir.getPath(), TAG_JSON_NAME);
 		String newHash = hashTool.getNewHash(TAG_JSON_NAME, f);
 		if (newHash != null) {
-			TrnSyncSupervisor.addInfoLog("Tags modifications detected, Syncing...");
+			AppLog.info("Tags modifications detected, Syncing...", g);
 			upsertTags(f);
 			hashTool.addPathToStore(TAG_JSON_NAME, newHash);
-			TrnSyncSupervisor.addInfoLog("Tags successfully synced");
+			AppLog.info("Tags successfully synced", g);
 		}
 	}
 
@@ -433,10 +432,10 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		File f = new File(contentDir.getPath(), URL_REWRITING_JSON_NAME);
 		String newHash = hashTool.getNewHash(URL_REWRITING_JSON_NAME, f);
 		if (newHash != null) {
-			TrnSyncSupervisor.addInfoLog("Urls rewriting modifications detected, Syncing...");
+			AppLog.info("Urls rewriting modifications detected, Syncing...", g);
 			upsertUrlsRewriting(f);
 			hashTool.addPathToStore(URL_REWRITING_JSON_NAME, newHash);
-			TrnSyncSupervisor.addInfoLog("Urls rewriting successfully synced");
+			AppLog.info("Urls rewriting successfully synced", g);
 		}
 	}
 
@@ -755,10 +754,10 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		File f = new File(contentDir.getPath(), THEME_JSON_NAME);
 		String newHash = hashTool.getNewHash(THEME_JSON_NAME, f);
 		if (newHash != null) {
-			TrnSyncSupervisor.addInfoLog("Theme modifications detected, Syncing...");
+			AppLog.info("Theme modifications detected, Syncing...", g);
 			upsertTheme(f);
 			hashTool.addPathToStore(THEME_JSON_NAME, newHash);
-			TrnSyncSupervisor.addInfoLog("Theme successfully synced");
+			AppLog.info("Theme successfully synced", g);
 		}
 	}
 

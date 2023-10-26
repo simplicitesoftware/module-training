@@ -66,9 +66,9 @@ public class TrnHashTool implements java.io.Serializable {
 	public void deleteHashStore() throws TrnSyncException {
 		try {
 			Files.deleteIfExists(hashStoreFile.toPath());
-            TrnSyncSupervisor.addInfoLog("HashStore deleted");
+            AppLog.info("HashStore deleted", Grant.getSystemAdmin());
 		} catch (Exception e) {
-			TrnSyncSupervisor.addErrorLog("Unable to delete store: "+e.getMessage());
+			AppLog.error("Unable to delete store: "+e.getMessage(), e, Grant.getSystemAdmin());
 			throw new TrnSyncException("TRN_SYNC_DELETE_STORE", hashStoreFile);
 		}
 	}
