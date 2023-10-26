@@ -47,7 +47,7 @@ public class TrnEsHelper implements java.io.Serializable {
 		return esIndex;
 	}
 
-	public void indexEsDoc(int docId, JSONObject doc) {
+	public void indexEsDoc(int docId, JSONObject doc) throws TrnDiscourseIndexerException {
 		String url = getEsDocUrl(docId);
 		try {
 			RESTTool.post(doc, "application/json", url, esUser, esPassword);
@@ -57,7 +57,7 @@ public class TrnEsHelper implements java.io.Serializable {
 				AppLog.info("Indexing community topic: " + doc.getString("url"), g);
 			}
 		} catch (Exception e) {
-			AppLog.error(getClass(), "indexEsDoc", "Error calling elasticsearch on url: "+url+" doc: "+doc.toString(), e, g);
+			throw new TrnDiscourseIndexerException("Error calling elasticsearch on url: "+url+" doc: "+doc.toString());
 		}
 	}
 
@@ -69,13 +69,10 @@ public class TrnEsHelper implements java.io.Serializable {
 		}
 	}
 
-	public void createIndex() {
+	public void createIndex() throws HTTPException {
 		String url = getEsUrl();
-		try {
-			RESTTool.put("simplicite", url, esUser, esPassword);
-		} catch (Exception e) {
-			AppLog.error("Error creating index " + esIndex + " on elasticsearch instance " + esInstance, e, g);
-		}
+        RESTTool.put("simplicite", url, esUser, esPassword);
+		
 	}
 
 	public void deleteEsDoc(int docId) {

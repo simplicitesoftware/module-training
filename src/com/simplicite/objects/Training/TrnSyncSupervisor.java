@@ -15,6 +15,7 @@ import com.simplicite.util.AppLog;
 import com.simplicite.util.Grant;
 import com.simplicite.util.ObjectDB;
 import com.simplicite.util.Tool;
+import com.simplicite.util.exceptions.HTTPException;
 
 /**
  * Business object TrnSyncSupervisor
@@ -91,7 +92,7 @@ public class TrnSyncSupervisor extends ObjectDB {
 		}
 	}
 
-	private static void resetIndex() throws TrnConfigException {
+	private static void resetIndex() throws TrnConfigException, HTTPException {
 		TrnEsHelper eh = TrnEsHelper.getEsHelper(Grant.getSystemAdmin());
 		eh.deleteIndex();
 		eh.createIndex();

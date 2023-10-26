@@ -110,7 +110,7 @@ public class TrnCommunityIndexer implements java.io.Serializable
 	}
 
 	private void indexSingleTopic(JSONObject topic)
-			throws HTTPException, JSONException, TrnDiscourseIndexerException 
+			throws HTTPException, JSONException, TrnDiscourseIndexerException
 	{
 		var topicId = topic.getInt("id");
 		int esTopicId = TrnDiscourseTool.getEsTopicId(topicId);

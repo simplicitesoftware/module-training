@@ -51,7 +51,7 @@ public class TrnDiscourseHook implements java.io.Serializable {
 		esHelper.deleteEsDoc(TrnDiscourseTool.getEsTopicId(body.getInt("id")));
 	}
 
-	private void upsertPost(JSONObject body) {
+	private void upsertPost(JSONObject body) throws TrnDiscourseIndexerException {
 		// get ids and the topic doc stored in elasticsearch
 		int topicId = body.getInt("topic_id");
 		int esTopicId = TrnDiscourseTool.getEsTopicId(topicId);
@@ -77,7 +77,7 @@ public class TrnDiscourseHook implements java.io.Serializable {
 		esHelper.indexEsDoc(esTopicId, topic);
 	}
 
-	private void deletePost(JSONObject body) {
+	private void deletePost(JSONObject body) throws TrnDiscourseIndexerException {
 		int topicId = body.getInt("topic_id");
 		int esTopicId = TrnDiscourseTool.getEsTopicId(topicId);
 		int postId = body.getInt("id");
