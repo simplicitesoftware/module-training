@@ -23,7 +23,7 @@ public class TrnEsIndexer implements java.io.Serializable {
 			}
 		}
         TrnSyncSupervisor.addInfoLog("Reindexed lessons in elastic");
-        TrnSyncSupervisor.logSync(true);
+        TrnSyncSupervisor.logSync(true, "REINDEX");
 	}
 	
 	public static void indexLesson(TrnLesson lsn) throws Exception{

@@ -74,7 +74,7 @@ public class TrnCommunityIndexer implements java.io.Serializable
 		}
         finally
         {
-            TrnSyncSupervisor.logSync(success);
+            TrnSyncSupervisor.logSync(success, "DISCOURSE");
         }
 	}
 

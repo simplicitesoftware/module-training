@@ -52,11 +52,11 @@ public class TrnGitCheckout implements java.io.Serializable {
             }
             TrnFsSyncTool.triggerSyncFromCheckout();
             TrnSyncSupervisor.addInfoLog(msg);
-            TrnSyncSupervisor.logSync(true);
+            TrnSyncSupervisor.logSync(true, "GIT");
             return msg;
         } catch(Exception e) {
             TrnSyncSupervisor.addErrorLog("Unable to check out: " + e.getMessage());
-            TrnSyncSupervisor.logSync(false);
+            TrnSyncSupervisor.logSync(false, "GIT");
             throw new Exception(e);
         }
     }

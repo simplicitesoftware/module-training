@@ -29,6 +29,7 @@ public class TrnSyncSupervisor extends ObjectDB {
 	}
 
 	public String dropData() {
+        boolean success = false;
 		try {
 			if (!TrnTools.isFileSystemMode())
 				return "Data drop only available in FILESYSTEM mode";
@@ -39,12 +40,16 @@ public class TrnSyncSupervisor extends ObjectDB {
 
 			TrnFsSyncTool.dropDbData();
 			TrnFsSyncTool.deleteStore();
-
+            success = true;
 			return "Dropped data & hashes";
 		} catch (Exception e) {
-			AppLog.error(getClass(), "testSync", e.getMessage(), e, Grant.getSystemAdmin());
+			TrnSyncSupervisor.addErrorLog(e.getMessage());
 			return "Error dropping data";
 		}
+        finally
+        {
+            TrnSyncSupervisor.logSync(success, "DROP");
+        }
 	}
 
 	public String forceSync(Action action) {
@@ -122,7 +127,7 @@ public class TrnSyncSupervisor extends ObjectDB {
         addLog("ERROR"+" | "+msg);
     }
 
-    public static void logSync(boolean ok)
+    public static void logSync(boolean ok, String type)
     {
 		Grant g = Grant.getSystemAdmin();
 		try
@@ -133,6 +138,7 @@ public class TrnSyncSupervisor extends ObjectDB {
 			o.setFieldValue("trnSyncDate", Tool.getCurrentDatetime());
 			o.setFieldValue("trnSyncStatus", ok ? "OK" : "KO");
 			o.setFieldValue("trnSyncLog", logContainer.toString());
+            o.setFieldValue("trnSyncType", type);
 			o.getTool().validateAndCreate();
 			g.changeAccess("TrnSyncSupervisor", oldcrud);
 		}
