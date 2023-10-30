@@ -309,7 +309,7 @@ components:
           - OK
           - KO
         trnSyncTriggerInfo:
-          description: Trn sync trigger info
+          description: Trigger
           type: string
         row_id:
           description: Unique technical row ID
@@ -3041,7 +3041,7 @@ paths:
           type: string
         in: query
         name: trnSyncTriggerInfo
-        description: Search filter for Trn sync trigger info
+        description: Search filter for Trigger
         required: false
       tags:
       - TrnSyncSupervisor

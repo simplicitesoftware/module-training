@@ -2121,7 +2121,7 @@ paths:
         - DISCOURSE
       - in: query
         name: trnSyncTriggerInfo
-        description: Search filter for Trn sync trigger info
+        description: Search filter for Trigger
         type: string
         required: false
       tags:
@@ -3617,7 +3617,7 @@ definitions:
         - OK
         - KO
       trnSyncTriggerInfo:
-        description: Trn sync trigger info
+        description: Trigger
         type: string
       row_id:
         description: Unique technical row ID
