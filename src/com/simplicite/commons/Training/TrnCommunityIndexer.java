@@ -76,7 +76,7 @@ public class TrnCommunityIndexer implements java.io.Serializable
 		}
         finally
         {
-            TrnSyncSupervisor.logSync(success, "DISCOURSE", msg, g.getSessionInfo().getLogin());
+            TrnSyncSupervisor.logSync(success, "DISCOURSE", msg, g.getSessionInfo().getLogin(), null);
         }
 	}
 

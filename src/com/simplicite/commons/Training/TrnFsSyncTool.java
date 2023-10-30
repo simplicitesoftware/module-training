@@ -95,11 +95,11 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	{
 		try {
 			triggerSync();
-			TrnSyncSupervisor.logSync(true, "SYNC", null, sessionLogin);
+			TrnSyncSupervisor.logSync(true, "SYNC", null, sessionLogin, null);
 		}
 		catch(Exception e)
 		{
-			TrnSyncSupervisor.logSync(false, "SYNC", e.getMessage(), sessionLogin);
+			TrnSyncSupervisor.logSync(false, "SYNC", e.getMessage(), sessionLogin, null);
 			throw new TrnSyncException(e.getMessage());
 		}
 	}

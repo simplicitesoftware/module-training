@@ -36,10 +36,10 @@ public class TrnSyncSupervisor extends ObjectDB {
 
 			TrnFsSyncTool.dropDbData();
 			TrnFsSyncTool.deleteStore();
-            TrnSyncSupervisor.logSync(true, "DROP", null, login);
+            TrnSyncSupervisor.logSync(true, "DROP", null, login, null);
 			return "Dropped data & hashes";
 		} catch (Exception e) {
-            TrnSyncSupervisor.logSync(false, "DROP", null, login);
+            TrnSyncSupervisor.logSync(false, "DROP", null, login, null);
 			return "Error dropping data";
 		}
 	}
@@ -87,10 +87,10 @@ public class TrnSyncSupervisor extends ObjectDB {
 
 			resetIndex();
 			TrnEsIndexer.forceIndex((getGrant()));
-            TrnSyncSupervisor.logSync(true, "REINDEX", null, login);
+            TrnSyncSupervisor.logSync(true, "REINDEX", null, login, null);
 			return "All lessons reindexed in elastic node";
 		} catch (Exception e) {
-            TrnSyncSupervisor.logSync(false, "REINDEX", e.getMessage(), login);
+            TrnSyncSupervisor.logSync(false, "REINDEX", e.getMessage(), login, null);
 			return "Error while indexing lessons in elastic node";
 		}
 	}
@@ -101,7 +101,7 @@ public class TrnSyncSupervisor extends ObjectDB {
 		eh.createIndex();
 	}
 
-    public static void logSync(boolean ok, String type, String log, String triggerInfo)
+    public static void logSync(boolean ok, String type, String log, String login, String commitId)
     {
 		Grant g = Grant.getSystemAdmin();
 		try
@@ -113,7 +113,7 @@ public class TrnSyncSupervisor extends ObjectDB {
 			o.setFieldValue("trnSyncStatus", ok ? "OK" : "KO");
 			o.setFieldValue("trnSyncLog", log);
             o.setFieldValue("trnSyncType", type);
-            o.setFieldValue("trnSyncTriggerInfo", triggerInfo);
+            o.setFieldValue("trnSyncTriggerInfo", formatTriggerInfo(login, commitId));
 			o.getTool().validateAndCreate();
 			g.changeAccess("TrnSyncSupervisor", oldcrud);
 		}
@@ -122,4 +122,14 @@ public class TrnSyncSupervisor extends ObjectDB {
 			AppLog.error("Error logging sync", e, g);
 		}
 	}
+
+    private static String formatTriggerInfo(String login, String commitId) 
+    {
+        String triggerInfo = "login: "+login;
+        if(!commitId.isEmpty())
+        {
+            triggerInfo += " | commit id: " + commitId;
+        }
+        return triggerInfo;
+    }
 }

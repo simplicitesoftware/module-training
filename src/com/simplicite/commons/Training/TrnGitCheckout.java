@@ -38,6 +38,7 @@ public class TrnGitCheckout implements java.io.Serializable {
 
 	public String checkout() throws Exception {
         File contentDir = getContentDir();
+        String login = g.getSessionInfo().getLogin();
         try {
             String branch = TrnTools.getGitBranch();
            
@@ -54,10 +55,10 @@ public class TrnGitCheckout implements java.io.Serializable {
                 msg = "The content has been successfully updated. Current branch: " + branch + ".";
             }
             TrnFsSyncTool.triggerSyncFromCheckout();
-            TrnSyncSupervisor.logSync(true, "GIT", null, getLatestCommitInfo(contentDir));
+            TrnSyncSupervisor.logSync(true, "GIT", null, login, getLatestCommitId(contentDir));
             return msg;
         } catch(Exception e) {
-            TrnSyncSupervisor.logSync(false, "GIT", "Unable to check out: " + e.getMessage(), getLatestCommitInfo(contentDir));
+            TrnSyncSupervisor.logSync(false, "GIT", "Unable to check out: " + e.getMessage(), login, getLatestCommitId(contentDir));
             throw new Exception(e);
         }
     }
@@ -146,9 +147,9 @@ public class TrnGitCheckout implements java.io.Serializable {
 		AppLog.info("The pull command fallback has deleted and cloned back the repository", g);
 	}
 
-    private String getLatestCommitInfo(File repoPath) 
+    private String getLatestCommitId(File repoPath) 
     {
-        String commitId = "no commit id";
+        String commitId = new String();
         try (Git git = Git.open(repoPath)) {
             Repository repository = git.getRepository();
             try (RevWalk revWalk = new RevWalk(repository)) {
@@ -159,8 +160,8 @@ public class TrnGitCheckout implements java.io.Serializable {
                 }
             }
         } catch (IOException | GitAPIException e) {
-            AppLog.warning(getClass(), "getLatestCommitInfo", "Unable to get latest commit info", e, g);
-            commitId = "no commit id";
+            AppLog.warning(getClass(), "getLatestCommitId", "Unable to get latest commit info", e, g);
+            commitId = "error";
         }
         return commitId;
     }
