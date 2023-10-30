@@ -33,9 +33,9 @@ More info available on the front end default home page.
 |--------------------------------------------------------------|------------------------------------------|----------|-----------|----------|----------------------------------------------------------------------------------|
 | `trnSyncStatus`                                              | enum(2) using `TRN_SYNC_STATUS` list     | yes      | yes       |          | -                                                                                |
 | `trnSyncDate`                                                | datetime                                 | yes*     | yes       |          | -                                                                                |
-| `trnSyncLog`                                                 | text(10000)                              |          | yes       |          | -                                                                                |
 | `trnSyncType`                                                | enum(10) using `TRN_SYNC_TYPE` list      | yes      | yes       |          | -                                                                                |
 | `trnSyncTriggerInfo`                                         | char(255)                                |          | yes       |          | -                                                                                |
+| `trnSyncLog`                                                 | text(10000)                              |          | yes       |          | -                                                                                |
 
 ### Lists
 

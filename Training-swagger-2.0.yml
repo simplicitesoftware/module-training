@@ -2104,11 +2104,6 @@ paths:
         type: string
         required: false
       - in: query
-        name: trnSyncLog
-        description: Search filter for Log
-        type: string
-        required: false
-      - in: query
         name: trnSyncType
         description: Search filter for Type
         type: string
@@ -2122,6 +2117,11 @@ paths:
       - in: query
         name: trnSyncTriggerInfo
         description: Search filter for Trigger
+        type: string
+        required: false
+      - in: query
+        name: trnSyncLog
+        description: Search filter for Log
         type: string
         required: false
       tags:

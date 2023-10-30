@@ -3021,12 +3021,6 @@ paths:
         required: false
       - schema:
           type: string
-        in: query
-        name: trnSyncLog
-        description: Search filter for Log
-        required: false
-      - schema:
-          type: string
           enum:
           - GIT
           - SYNC
@@ -3042,6 +3036,12 @@ paths:
         in: query
         name: trnSyncTriggerInfo
         description: Search filter for Trigger
+        required: false
+      - schema:
+          type: string
+        in: query
+        name: trnSyncLog
+        description: Search filter for Log
         required: false
       tags:
       - TrnSyncSupervisor
