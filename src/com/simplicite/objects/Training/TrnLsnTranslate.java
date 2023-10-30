@@ -52,13 +52,16 @@ public class TrnLsnTranslate extends TrnObject {
 
 	@Override
 	public String postSave() {
-		TrnLesson lsn = (TrnLesson) getGrant().getTmpObject("TrnLesson");
-		synchronized (lsn) {
-			lsn.resetFilters();
-			lsn.select(getFieldValue("trnLtrLsnId"));
-			lsn.index();
-		}
-		return null;
+        if(!isSyncInstance()) {
+            AppLog.info("is not sync instance", getGrant());
+            TrnLesson lsn = (TrnLesson) getGrant().getTmpObject("TrnLesson");
+		    synchronized (lsn) {
+			    lsn.resetFilters();
+			    lsn.select(getFieldValue("trnLtrLsnId"));
+			    lsn.index();
+		    }
+        }
+        return null;
 	}
 
 	@Override

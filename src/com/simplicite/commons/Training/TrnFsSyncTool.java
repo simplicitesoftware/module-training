@@ -1,5 +1,6 @@
 package com.simplicite.commons.Training;
 
+import com.simplicite.objects.Training.TrnLesson;
 import com.simplicite.objects.Training.TrnSyncSupervisor;
 import com.simplicite.objects.Training.TrnTagLsn;
 import com.simplicite.util.AppLog;
@@ -575,9 +576,11 @@ public class TrnFsSyncTool implements java.io.Serializable {
 
 			JSONObject lsnData = getLsnData(dir);
 
-			lsnRowId = upsertLesson(lsnRowId, lsnData, relativePath, dir);
+			TrnLesson lsn = (TrnLesson) upsertLesson(lsnRowId, lsnData, relativePath, dir);
+            lsnRowId = lsn.getRowId();
 			createTrnTagLsnRecords(lsnRowId, lsnData, relativePath);
 			upsertLangSpecificContent(lsnRowId, lsnData);
+            lsn.index();
 		}
 		catch (Exception e) {
 			throw new TrnSyncException("TRN_SYNC_UPSERT_LESSON_AND_CONTENT",
@@ -597,7 +600,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	}
 
 	// upsert lesson only (no content), returns lesson row_id
-	private String upsertLesson(String rowId, JSONObject lsnData, String relativePath, File dir)
+	private ObjectDB upsertLesson(String rowId, JSONObject lsnData, String relativePath, File dir)
 			throws TrnSyncException {
 		try {
 			BusinessObjectTool bot = new BusinessObjectTool(lesson);
@@ -623,7 +626,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 				if (lsnData.getBoolean("page")) {
 					upsertPage(rowId, lsnData.getString("code"));
 				}
-				return rowId;
+				return lesson;
 			}
 		}
 		catch (Exception e) {

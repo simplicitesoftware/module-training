@@ -73,12 +73,6 @@ public class TrnLesson extends TrnObject {
 	}
 
 	@Override
-	public String postSave() {
-		index();
-		return null;
-	}
-
-	@Override
 	public String preDelete() {
 		try {
 			if (isLessonPublishedRecursive()) {
