@@ -30,9 +30,9 @@ public class TrnSearchElastic implements java.io.Serializable {
     static EsSearchField[] anySearchFields = {
         // any content
         new EsSearchField("title_any", "5"),
-        new EsSearchField("raw_content_any", "1"),
+        new EsSearchField("raw_content_any", "2"),
         // discourse content
-        new EsSearchField("title", "2"),
+        new EsSearchField("title", "1"),
         new EsSearchField("posts.content", "1")
     };
 
