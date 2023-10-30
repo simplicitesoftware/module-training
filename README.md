@@ -35,6 +35,7 @@ More info available on the front end default home page.
 | `trnSyncDate`                                                | datetime                                 | yes*     | yes       |          | -                                                                                |
 | `trnSyncLog`                                                 | text(10000)                              |          | yes       |          | -                                                                                |
 | `trnSyncType`                                                | enum(10) using `TRN_SYNC_TYPE` list      | yes      | yes       |          | -                                                                                |
+| `trnSyncTriggerInfo`                                         | char(255)                                |          | yes       |          | -                                                                                |
 
 ### Lists
 

@@ -2119,6 +2119,11 @@ paths:
         - REINDEX
         - DROP
         - DISCOURSE
+      - in: query
+        name: trnSyncTriggerInfo
+        description: Search filter for Trn sync trigger info
+        type: string
+        required: false
       tags:
       - TrnSyncSupervisor
   /rest/TrnUrlRewriting:
@@ -3611,6 +3616,9 @@ definitions:
         enum:
         - OK
         - KO
+      trnSyncTriggerInfo:
+        description: Trn sync trigger info
+        type: string
       row_id:
         description: Unique technical row ID
         type: string

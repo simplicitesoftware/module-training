@@ -308,6 +308,9 @@ components:
           enum:
           - OK
           - KO
+        trnSyncTriggerInfo:
+          description: Trn sync trigger info
+          type: string
         row_id:
           description: Unique technical row ID
           type: string
@@ -3033,6 +3036,12 @@ paths:
         in: query
         name: trnSyncType
         description: Search filter for Type
+        required: false
+      - schema:
+          type: string
+        in: query
+        name: trnSyncTriggerInfo
+        description: Search filter for Trn sync trigger info
         required: false
       tags:
       - TrnSyncSupervisor
