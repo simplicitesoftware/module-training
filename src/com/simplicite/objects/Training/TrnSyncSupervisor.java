@@ -29,30 +29,32 @@ public class TrnSyncSupervisor extends ObjectDB {
 	}
 
 	public String dropData() {
+        String login = getGrant().getSessionInfo().getLogin();
 		try {
 			if (!TrnTools.isFileSystemMode())
 				return "Data drop only available in FILESYSTEM mode";
 
 			TrnFsSyncTool.dropDbData();
 			TrnFsSyncTool.deleteStore();
-            TrnSyncSupervisor.logSync(true, "DROP", null);
+            TrnSyncSupervisor.logSync(true, "DROP", null, login);
 			return "Dropped data & hashes";
 		} catch (Exception e) {
-            TrnSyncSupervisor.logSync(false, "DROP", null);
+            TrnSyncSupervisor.logSync(false, "DROP", null, login);
 			return "Error dropping data";
 		}
 	}
 
 	public String forceSync(Action action) {
 		try {
+            Grant g = getGrant();
 			if (!TrnTools.isFileSystemMode())
 				return "Synchronization only available in FILESYSTEM mode";
 			String syncType = action.getConfirmField("trnSyncActionType").getValue();
 			if ("GIT".equals(syncType)) {
-				TrnGitCheckout tgc = new TrnGitCheckout(getGrant());
+				TrnGitCheckout tgc = new TrnGitCheckout(g);
 				tgc.checkout();
 			} else if ("FS".equals(syncType)) {
-				TrnFsSyncTool.triggerSyncOnly();
+				TrnFsSyncTool.triggerSyncOnly(g.getSessionInfo().getLogin());
 			} else {
 				throw new Exception("Unknown sync type");
 			}
@@ -78,16 +80,17 @@ public class TrnSyncSupervisor extends ObjectDB {
 	}
 
 	public String reIndexAll() {
+        String login = getGrant().getSessionInfo().getLogin();
 		try {
 			if (!TrnTools.isElasticSearchMode())
 				return "indexation only available with elastic search mode";
 
 			resetIndex();
 			TrnEsIndexer.forceIndex((getGrant()));
-            TrnSyncSupervisor.logSync(true, "REINDEX", null);
+            TrnSyncSupervisor.logSync(true, "REINDEX", null, login);
 			return "All lessons reindexed in elastic node";
 		} catch (Exception e) {
-            TrnSyncSupervisor.logSync(false, "REINDEX", e.getMessage());
+            TrnSyncSupervisor.logSync(false, "REINDEX", e.getMessage(), login);
 			return "Error while indexing lessons in elastic node";
 		}
 	}
@@ -98,7 +101,7 @@ public class TrnSyncSupervisor extends ObjectDB {
 		eh.createIndex();
 	}
 
-    public static void logSync(boolean ok, String type, String msg)
+    public static void logSync(boolean ok, String type, String log, String triggerInfo)
     {
 		Grant g = Grant.getSystemAdmin();
 		try
@@ -108,8 +111,9 @@ public class TrnSyncSupervisor extends ObjectDB {
 			o.getTool().getForCreate();
 			o.setFieldValue("trnSyncDate", Tool.getCurrentDatetime());
 			o.setFieldValue("trnSyncStatus", ok ? "OK" : "KO");
-			o.setFieldValue("trnSyncLog", msg);
+			o.setFieldValue("trnSyncLog", log);
             o.setFieldValue("trnSyncType", type);
+            o.setFieldValue("trnSyncTriggerInfo", triggerInfo);
 			o.getTool().validateAndCreate();
 			g.changeAccess("TrnSyncSupervisor", oldcrud);
 		}

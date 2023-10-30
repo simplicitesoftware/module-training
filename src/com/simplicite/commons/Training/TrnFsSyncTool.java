@@ -91,15 +91,15 @@ public class TrnFsSyncTool implements java.io.Serializable {
 
 	// differentiate sync from git checkout and sync from other sources
 	// because logs are handled differently 
-	public static void triggerSyncOnly() throws TrnSyncException 
+	public static void triggerSyncOnly(String sessionLogin) throws TrnSyncException 
 	{
 		try {
 			triggerSync();
-			TrnSyncSupervisor.logSync(true, "SYNC", null);
+			TrnSyncSupervisor.logSync(true, "SYNC", null, sessionLogin);
 		}
 		catch(Exception e)
 		{
-			TrnSyncSupervisor.logSync(false, "SYNC", e.getMessage());
+			TrnSyncSupervisor.logSync(false, "SYNC", e.getMessage(), sessionLogin);
 			throw new TrnSyncException(e.getMessage());
 		}
 	}

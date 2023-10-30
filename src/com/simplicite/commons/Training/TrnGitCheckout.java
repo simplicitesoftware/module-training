@@ -10,6 +10,8 @@ import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.merge.ContentMergeStrategy;
+import org.eclipse.jgit.revwalk.RevCommit;
+import org.eclipse.jgit.revwalk.RevWalk;
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 import org.eclipse.jgit.transport.RefSpec;
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
@@ -27,7 +29,7 @@ import com.simplicite.util.engine.Platform;
 public class TrnGitCheckout implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
     private static final String CONTENT_FOLDER_NAME = "docs";
-    private UsernamePasswordCredentialsProvider credentialsProvider;
+    private static UsernamePasswordCredentialsProvider credentialsProvider;
     private Grant g;
 
     public TrnGitCheckout(Grant g) {
@@ -35,9 +37,10 @@ public class TrnGitCheckout implements java.io.Serializable {
     }
 
 	public String checkout() throws Exception {
+        File contentDir = getContentDir();
         try {
             String branch = TrnTools.getGitBranch();
-            File contentDir = getContentDir();
+           
             AppLog.info("Starting git checkout process on branch: "+branch+" on directory: "
                 +contentDir.getAbsolutePath(), g);
             String msg;
@@ -51,10 +54,10 @@ public class TrnGitCheckout implements java.io.Serializable {
                 msg = "The content has been successfully updated. Current branch: " + branch + ".";
             }
             TrnFsSyncTool.triggerSyncFromCheckout();
-            TrnSyncSupervisor.logSync(true, "GIT", null);
+            TrnSyncSupervisor.logSync(true, "GIT", null, getLatestCommitInfo(contentDir));
             return msg;
         } catch(Exception e) {
-            TrnSyncSupervisor.logSync(false, "GIT", "Unable to check out: " + e.getMessage());
+            TrnSyncSupervisor.logSync(false, "GIT", "Unable to check out: " + e.getMessage(), getLatestCommitInfo(contentDir));
             throw new Exception(e);
         }
     }
@@ -142,6 +145,25 @@ public class TrnGitCheckout implements java.io.Serializable {
 		performClone(remoteUrl, branch, contentDir);
 		AppLog.info("The pull command fallback has deleted and cloned back the repository", g);
 	}
+
+    private String getLatestCommitInfo(File repoPath) 
+    {
+        String commitId = "no commit id";
+        try (Git git = Git.open(repoPath)) {
+            Repository repository = git.getRepository();
+            try (RevWalk revWalk = new RevWalk(repository)) {
+                Iterable<RevCommit> commits = git.log().setMaxCount(1).call();
+                for (RevCommit commit : commits) {
+                    // The latest commit ID
+                    commitId = commit.getId().getName();
+                }
+            }
+        } catch (IOException | GitAPIException e) {
+            AppLog.warning(getClass(), "getLatestCommitInfo", "Unable to get latest commit info", e, g);
+            commitId = "no commit id";
+        }
+        return commitId;
+    }
 
 	private void setAuthentication() throws TrnConfigException {
 		if (TrnTools.isGitUrlSSH()) {
