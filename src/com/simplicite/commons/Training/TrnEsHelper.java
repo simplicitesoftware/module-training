@@ -66,8 +66,7 @@ public class TrnEsHelper implements java.io.Serializable {
 	}
 
 	public void createIndex() throws HTTPException {
-        RESTTool.put("simplicite", getEsUrl(), esUser, esPassword);
-		
+        RESTTool.put(null, getEsUrl(), esUser, esPassword);
 	}
 
 	public void deleteEsDoc(int docId) {

@@ -679,14 +679,13 @@ public class TrnFsSyncTool implements java.io.Serializable {
 					setLessonTranslation(lsnRowId, specificLangJson, lsnCode, lang);
 					// validateAndUpdate not working
 					if (lang.equals("ANY")) {
-						ObjectDB translate = g.getObject("trn_any_content", "TrnLsnTranslate");
-						translate.resetFilters();
-						translate.setFieldFilter("trnLtrLsnId", lsnRowId);
-						translate.setFieldFilter("trnLtrLang", "ANY");
-						List<String[]> res = translate.search();
+						lessonContent.resetFilters();
+						lessonContent.setFieldFilter("trnLtrLsnId", lsnRowId);
+						lessonContent.setFieldFilter("trnLtrLang", "ANY");
+						List<String[]> res = lessonContent.search();
 						if (!res.isEmpty()) {
-							translate.setValues(res.get(0));
-							translate.delete();
+							lessonContent.setValues(res.get(0));
+							lessonContent.delete();
 						}
 					}
 					bot.validateAndCreate();

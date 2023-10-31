@@ -39,7 +39,7 @@ public class TrnSyncSupervisor extends ObjectDB {
             TrnSyncSupervisor.logSync(true, "DROP", null, login, null);
 			return "Dropped data & hashes";
 		} catch (Exception e) {
-            TrnSyncSupervisor.logSync(false, "DROP", null, login, null);
+            TrnSyncSupervisor.logSync(false, "DROP", e.getMessage(), login, null);
 			return "Error dropping data";
 		}
 	}
