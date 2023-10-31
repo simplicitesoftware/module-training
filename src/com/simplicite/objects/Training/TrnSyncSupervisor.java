@@ -126,7 +126,7 @@ public class TrnSyncSupervisor extends ObjectDB {
     private static String formatTriggerInfo(String login, String commitId) 
     {
         String triggerInfo = "login: "+login;
-        if(!commitId.isEmpty())
+        if(commitId != null && !commitId.isEmpty())
         {
             triggerInfo += " | commit id: " + commitId;
         }
