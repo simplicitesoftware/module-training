@@ -45,7 +45,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 
 	private ObjectDB category;
 	private ObjectDB categoryContent;
-	private ObjectDB lesson;
+	private TrnLesson lesson;
 	private ObjectDB lessonContent;
 	private ObjectDB picture;
 	private ObjectDB tag;
@@ -290,7 +290,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		loadTrnObjectAccess();
 		category = g.getObject("sync_TrnCategory", "TrnCategory");
 		categoryContent = g.getObject("sync_TrnCategoryTranslate", "TrnCategoryTranslate");
-		lesson = g.getObject("sync_TrnLesson", "TrnLesson");
+		lesson = (TrnLesson) g.getObject("sync_TrnLesson", "TrnLesson");
 		lessonContent = g.getObject("sync_TrnLsnTranslate", "TrnLsnTranslate");
 		picture = g.getObject("sync_TrnPicture", "TrnPicture");
 		tag = g.getObject("sync_TrnTag", "TrnTag");
@@ -580,7 +580,10 @@ public class TrnFsSyncTool implements java.io.Serializable {
             lsnRowId = lsn.getRowId();
 			createTrnTagLsnRecords(lsnRowId, lsnData, relativePath);
 			upsertLangSpecificContent(lsnRowId, lsnData);
-            lsn.index();
+            if(lsn.select(lsnRowId))
+            {
+                lsn.index();
+            }
 		}
 		catch (Exception e) {
 			throw new TrnSyncException("TRN_SYNC_UPSERT_LESSON_AND_CONTENT",
@@ -600,7 +603,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	}
 
 	// upsert lesson only (no content), returns lesson row_id
-	private ObjectDB upsertLesson(String rowId, JSONObject lsnData, String relativePath, File dir)
+	private TrnLesson upsertLesson(String rowId, JSONObject lsnData, String relativePath, File dir)
 			throws TrnSyncException {
 		try {
 			BusinessObjectTool bot = new BusinessObjectTool(lesson);
@@ -620,7 +623,6 @@ public class TrnFsSyncTool implements java.io.Serializable {
 				lesson.setFieldValue("trnLsnPublish", lsnData.getBoolean("published"));
 				lesson.setFieldValue("trnLsnVisualization", lsnData.getString("viz"));
 
-				lesson.populate(true);
 				bot.validateAndSave(true);
 				rowId = lesson.getRowId();
 				if (lsnData.getBoolean("page")) {
@@ -672,6 +674,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	private void upsertLessonTranslation(String lsnRowId, JSONObject specificLangJson, String lsnCode, String lang)
 			throws TrnSyncException {
 		try {
+            lesson.resetValues();
 			BusinessObjectTool bot = new BusinessObjectTool(lessonContent);
 			if (specificLangJson.has("markdown") && specificLangJson.has("title") || specificLangJson.has("video")) {
 				synchronized (lessonContent) {
@@ -679,13 +682,14 @@ public class TrnFsSyncTool implements java.io.Serializable {
 					setLessonTranslation(lsnRowId, specificLangJson, lsnCode, lang);
 					// validateAndUpdate not working
 					if (lang.equals("ANY")) {
-						lessonContent.resetFilters();
-						lessonContent.setFieldFilter("trnLtrLsnId", lsnRowId);
-						lessonContent.setFieldFilter("trnLtrLang", "ANY");
-						List<String[]> res = lessonContent.search();
+                        ObjectDB tempLsnContent = g.getTmpObject("TrnLsnTranslate");
+						tempLsnContent.resetFilters();
+						tempLsnContent.setFieldFilter("trnLtrLsnId", lsnRowId);
+						tempLsnContent.setFieldFilter("trnLtrLang", "ANY");
+						List<String[]> res = tempLsnContent.search();
 						if (!res.isEmpty()) {
-							lessonContent.setValues(res.get(0));
-							lessonContent.delete();
+							tempLsnContent.setValues(res.get(0));
+							tempLsnContent.delete();
 						}
 					}
 					bot.validateAndCreate();

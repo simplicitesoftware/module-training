@@ -25,14 +25,11 @@ public class TrnLsnTranslate extends TrnObject {
 
 			TrnLesson lsn = (TrnLesson) getGrant().getTmpObject("TrnLesson");
 			lsn.resetFilters();
-			String rowId = getFieldValue("trnLtrLsnId");
-			String lang = getFieldValue("trnLtrLang");
 			lsn.select(getFieldValue("trnLtrLsnId"));
-			// if LINEAR, then change content images link, might want to limit this to
-			// filesystem mode
+			// if LINEAR, then change content images link, 
+            // might limit this to filesystem mode ?
 			try {
 				if (lsn.getFieldValue("trnLsnVisualization").equals("LINEAR")) {
-					String title = lsn.getFieldValue("trnLsnCode");
 					html = setLinearPictureContent(html, lsn.getRowId());
 					html = setBlockquoteType(html);
 				}
@@ -53,7 +50,6 @@ public class TrnLsnTranslate extends TrnObject {
 	@Override
 	public String postSave() {
         if(!isSyncInstance()) {
-            AppLog.info("is not sync instance", getGrant());
             TrnLesson lsn = (TrnLesson) getGrant().getTmpObject("TrnLesson");
 		    synchronized (lsn) {
 			    lsn.resetFilters();

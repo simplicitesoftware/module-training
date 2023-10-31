@@ -57,7 +57,9 @@ public class TrnLesson extends TrnObject {
 	@Override
 	public String postCreate() {
 		try {
-			ObjectDB tsl = getGrant().getTmpObject("TrnLsnTranslate");
+            // quick fix, so sync instance translations are not indexed multiple times for nothing
+            // indexation is done once all translations have been creating, see upsertLessonAndContent in sync
+			ObjectDB tsl = getGrant().getObject("sync_TrnLsnTranslate", "TrnLsnTranslate");
 			synchronized (tsl.getLock()) {
 				tsl.resetValues();
 				tsl.setFieldValue("trnLtrLang", "ANY");
@@ -68,7 +70,6 @@ public class TrnLesson extends TrnObject {
 		} catch (Exception e) {
 			AppLog.error(e, getGrant());
 		}
-
 		return null;
 	}
 
