@@ -50,31 +50,18 @@ public class TrnSearchElastic implements java.io.Serializable {
     }
 
     private static JSONObject getFullQuery(String input, String lang) {
-    	input += "*"; // treat last term as prefix
-		JSONObject q = new JSONObject(String.format(
-            """
-            {
-                "highlight": {
-                   "fields": %s,
-                   "fragment_size": %d
-                },
-                "size": %d,
-                "query": {
-                   "simple_query_string": {
-                      "fields": %s
-                   }
-                }
-             }
-            """,
-            getHighlightFields(lang).toString(),
-            contentMaxLength,
-            maxResults,
-            getQueryFields(lang).toString()
-        ));
-        
-        // SECURITY // must use `put` method in case input needs to be escaped.
-		q.getJSONObject("query").getJSONObject("simple_query_string").put("query", input);
-        return q;
+        return new JSONObject()
+            .put("highlight", new JSONObject()
+                .put("fields", getHighlightFields(lang))
+                .put("fragment_size", contentMaxLength)
+            )
+            .put("size", maxResults)
+            .put("query", new JSONObject()
+                .put("simple_query_string", new JSONObject()
+                    .put("query", input+"*") // treat last term as prefix with "*"
+                    .put("fields", getQueryFields(lang))
+                )
+            );
     }
 
     private static JSONObject getHighlightFields(String lang) {
