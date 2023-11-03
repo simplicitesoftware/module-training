@@ -45,9 +45,56 @@ public class TrnSearchElastic implements java.io.Serializable {
         TrnEsHelper esHelper = new TrnEsHelper(g);
         // es lang format is lowercase
         lang = lang.toLowerCase();
-        AppLog.info("----"+getFullQuery(input, lang), Grant.getSystemAdmin());
+        AppLog.info(getFullQuery(input, lang).toString(), Grant.getSystemAdmin());
         kong.unirest.json.JSONArray results = esHelper.searchRequest(getFullQuery(input, lang));
         return formatResults(results, lang, g, input);
+    }
+
+    private static JSONObject getFullQuery(String input, String lang) {
+        return new JSONObject(String.format(
+            """
+            {
+                "highlight": {
+                   "fields": %s,
+                   "fragment_size": %d
+                },
+                "size": %d,
+                "query": {
+                   "simple_query_string": {
+                      "query": "%s*",
+                      "fields": %s
+                   }
+                }
+             }
+            """,
+            getHighlightFields(lang).toString(),
+            contentMaxLength,
+            maxResults,
+            input,
+            getQueryFields(lang).toString()
+        ));
+    }
+
+    private static JSONObject getHighlightFields(String lang) {
+        JSONObject highlightFields = new JSONObject();
+        for (EsSearchField field : anySearchFields) {
+            highlightFields.put(field.fieldName, new JSONObject());
+        }
+        for(EsSearchField field : currentLangSearchFields) {
+            highlightFields.put(field.fieldName+"_"+lang, new JSONObject());
+        }
+        return highlightFields;
+    }
+
+    private static JSONArray getQueryFields(String lang) {
+        JSONArray queryFields = new JSONArray();
+        for (EsSearchField field : anySearchFields) {
+            queryFields.put(field.fieldName+"^"+field.weight);
+        }
+        for(EsSearchField field : currentLangSearchFields) {
+            queryFields.put(field.fieldName+"_"+lang+"^"+field.weight);
+        }
+        return queryFields;
     }
 
     private static ArrayList<JSONObject> formatResults(kong.unirest.json.JSONArray results, String lang, Grant g, String input) {
@@ -163,52 +210,5 @@ public class TrnSearchElastic implements java.io.Serializable {
         } else {
             throw new Exception("Unable to read discourse doc content from elasticsearch result");
         }
-    }
-
-    private static JSONObject getFullQuery(String input, String lang) {
-        JSONObject json = new JSONObject()
-            .put("query", getQuery(input, lang))
-            .put("highlight", getHighlight(lang))
-            .put("size", maxResults);
-        return json;
-    }
-
-    private static JSONObject getQuery(String input, String lang) {
-        JSONObject multiMatch = new JSONObject();
-        JSONObject matchContent = new JSONObject();
-        matchContent.put("type", "phrase_prefix")
-            .put("query", input)
-            .put("fields", getQueryFields(lang));
-        multiMatch.put("multi_match", matchContent);
-        return multiMatch;
-    }
-
-    private static JSONObject getHighlight(String lang) {
-        JSONObject highlight = new JSONObject();
-        highlight.put("fields", getHighlightFields(lang))
-            .put("fragment_size", contentMaxLength);
-        return highlight;
-    }
-
-    private static JSONObject getHighlightFields(String lang) {
-        JSONObject highlightFields = new JSONObject();
-        for (EsSearchField field : anySearchFields) {
-            highlightFields.put(field.fieldName, new JSONObject());
-        }
-        for(EsSearchField field : currentLangSearchFields) {
-            highlightFields.put(field.fieldName+"_"+lang, new JSONObject());
-        }
-        return highlightFields;
-    }
-
-    private static JSONArray getQueryFields(String lang) {
-        JSONArray queryFields = new JSONArray();
-        for (EsSearchField field : anySearchFields) {
-            queryFields.put(field.fieldName+"^"+field.weight);
-        }
-        for(EsSearchField field : currentLangSearchFields) {
-            queryFields.put(field.fieldName+"_"+lang+"^"+field.weight);
-        }
-        return queryFields;
     }
 }

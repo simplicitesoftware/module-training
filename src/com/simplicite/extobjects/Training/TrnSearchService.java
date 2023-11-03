@@ -1,6 +1,5 @@
 package com.simplicite.extobjects.Training;
 
-import com.simplicite.commons.Training.TrnSearch;
 import com.simplicite.commons.Training.TrnSearchElastic;
 import com.simplicite.commons.Training.TrnSearchSimplicite;
 import com.simplicite.commons.Training.TrnTools;
