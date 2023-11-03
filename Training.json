@@ -10130,20 +10130,6 @@
     },
     {
      "object": "Script",
-     "userkey": "TrnSearch",
-     "item": {
-      "scr_code": "TrnSearch",
-      "scr_file": {
-       "path": "src/com/simplicite/commons/Training/TrnSearch.java",
-       "mime": "text/plain",
-       "name": "TrnSearch.java"
-      },
-      "scr_type": "JSR",
-      "row_module_id__mdl_name": "Training"
-     }
-    },
-    {
-     "object": "Script",
      "userkey": "TrnSearchElastic",
      "item": {
       "scr_code": "TrnSearchElastic",
