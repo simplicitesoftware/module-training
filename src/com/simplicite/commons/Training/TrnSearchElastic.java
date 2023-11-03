@@ -41,17 +41,17 @@ public class TrnSearchElastic implements java.io.Serializable {
         new EsSearchField("raw_content", "1"),
     };
 
-	public static ArrayList<JSONObject> search(String input, String lang, Grant g) throws TrnConfigException {
+	public static ArrayList<JSONObject> search(String input, String lang, Grant g) throws Exception {
         TrnEsHelper esHelper = new TrnEsHelper(g);
         // es lang format is lowercase
         lang = lang.toLowerCase();
-        AppLog.info(getFullQuery(input, lang).toString(), Grant.getSystemAdmin());
-        kong.unirest.json.JSONArray results = esHelper.searchRequest(getFullQuery(input, lang));
+        JSONArray results = esHelper.searchRequest(getFullQuery(input, lang));
         return formatResults(results, lang, g, input);
     }
 
     private static JSONObject getFullQuery(String input, String lang) {
-        return new JSONObject(String.format(
+    	input += "*"; // treat last term as prefix
+		JSONObject q = new JSONObject(String.format(
             """
             {
                 "highlight": {
@@ -61,7 +61,6 @@ public class TrnSearchElastic implements java.io.Serializable {
                 "size": %d,
                 "query": {
                    "simple_query_string": {
-                      "query": "%s*",
                       "fields": %s
                    }
                 }
@@ -70,9 +69,12 @@ public class TrnSearchElastic implements java.io.Serializable {
             getHighlightFields(lang).toString(),
             contentMaxLength,
             maxResults,
-            input,
             getQueryFields(lang).toString()
         ));
+        
+        // SECURITY // must use `put` method in case input needs to be escaped.
+		q.getJSONObject("query").getJSONObject("simple_query_string").put("query", input);
+        return q;
     }
 
     private static JSONObject getHighlightFields(String lang) {
@@ -97,11 +99,11 @@ public class TrnSearchElastic implements java.io.Serializable {
         return queryFields;
     }
 
-    private static ArrayList<JSONObject> formatResults(kong.unirest.json.JSONArray results, String lang, Grant g, String input) {
+    private static ArrayList<JSONObject> formatResults(JSONArray results, String lang, Grant g, String input) {
         ArrayList<JSONObject> formated = new ArrayList<>();
         for (int i = 0; i < results.length(); i++) {
             try {
-                formated.add(format((kong.unirest.json.JSONObject) results.get(i), lang, input));
+                formated.add(format((JSONObject) results.get(i), lang, input));
             } catch(Exception e) {
                 AppLog.error(e, g);
             }
@@ -109,10 +111,10 @@ public class TrnSearchElastic implements java.io.Serializable {
         return formated;
     }
 
-    private static JSONObject format(kong.unirest.json.JSONObject res, String lang, String input) throws Exception {
-        kong.unirest.json.JSONObject source = res.getJSONObject("_source");
+    private static JSONObject format(JSONObject res, String lang, String input) throws Exception {
+        JSONObject source = res.getJSONObject("_source");
         String id = res.getString("_id");
-        kong.unirest.json.JSONObject highlight = res.getJSONObject("highlight");
+        JSONObject highlight = res.getJSONObject("highlight");
         String type = source.getString("type");
         if("lesson".equals(type)) {
             return formatLesson(highlight, source, lang, input, id);
@@ -123,7 +125,7 @@ public class TrnSearchElastic implements java.io.Serializable {
         }
     }
 
-    private static JSONObject formatLesson(kong.unirest.json.JSONObject highlight, kong.unirest.json.JSONObject source, String lang, String input, String id) throws Exception  {
+    private static JSONObject formatLesson(JSONObject highlight, JSONObject source, String lang, String input, String id) throws Exception  {
         JSONObject formated = new JSONObject();
         String title = getLessonTitle(highlight, source, lang, input);
         String content = getLessonContent(highlight, source, lang, input);
@@ -135,7 +137,7 @@ public class TrnSearchElastic implements java.io.Serializable {
         return formated;
     }
 
-    private static String getLessonTitle(kong.unirest.json.JSONObject highlight, kong.unirest.json.JSONObject source, String lang, String input) throws Exception {
+    private static String getLessonTitle(JSONObject highlight, JSONObject source, String lang, String input) throws Exception {
         if(highlight.has("title_" + lang)) {
             return highlight.getJSONArray("title_" + lang).get(0).toString();
         } else if(source.has("title_"+lang)) {
@@ -147,7 +149,7 @@ public class TrnSearchElastic implements java.io.Serializable {
         }
     }
 
-    private static String getLessonContent(kong.unirest.json.JSONObject highlight, kong.unirest.json.JSONObject source, String lang, String input) throws Exception {
+    private static String getLessonContent(JSONObject highlight, JSONObject source, String lang, String input) throws Exception {
         if(highlight.has("raw_content_" + lang)) {
             return stringifyHighlightedContent(highlight.getJSONArray("raw_content_" + lang));
         }else if(source.has("raw_content_"+lang)) {
@@ -159,7 +161,7 @@ public class TrnSearchElastic implements java.io.Serializable {
         }
     }
 
-    private static String stringifyHighlightedContent(kong.unirest.json.JSONArray contentArray) {
+    private static String stringifyHighlightedContent(JSONArray contentArray) {
         StringBuilder content = new StringBuilder();
         for (int i = 0; i < contentArray.length(); i++) {
             if(content.length() > contentMaxLength) {
@@ -171,7 +173,7 @@ public class TrnSearchElastic implements java.io.Serializable {
         return content.toString();
     }
 
-    private static JSONObject formatDiscourse(kong.unirest.json.JSONObject highlight, kong.unirest.json.JSONObject source, String lang, String input, String id) throws Exception {
+    private static JSONObject formatDiscourse(JSONObject highlight, JSONObject source, String lang, String input, String id) throws Exception {
         JSONObject formated = new JSONObject();
         String title = getDiscourseTitle(highlight, source, input);
         String content = getDiscourseContent(highlight, source, input);
@@ -185,16 +187,9 @@ public class TrnSearchElastic implements java.io.Serializable {
         return formated;
     }
 
-                // title: this.getLessonTitle(hit, this.langEsFormat),
-                // id: hit._id,
-                // type: "lesson",
-                // path: hit._source.path,
-                // content: this.getLessonHighlightContent(hit, this.langEsFormat),
-                // cat: hit._source.catPath,
-
-    private static String getDiscourseTitle(kong.unirest.json.JSONObject highlight, kong.unirest.json.JSONObject source, String input) throws Exception {
+    private static String getDiscourseTitle(JSONObject highlight, JSONObject source, String input) throws Exception {
         if(highlight.has("title")) {
-            return highlight.getString("title");
+            return highlight.getJSONArray("title").getString(0);
         } else if(source.has("title")) {
             return TrnTools.highlightContent(source.getString("title"), input);
         } else {
@@ -202,9 +197,9 @@ public class TrnSearchElastic implements java.io.Serializable {
         }
     }
 
-    private static String getDiscourseContent(kong.unirest.json.JSONObject highlight, kong.unirest.json.JSONObject source, String input) throws Exception {
+    private static String getDiscourseContent(JSONObject highlight, JSONObject source, String input) throws Exception {
         if(highlight.has("posts.content")) {
-            return highlight.getString("posts.content");
+            return highlight.getJSONArray("posts.content").getString(0);
         } else if(source.has("posts.content")) {
             return TrnTools.highlightContent(source.getString("posts.content"), input);
         } else {

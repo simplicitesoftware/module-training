@@ -1,6 +1,6 @@
 package com.simplicite.commons.Training;
 
-import org.json.JSONObject;
+import org.json.*;
 import org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder;
 
 import com.simplicite.objects.Training.TrnSyncSupervisor;
@@ -8,9 +8,7 @@ import com.simplicite.util.AppLog;
 import com.simplicite.util.Grant;
 import com.simplicite.util.exceptions.HTTPException;
 import com.simplicite.util.tools.RESTTool;
-
-import kong.unirest.Unirest;
-import kong.unirest.json.JSONArray;
+import java.util.Map;
 
 /**
  * Shared code EsHelper
@@ -87,7 +85,30 @@ public class TrnEsHelper implements java.io.Serializable {
 		}
 	}
 
-    public JSONArray searchRequest(JSONObject fullQuery) throws TrnConfigException {
+	public JSONArray searchRequest(JSONObject fullQuery) throws Exception {
+    	String res = null;
+    	try{
+	    	res = RESTTool.post(
+	    		fullQuery.toString(),
+	    		getEsSearchUrl(),
+	    		esUser,
+	    		esPassword,
+	    		Map.of("Content-Type", "application/json")
+	    	);
+	    	return (new JSONObject(res)).getJSONObject("hits").getJSONArray("hits");
+    	}
+    	catch(Exception e){
+    		AppLog.info("ES query --- "+fullQuery.toString(), g);
+    		if(res!=null)
+    			AppLog.info("ES response --- "+res, g);
+    			
+    		AppLog.error("Error requesting elastic search", e, g);
+    		throw e;
+    	}
+    }
+    
+    /*public JSONArray searchRequest(JSONObject fullQuery) throws TrnConfigException {
+    	AppLog.info("---"+fullQuery.toString(), Grant.getSystemAdmin());
         JSONArray res =  Unirest.post(getEsSearchUrl())
             .header("Content-Type", "application/json")
             .header("Authorization", "Basic " + Base64Coder.encodeString(TrnTools.getEsCredentials()))
@@ -98,7 +119,7 @@ public class TrnEsHelper implements java.io.Serializable {
             .getJSONObject("hits")
             .getJSONArray("hits");
         return res;
-    }
+    }*/
 
     private String getEsSearchUrl() {
         return this.getEsUrl() + "_search";
