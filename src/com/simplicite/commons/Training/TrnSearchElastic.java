@@ -45,6 +45,7 @@ public class TrnSearchElastic implements java.io.Serializable {
         TrnEsHelper esHelper = new TrnEsHelper(g);
         // es lang format is lowercase
         lang = lang.toLowerCase();
+        AppLog.info("----"+getFullQuery(input, lang), Grant.getSystemAdmin());
         kong.unirest.json.JSONArray results = esHelper.searchRequest(getFullQuery(input, lang));
         return formatResults(results, lang, g, input);
     }

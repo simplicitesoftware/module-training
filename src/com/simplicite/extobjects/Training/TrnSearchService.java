@@ -5,21 +5,22 @@ import com.simplicite.commons.Training.TrnTools;
 import com.simplicite.util.AppLog;
 import com.simplicite.util.Grant;
 import com.simplicite.util.tools.Parameters;
-
+import com.simplicite.webapp.services.RESTServiceExternalObject;
 /**
  * External object TrnSearchService
  */
-public class TrnSearchService extends com.simplicite.webapp.services.RESTServiceExternalObject { 
+public class TrnSearchService extends RESTServiceExternalObject { 
 
     @Override
 	public Object get(Parameters params) {
         Grant g = getGrant();
         try {
-            String query = params.getParameter("query");
-            String frontLang = params.getParameter("lang");
-            String indexEngine = TrnTools.getIndexEngine();
-        
-            return TrnSearch.search(indexEngine, query, frontLang, g);
+            return TrnSearch.search(
+            	TrnTools.getIndexEngine(), 
+            	params.getParameter("query"), 
+            	params.getParameter("lang"),
+            	g
+            );
         } catch(Exception e) {
             AppLog.error(getClass(), "get", e.getMessage(), e, g);
             setHTTPStatus(500);
