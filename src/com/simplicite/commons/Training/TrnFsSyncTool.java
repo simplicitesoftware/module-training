@@ -124,29 +124,41 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		langCodes = TrnTools.getLangs(g);
 		defaultLangCode = TrnTools.getDefaultLang();
 	}
-
+	
+	private final List<String> TRN_DROP_OBJECTS = Arrays.asList("TrnTag", "TrnTagLsn", "TrnTagTranslate", "TrnUrlRewriting", "TrnSiteTheme", "TrnPage");
+	
 	public void dropData() throws TrnSyncException {
 		try {
 			loadTrnObjects();
-			dropCategory(false);
-			dropTag(false);
-			AppLog.info("Successfully droped data (categories and tags)", g);
+			dropCategory();
+			dropObject("TrnTag");
+			dropObject("TrnUrlRewriting");
+			
+			AppLog.info("Successfully droped data (categories, tags and rewrites)", g);
 		}
 		catch (DeleteException e) {
 			throw new TrnSyncException("TRN_DROP_ERROR", e.getMessage());
 		}
 	}
 
-	private void dropCategory(boolean loadAccess) throws DeleteException {
-		if (loadAccess) {
-			loadTrnObjectAccess();
-		}
+	private void dropCategory() throws DeleteException {
 		synchronized (category) {
 			category.resetFilters();
 			category.setFieldFilter("trnCatId.trnCatPath", "is null");
 			for (String[] row : category.search()) {
 				category.setValues(row);
 				(new BusinessObjectTool(category)).delete();
+			}
+		}
+	}
+	
+	private void dropObject(String objName) throws DeleteException{
+		ObjectDB o = g.getTmpObject(objName);
+		synchronized(o){
+			o.resetFilters();
+			for (String[] row : o.search()) {
+				o.setValues(row);
+				(new BusinessObjectTool(o)).delete();
 			}
 		}
 	}

@@ -7,6 +7,8 @@ import java.util.regex.Pattern;
 
 import com.simplicite.util.*;
 import com.simplicite.util.tools.*;
+import com.simplicite.util.exceptions.*;
+import java.util.*;
 
 /**
  * External object TrnExtUrlRedirector
@@ -14,39 +16,46 @@ import com.simplicite.util.tools.*;
 public class TrnExtUrlRedirector extends ExternalObject {
 	private static final long serialVersionUID = 1L;
 	private static final Pattern urlParser = Pattern.compile("^/ext/TrnExtUrlRedirector(/.*)$");
-
+	private static final String ROOT_PATH = "/ext/TrnExtUrlRedirector";
+	
+	//General algorithm:
+	// 1- check if redirect 
+	// 2- send to front
+	
 	@Override
-	public Object display(Parameters params) {
+	public Object display(Parameters params){
 		try {
-			Grant g = getGrant();
-			Matcher matcher = urlParser.matcher(params.getLocation());
-			if (matcher.find()) {
-				String requestPath = matcher.group(1);
-				ObjectDB urlRewriter = g.getTmpObject("TrnUrlRewriting");
-				List<String[]> rows = urlRewriter.search();
-				String destinationUrl = "";
-				for (int i = 0; i < rows.size(); i++) {
-					urlRewriter.setValues(rows.get(i));
-					String source = urlRewriter.getFieldValue("trnSourceUrl");
-					if (source.equals((requestPath))) {
-						destinationUrl = urlRewriter.getFieldValue("trnDestinationUrl");
-						break;
-					}
-				}
-				if (destinationUrl.isEmpty()) {
-					this.setHTTPStatus(404);
-					return "Unknown url";
-				}
-				this.sendHttpRedirect(params, destinationUrl);
-				return "OK";
-			} else {
-				try {
-					return sendHttpError(params, 500);
-				} catch (IOException ie) {
-					return "Unexpected error";
-				}
-			}
-		} catch (Exception e) {
+			if(!params.getLocation().startsWith(ROOT_PATH))
+				return sendHttpError(params, 500);
+			
+			String requestedUrl = Tool.toSQL(params.getLocation().split(ROOT_PATH)[1]);
+			
+			
+			// TODO cache results to go faster
+			ObjectDB urlRewriter = getGrant().getTmpObject("TrnUrlRewriting");
+			urlRewriter.getTool().select(Map.of(
+				"trnSourceUrl", 
+				requestedUrl+"%" //starts with
+			));
+			
+			String src = urlRewriter.getFieldValue("trnSourceUrl");
+			String dest = urlRewriter.getFieldValue("trnDestinationUrl");
+			
+			if(requestedUrl.length() > src.length())
+				dest += requestedUrl.split(src)[1];
+			
+			AppLog.info(requestedUrl+" "+src+" "+dest, Grant.getSystemAdmin());
+
+			sendHttpRedirect(params, dest);
+			return "OK";
+		}
+		catch(GetException e){ 
+			// GetException thrown by select if 0 or more than one result
+			setHTTPStatus(404);
+			return "Unknown url";
+		}
+		catch (Exception e) {
+			AppLog.error("Error redirecting", e, getGrant());
 			return e.getMessage();
 		}
 	}
