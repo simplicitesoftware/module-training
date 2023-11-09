@@ -1,5 +1,5 @@
 {
-    "date": "2023-11-08 21:24:07",
+    "date": "2023-11-09 19:32:07",
     "name": "Training",
     "format": "json",
     "files": ["Training.json"],
@@ -7,6 +7,6 @@
         "uri": "https://github.com/simplicitesoftware/module-training.git",
         "branch": "master"
     }},
-    "version": "2.9",
-    "platform": "5.3.21"
+    "version": "2.10",
+    "platform": "5.3.22-preview"
 }

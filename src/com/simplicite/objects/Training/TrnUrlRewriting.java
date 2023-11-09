@@ -7,4 +7,5 @@ import com.simplicite.commons.Training.*;
  */
 public class TrnUrlRewriting extends TrnObject {
 	private static final long serialVersionUID = 1L;
+	
 }

@@ -4,7 +4,7 @@
  "item": {
   "mdl_name": "Training",
   "mdl_prefix": "trn",
-  "mdl_version": "2.9",
+  "mdl_version": "2.10",
   "mdl_type": "A",
   "mdl_url": "{\n\t\"type\": \"git\",\n\t\"origin\": { \n\t\t\"uri\": \"https://github.com/simplicitesoftware/module-training.git\",\n\t\t\"branch\": \"master\",\n\t}\n}",
   "mdl_comment": "The module for the Simplicité Training platform.\n\nThis module objective is to offer an easy way to deploy a custom documentation.\nIt's a *Category* / *Lesson* / *Translations* model with a few additions such as *tags* or *pages*.\n\nThe training module not only gives the ability to manage content, but it also serves a Vue.js front end (see the external object *TrnFront*).\n<br>\nThe front end is served on the root url of your instance. For further details on the site mapping, see system parameter *URI_MAPPING*.\n\nMore info available on the front end default home page."
@@ -43,7 +43,7 @@
      "userkey": "URI_MAPPINGS",
      "item": {
       "sys_code": "URI_MAPPINGS",
-      "sys_value": "[\n\t{ \"source\": \"^/sitemap.txt$\", \"destination\": \"/api/ext/TrnSitemap\" },\n\t{ \"source\": \"^$|^/$|(^/(?:lesson|page|category|sandbox|sandbox\\\\-demand|tag\\\\-no\\\\-content|js|css|img|public|404).*)$\", \"destination\": \"/ext/TrnFront$1\" },\n\t{ \"source\": \"^(.*)$\", \"destination\": \"/ext/TrnExtUrlRedirector$1\" }\n]",
+      "sys_value": "[\n\t{ \"source\": \"^/sitemap.txt$\", \"destination\": \"/api/ext/TrnSitemap\" },\n\t{ \"source\": \"^(.*)$\", \"destination\": \"/ext/TrnFront$1\" }\n]",
       "sys_type": "PRV",
       "sys_desc": "Optional custom URI mappings, e.g.\n\n```json\n[\n\t{ \"source\": \"^/v1(.+)$\", \"destination\": \"/api/ext/MyAPIv1$1\" },\n\t{ \"source\": \"^/site$\",   \"destination\": \"/ext/MyWebSiteSite\" }\n]\n```",
       "row_module_id__mdl_name": "Training"
@@ -4223,25 +4223,6 @@
        "path": "src/com/simplicite/extobjects/Training/TrnDiscourseHookService.java",
        "mime": "text/plain",
        "name": "TrnDiscourseHookService.java"
-      },
-      "obe_icon": null,
-      "row_module_id__mdl_name": "Training"
-     }
-    },
-    {
-     "object": "ObjectExternal",
-     "userkey": "TrnExtUrlRedirector",
-     "item": {
-      "obe_name": "TrnExtUrlRedirector",
-      "obe_type": "E",
-      "obe_url": null,
-      "obe_comment": null,
-      "obe_help": null,
-      "obe_class": null,
-      "obe_script_id": {
-       "path": "src/com/simplicite/extobjects/Training/TrnExtUrlRedirector.java",
-       "mime": "text/plain",
-       "name": "TrnExtUrlRedirector.java"
       },
       "obe_icon": null,
       "row_module_id__mdl_name": "Training"
@@ -8486,19 +8467,6 @@
     },
     {
      "object": "Function",
-     "userkey": "TRN_EXT_URL_REWRITING_E",
-     "item": {
-      "fct_name": "TRN_EXT_URL_REWRITING_E",
-      "fct_object_id__obj_type": "E",
-      "fct_object_id__obj_name": "TrnExtUrlRedirector",
-      "fct_function": "L",
-      "fct_action_id__act_name": null,
-      "fct_view_id__viw_name": null,
-      "row_module_id__mdl_name": "Training"
-     }
-    },
-    {
-     "object": "Function",
      "userkey": "TRN_FRONT_E",
      "item": {
       "fct_name": "TRN_FRONT_E",
@@ -8957,20 +8925,6 @@
       "grt_function_id__fct_name": "TRN_COMMUNITY_INDEX_SERVICE_E",
       "grt_function_id__fct_object_id__obj_type": "E",
       "grt_function_id__fct_object_id__obj_name": "TrnDiscourseHookService",
-      "grt_function_id__fct_action_id__act_name": null,
-      "grt_function_id__fct_function": "L",
-      "grt_activ": true,
-      "row_module_id__mdl_name": "Training"
-     }
-    },
-    {
-     "object": "Grant",
-     "userkey": "PUBLIC~TRN_EXT_URL_REWRITING_E~TrnExtUrlRedirector~",
-     "item": {
-      "grt_group_id__grp_name": "PUBLIC",
-      "grt_function_id__fct_name": "TRN_EXT_URL_REWRITING_E",
-      "grt_function_id__fct_object_id__obj_type": "E",
-      "grt_function_id__fct_object_id__obj_name": "TrnExtUrlRedirector",
       "grt_function_id__fct_action_id__act_name": null,
       "grt_function_id__fct_function": "L",
       "grt_activ": true,
@@ -12738,18 +12692,6 @@
     },
     {
      "object": "TranslateExternal",
-     "userkey": "O~TrnExtUrlRedirector~ENU",
-     "item": {
-      "tsl_typeObject": "O",
-      "tsl_id__obe_name": "TrnExtUrlRedirector",
-      "tsl_lang": "ENU",
-      "tsl_value": "URL Redirector",
-      "tsl_help": null,
-      "row_module_id__mdl_name": "Training"
-     }
-    },
-    {
-     "object": "TranslateExternal",
      "userkey": "O~TrnFront~ENU",
      "item": {
       "tsl_typeObject": "O",
@@ -12840,18 +12782,6 @@
       "tsl_id__obe_name": "TrnDiscourseHookService",
       "tsl_lang": "FRA",
       "tsl_value": "Community index service",
-      "tsl_help": null,
-      "row_module_id__mdl_name": "Training"
-     }
-    },
-    {
-     "object": "TranslateExternal",
-     "userkey": "O~TrnExtUrlRedirector~FRA",
-     "item": {
-      "tsl_typeObject": "O",
-      "tsl_id__obe_name": "TrnExtUrlRedirector",
-      "tsl_lang": "FRA",
-      "tsl_value": "Redirecteur URL",
       "tsl_help": null,
       "row_module_id__mdl_name": "Training"
      }

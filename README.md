@@ -297,12 +297,6 @@ This object will hold the static contents of the front-end application
 
 
 
-`TrnExtUrlRedirector` external object definition
-------------------------------------------------
-
-
-
-
 `TrnFront` external object definition
 -------------------------------------
 

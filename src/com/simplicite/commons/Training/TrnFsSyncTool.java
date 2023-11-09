@@ -15,6 +15,7 @@ import com.simplicite.util.exceptions.ValidateException;
 import com.simplicite.util.tools.BusinessObjectTool;
 import com.simplicite.util.tools.BusinessObjectTool.ReturnMessage;
 import com.simplicite.util.tools.FileTool;
+import com.simplicite.extobjects.Training.TrnFront;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -133,7 +134,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 			dropCategory();
 			dropObject("TrnTag");
 			dropObject("TrnUrlRewriting");
-			
+			TrnFront.clearRedirectsCache();
 			AppLog.info("Successfully droped data (categories, tags and rewrites)", g);
 		}
 		catch (DeleteException e) {
@@ -448,6 +449,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 			AppLog.info("Urls rewriting modifications detected, Syncing...", g);
 			upsertUrlsRewriting(f);
 			hashTool.addPathToStore(URL_REWRITING_JSON_NAME, newHash);
+			TrnFront.clearRedirectsCache();
 			AppLog.info("Urls rewriting successfully synced", g);
 		}
 	}
@@ -587,7 +589,8 @@ public class TrnFsSyncTool implements java.io.Serializable {
 			String lsnRowId = getLsnRowIdFromPath(relativePath);
 
 			JSONObject lsnData = getLsnData(dir);
-
+			
+			
 			TrnLesson lsn = (TrnLesson) upsertLesson(lsnRowId, lsnData, relativePath, dir);
             lsnRowId = lsn.getRowId();
 			createTrnTagLsnRecords(lsnRowId, lsnData, relativePath);
