@@ -47,7 +47,7 @@ public class TrnLesson extends TrnObject {
 
 	@Override
 	public List<String> postValidate() {
-		if (!isSyncInstance()) {
+		if (!isSyncInstance() && !"updateChildren_TrnLesson".equals(getInstanceName())) {
 			setFieldValue("trnLsnPath", getFieldValue("trnLsnCatId.trnCatPath") + "/" + getFieldValue("trnLsnCode"));
 		}
 		setFieldValue("trnLsnFrontPath", TrnTools.path2Front(getFieldValue("trnLsnPath")));
