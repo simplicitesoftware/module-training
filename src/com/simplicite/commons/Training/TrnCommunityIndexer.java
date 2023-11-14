@@ -8,6 +8,7 @@ import com.simplicite.objects.Training.TrnSyncSupervisor;
 import com.simplicite.util.AppLog;
 import com.simplicite.util.Grant;
 import com.simplicite.util.exceptions.HTTPException;
+import com.simplicite.util.tools.HTMLTool;
 import com.simplicite.util.tools.RESTTool;
 
 /**
@@ -23,7 +24,6 @@ public class TrnCommunityIndexer implements java.io.Serializable
 	private final TrnEsHelper esHelper;
 	private int totalTopics;
 	private int totalPosts;
-	private final String indexAllField = "indexAll";
 
 	Grant g;
 
@@ -151,7 +151,7 @@ public class TrnCommunityIndexer implements java.io.Serializable
 		{
 			JSONObject postObject = new JSONObject();
 			postObject.put("id", posts.getJSONObject(i).getInt("id"))
-				.put("content", posts.getJSONObject(i).getString("raw"));
+				.put("content", HTMLTool.toSafeHTML(posts.getJSONObject(i).getString("raw")));
 				
 			postsArray.put(i, postObject);
 		}

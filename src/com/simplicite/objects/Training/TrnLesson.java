@@ -3,6 +3,7 @@ package com.simplicite.objects.Training;
 import java.util.*;
 
 import com.simplicite.util.*;
+import com.simplicite.util.tools.HTMLTool;
 import com.simplicite.commons.Training.*;
 
 import org.json.JSONObject;
@@ -170,7 +171,7 @@ public class TrnLesson extends TrnObject {
 						f = lsnTranslate.getField("trnLtrRawContent");
 						String htmlContent = f.getValue();
 						// if LINEAR, then change content images link
-						json.put("raw_content" + attributeLang, htmlContent);
+						json.put("raw_content" + attributeLang, HTMLTool.toSafeHTML(htmlContent));
 					}
 				}
 			}
