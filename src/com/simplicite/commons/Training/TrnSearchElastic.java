@@ -1,13 +1,12 @@
 package com.simplicite.commons.Training;
 
-import java.util.*;
+import java.util.ArrayList;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.simplicite.util.AppLog;
 import com.simplicite.util.Grant;
-import com.simplicite.util.tools.HTMLTool;
 
 /**
  * Shared code TrnSearchElastic

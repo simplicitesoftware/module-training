@@ -10,7 +10,6 @@ import java.util.Set;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
-import com.simplicite.objects.Training.TrnSyncSupervisor;
 import com.simplicite.util.AppLog;
 import com.simplicite.util.Grant;
 import com.simplicite.util.Tool;

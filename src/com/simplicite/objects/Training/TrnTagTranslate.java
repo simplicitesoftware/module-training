@@ -1,9 +1,9 @@
 package com.simplicite.objects.Training;
 
-import java.util.*;
+import java.util.List;
 
-import com.simplicite.util.*;
-import com.simplicite.commons.Training.*;
+import com.simplicite.commons.Training.TrnObject;
+import com.simplicite.util.ObjectDB;
 
 /**
  * Business object TrnTagTranslate
@@ -11,14 +11,12 @@ import com.simplicite.commons.Training.*;
 public class TrnTagTranslate extends TrnObject {
 	private static final long serialVersionUID = 1L;
 
-	public List<String[]> getTranslatesFromTagId(String tag_id) {	
-		List<String[]> res = new ArrayList<>();
+	public List<String[]> getTranslatesFromTagId(String tagId) {	
 		ObjectDB tagTranslate = getGrant().getTmpObject("TrnTagTranslate");
 		synchronized(tagTranslate){
 			tagTranslate.resetFilters();
-			tagTranslate.setFieldFilter("trnTaglangTagId", tag_id);
-			res = tagTranslate.search();
+			tagTranslate.setFieldFilter("trnTaglangTagId", tagId);
+			return tagTranslate.search();
 		}
-		return res;
 	}
 }

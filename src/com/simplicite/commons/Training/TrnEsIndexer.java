@@ -1,8 +1,7 @@
 package com.simplicite.commons.Training;
 
-import com.simplicite.util.*;
 import com.simplicite.objects.Training.TrnLesson;
-import com.simplicite.objects.Training.TrnSyncSupervisor;
+import com.simplicite.util.Grant;
 
 /**
  * Shared code TrnEsIndexer

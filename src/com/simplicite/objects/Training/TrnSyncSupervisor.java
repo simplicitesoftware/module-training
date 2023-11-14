@@ -1,15 +1,11 @@
 package com.simplicite.objects.Training;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 import com.simplicite.commons.Training.TrnCommunityIndexer;
 import com.simplicite.commons.Training.TrnConfigException;
 import com.simplicite.commons.Training.TrnEsHelper;
 import com.simplicite.commons.Training.TrnEsIndexer;
 import com.simplicite.commons.Training.TrnFsSyncTool;
 import com.simplicite.commons.Training.TrnGitCheckout;
-import com.simplicite.commons.Training.TrnSyncException;
 import com.simplicite.commons.Training.TrnTools;
 import com.simplicite.util.Action;
 import com.simplicite.util.AppLog;

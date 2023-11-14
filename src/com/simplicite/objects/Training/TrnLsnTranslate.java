@@ -1,13 +1,17 @@
 package com.simplicite.objects.Training;
 
+import com.simplicite.commons.Training.TrnObject;
+import com.simplicite.util.AppLog;
+import com.simplicite.util.DocumentDB;
+import com.simplicite.util.ObjectDB;
+import com.simplicite.util.Tool;
 import com.simplicite.util.tools.MarkdownTool;
-import com.simplicite.commons.Training.*;
 import org.jsoup.Jsoup;
-import java.util.*;
+
+import java.util.List;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import com.simplicite.util.*;
 
 /**
  * Business object TrnLsnTranslate

@@ -1,16 +1,15 @@
 package com.simplicite.extobjects.Training;
 
-import com.simplicite.util.*;
-import com.simplicite.util.tools.*;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import com.simplicite.util.*;
-import com.simplicite.util.tools.*;
-import com.simplicite.util.exceptions.*;
-import java.util.*;
+import com.simplicite.util.AppLog;
+import com.simplicite.util.Grant;
+import com.simplicite.util.ObjectDB;
+import com.simplicite.util.Tool;
+import com.simplicite.util.tools.HTMLTool;
+import com.simplicite.util.tools.Parameters;
 
 /**
  * External object TrnFront

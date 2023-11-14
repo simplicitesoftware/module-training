@@ -1,10 +1,10 @@
 package com.simplicite.extobjects.Training;
 
-import java.util.*;
-import com.simplicite.util.*;
-import com.simplicite.util.tools.*;
 import com.simplicite.webapp.services.RESTServiceExternalObject;
 import com.simplicite.commons.Training.TrnFsSyncTool;
+import com.simplicite.util.AppLog;
+import com.simplicite.util.Grant;
+import com.simplicite.util.tools.Parameters;
 
 /**
  * External object TrnSyncService

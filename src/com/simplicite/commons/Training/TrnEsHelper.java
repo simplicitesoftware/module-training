@@ -1,14 +1,13 @@
 package com.simplicite.commons.Training;
 
-import org.json.*;
-import org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder;
-
-import com.simplicite.objects.Training.TrnSyncSupervisor;
 import com.simplicite.util.AppLog;
 import com.simplicite.util.Grant;
 import com.simplicite.util.exceptions.HTTPException;
 import com.simplicite.util.tools.RESTTool;
 import java.util.Map;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  * Shared code EsHelper
