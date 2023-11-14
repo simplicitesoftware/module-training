@@ -27,177 +27,161 @@ import com.simplicite.util.engine.Platform;
  * Shared code TrnGitCheckout
  */
 public class TrnGitCheckout implements java.io.Serializable {
-	private static final long serialVersionUID = 1L;
-    private static final String CONTENT_FOLDER_NAME = "docs";
-    private static UsernamePasswordCredentialsProvider credentialsProvider;
-    private Grant g;
+  private static final long serialVersionUID = 1L;
+  private static final String CONTENT_FOLDER_NAME = "docs";
+  private static UsernamePasswordCredentialsProvider credentialsProvider;
 
-    public TrnGitCheckout(Grant g) {
-        this.g = g;
+  public static String checkout() throws Exception {
+    File contentDir = getContentDir();
+    Grant g = Grant.getSystemAdmin();
+    String login = g.getSessionInfo().getLogin();
+    try {
+      String branch = TrnTools.getGitBranch();
+
+      AppLog.info(
+          "Starting git checkout process on branch: " + branch + " on directory: " + contentDir.getAbsolutePath(), g);
+      String msg;
+      setAuthentication();
+      if (!contentDir.exists()) {
+        String gitUrl = TrnTools.getGitUrl();
+        performClone(gitUrl, branch, contentDir, g);
+        msg = "Result: " + gitUrl + " has been successfully cloned. Current branch: " + branch + ".";
+      }
+      else {
+        performPull(branch, contentDir, g);
+        msg = "The content has been successfully updated. Current branch: " + branch + ".";
+      }
+      TrnFsSyncTool.triggerSyncFromCheckout();
+      TrnSyncSupervisor.logSync(true, "GIT", null, login, getLatestCommitId(contentDir, g));
+      return msg;
     }
+    catch (Exception e) {
+      TrnSyncSupervisor.logSync(false, "GIT", "Unable to check out: " + e.getMessage(), login,
+          getLatestCommitId(contentDir, g));
+      throw new Exception(e);
+    }
+  }
 
-	public String checkout() throws Exception {
-        File contentDir = getContentDir();
-        String login = g.getSessionInfo().getLogin();
-        try {
-            String branch = TrnTools.getGitBranch();
-           
-            AppLog.info("Starting git checkout process on branch: "+branch+" on directory: "
-                +contentDir.getAbsolutePath(), g);
-            String msg;
-            setAuthentication();
-            if (!contentDir.exists()) {
-                String gitUrl = TrnTools.getGitUrl();
-                performClone(gitUrl, branch, contentDir);
-                msg = "Result: " + gitUrl + " has been successfully cloned. Current branch: " + branch + ".";
-            } else {
-                performPull(branch, contentDir);
-                msg = "The content has been successfully updated. Current branch: " + branch + ".";
-            }
-            TrnFsSyncTool.triggerSyncFromCheckout();
-            TrnSyncSupervisor.logSync(true, "GIT", null, login, getLatestCommitId(contentDir));
-            return msg;
-        } catch(Exception e) {
-            TrnSyncSupervisor.logSync(false, "GIT", "Unable to check out: " + e.getMessage(), login, getLatestCommitId(contentDir));
-            throw new Exception(e);
+  private static void performClone(String remoteUrl, String branch, File contentDir, Grant g) throws GitAPIException {
+    AppLog.info("Attempting to clone " + remoteUrl + " on branch " + branch, g);
+    CloneCommand cloneCommand = Git.cloneRepository().setURI(remoteUrl).setDirectory(contentDir)
+        .setCloneAllBranches(false).setBranch(branch).setCloneSubmodules(false).setDepth(1)
+        .setCredentialsProvider(credentialsProvider);
+
+    try (Git git = cloneCommand.call()) {
+      AppLog.info("Shallow clone completed successfully.", g);
+    }
+  }
+
+  private static void performPull(String branch, File contentDir, Grant g)
+      throws IOException, GitAPIException, TrnConfigException {
+    AppLog.info("Attempting to pull on branch " + branch, g);
+    FileRepositoryBuilder repositoryBuilder = new FileRepositoryBuilder();
+    Repository repository = repositoryBuilder.setGitDir(new File(contentDir, ".git")).readEnvironment().findGitDir()
+        .build();
+
+    try (Git git = new Git(repository)) {
+
+      git.fetch().setRemote("origin")
+          // map all the local branches with their remote tracking branches
+          .setRefSpecs(new RefSpec("+refs/heads/*:refs/remotes/origin/*")).setCredentialsProvider(credentialsProvider)
+          .call();
+      AppLog.info("Successfully fetched from remote repository", g);
+
+      if (branchExistsLocally(git, branch)) {
+        // Switch to the existing local branch
+        git.checkout().setName(branch).call();
+        AppLog.info("Checkout on existing branch: " + branch, g);
+      }
+      else {
+        // Create a new branch from the remote branch
+        git.checkout().setCreateBranch(true).setName(branch).setStartPoint("origin/" + branch).call();
+        AppLog.info("Checkout on new branch: " + branch, g);
+      }
+
+      git.pull().setRemote("origin").setRemoteBranchName(branch).setCredentialsProvider(credentialsProvider)
+          .setContentMergeStrategy(ContentMergeStrategy.THEIRS).call();
+      AppLog.info("Remote content has been pulled", g);
+
+      AppLog.info("Checkout done.", g);
+    }
+    catch (GitAPIException e) {
+      AppLog.warning("Unable to pull. The pull command fallback will try to delete and clone back the repository", e,
+          g);
+      pullCommandFallback(TrnTools.getGitUrl(), branch, contentDir, g);
+    }
+  }
+
+  private static boolean branchExistsLocally(Git git, String branch) throws GitAPIException {
+    List<Ref> branches = git.branchList().call();
+    boolean branchExistsLocally = false;
+    for (Ref ref : branches) {
+      if (ref.getName().equals("refs/heads/" + branch)) {
+        branchExistsLocally = true;
+        break;
+      }
+    }
+    return branchExistsLocally;
+  }
+
+  private static void pullCommandFallback(String remoteUrl, String branch, File contentDir, Grant g)
+      throws IOException, GitAPIException {
+    deleteRepository();
+    performClone(remoteUrl, branch, contentDir, g);
+    AppLog.info("The pull command fallback has deleted and cloned back the repository", g);
+  }
+
+  private static String getLatestCommitId(File repoPath, Grant g) {
+    String commitId = new String();
+    try (Git git = Git.open(repoPath)) {
+      Repository repository = git.getRepository();
+      try (RevWalk revWalk = new RevWalk(repository)) {
+        Iterable<RevCommit> commits = git.log().setMaxCount(1).call();
+        for (RevCommit commit : commits) {
+          // The latest commit ID
+          commitId = commit.getId().getName();
         }
+      }
     }
-
-    private void performClone(String remoteUrl, String branch, File contentDir) throws GitAPIException {
-		AppLog.info("Attempting to clone " + remoteUrl + " on branch " + branch, g);
-		CloneCommand cloneCommand = Git.cloneRepository()
-				.setURI(remoteUrl)
-				.setDirectory(contentDir)
-				.setCloneAllBranches(false)
-				.setBranch(branch)
-				.setCloneSubmodules(false)
-				.setDepth(1)
-				.setCredentialsProvider(credentialsProvider);
-
-		try (Git git = cloneCommand.call()) {
-			AppLog.info("Shallow clone completed successfully.", g);
-		}
-	}
-
-	private void performPull(String branch, File contentDir) throws IOException, GitAPIException, TrnConfigException {
-		AppLog.info("Attempting to pull on branch " + branch, g);
-		FileRepositoryBuilder repositoryBuilder = new FileRepositoryBuilder();
-		Repository repository = repositoryBuilder.setGitDir(new File(contentDir, ".git"))
-				.readEnvironment()
-				.findGitDir()
-				.build();
-
-		try (Git git = new Git(repository)) {
-
-			git.fetch()
-					.setRemote("origin")
-					// map all the local branches with their remote tracking branches
-					.setRefSpecs(new RefSpec("+refs/heads/*:refs/remotes/origin/*"))
-					.setCredentialsProvider(credentialsProvider)
-					.call();
-			AppLog.info("Successfully fetched from remote repository", g);
-
-			if (branchExistsLocally(git, branch)) {
-				// Switch to the existing local branch
-				git.checkout()
-						.setName(branch)
-						.call();
-				AppLog.info("Checkout on existing branch: " + branch, g);
-			} else {
-				// Create a new branch from the remote branch
-				git.checkout()
-						.setCreateBranch(true)
-						.setName(branch)
-						.setStartPoint("origin/" + branch)
-						.call();
-				AppLog.info("Checkout on new branch: " + branch, g);
-			}
-
-			git.pull()
-					.setRemote("origin")
-					.setRemoteBranchName(branch)
-					.setCredentialsProvider(credentialsProvider)
-					.setContentMergeStrategy(ContentMergeStrategy.THEIRS)
-					.call();
-			AppLog.info("Remote content has been pulled", g);
-
-			AppLog.info("Checkout done.", g);
-		} catch (GitAPIException e) {
-			AppLog.warning("Unable to pull. The pull command fallback will try to delete and clone back the repository", e, g);
-			pullCommandFallback(TrnTools.getGitUrl(), branch, contentDir);
-		}
-	}
-
-	private static boolean branchExistsLocally(Git git, String branch) throws GitAPIException {
-		List<Ref> branches = git.branchList().call();
-		boolean branchExistsLocally = false;
-		for (Ref ref : branches) {
-			if (ref.getName().equals("refs/heads/" + branch)) {
-				branchExistsLocally = true;
-				break;
-			}
-		}
-		return branchExistsLocally;
-	}
-
-	private void pullCommandFallback(String remoteUrl, String branch, File contentDir)
-			throws IOException, GitAPIException {
-		deleteRepository();
-		performClone(remoteUrl, branch, contentDir);
-		AppLog.info("The pull command fallback has deleted and cloned back the repository", g);
-	}
-
-    private String getLatestCommitId(File repoPath) 
-    {
-        String commitId = new String();
-        try (Git git = Git.open(repoPath)) {
-            Repository repository = git.getRepository();
-            try (RevWalk revWalk = new RevWalk(repository)) {
-                Iterable<RevCommit> commits = git.log().setMaxCount(1).call();
-                for (RevCommit commit : commits) {
-                    // The latest commit ID
-                    commitId = commit.getId().getName();
-                }
-            }
-        } catch (IOException | GitAPIException e) {
-            AppLog.warning(getClass(), "getLatestCommitId", "Unable to get latest commit info", e, g);
-            commitId = "error";
-        }
-        return commitId;
+    catch (IOException | GitAPIException e) {
+      AppLog.warning("Unable to get latest commit info", e, g);
+      commitId = "error";
     }
+    return commitId;
+  }
 
-	private void setAuthentication() throws TrnConfigException {
-		if (TrnTools.isGitUrlSSH()) {
-			credentialsProvider = null;
-			new org.eclipse.jgit.transport.sshd.SshdSessionFactoryBuilder()
-					.setPreferredAuthentications("publickey")
-					.setHomeDirectory(org.eclipse.jgit.util.FS.DETECTED.userHome())
-					.setSshDirectory(new File(org.eclipse.jgit.util.FS.DETECTED.userHome(), "/.ssh"))
-					.build(null);
-		} else {
-			JSONObject jsonCreds = TrnTools.getGitCredentials();
-			credentialsProvider = new UsernamePasswordCredentialsProvider(
-					jsonCreds.getString("username"),
-					jsonCreds.getString("token"));
-		}
-	}
+  private static void setAuthentication() throws TrnConfigException {
+    if (TrnTools.isGitUrlSSH()) {
+      credentialsProvider = null;
+      new org.eclipse.jgit.transport.sshd.SshdSessionFactoryBuilder().setPreferredAuthentications("publickey")
+          .setHomeDirectory(org.eclipse.jgit.util.FS.DETECTED.userHome())
+          .setSshDirectory(new File(org.eclipse.jgit.util.FS.DETECTED.userHome(), "/.ssh")).build(null);
+    }
+    else {
+      JSONObject jsonCreds = TrnTools.getGitCredentials();
+      credentialsProvider = new UsernamePasswordCredentialsProvider(jsonCreds.getString("username"),
+          jsonCreds.getString("token"));
+    }
+  }
 
-	public String deleteRepository() throws IOException {
-		File repositoryDir = getContentDir();
-		String msg;
-		if (repositoryDir.exists()) {
-			FileUtils.delete(repositoryDir, FileUtils.RECURSIVE);
-			msg = "Repository deleted successfully.";
-			AppLog.info(msg, g);
-			return msg;
-		} else {
-			msg = "Repository directory does not exist.";
-			AppLog.info(msg, g);
-			return msg;
-		}
-	}
+  public static String deleteRepository() throws IOException {
+    File repositoryDir = getContentDir();
+    Grant g = Grant.getSystemAdmin();
+    String msg;
+    if (repositoryDir.exists()) {
+      FileUtils.delete(repositoryDir, FileUtils.RECURSIVE);
+      msg = "Repository deleted successfully.";
+      AppLog.info(msg, g);
+      return msg;
+    }
+    else {
+      msg = "Repository directory does not exist.";
+      AppLog.info(msg, g);
+      return msg;
+    }
+  }
 
-    private static File getContentDir() {
-		return new File(Platform.getContentDir(), CONTENT_FOLDER_NAME);
-	}
+  private static File getContentDir() {
+    return new File(Platform.getContentDir(), CONTENT_FOLDER_NAME);
+  }
 }

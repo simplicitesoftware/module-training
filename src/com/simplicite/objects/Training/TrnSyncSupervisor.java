@@ -9,6 +9,7 @@ import com.simplicite.commons.Training.TrnEsHelper;
 import com.simplicite.commons.Training.TrnEsIndexer;
 import com.simplicite.commons.Training.TrnFsSyncTool;
 import com.simplicite.commons.Training.TrnGitCheckout;
+import com.simplicite.commons.Training.TrnSyncException;
 import com.simplicite.commons.Training.TrnTools;
 import com.simplicite.util.Action;
 import com.simplicite.util.AppLog;
@@ -46,15 +47,13 @@ public class TrnSyncSupervisor extends ObjectDB {
 
 	public String forceSync(Action action) {
 		try {
-            Grant g = getGrant();
 			if (!TrnTools.isFileSystemMode())
 				return "Synchronization only available in FILESYSTEM mode";
 			String syncType = action.getConfirmField("trnSyncActionType").getValue();
 			if ("GIT".equals(syncType)) {
-				TrnGitCheckout tgc = new TrnGitCheckout(g);
-				tgc.checkout();
+				TrnGitCheckout.checkout();
 			} else if ("FS".equals(syncType)) {
-				TrnFsSyncTool.triggerSyncOnly(g.getSessionInfo().getLogin());
+        TrnFsSyncTool.triggerSyncOnly(getGrant().getSessionInfo().getLogin());
 			} else {
 				throw new Exception("Unknown sync type");
 			}
