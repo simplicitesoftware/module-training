@@ -1,6 +1,5 @@
 package com.simplicite.extobjects.Training;
 
-import java.util.ArrayList;
 import java.util.Map;
 import com.simplicite.commons.Training.TrnSearchElastic;
 import com.simplicite.commons.Training.TrnSearchSimplicite;

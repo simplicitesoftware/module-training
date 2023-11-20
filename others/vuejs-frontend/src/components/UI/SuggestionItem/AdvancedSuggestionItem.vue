@@ -1,0 +1,73 @@
+<template>
+  <a :href="getSuggestionPath" class="result-item">
+    <div class="result-header">
+      <MaterialIcon :type="suggestion.type"></MaterialIcon>
+      <div class="result-title" v-html="suggestion.title" />
+      <div class="result-category">
+        {{ suggestion.path }}
+      </div>
+    </div>
+    <div class="result-body">
+      <div class="result-text">
+        <div v-html="suggestion.content"></div>
+      </div>
+    </div>
+  </a>
+</template>
+
+<script>
+import MaterialIcon from './MaterialIcon.vue';
+
+export default {
+  name: "SuggestionItem",
+  props: {
+    suggestion: Object,
+  },
+  components: {
+    MaterialIcon
+  },
+  methods: {
+  },
+  computed: {
+    getSuggestionPath() {
+      if (this.suggestion.type === "discourse") {
+        return this.suggestion.url;
+      } else if (this.suggestion.type === "lesson") {
+        return this.$smp.parameters.url+"/lesson"+this.suggestion.path;
+      }
+      return "";
+    }
+  },
+}
+</script>
+
+<style lang="sass" scoped>
+.result-item
+  text-decoration: none
+  color: black
+  &:hover
+    cursor: pointer
+    border: solid 1px #E0E0E0
+    border-radius: 5px
+    margin: -1px -1px 0 -1px
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px
+  & ::v-deep
+    em 
+      background-color: yellow
+      font-weight: bold
+      font-style: normal
+  border-bottom: solid 1px #E0E0E0
+  padding: 5px 5px 10px 5px 
+  display: flex
+  flex-direction: column
+  .result-header
+    display: flex
+    flex-direction: row
+    align-items: center
+    .result-title
+      font-size: 30px
+    .result-category
+      margin-left: auto
+      color: #696969       
+
+</style>

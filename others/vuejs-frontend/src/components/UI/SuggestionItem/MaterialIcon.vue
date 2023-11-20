@@ -42,9 +42,9 @@ export default {
 <style lang="sass" scoped>
 .result
     align-self: center
-    margin: 1rem
+    margin: 1rem 1rem 1rem 0
     border-radius: 3px
-    padding: 0.5rem
+    padding: 0.5rem 0.5rem 0.3rem 0.5rem
     background: linear-gradient(to bottom, #F2F2F2 18%, #ebebeb)
     
     .icon

@@ -1,8 +1,9 @@
 <template>
-	<div id="SearchBar"  v-click-outside="hideSuggestions">
+	<div id="SearchBar" v-click-outside="hideSuggestions">
 		<div class="searchElement">
-			<input class="searchbar" @input="queryIndex" v-model="inputValue" type="text" :placeholder="searchbarPlaceHolder"/>
-			<div @click="searchIconClick" class="searchbar-logo-container" :style="{[`background-color`]: `${themeValues.primaryColor}`}">
+			<input class="searchbar" @input="queryIndex" v-model="inputValue" type="text" :placeholder="searchbarPlaceHolder" v-on:keyup.enter="openAdvancedSearch" />
+			<div @click="openAdvancedSearch" class="searchbar-logo-container"
+				:style="{ [`background-color`]: `${themeValues.primaryColor}` }">
 				<span class="material-icons searchbar-logo">
 					search
 				</span>
@@ -10,18 +11,14 @@
 		</div>
 		<div class="suggestionRelative">
 			<div v-if="isSugOpen" class="result-list-container">
-                <div v-if="suggestions">
-                    <div v-for="suggestion in suggestions || []" :key="suggestion.id">
-                        <SuggestionItem
-                            :suggestion="suggestion"
-                            :inputValue="inputValue"
-                            @suggestionItemSelected="suggestionSelected"
-                        />
-                    </div>
-                </div>
-				
+				<div v-if="suggestions">
+					<div v-for="suggestion in suggestions || []" :key="suggestion.id">
+						<SuggestionItem :suggestion="suggestion" @suggestionItemSelected="suggestionSelected" />
+					</div>
+				</div>
+
 				<div class="result-list-empty" v-else>
-					{{emptyResult}}
+					{{ emptyResult }}
 				</div>
 			</div>
 		</div>
@@ -32,81 +29,36 @@
 <script>
 
 import SuggestionItem from "./SuggestionItem/SuggestionItem.vue";
-import {mapGetters} from "vuex";
+import s from "../../shared"
+import { mapGetters } from "vuex";
 
 export default {
-	
+
 	name: "SearchBar",
-	components :{
+	components: {
 		SuggestionItem
 	},
 	props: {
 		themeValues: Object
 	},
-	data: function() {
+	data: function () {
 		return {
-			inputValue:'',
-			searchUsed: false,
-			currentLangSearchFields : [
-				{
-					field: 'title',
-					weight: '5'
-				},
-				{
-					field: 'raw_content',
-					weight: '1'
-				}
-			],
-			anySearchFields: [
-				{
-					field: 'title_any',
-					weight: '5'
-				},
-				{
-					field: 'raw_content_any',
-					weight: '1'
-				},
-                {
-                    field: 'title',
-                    weight: '5'
-                },
-                {
-                    field: "posts.content",
-                    weight: '1'
-                }
-            ],
+			inputValue: '',
 			hover: false,
-			isSugOpen:false,
-			queryInput:'',
-			result:'',
-			suggestions:null,
-			sugsExist:false,
-			timeout:null,
-            contentMaxLength: 500
+			isSugOpen: false,
+			result: '',
+			suggestions: null,
 		}
 	},
-	computed:{
+	computed: {
 		...mapGetters({
 			lang: 'ui/lang',
 			langEsFormat: 'ui/langEsFormat'
 		}),
-		// getsearchFields : function() {
-		// 	return this.getQueryFormat(this.currentLangSearchFields, true).concat(this.getQueryFormat(this.anySearchFields, false));
-		// },
-		// gethighlightFields : function() {
-		// 	const obj = new Object();
-		// 	for(const f of this.currentLangSearchFields) {
-		// 		obj[f.field+"_"+this.langEsFormat] = {};
-		// 	}
-        //     for(const f of this.anySearchFields) {
-        //         obj[f.field] = {};
-        //     }
-		// 	return obj;
-		// },
-		searchbarPlaceHolder : function(){
+		searchbarPlaceHolder: function () {
 			return "FRA" == this.lang ? "Rechercher" : "Search"
 		},
-		emptyResult : function(){
+		emptyResult: function () {
 			return "FRA" == this.lang ? "Aucun résultat de recherche." : "No results found."
 		},
 		...mapGetters({
@@ -114,115 +66,36 @@ export default {
 		}),
 	},
 	methods: {
-		// getQueryFormat(fields, formatLang) {
-		// 	return fields.map((f) => f.field+(formatLang ? "_"+this.langEsFormat : "")+"^"+f.weight);
-		// },
-		hideSuggestions(){
+		hideSuggestions() {
 			this.isSugOpen = false;
 		},
-		searchIconClick() {
-			this.isSugOpen = true;
+		openAdvancedSearch() {
+			this.hideSuggestions();
+			this.$router.push('/search/' + this.inputValue).catch(err => console.error(err));
 		},
 		suggestionSelected(suggestion) {
 			this.isSugOpen = false;
 			this.inputValue = '';
-            if(suggestion.type === "lesson") {
-                this.$router.push('/lesson' + suggestion.path).catch(err => console.error(err));
-            } else if(suggestion.type === "discourse") {
-                window.open(suggestion.url);
-            } else if(suggestion.type === "simplicite") {
-                this.$router.push('/lesson' + suggestion.path).catch(err => console.log(err));
-            }  else if(suggestion.type === "page") {
-                this.$router.push('/page' + suggestion.path).catch(err => console.log(err));
-            }
+			if (suggestion.type === "lesson") {
+				this.$router.push('/lesson' + suggestion.path).catch(err => console.error(err));
+			} else if (suggestion.type === "discourse") {
+				window.open(suggestion.url);
+			} else if (suggestion.type === "simplicite") {
+				this.$router.push('/lesson' + suggestion.path).catch(err => console.log(err));
+			} else if (suggestion.type === "page") {
+				this.$router.push('/page' + suggestion.path).catch(err => console.log(err));
+			}
 		},
-		queryIndex(){
-            if(this.inputValue === "") {
-                this.isSugOpen = false;
-                return;
-            } else {
-                this.isSugOpen = true;
-            }
-            this.callSearchService(this.inputValue);
+		async queryIndex() {
+			if (this.inputValue === "") {
+				this.isSugOpen = false;
+				return;
+			} else {
+				this.isSugOpen = true;
+			}
+			this.suggestions = await s.callSearchService(this.$smp.parameters.url, this.$smp.getBearerTokenHeader(), this.inputValue, this.lang, []);
 		},
-        callSearchService(inputValue) {
-            const headers = new Headers();
-            headers.append("Authorization", this.$smp.getBearerTokenHeader());
-            headers.append("Content-Type", "application/json");
-            
-            const requestOptions = {
-                method: 'GET',
-                headers: headers,
-                redirect: 'follow'
-            };
-            fetch(this.$smp.parameters.url+"/api/ext/TrnSearchService/?query="+inputValue+"&lang="+this.lang, requestOptions)
-            .then(response => response.json())
-            .then((json) => {
-                if(json.length > 0) {
-                    this.suggestions = json;
-                }
-                else{
-                    this.suggestions = null;
-                }
-            })
-            .catch((error) => console.log(error));
-        }
-			
-
-		// searchElasticSearch(inputValue){
-			
-		// 	const myHeaders = new Headers();
-		// 	if(process.env.NODE_ENV !== "local") {
-		// 		const authent = Buffer.from(this.$ES_CREDENTIALS, 'utf8').toString('base64');
-		// 		myHeaders.append("Authorization", "Basic "+authent);
-		// 	}
-			
-		// 	myHeaders.append("Content-Type", "application/json");
-		// 	myHeaders.append("Origin", this.$ES_INSTANCE);
-			
-		// 	// any results are not returned
-		// 	const json = {
-		// 		"query": {
-		// 			"multi_match": {
-		// 				"type": "phrase_prefix",
-		// 				"query": inputValue,
-		// 				"fields": this.getsearchFields
-		// 			}
-		// 		},
-		// 		"highlight": {
-		// 			"fields": this.gethighlightFields,
-		// 			"fragment_size":500
-		// 		},
-		// 		"size": 10
-		// 	};
-			
-		// 	const raw = JSON.stringify(json);
-			
-		// 	const requestOptions = {
-		// 		method: 'POST',
-		// 		headers: myHeaders,
-		// 		body: raw,
-		// 		redirect: 'follow'
-		// 	};
-			
-		// 	const searchUrl = this.$ES_INSTANCE+"/"+this.$ES_INDEX+"/_search";
-			
-		// 	fetch(searchUrl, requestOptions)
-		// 	.then(response => response.json())
-		// 	.then(json => {
-		// 		if(json.hits) {
-		// 			const hits = json.hits.hits
-		// 			if(hits.length != 0){
-		// 				this.suggestions = hits;
-		// 				this.isSugOpen = true;
-		// 			}
-		// 			else{
-		// 				this.suggestions = null;
-		// 			}
-		// 		}
-		// 	})
-		// 	.catch(error => console.log('error', error));
-		// },
+		
 	}
 };
 
