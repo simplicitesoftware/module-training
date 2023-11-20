@@ -1,10 +1,7 @@
 package com.simplicite.extobjects.Training;
 
 import java.util.ArrayList;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
+import java.util.Map;
 import com.simplicite.commons.Training.TrnSearchElastic;
 import com.simplicite.commons.Training.TrnSearchSimplicite;
 import com.simplicite.commons.Training.TrnTools;
@@ -23,10 +20,11 @@ public class TrnSearchService extends RESTServiceExternalObject {
     Grant g = getGrant();
     try {
       String indexEngine = TrnTools.getIndexEngine();
-      JSONObject json = params.getJSONObject();
-      String query = json.getString("query");
-      String lang = json.getString("lang");
-      JSONArray filters = json.getJSONArray("filters");
+      Map<String, String[]> multiParams = params.getMultiParameters();
+      String query = multiParams.get("query")[0];
+      String lang = multiParams.get("lang")[0];
+      String[] filters = getFilters(multiParams.get("filters"));
+      
       if ("elasticsearch".equals(indexEngine)) {
         try {
           return TrnSearchElastic.search(query, lang, g, filters);
@@ -40,7 +38,6 @@ public class TrnSearchService extends RESTServiceExternalObject {
         AppLog.warning("Unkown index engine: " + indexEngine + " found in TRN_CONFIG. Fallback to simplicite engine.",
             null, g);
       }
-
       return TrnSearchSimplicite.search(query, lang, g);
     }
     catch (Exception e) {
@@ -48,5 +45,15 @@ public class TrnSearchService extends RESTServiceExternalObject {
       setHTTPStatus(500);
       return "Unable to get results for the requested query";
     }
+  }
+
+  private String[] getFilters(String[] filters) {
+    if(filters.length == 1) {
+      filters = filters[0].split(",");
+      if(filters.length == 1 && filters[0].isEmpty()) {
+        return new String[0];
+      }
+    }
+    return filters;
   }
 }

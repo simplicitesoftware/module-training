@@ -37,7 +37,7 @@ public class TrnSearchElastic implements java.io.Serializable {
   static EsSearchField[] documentationLangSearchFields = { new EsSearchField("title", "5"),
       new EsSearchField("raw_content", "1"), };
 
-  public static ArrayList<JSONObject> search(String input, String lang, Grant g, JSONArray filters) throws Exception {
+  public static ArrayList<JSONObject> search(String input, String lang, Grant g, String[] filters) throws Exception {
     TrnEsHelper esHelper = new TrnEsHelper(g);
     // es lang format is lowercase
     lang = lang.toLowerCase();
@@ -45,23 +45,31 @@ public class TrnSearchElastic implements java.io.Serializable {
     return formatResults(results, lang, g, input);
   }
 
-  private static JSONObject getFullQuery(String input, String lang, JSONArray filters) {
+  private static JSONObject getFullQuery(String input, String lang, String[] filters) {
     return new JSONObject()
         .put("highlight",
             new JSONObject().put("fields", getHighlightFields(lang, filters)).put("fragment_size", CONTENT_MAX_LENGTH))
         .put("size", MAX_RESULTS)
-        .put("query", new JSONObject().put("simple_query_string", new JSONObject().put("query", input + "*") // treat last termas prefix with "*"
-        .put("fields", getQueryFields(lang, filters))));
+        .put("query", new JSONObject().put("simple_query_string", new JSONObject().put("query", input + "*") // treat
+                                                                                                             // last
+                                                                                                             // termas
+                                                                                                             // prefix
+                                                                                                             // with "*"
+            .put("fields", getQueryFields(lang, filters))));
   }
 
-  private static JSONObject getHighlightFields(String lang, JSONArray filters) {
+  private static JSONObject getHighlightFields(String lang, String[] filters) {
     JSONObject highlightFields = new JSONObject();
-    for(var i = 0; i < filters.length(); i++) {
-      String filter = filters.getString(i);
-      if("discourse".equals(filter)) {
+    if (filters.length == 0) {
+      setDiscourseEsHighlightsFields(highlightFields);
+      setDocumentationEsHighlightsFields(highlightFields, lang);
+    }
+    for (var i = 0; i < filters.length; i++) {
+      String filter = filters[i];
+      if ("discourse".equals(filter)) {
         setDiscourseEsHighlightsFields(highlightFields);
       }
-      if("documentation".equals(filter)) {
+      if ("documentation".equals(filter)) {
         setDocumentationEsHighlightsFields(highlightFields, lang);
       }
     }
@@ -83,18 +91,19 @@ public class TrnSearchElastic implements java.io.Serializable {
     }
   }
 
-  private static JSONArray getQueryFields(String lang, JSONArray filters) {
+  private static JSONArray getQueryFields(String lang, String[] filters) {
     JSONArray queryFields = new JSONArray();
-    if(filters.length() == 0) {
+    if (filters.length == 0) {
       setDiscourseEsSearchFields(queryFields);
       setDocumentationEsSearchFields(queryFields, lang);
-    } else {
-      for (int i = 0; i < filters.length(); i++) {
-        String filter = filters.getString(i);
-        if("discourse".equals(filter)) {
+    }
+    else {
+      for (int i = 0; i < filters.length; i++) {
+        String filter = filters[i];
+        if ("discourse".equals(filter)) {
           setDiscourseEsSearchFields(queryFields);
         }
-        if("documentation".equals(filter)) {
+        if ("documentation".equals(filter)) {
           setDocumentationEsSearchFields(queryFields, lang);
         }
       }
