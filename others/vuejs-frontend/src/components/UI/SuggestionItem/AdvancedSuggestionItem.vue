@@ -1,5 +1,5 @@
 <template>
-  <a :href="getSuggestionPath" class="result-item">
+  <a :href="getSuggestionPath" class="result-item" @click="onClick($event)">
     <div class="result-header">
       <MaterialIcon :type="suggestion.type"></MaterialIcon>
       <div class="result-title" v-html="suggestion.title" />
@@ -27,13 +27,22 @@ export default {
     MaterialIcon
   },
   methods: {
+    onClick(event) {
+      if(event.type === "click") {
+        if (this.suggestion.type === "lesson") {
+          event.preventDefault();
+          this.$router.push('/lesson' + this.suggestion.path).catch(err => console.error(err));
+        }
+      }
+      
+    }
   },
   computed: {
     getSuggestionPath() {
       if (this.suggestion.type === "discourse") {
         return this.suggestion.url;
       } else if (this.suggestion.type === "lesson") {
-        return this.$smp.parameters.url+"/lesson"+this.suggestion.path;
+        return this.$smp.parameters.url + "/lesson" + this.suggestion.path;
       }
       return "";
     }
@@ -45,6 +54,10 @@ export default {
 .result-item
   text-decoration: none
   color: black
+  border-bottom: solid 1px #E0E0E0
+  padding: 5px 5px 10px 5px 
+  display: flex
+  flex-direction: column
   &:hover
     cursor: pointer
     border: solid 1px #E0E0E0
@@ -56,10 +69,7 @@ export default {
       background-color: yellow
       font-weight: bold
       font-style: normal
-  border-bottom: solid 1px #E0E0E0
-  padding: 5px 5px 10px 5px 
-  display: flex
-  flex-direction: column
+  
   .result-header
     display: flex
     flex-direction: row

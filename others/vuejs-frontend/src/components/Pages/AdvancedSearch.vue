@@ -1,21 +1,23 @@
 <template>
-  <div class="wrapper" v-on:keyup.enter="search">
+  <div class="wrapper">
     <div class="grid">
       <div class="grid_item">
-        <h1>Advanced search</h1>
+        <h1>Search</h1>
         <div class="content">
           <div class="search_container">
             <div class="search_bar">
-              <input class="search" type="search" placeholder="search" v-model="query">
+              <input class="search" @input="search" type="search" placeholder="search" v-model="query">
               <div class="logo_container">
-                <div class="material-icons searchbar_logo" @click="search" >
-                  search
-                </div>
+                <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-simple-query-string-query.html#simple-query-string-syntax" 
+                target="_blank" class="material-icons help_logo"
+                title="Click here to learn more about how you can improve your search">
+                  help
+                </a>
               </div>
             </div>
             <div class="button_layout">
-              <button class="filter" v-bind:class="{active: documentationFilter}" type="button" @click="documentationFilter = !documentationFilter">Documentation</button>
-              <button class="filter" v-bind:class="{active: communityFilter}" type="button" @click="communityFilter = !communityFilter">Community</button>
+              <button class="filter" v-bind:class="{active: documentationFilter}" type="button" @click="toggleDocumentationFilter">Documentation</button>
+              <button class="filter" v-bind:class="{active: communityFilter}" type="button" @click="toggleCommunityFilter">Community</button>
             </div>
           </div>
           <Spinner class="spinner" v-if="fetchingResults"/>
@@ -79,6 +81,24 @@ export default {
         this.suggestions = []
       }
     },
+    resetFilters(filter) {
+      if(filter !== "documentation") {
+        this.documentationFilter = false;
+      }
+      if(filter !== "community") {
+        this.communityFilter = false;
+      }
+    },
+    async toggleDocumentationFilter() {
+      this.documentationFilter = !this.documentationFilter;
+      this.resetFilters("documentation");
+      await this.search();
+    },
+    async toggleCommunityFilter() {
+      this.communityFilter = !this.communityFilter;
+      this.resetFilters("community");
+      await this.search();
+    }
   },
 }
 </script>
@@ -118,35 +138,39 @@ export default {
         font-weight: normal
         font-size: 36px
       .content
+        width: 80%
         .spinner
           padding-top: 300px
         .search_container
           display: flex
           flex-direction: column
-          width: 60%
           padding-bottom: 10px
           .search_bar
             display: flex
             flex-direction: row
             padding-bottom: 15px
             .search
-              width: 90%
+              width: 100%
               font-size: 1.5rem
               border: 1px solid grey
               border-radius: 3px
               margin-right: 20px
             .logo_container
-              background-color: #3C78D8
-              border-radius: 3px
+              background: #e3edff
+              border-radius: 5px
 
-            .searchbar_logo
-              padding: 5px 20px 5px 20px            
-              color: white
+            .help_logo
+              padding: 5px 5px 5px 5px
+              text-decoration: none
+              color: black       
+              
               &:hover
                 cursor: pointer
-                background-color: transparentize(white, 0.9)
+                background: #ccdefc
+                border-radius: 5px
+
+
         .result_container
-          width: 80%
           .item
             padding: 10px 10px 10px 0
 
