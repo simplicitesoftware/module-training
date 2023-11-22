@@ -7,13 +7,19 @@
           <div class="search_container">
             <div class="search_bar">
               <input class="search" @input="search" type="search" placeholder="search" v-model="query">
-              <div class="logo_container">
-                <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-simple-query-string-query.html#simple-query-string-syntax" 
-                target="_blank" class="material-icons help_logo"
-                title="Click here to learn more about how you can improve your search">
-                  help
-                </a>
-              </div>
+              <Tooltip text="
+                Use these notations to improve your search:
+                + signifies AND operation
+                | signifies OR operation
+                - negates a single token
+                &quot; wraps a number of tokens to signify a phrase for searching
+                * at the end of a term signifies a prefix query
+                ( and ) signify precedence
+                ~N after a word signifies edit distance (fuzziness)
+                ~N after a phrase signifies slop amount
+              ">
+                <span class="material-icons help_logo">help</span>
+              </Tooltip>
             </div>
             <div class="button_layout">
               <button class="filter" v-bind:class="{active: documentationFilter}" type="button" @click="toggleDocumentationFilter">Documentation</button>
@@ -37,10 +43,11 @@
 import { mapState, mapGetters } from "vuex";
 import s from "../../shared"
 import AdvancedSuggestionItem from "../UI/SuggestionItem/AdvancedSuggestionItem.vue";
+import Tooltip from "../UI/Tooltip.vue";
 import Spinner from "../UI/Spinner";
 
 export default {
-  components: { AdvancedSuggestionItem, Spinner },
+  components: { AdvancedSuggestionItem, Spinner, Tooltip },
   name: "AdvancedSearch",
   data: () => ({
     query: "",
@@ -145,6 +152,7 @@ export default {
           display: flex
           flex-direction: column
           padding-bottom: 10px
+          align-content: center
           .search_bar
             display: flex
             flex-direction: row
@@ -154,22 +162,13 @@ export default {
               font-size: 1.5rem
               border: 1px solid grey
               border-radius: 3px
-              margin-right: 20px
-            .logo_container
-              background: #e3edff
-              border-radius: 5px
+              margin-right: 20px               
 
-            .help_logo
-              padding: 5px 5px 5px 5px
-              text-decoration: none
-              color: black       
-              
-              &:hover
-                cursor: pointer
-                background: #ccdefc
-                border-radius: 5px
-
-
+              .help_logo
+                &:hover
+                  cursor: pointer
+                  background: #ccdefc
+                  border-radius: 5px
         .result_container
           .item
             padding: 10px 10px 10px 0
