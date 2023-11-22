@@ -31,10 +31,9 @@ public class TrnGitCheckout implements java.io.Serializable {
   private static final String CONTENT_FOLDER_NAME = "docs";
   private static UsernamePasswordCredentialsProvider credentialsProvider;
 
-  public static String checkout() throws Exception {
+  public static String checkout(Grant g) throws Exception {
     File contentDir = getContentDir();
-    Grant g = Grant.getSystemAdmin();
-    String login = g.getSessionInfo().getLogin();
+    String login = g.getLogin();
     try {
       String branch = TrnTools.getGitBranch();
 

@@ -18,7 +18,7 @@ public class TrnGitCheckoutService extends com.simplicite.webapp.services.RESTSe
   @Override
   public Object post(Parameters params) {
     try {
-      return TrnGitCheckout.checkout();
+      return TrnGitCheckout.checkout(getGrant());
     }
     catch (Exception e) {
       setHTTPStatus(500);

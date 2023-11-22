@@ -26,7 +26,7 @@ public class TrnSyncSupervisor extends ObjectDB {
 	}
 
 	public String dropData() {
-        String login = getGrant().getSessionInfo().getLogin();
+        String login = getGrant().getLogin();
 		try {
 			if (!TrnTools.isFileSystemMode())
 				return "Data drop only available in FILESYSTEM mode";
@@ -43,13 +43,14 @@ public class TrnSyncSupervisor extends ObjectDB {
 
 	public String forceSync(Action action) {
 		try {
+      Grant g = getGrant(); 
 			if (!TrnTools.isFileSystemMode())
 				return "Synchronization only available in FILESYSTEM mode";
 			String syncType = action.getConfirmField("trnSyncActionType").getValue();
 			if ("GIT".equals(syncType)) {
-				TrnGitCheckout.checkout();
+				TrnGitCheckout.checkout(g);
 			} else if ("FS".equals(syncType)) {
-        TrnFsSyncTool.triggerSyncOnly(getGrant().getSessionInfo().getLogin());
+        TrnFsSyncTool.triggerSyncOnly(g.getLogin());
 			} else {
 				throw new Exception("Unknown sync type");
 			}
@@ -75,7 +76,7 @@ public class TrnSyncSupervisor extends ObjectDB {
 	}
 
 	public String reIndexAll() {
-        String login = getGrant().getSessionInfo().getLogin();
+        String login = getGrant().getLogin();
 		try {
 			if (!TrnTools.isElasticSearchMode())
 				return "indexation only available with elastic search mode";
