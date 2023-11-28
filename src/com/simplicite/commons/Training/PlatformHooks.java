@@ -8,9 +8,7 @@ import com.simplicite.util.exceptions.*;
 import com.simplicite.util.tools.*;
 
 /**
- * Grant Hooks
- * @deprecated Use PlatformHooks instead
+ * Platform Hooks
  */
-@Deprecated
-public class GrantHooks extends com.simplicite.util.engine.GrantHooksInterface {
+public class PlatformHooks extends com.simplicite.util.engine.PlatformHooksInterface {
 }
