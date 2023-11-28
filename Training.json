@@ -52,6 +52,58 @@
    ]
   },
   {
+   "object": "Theme",
+   "label": "Themes",
+   "icon": "img/system/theme",
+   "field": "row_module_id",
+   "list": [{
+    "object": "Theme",
+    "userkey": "ThemeTraining",
+    "item": {
+     "thm_name": "ThemeTraining",
+     "thm_logo_id": {
+      "path": "files/Theme/ThemeTraining/logo.png",
+      "mime": "image/png",
+      "name": "simplicite_logo.png"
+     },
+     "thm_logo_invert": null,
+     "thm_logo2_id": null,
+     "thm_favicon_id": null,
+     "thm_color1": null,
+     "thm_color2": null,
+     "thm_text2": null,
+     "thm_color3": null,
+     "thm_text3": null,
+     "thm_base": "default",
+     "thm_css_doc": {
+      "path": "files/Theme/ThemeTraining/ThemeTraining_gen.css",
+      "mime": "text/css",
+      "name": "ThemeTraining_gen.css"
+     },
+     "thm_addon": null,
+     "thm_searchbox": null,
+     "thm_active": null,
+     "thm_font": null,
+     "thm_iconset": null,
+     "thm_code_editor_theme": null,
+     "thm_html_editor_theme": "LIGHT",
+     "thm_menu_dom_c": null,
+     "thm_menu_dom_t": null,
+     "thm_menu_dact_c": null,
+     "thm_menu_dact_t": null,
+     "thm_menu_sub_c": null,
+     "thm_menu_sub_t": null,
+     "thm_menu_sact_c": null,
+     "thm_menu_sact_t": null,
+     "thm_menu_sta_c": null,
+     "thm_menu_sta_t": null,
+     "thm_compact": false,
+     "row_module_id__mdl_name": "Training",
+     "thm_const": null
+    }
+   }]
+  },
+  {
    "object": "View",
    "label": "Views",
    "icon": "img/system/view",
@@ -64,10 +116,10 @@
      "viw_ui": null,
      "viw_order": 1,
      "viw_icon": "img/color/innovation",
-     "viw_disp_id__dis_code": null,
+     "viw_disp_id__dis_code": "responsive5",
      "viw_scope": "Formation",
      "row_module_id__mdl_name": "Training",
-     "viw_theme_id__thm_name": null,
+     "viw_theme_id__thm_name": "ThemeTraining",
      "viw_lang": null
     }
    }]
@@ -12357,7 +12409,7 @@
       "tsl_typeObject": "O",
       "tsl_id__obd_name": "TrnDomain",
       "tsl_lang": "FRA",
-      "tsl_value": "Formation",
+      "tsl_value": "Documentation",
       "tsl_help": null,
       "row_module_id__mdl_name": "Training"
      }
