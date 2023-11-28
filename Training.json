@@ -64,7 +64,7 @@
      "thm_logo_id": {
       "path": "files/Theme/ThemeTraining/logo.png",
       "mime": "image/png",
-      "name": "simplicite_logo.png"
+      "name": "logo.png"
      },
      "thm_logo_invert": null,
      "thm_logo2_id": null,
@@ -990,7 +990,7 @@
       "lov_code_id__lov_list_id__lov_name": "TRN_SYNC_ACTION_TYPE",
       "lov_code_id__lov_code": "GIT",
       "lov_lang": "ENU",
-      "lov_value": "Git checkout + synchronization",
+      "lov_value": "Git checkout + synchronization filesystem",
       "row_module_id__mdl_name": "Training"
      }
     },
@@ -1001,7 +1001,7 @@
       "lov_code_id__lov_list_id__lov_name": "TRN_SYNC_ACTION_TYPE",
       "lov_code_id__lov_code": "GIT",
       "lov_lang": "FRA",
-      "lov_value": "Git checkout + synchronisation",
+      "lov_value": "Git checkout + synchronisation filesystem",
       "row_module_id__mdl_name": "Training"
      }
     },
