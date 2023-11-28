@@ -10165,6 +10165,20 @@
       "scr_type": "JSR",
       "row_module_id__mdl_name": "Training"
      }
+    },
+    {
+     "object": "Script",
+     "userkey": "GrantHooks",
+     "item": {
+      "scr_code": "GrantHooks",
+      "scr_file": {
+       "path": "src/com/simplicite/commons/Training/GrantHooks.java",
+       "mime": "text/plain",
+       "name": "GrantHooks.java"
+      },
+      "scr_type": "JSR",
+      "row_module_id__mdl_name": "Training"
+     }
     }
    ]
   },
