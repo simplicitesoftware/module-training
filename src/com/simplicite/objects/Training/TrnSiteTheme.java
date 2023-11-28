@@ -1,7 +1,6 @@
 package com.simplicite.objects.Training;
 
 import com.simplicite.commons.Training.TrnObject;
-import com.simplicite.util.*;
 
 /**
  * Business object TrnSiteTheme
