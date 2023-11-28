@@ -157,6 +157,38 @@ export default {
 				if (potentialImages.length) this.$refs.slider.goToImage(potentialImages[potentialImages.length - 1]);
 			});
 		},
+		addAnchorIcons() {
+			if (this.lesson.type !== "lesson" || this.lesson.catPath === "/pages") return;
+			const headingTags = document.querySelector(".lesson-block").querySelectorAll("h1, h2, h3");
+			for (const heading of headingTags) {
+				// create icon tag
+				const icon = document.createElement("span");
+				icon.className = "icons material-icons";
+				icon.textContent = "link";
+
+				// create link
+				const headingId = heading.getAttribute("id");
+				const anchorLink = this.getAnchorLink(headingId);
+				const link = document.createElement("a");
+				link.className = "anchor-link";
+				link.setAttribute("href", anchorLink);
+				link.setAttribute("title", "Copy link "+this.lesson.path+"#"+headingId);
+				link.addEventListener('click', async (event) => {
+					event.preventDefault();
+					try {
+						await navigator.clipboard.writeText(link.getAttribute('href'));
+					} catch (e) {
+						console.log(e);
+					}
+				});
+				// add icon as a child of link, and link as child of the heading
+				link.appendChild(icon);
+				heading.appendChild(link);
+			}
+		},
+		getAnchorLink(anchorId) {
+			return this.$smp.parameters.url + "/lesson" + this.lesson.path + "#" + anchorId;
+		},
 		openLesson(lesson) {
 			this.$store.dispatch("lesson/openLesson", {
 				smp: this.$smp,
@@ -164,6 +196,7 @@ export default {
 			}).then(() => {
 				this.spinner = false;
 			}).finally(() => {
+				this.addAnchorIcons();
 				hljs.highlightAll();
 				if (this.$route.hash) {
 					const id = this.$route.hash.replace('#', '');
@@ -341,6 +374,20 @@ export default {
 
 		h1, h2, h3, h4, h5, h6
 			font-weight: normal
+			display: flex
+			align-items: center
+
+		.anchor-link
+			color: #808080
+			display: flex
+			align-items: center
+			padding: 4px 0 0 10px
+			&:hover
+				color: #0062ff
+				text-decoration: none
+			.icon
+			
+				
 		h1
 			font-size: map-get($title-sizes, 1)
 			color: #5BC0DE
@@ -356,6 +403,8 @@ export default {
 			color: #F0AD4E
 			border-bottom: solid 1px #E0E0E0
 			margin: 0 0 8px 0
+			.anchor-link
+				padding-top: 3px
 		h4
 			font-size: map-get($title-sizes, 4)
 			color: $color-secondary
