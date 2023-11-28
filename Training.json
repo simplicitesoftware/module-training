@@ -10168,13 +10168,13 @@
     },
     {
      "object": "Script",
-     "userkey": "GrantHooks",
+     "userkey": "PlatformHooks",
      "item": {
-      "scr_code": "GrantHooks",
+      "scr_code": "PlatformHooks",
       "scr_file": {
-       "path": "src/com/simplicite/commons/Training/GrantHooks.java",
+       "path": "src/com/simplicite/commons/Training/PlatformHooks.java",
        "mime": "text/plain",
-       "name": "GrantHooks.java"
+       "name": "PlatformHooks.java"
       },
       "scr_type": "JSR",
       "row_module_id__mdl_name": "Training"
