@@ -7,7 +7,7 @@
           <div class="search_container">
             <div class="search_bar">
               <input class="search" @input="search" type="search" placeholder="search" v-model="query">
-              <Tooltip text="
+              <span class="material-icons help_logo" title="
                 Use these notations to improve your search:
                 + signifies AND operation
                 | signifies OR operation
@@ -17,9 +17,7 @@
                 ( and ) signify precedence
                 ~N after a word signifies edit distance (fuzziness)
                 ~N after a phrase signifies slop amount
-              ">
-                <span class="material-icons help_logo">help</span>
-              </Tooltip>
+              ">help</span>
             </div>
             <div class="button_layout">
               <button class="filter" v-bind:class="{active: documentationFilter}" type="button" @click="toggleDocumentationFilter">Documentation</button>
@@ -43,11 +41,10 @@
 import { mapState, mapGetters } from "vuex";
 import s from "../../shared"
 import AdvancedSuggestionItem from "../UI/SuggestionItem/AdvancedSuggestionItem.vue";
-import Tooltip from "../UI/Tooltip.vue";
 import Spinner from "../UI/Spinner";
 
 export default {
-  components: { AdvancedSuggestionItem, Spinner, Tooltip },
+  components: { AdvancedSuggestionItem, Spinner },
   name: "AdvancedSearch",
   data: () => ({
     query: "",
@@ -164,15 +161,13 @@ export default {
               border-radius: 3px
               margin-right: 20px               
 
-              .help_logo
-                &:hover
-                  cursor: pointer
-                  background: #ccdefc
-                  border-radius: 5px
+            .help_logo
+              padding-top: 2px
+              &:hover
+                cursor: pointer
         .result_container
           .item
             padding: 10px 10px 10px 0
-
             
         .button_layout
           padding: 0 0 8px 0
