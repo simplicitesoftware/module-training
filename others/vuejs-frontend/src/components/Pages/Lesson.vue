@@ -513,7 +513,7 @@ export default {
 	.lesson-wrapper
 		//@include fillParent()
 		padding-right: 20%
-		padding-left: 2%
+		padding-left: 25px
 	.lesson-block
 		grid-column: 1/3
 	.lesson-html-content
