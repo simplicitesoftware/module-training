@@ -362,6 +362,7 @@ export default {
 		//   padding: map_get($paddings, "small")
 		th, td
 			border: solid 1px #E0E0E0
+		
 
 
 		h1, h2, h3, h4, h5, h6
@@ -385,8 +386,6 @@ export default {
 				display: flex
 				align-items: center
 				padding: 4px 0 0 10px
-				width: 50px
-				height: 50px
 				&:hover
 					text-decoration: none
 					color: #808080

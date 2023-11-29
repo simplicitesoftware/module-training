@@ -69,6 +69,8 @@ export default {
       background-color: yellow
       font-weight: bold
       font-style: normal
+    input
+      visibility: hidden
   
   .result-header
     display: flex
