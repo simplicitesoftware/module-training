@@ -58,6 +58,7 @@ export default {
   padding: 5px 5px 10px 5px 
   display: flex
   flex-direction: column
+    
   &:hover
     cursor: pointer
     border: solid 1px #E0E0E0
@@ -71,6 +72,9 @@ export default {
       font-style: normal
     input
       visibility: hidden
+    h1, h2, h3, h4, h5, h6
+      font-size: 1rem
+      font-weight: normal
   
   .result-header
     display: flex

@@ -362,8 +362,6 @@ export default {
 		//   padding: map_get($paddings, "small")
 		th, td
 			border: solid 1px #E0E0E0
-		
-
 
 		h1, h2, h3, h4, h5, h6
 			position: relative
@@ -374,9 +372,6 @@ export default {
 				.anchor-link
 					.icons
 						visibility: visible
-
-
-					
 
 			.anchor-link
 				
@@ -391,8 +386,6 @@ export default {
 					color: #808080
 				.icons					
 					visibility: hidden
-
-				
 				
 		h1
 			font-size: map-get($title-sizes, 1)
