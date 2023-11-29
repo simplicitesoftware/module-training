@@ -159,7 +159,7 @@ export default {
 		},
 		addAnchorIcons() {
 			if (this.lesson.type !== "lesson" || this.lesson.catPath === "/pages") return;
-			const headingTags = document.querySelector(".lesson-block").querySelectorAll("h1, h2, h3");
+			const headingTags = document.querySelector(".lesson-block").querySelectorAll("h1, h2, h3, h4, h5, h6");
 			for (const heading of headingTags) {
 				// create icon tag
 				const icon = document.createElement("span");
@@ -168,26 +168,18 @@ export default {
 
 				// create link
 				const headingId = heading.getAttribute("id");
-				const anchorLink = this.getAnchorLink(headingId);
 				const link = document.createElement("a");
 				link.className = "anchor-link";
-				link.setAttribute("href", anchorLink);
-				link.setAttribute("title", "Copy link "+this.lesson.path+"#"+headingId);
-				link.addEventListener('click', async (event) => {
-					event.preventDefault();
-					try {
-						await navigator.clipboard.writeText(link.getAttribute('href'));
-					} catch (e) {
-						console.log(e);
-					}
-				});
+				link.setAttribute("href", "#" + headingId);
+				link.setAttribute("title", headingId);
+				
 				// add icon as a child of link, and link as child of the heading
 				link.appendChild(icon);
 				heading.appendChild(link);
 			}
 		},
 		getAnchorLink(anchorId) {
-			return this.$smp.parameters.url + "/lesson" + this.lesson.path + "#" + anchorId;
+			return this.$smp.parameters.url + "/lesson" + this.lesson.path
 		},
 		openLesson(lesson) {
 			this.$store.dispatch("lesson/openLesson", {
@@ -326,7 +318,7 @@ export default {
 	margin-top: 10px
 	font-size: 1rem
 	@include flex-column-nowrap
-	overflow: hidden
+	
 	& ::v-deep
 		:not(pre) code.hljs  // targets inline code
 			display: inline
@@ -373,20 +365,35 @@ export default {
 
 
 		h1, h2, h3, h4, h5, h6
+			position: relative
 			font-weight: normal
 			display: flex
 			align-items: center
-
-		.anchor-link
-			color: #808080
-			display: flex
-			align-items: center
-			padding: 4px 0 0 10px
 			&:hover
-				color: #0062ff
-				text-decoration: none
-			.icon
-			
+				.anchor-link
+					.icons
+						visibility: visible
+
+
+					
+
+			.anchor-link
+				
+				position: absolute
+				color: #808080
+				left: -40px
+				display: flex
+				align-items: center
+				padding: 4px 0 0 10px
+				width: 50px
+				height: 50px
+				&:hover
+					text-decoration: none
+					color: #808080
+				.icons					
+					visibility: hidden
+
+				
 				
 		h1
 			font-size: map-get($title-sizes, 1)
