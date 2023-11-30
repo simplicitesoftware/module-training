@@ -374,16 +374,14 @@ export default {
 						visibility: visible
 
 			.anchor-link
-				
-				position: absolute
 				color: #808080
-				left: -40px
 				display: flex
 				align-items: center
 				padding: 4px 0 0 10px
 				&:hover
 					text-decoration: none
 					color: #808080
+
 				.icons					
 					visibility: hidden
 				
