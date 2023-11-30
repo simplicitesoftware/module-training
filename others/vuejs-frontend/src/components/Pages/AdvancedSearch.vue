@@ -20,13 +20,15 @@
               ">help</span>
             </div>
             <div class="button_layout">
-              <button class="filter" v-bind:class="{active: documentationFilter}" type="button" @click="toggleDocumentationFilter">Documentation</button>
-              <button class="filter" v-bind:class="{active: communityFilter}" type="button" @click="toggleCommunityFilter">Community</button>
+              <button class="filter" v-bind:class="{ active: documentationFilter }" type="button"
+                @click="toggleDocumentationFilter">Documentation</button>
+              <button class="filter" v-bind:class="{ active: communityFilter }" type="button"
+                @click="toggleCommunityFilter">Community</button>
             </div>
           </div>
-          <Spinner class="spinner" v-if="fetchingResults"/>
+          <Spinner class="spinner" v-if="fetchingResults" />
           <div class="result_container" v-else-if="suggestions.length > 0">
-            <div class="item"  v-for="suggestion in suggestions || []" :key="suggestion.id">
+            <div class="item" v-for="suggestion in suggestions || []" :key="suggestion.id">
               <AdvancedSuggestionItem :suggestion="suggestion" />
             </div>
           </div>
@@ -51,11 +53,14 @@ export default {
     suggestions: [],
     documentationFilter: false,
     communityFilter: false,
-    fetchingResults: false
+    fetchingResults: false,
+    // pit is and id provided by elasticsearch that garanties consistent search results when using pagination  
+    // see https://www.elastic.co/guide/en/elasticsearch/reference/current/point-in-time-api.html
+    pit: null
   }),
   async created() {
     const initialQuery = this.$router.currentRoute.params.query;
-    if(initialQuery) { 
+    if (initialQuery) {
       this.query = initialQuery;
       await this.search()
     }
@@ -68,28 +73,35 @@ export default {
     ...mapGetters({
       lang: 'ui/lang'
     }),
-    getFilters: function() {
+    getFilters: function () {
       const filters = [];
-      if(this.documentationFilter) filters.push("documentation");
-      if(this.communityFilter) filters.push("discourse");
+      if (this.documentationFilter) filters.push("documentation");
+      if (this.communityFilter) filters.push("discourse");
       return filters;
     }
   },
   methods: {
     async search() {
-      if(this.query) {
+      // every time the search query changes, delete provided pit and get new one
+      if(this.pit) {
+        await s.deletePIT(this.$smp.parameters.url, this.$smp.getBearerTokenHeader(), this.pit);
+      }
+      if (this.query) {
         this.fetchingResults = true;
-        this.suggestions = await s.callSearchService(this.$smp.parameters.url, this.$smp.getBearerTokenHeader(), this.query, this.lang, this.getFilters);
+        this.pit = await s.getPIT(this.$smp.parameters.url, this.$smp.getBearerTokenHeader());
+        this.suggestions = await s.callSearchService(this.$smp.parameters.url, this.$smp.getBearerTokenHeader(), this.query, this.lang, this.getFilters, this.pit);
         this.fetchingResults = false;
       } else {
+        this.pit = null;
         this.suggestions = []
       }
+      console.log(this.pit)
     },
     resetFilters(filter) {
-      if(filter !== "documentation") {
+      if (filter !== "documentation") {
         this.documentationFilter = false;
       }
-      if(filter !== "community") {
+      if (filter !== "community") {
         this.communityFilter = false;
       }
     },

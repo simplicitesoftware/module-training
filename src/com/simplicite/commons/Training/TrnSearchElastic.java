@@ -1,12 +1,14 @@
 package com.simplicite.commons.Training;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.simplicite.util.AppLog;
 import com.simplicite.util.Grant;
+import com.simplicite.util.tools.RESTTool;
 
 /**
  * Shared code TrnSearchElastic
@@ -243,5 +245,13 @@ public class TrnSearchElastic implements java.io.Serializable {
     else {
       throw new Exception("Unable to read discourse doc content from elasticsearch result");
     }
+  }
+
+  public static JSONObject getPIT(Grant g) throws Exception{
+    return (new TrnEsHelper(g)).getPIT();
+  }
+
+  public static String deletePit(Grant g, String pit) throws Exception{
+    return (new TrnEsHelper(g)).deletePit(pit);
   }
 }
