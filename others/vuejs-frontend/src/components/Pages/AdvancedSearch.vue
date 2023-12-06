@@ -55,6 +55,7 @@ export default {
     communityFilter: false,
     fetchingResults: false,
     page: 0,
+    pageIncrement: 0,
     allResults: false
   }),
   async created() {
@@ -85,9 +86,10 @@ export default {
       if (this.query) {
         this.fetchingResults = true;
         this.allResults = false;
-        const fetchedSuggestions = await s.callSearchService(this.$smp.parameters.url, this.$smp.getBearerTokenHeader(), this.query, this.lang, this.getFilters, this.page);
-        this.page = 0;
-        this.suggestions = fetchedSuggestions;
+        const res = await s.callSearchService(this.$smp.parameters.url, this.$smp.getBearerTokenHeader(), this.query, this.lang, this.getFilters, this.page);
+        this.suggestions = res.results;
+        this.pageIncrement = res.page_increment;
+        this.page += this.pageIncrement;
         this.fetchingResults = false;
       } else {
         this.suggestions = [];
@@ -97,24 +99,14 @@ export default {
     async searchScroll() {
       if (this.query) {
         this.fetchingResults = true;
-        const fetchedSuggestions = await s.callSearchService(this.$smp.parameters.url, this.$smp.getBearerTokenHeader(), this.query, this.lang, this.getFilters, this.page);
+        const res = await s.callSearchService(this.$smp.parameters.url, this.$smp.getBearerTokenHeader(), this.query, this.lang, this.getFilters, this.page);
+        const fetchedSuggestions = res.results;
         if (fetchedSuggestions.length === 0) {
           this.allResults = true;
         }
-        this.filterAndAddSuggestions(fetchedSuggestions);
-        this.page += 20;
+        this.suggestions = this.suggestions.concat(fetchedSuggestions);
+        this.page += this.pageIncrement;
       }
-    },
-    filterAndAddSuggestions(fetchedSuggestions) {
-      const tempArray = this.suggestions;
-      for (const fetchedSugg of fetchedSuggestions) {
-        let found = false;
-        if (this.suggestions.find((sugg) => sugg.id === fetchedSugg.id)) {
-          found = true;
-        }
-        if (!found) tempArray.push(fetchedSugg);
-      }
-      this.suggestions = tempArray;
     },
     resetFilters(filter) {
       if (filter !== "documentation") {

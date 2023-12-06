@@ -36,13 +36,16 @@ public class TrnSearchElastic implements java.io.Serializable {
   static EsSearchField[] documentationLangSearchFields = { new EsSearchField("title", "5"),
       new EsSearchField("raw_content", "1"), };
 
-  public static ArrayList<JSONObject> search(String input, String lang, Grant g, String[] filters, int page) 
+  public static JSONObject search(String input, String lang, Grant g, String[] filters, int page) 
   throws Exception {
     TrnEsHelper esHelper = new TrnEsHelper(g);
     // es lang format is lowercase
     lang = lang.toLowerCase();
     JSONArray results = esHelper.searchRequest(getFullQuery(input, lang, filters, page));
-    return formatResults(results, lang, g, input);
+    JSONObject json = new JSONObject();
+    json.put("results", formatResults(results, lang, g, input))
+      .put("page_increment", MAX_RESULTS);
+    return json;
   }
 
   private static JSONObject getFullQuery(String input, String lang, String[] filters, int page) {

@@ -1,7 +1,8 @@
 <template>
 	<div id="SearchBar" v-click-outside="hideSuggestions">
 		<div class="searchElement">
-			<input class="searchbar" @input="queryIndex" v-model="inputValue" type="text" :placeholder="searchbarPlaceHolder" v-on:keyup.enter="openAdvancedSearch" />
+			<input class="searchbar" @input="queryIndex" v-model="inputValue" type="text" :placeholder="searchbarPlaceHolder"
+				v-on:keyup.enter="openAdvancedSearch" />
 			<div @click="openAdvancedSearch" class="searchbar-logo-container"
 				:style="{ [`background-color`]: `${themeValues.primaryColor}` }">
 				<span class="material-icons searchbar-logo">
@@ -93,9 +94,10 @@ export default {
 			} else {
 				this.isSugOpen = true;
 			}
-			this.suggestions = await s.callSearchService(this.$smp.parameters.url, this.$smp.getBearerTokenHeader(), this.inputValue, this.lang, [], 0);
+			const res = await s.callSearchService(this.$smp.parameters.url, this.$smp.getBearerTokenHeader(), this.inputValue, this.lang, [], 0);
+			this.suggestions = res.results;
 		},
-		
+
 	}
 };
 

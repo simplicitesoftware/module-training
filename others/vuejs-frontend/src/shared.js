@@ -19,9 +19,7 @@ export default {
             fetch(simpliciteInstanceUrl + "/api/ext/TrnSearchService/?"+urlParams, requestOptions)
                 .then(response => response.json())
                 .then((json) => {
-                    if (json.length > 0) {
-                        res(json);
-                    }
+                    res(json);
                 })
                 .catch((error) => {
                     console.log(error)

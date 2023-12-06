@@ -42,7 +42,7 @@ public class TrnSearchService extends RESTServiceExternalObject {
         AppLog.warning("Unkown index engine: " + indexEngine + " found in TRN_CONFIG. Fallback to simplicite engine.",
             null, g);
       }
-      return TrnSearchSimplicite.search(query, lang, g);
+      return TrnSearchSimplicite.search(query, lang, g, page);
     }
     catch (Exception e) {
       AppLog.error(getClass(), "get", e.getMessage(), e, g);
