@@ -61,7 +61,7 @@ export default {
     const initialQuery = this.$router.currentRoute.params.query;
     if (initialQuery) {
       this.query = initialQuery;
-      await this.search(true)
+      await this.search()
     }
   },
   computed: {
@@ -80,36 +80,39 @@ export default {
     }
   },
   methods: {
-    async search(onScroll) {
+    async search() {
+      this.page = 0;
+      if (this.query) {
+        this.fetchingResults = true;
+        this.allResults = false;
+        const fetchedSuggestions = await s.callSearchService(this.$smp.parameters.url, this.$smp.getBearerTokenHeader(), this.query, this.lang, this.getFilters, this.page);
+        this.page = 0;
+        this.suggestions = fetchedSuggestions;
+        this.fetchingResults = false;
+      } else {
+        this.suggestions = [];
+        this.fetchingResults = false;
+      }
+    },
+    async searchScroll() {
       if (this.query) {
         this.fetchingResults = true;
         const fetchedSuggestions = await s.callSearchService(this.$smp.parameters.url, this.$smp.getBearerTokenHeader(), this.query, this.lang, this.getFilters, this.page);
-        if(onScroll) {
-          // when all the results have been fetched
-          if(fetchedSuggestions.length === 0) {
-            this.allResults = true;
-          } else {
-            this.allResults = false;
-          }
-          this.filterAndAddSuggestions(fetchedSuggestions);
-          this.page += 20;
-        } else {
-          this.suggestions = fetchedSuggestions;
+        if (fetchedSuggestions.length === 0) {
+          this.allResults = true;
         }
-        this.fetchingResults = false;
-      } else {
-        this.suggestions = []
-        this.page = 0;
+        this.filterAndAddSuggestions(fetchedSuggestions);
+        this.page += 20;
       }
     },
     filterAndAddSuggestions(fetchedSuggestions) {
       const tempArray = this.suggestions;
-      for(const fetchedSugg of fetchedSuggestions) {
+      for (const fetchedSugg of fetchedSuggestions) {
         let found = false;
-        if(this.suggestions.find((sugg) => sugg.id === fetchedSugg.id)) {
+        if (this.suggestions.find((sugg) => sugg.id === fetchedSugg.id)) {
           found = true;
         }
-        if(!found) tempArray.push(fetchedSugg); 
+        if (!found) tempArray.push(fetchedSugg);
       }
       this.suggestions = tempArray;
     },
@@ -126,18 +129,18 @@ export default {
       this.resetFilters("documentation");
       this.page = 0;
       this.allResults = false;
-      await this.search(false);
+      await this.search();
     },
     async toggleCommunityFilter() {
       this.communityFilter = !this.communityFilter;
       this.resetFilters("community");
       this.page = 0;
       this.allResults = false;
-      await this.search(false);
+      await this.search();
     },
-    async onScroll ({ target: { scrollTop, clientHeight, scrollHeight }}) {
+    async onScroll({ target: { scrollTop, clientHeight, scrollHeight } }) {
       if (scrollTop + clientHeight + 1 >= scrollHeight) {
-        await this.search(true);
+        await this.searchScroll();
       }
     }
   },
