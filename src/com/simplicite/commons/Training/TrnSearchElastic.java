@@ -1,21 +1,18 @@
 package com.simplicite.commons.Training;
 
 import java.util.ArrayList;
-import java.util.Map;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.simplicite.util.AppLog;
 import com.simplicite.util.Grant;
-import com.simplicite.util.tools.RESTTool;
 
 /**
  * Shared code TrnSearchElastic
  */
 public class TrnSearchElastic implements java.io.Serializable {
   private static final long serialVersionUID = 1L;
-  private static final int MAX_RESULTS = 30;
+  private static final int MAX_RESULTS = 20;
   private static final int CONTENT_MAX_LENGTH = 500;
 
   public static final class EsSearchField {
@@ -39,25 +36,24 @@ public class TrnSearchElastic implements java.io.Serializable {
   static EsSearchField[] documentationLangSearchFields = { new EsSearchField("title", "5"),
       new EsSearchField("raw_content", "1"), };
 
-  public static ArrayList<JSONObject> search(String input, String lang, Grant g, String[] filters) throws Exception {
+  public static ArrayList<JSONObject> search(String input, String lang, Grant g, String[] filters, int page) 
+  throws Exception {
     TrnEsHelper esHelper = new TrnEsHelper(g);
     // es lang format is lowercase
     lang = lang.toLowerCase();
-    JSONArray results = esHelper.searchRequest(getFullQuery(input, lang, filters));
+    JSONArray results = esHelper.searchRequest(getFullQuery(input, lang, filters, page));
     return formatResults(results, lang, g, input);
   }
 
-  private static JSONObject getFullQuery(String input, String lang, String[] filters) {
+  private static JSONObject getFullQuery(String input, String lang, String[] filters, int page) {
     return new JSONObject()
         .put("highlight",
             new JSONObject().put("fields", getHighlightFields(lang, filters)).put("fragment_size", CONTENT_MAX_LENGTH))
         .put("size", MAX_RESULTS)
-        .put("query", new JSONObject().put("simple_query_string", new JSONObject().put("query", input + "*") // treat
-                                                                                                             // last
-                                                                                                             // termas
-                                                                                                             // prefix
-                                                                                                             // with "*"
-            .put("fields", getQueryFields(lang, filters))));
+        .put("query",
+            new JSONObject().put("simple_query_string",
+                new JSONObject().put("query", input + "*").put("fields", getQueryFields(lang, filters))))
+        .put("from", page);
   }
 
   private static JSONObject getHighlightFields(String lang, String[] filters) {
@@ -245,13 +241,5 @@ public class TrnSearchElastic implements java.io.Serializable {
     else {
       throw new Exception("Unable to read discourse doc content from elasticsearch result");
     }
-  }
-
-  public static JSONObject getPIT(Grant g) throws Exception{
-    return (new TrnEsHelper(g)).getPIT();
-  }
-
-  public static String deletePit(Grant g, String pit) throws Exception{
-    return (new TrnEsHelper(g)).deletePit(pit);
   }
 }

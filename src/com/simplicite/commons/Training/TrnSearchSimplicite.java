@@ -18,7 +18,7 @@ import com.simplicite.util.tools.SearchItem;
  */
 public class TrnSearchSimplicite implements java.io.Serializable {
 	private static final long serialVersionUID = 1L; 
-    private static final int maxResult = 30;
+    private static final int maxResult = 20;
     private static int contentMaxLength = 500;
 
 	public static ArrayList<JSONObject> search(String query, String lang, Grant g) throws Exception {

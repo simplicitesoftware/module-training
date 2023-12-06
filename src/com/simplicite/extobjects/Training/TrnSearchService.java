@@ -2,6 +2,8 @@ package com.simplicite.extobjects.Training;
 
 import java.util.Map;
 
+import org.eclipse.angus.mail.handlers.multipart_mixed;
+
 import com.simplicite.commons.Training.TrnSearchElastic;
 import com.simplicite.commons.Training.TrnSearchSimplicite;
 import com.simplicite.commons.Training.TrnTools;
@@ -22,21 +24,14 @@ public class TrnSearchService extends RESTServiceExternalObject {
       String indexEngine = TrnTools.getIndexEngine();
       Map<String, String[]> multiParams = params.getMultiParameters();
 
-      // https://www.elastic.co/guide/en/elasticsearch/reference/current/point-in-time-api.html
-      // no fallback because it's not a search request
-      if ("elasticsearch".equals(indexEngine) && multiParams.containsKey("actionType")
-          && "getPIT".equals(multiParams.get("actionType")[0])) {
-        return TrnSearchElastic.getPIT(g);
-      }
-
       String query = multiParams.get("query")[0];
       String lang = multiParams.get("lang")[0];
+      int page = Integer.parseInt(multiParams.get("page")[0]);
       String[] filters = getFilters(multiParams.get("filters"));
 
       if ("elasticsearch".equals(indexEngine)) {
         try {
-          // JSONObject pit = multiParams.get("pit");
-          return TrnSearchElastic.search(query, lang, g, filters);
+          return TrnSearchElastic.search(query, lang, g, filters, page);
         }
         catch (Exception e) {
           AppLog.warning("Error, unable to retrieve elasticsearch search results. Fallback to simplicite engine.", e,
@@ -64,21 +59,5 @@ public class TrnSearchService extends RESTServiceExternalObject {
       }
     }
     return filters;
-  }
-
-  @Override
-  public Object del(Parameters params) {
-    try {
-      // delete pit
-      String pit = params.getParameter("pit");
-      String msg = TrnSearchElastic.deletePit(getGrant(), pit);
-      setHTTPStatus(200);
-      return msg;
-    }
-    catch (Exception e) {
-      AppLog.error(getClass(), "get", e.getMessage(), e, getGrant());
-      setHTTPStatus(500);
-      return "ERROR : " + e.getMessage();
-    }
   }
 }

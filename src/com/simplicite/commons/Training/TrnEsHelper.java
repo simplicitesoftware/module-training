@@ -123,42 +123,6 @@ public class TrnEsHelper implements java.io.Serializable {
     return this.getEsUrl() + "_search";
   }
 
-  private String getEsPITUrl() {
-    return this.getEsUrl() + "_pit?keep_alive=1m";
-  }
-
-  private String getEsPITDeleteUrl() {
-    return esInstance+"/_pit";
-  }
-  
-  public JSONObject getPIT() throws Exception{
-    try {
-      String res = RESTTool.post(null, this.getEsPITUrl(), esUser, esPassword, Map.of("Content-Type", "application/json"));
-      return new JSONObject(res);
-    }
-    catch (Exception e) {
-      throw new Exception("Unable to get pit: "+e.getMessage());
-    }
-  }
-
-  public String deletePit(String pit) throws Exception {
-    try {
-      JSONObject body = (new JSONObject()).put("id", pit);
-      HttpResponse response = Unirest.delete(getEsPITDeleteUrl())
-        .basicAuth(esUser, esPassword)
-        .header("Content-Type", "application/json")
-        .body(body)
-        .asEmpty();
-      if(response.getStatus() == 200) {
-        return response.getStatusText();
-      } else {
-        throw new Exception(response.getStatusText());
-      }
-    } catch(Exception e) {
-      throw new Exception("Unable to delete pit: "+e.getMessage());
-    }
-  }
-
   private String getEsUrl() {
     return esInstance + "/" + esIndex + "/";
   }

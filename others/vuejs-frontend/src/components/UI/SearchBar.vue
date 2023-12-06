@@ -93,7 +93,7 @@ export default {
 			} else {
 				this.isSugOpen = true;
 			}
-			this.suggestions = await s.callSearchService(this.$smp.parameters.url, this.$smp.getBearerTokenHeader(), this.inputValue, this.lang, []);
+			this.suggestions = await s.callSearchService(this.$smp.parameters.url, this.$smp.getBearerTokenHeader(), this.inputValue, this.lang, [], 0);
 		},
 		
 	}

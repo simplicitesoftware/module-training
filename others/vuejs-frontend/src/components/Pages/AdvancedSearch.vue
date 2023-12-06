@@ -1,12 +1,12 @@
 <template>
   <div class="wrapper">
     <div class="grid">
-      <div class="grid_item">
+      <div class="grid_item" @scroll="onScroll">
         <h1>Search</h1>
         <div class="content">
           <div class="search_container">
             <div class="search_bar">
-              <input class="search" @input="search" type="search" placeholder="search" v-model="query">
+              <input class="search" @input="search(false)" type="search" placeholder="search" v-model="query">
               <span class="material-icons help_logo" title="
                 Use these notations to improve your search:
                 + signifies AND operation
@@ -26,13 +26,13 @@
                 @click="toggleCommunityFilter">Community</button>
             </div>
           </div>
-          <Spinner class="spinner" v-if="fetchingResults" />
-          <div class="result_container" v-else-if="suggestions.length > 0">
+          <div class="result_container" v-if="suggestions.length > 0">
             <div class="item" v-for="suggestion in suggestions || []" :key="suggestion.id">
               <AdvancedSuggestionItem :suggestion="suggestion" />
             </div>
           </div>
           <div v-else class="no_results">No result</div>
+          <Spinner v-if="fetchingResults && !allResults"></Spinner>
         </div>
       </div>
     </div>
@@ -43,7 +43,7 @@
 import { mapState, mapGetters } from "vuex";
 import s from "../../shared"
 import AdvancedSuggestionItem from "../UI/SuggestionItem/AdvancedSuggestionItem.vue";
-import Spinner from "../UI/Spinner";
+import Spinner from "../UI/Spinner.vue";
 
 export default {
   components: { AdvancedSuggestionItem, Spinner },
@@ -54,15 +54,14 @@ export default {
     documentationFilter: false,
     communityFilter: false,
     fetchingResults: false,
-    // pit is and id provided by elasticsearch that garanties consistent search results when using pagination  
-    // see https://www.elastic.co/guide/en/elasticsearch/reference/current/point-in-time-api.html
-    pit: null
+    page: 0,
+    allResults: false
   }),
   async created() {
     const initialQuery = this.$router.currentRoute.params.query;
     if (initialQuery) {
       this.query = initialQuery;
-      await this.search()
+      await this.search(true)
     }
   },
   computed: {
@@ -81,21 +80,38 @@ export default {
     }
   },
   methods: {
-    async search() {
-      // every time the search query changes, delete provided pit and get new one
-      if(this.pit) {
-        await s.deletePIT(this.$smp.parameters.url, this.$smp.getBearerTokenHeader(), this.pit);
-      }
+    async search(onScroll) {
       if (this.query) {
         this.fetchingResults = true;
-        this.pit = await s.getPIT(this.$smp.parameters.url, this.$smp.getBearerTokenHeader());
-        this.suggestions = await s.callSearchService(this.$smp.parameters.url, this.$smp.getBearerTokenHeader(), this.query, this.lang, this.getFilters, this.pit);
+        const fetchedSuggestions = await s.callSearchService(this.$smp.parameters.url, this.$smp.getBearerTokenHeader(), this.query, this.lang, this.getFilters, this.page);
+        if(onScroll) {
+          // when all the results have been fetched
+          if(fetchedSuggestions.length === 0) {
+            this.allResults = true;
+          } else {
+            this.allResults = false;
+          }
+          this.filterAndAddSuggestions(fetchedSuggestions);
+          this.page += 20;
+        } else {
+          this.suggestions = fetchedSuggestions;
+        }
         this.fetchingResults = false;
       } else {
-        this.pit = null;
         this.suggestions = []
+        this.page = 0;
       }
-      console.log(this.pit)
+    },
+    filterAndAddSuggestions(fetchedSuggestions) {
+      const tempArray = this.suggestions;
+      for(const fetchedSugg of fetchedSuggestions) {
+        let found = false;
+        if(this.suggestions.find((sugg) => sugg.id === fetchedSugg.id)) {
+          found = true;
+        }
+        if(!found) tempArray.push(fetchedSugg); 
+      }
+      this.suggestions = tempArray;
     },
     resetFilters(filter) {
       if (filter !== "documentation") {
@@ -108,12 +124,21 @@ export default {
     async toggleDocumentationFilter() {
       this.documentationFilter = !this.documentationFilter;
       this.resetFilters("documentation");
-      await this.search();
+      this.page = 0;
+      this.allResults = false;
+      await this.search(false);
     },
     async toggleCommunityFilter() {
       this.communityFilter = !this.communityFilter;
       this.resetFilters("community");
-      await this.search();
+      this.page = 0;
+      this.allResults = false;
+      await this.search(false);
+    },
+    async onScroll ({ target: { scrollTop, clientHeight, scrollHeight }}) {
+      if (scrollTop + clientHeight + 1 >= scrollHeight) {
+        await this.search(true);
+      }
     }
   },
 }
