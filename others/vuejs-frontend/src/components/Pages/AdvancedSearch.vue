@@ -6,7 +6,7 @@
         <div class="content">
           <div class="search_container">
             <div class="search_bar">
-              <input class="search" @input="search(false)" type="search" placeholder="search" v-model="query">
+              <input class="search" @input="  search(false)" type="search" placeholder="search" v-model="query">
               <span class="material-icons help_logo" title="
                 Use these notations to improve your search:
                 + signifies AND operation
@@ -27,6 +27,7 @@
             </div>
           </div>
           <div class="result_container" v-if="suggestions.length > 0">
+            <div class="search-info" v-if="searchInfo.totalHits">{{ searchInfo.totalHits }} results</div>
             <div class="item" v-for="suggestion in suggestions || []" :key="suggestion.id">
               <AdvancedSuggestionItem :suggestion="suggestion" />
             </div>
@@ -51,11 +52,11 @@ export default {
   data: () => ({
     query: "",
     suggestions: [],
+    searchInfo: null,
     documentationFilter: false,
     communityFilter: false,
     fetchingResults: false,
     page: 0,
-    pageIncrement: 0,
     allResults: false
   }),
   async created() {
@@ -88,8 +89,8 @@ export default {
         this.allResults = false;
         const res = await s.callSearchService(this.$smp.parameters.url, this.$smp.getBearerTokenHeader(), this.query, this.lang, this.getFilters, this.page);
         this.suggestions = res.results;
-        this.pageIncrement = res.page_increment;
-        this.page += this.pageIncrement;
+        this.searchInfo = new ResultInfo(res.search_info);
+        this.page += this.searchInfo.pageIncrement;
         this.fetchingResults = false;
       } else {
         this.suggestions = [];
@@ -105,7 +106,7 @@ export default {
           this.allResults = true;
         }
         this.suggestions = this.suggestions.concat(fetchedSuggestions);
-        this.page += this.pageIncrement;
+        this.page += this.searchInfo.pageIncrement;
       }
     },
     resetFilters(filter) {
@@ -136,6 +137,15 @@ export default {
       }
     }
   },
+}
+
+class ResultInfo {
+  constructor(info) {
+    this.totalHits = info.total_hits;
+    this.searchDuration = info.search_duration;
+    this.searchType = info.search_type;
+    this.pageIncrement = info.page_increment;
+  }
 }
 </script>
 
@@ -200,6 +210,9 @@ export default {
         .result_container
           .item
             padding: 10px 10px 10px 0
+          .search-info
+            font-size: 1rem
+            font-style: italic
             
         .button_layout
           padding: 0 0 8px 0

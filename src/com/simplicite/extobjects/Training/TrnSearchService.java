@@ -1,9 +1,6 @@
 package com.simplicite.extobjects.Training;
 
 import java.util.Map;
-
-import org.eclipse.angus.mail.handlers.multipart_mixed;
-
 import com.simplicite.commons.Training.TrnSearchElastic;
 import com.simplicite.commons.Training.TrnSearchSimplicite;
 import com.simplicite.commons.Training.TrnTools;

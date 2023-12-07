@@ -93,12 +93,18 @@ public class TrnEsHelper implements java.io.Serializable {
     }
   }
 
-  public JSONArray searchRequest(JSONObject fullQuery) throws Exception {
+  public JSONObject searchRequest(JSONObject fullQuery) throws Exception {
     String res = null;
     try {
       res = RESTTool.post(fullQuery.toString(), getEsSearchUrl(), esUser, esPassword,
           Map.of("Content-Type", "application/json"));
-      return (new JSONObject(res)).getJSONObject("hits").getJSONArray("hits");
+      JSONObject resJson = new JSONObject(res);
+      JSONObject json = new JSONObject();
+      JSONObject hits = resJson.getJSONObject("hits");
+      json.put("results", hits.getJSONArray("hits"))
+        .put("search_duration", resJson.getInt("took"))
+        .put("total_hits", hits.getJSONObject("total").getInt("value"));
+      return json;
     }
     catch (Exception e) {
       AppLog.info("ES query --- " + fullQuery.toString(), g);

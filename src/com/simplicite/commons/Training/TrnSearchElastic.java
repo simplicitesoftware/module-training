@@ -41,10 +41,10 @@ public class TrnSearchElastic implements java.io.Serializable {
     TrnEsHelper esHelper = new TrnEsHelper(g);
     // es lang format is lowercase
     lang = lang.toLowerCase();
-    JSONArray results = esHelper.searchRequest(getFullQuery(input, lang, filters, page));
+    JSONObject searchRes = esHelper.searchRequest(getFullQuery(input, lang, filters, page));
     JSONObject json = new JSONObject();
-    json.put("results", formatResults(results, lang, g, input))
-      .put("page_increment", MAX_RESULTS);
+    json.put("results", formatResults(searchRes.getJSONArray("results"), lang, g, input))
+      .put("search_info", getSearchInfo(searchRes.getInt("search_duration"), searchRes.getInt("total_hits")));
     return json;
   }
 
@@ -110,6 +110,16 @@ public class TrnSearchElastic implements java.io.Serializable {
       }
     }
     return queryFields;
+  }
+
+  // return JSONObject with the total amount of hits in elasticsearch, the search duration etc..
+  private static JSONObject getSearchInfo(int searchDuration, int totalHits) {
+    JSONObject metadata = new JSONObject();
+    metadata.put("total_hits", totalHits)
+      .put("search_duration", searchDuration)
+      .put("search_type", "elasticsearch")
+      .put("page_increment", MAX_RESULTS);
+    return metadata;
   }
 
   private static void setDiscourseEsSearchFields(JSONArray queryFields) {

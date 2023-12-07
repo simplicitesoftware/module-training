@@ -10,7 +10,6 @@ import com.simplicite.objects.Training.TrnLesson;
 import com.simplicite.objects.Training.TrnLsnTranslate;
 import com.simplicite.util.Grant;
 import com.simplicite.util.Tool;
-import com.simplicite.util.tools.IndexCore;
 import com.simplicite.util.tools.IndexSQLTool;
 import com.simplicite.util.tools.SearchItem;
 import com.simplicite.util.tools.SearchResult;
@@ -71,11 +70,9 @@ public class TrnSearchSimplicite implements java.io.Serializable {
 
   private static List<SearchItem> getSearchResults(String query, Grant g, int pageNum) throws Exception {
     IndexSQLTool tool = new IndexSQLTool();
-    SearchResult searchResult = tool.search​(g, Arrays.asList("TrnLsnTranslate"), query, pageNum, maxResult);
+    SearchResult searchResult = tool.search(g, Arrays.asList("TrnLsnTranslate"), query, pageNum, maxResult);
     return searchResult.items;
   }
-
-  // private static List<String> getTranslateValue
 
   private static JSONObject formatResult(TrnLsnTranslate lsnTranslate, String query, Grant g) {
     JSONObject json = new JSONObject();
