@@ -332,7 +332,7 @@ export default {
 			font-family: monospace
 
 		img
-			width: 60%
+			max-width: 100%
 			height: auto
 			overflow-clip-margin: content-box
 			overflow: clip
