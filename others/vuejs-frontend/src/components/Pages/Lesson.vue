@@ -43,7 +43,9 @@
 import Spinner from "../UI/Spinner";
 import EmptyContent from "../UI/EmptyContent";
 import Slider from "../UI/Slider";
-import { mapGetters, mapState } from "vuex";
+import { mapState } from "pinia";
+import { useLessonStore } from "../../stores/lesson";
+import { useTreeStore } from "../../stores/tree";
 
 import hljs from "highlight.js/lib/core";
 import javascript from 'highlight.js/lib/languages/javascript';
@@ -97,6 +99,12 @@ function getDocumentURL(vm) {
 
 export default {
 	name: "Lesson",
+	setup() {
+            return {
+                lessonStore: useLessonStore(),
+                treeStore: useTreeStore()
+            }
+        },
 	components: { Slider, Spinner, EmptyContent },
 	data: () => ({
 		alreadyScrolledImages: [],
@@ -121,20 +129,12 @@ export default {
 		}
 	},
 	computed: {
-		...mapState({
-			lesson: state => state.lesson.lesson,
-			lessonImages: state => state.lesson.lessonImages,
-			lessonTags: state => state.lesson.lessonTags,
-			tree: state => state.tree.tree,
-		}),
-		...mapGetters({
-			breadCrumbItems: 'tree/breadCrumbItems',
-			getLessonFromPath: 'tree/getLessonFromPath',
-			getCategoryFromPath: 'tree/getCategoryFromPath'
-		}),
+		...mapState(useLessonStore, ['lesson','lessonImages','lessonTags']),
+		...mapState(useTreeStore, ['tree','breadCrumbItems','getLessonFromPath','getCategoryFromPath']),
 	},
 	methods: {
 		addScrollListeners() {
+			
 			let potentialImages = [];
 			document.querySelector(".lesson-block").addEventListener('scroll', (e) => {
 				let imageName = null;
@@ -182,7 +182,9 @@ export default {
 			return this.$smp.parameters.url + "/lesson" + this.lesson.path
 		},
 		openLesson(lesson) {
-			this.$store.dispatch("lesson/openLesson", {
+			console.log(this);
+
+			this.lessonStore.openLesson({
 				smp: this.$smp,
 				lesson: lesson
 			}).then(() => {
@@ -208,7 +210,7 @@ export default {
 			else this.openLesson(lesson);
 		},
 		async openPage() {
-			this.$store.dispatch("lesson/openPage", {
+			this.lessonStore.openPage({
 				smp: this.$smp,
 				lesson: { row_id: undefined, viz: undefined },
 				path: "/" + this.$router.currentRoute.params.pagePath
@@ -230,7 +232,7 @@ export default {
 					this.openLesson(lesson);
 				} else {
 					await this.$router.push('/');
-					this.$store.commit("tree/OPEN_NODE", cat.path);
+					this.treeStore.OPEN_NODE(cat.path);
 				}
 			} else await this.$router.push('/404');
 		},
@@ -263,7 +265,7 @@ export default {
 		this.$el.addEventListener("click", this.onHtmlClick);
 	},
 	beforeDestroy() {
-		this.$store.dispatch('lesson/unsetLesson');
+		this.lessonStore.unsetLesson();
 	},
 	metaInfo() {
 		let lesson = this.lesson;

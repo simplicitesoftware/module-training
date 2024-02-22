@@ -41,10 +41,12 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from "vuex";
+import { mapState} from "pinia";
 import s from "../../shared"
 import AdvancedSuggestionItem from "../UI/SuggestionItem/AdvancedSuggestionItem.vue";
 import Spinner from "../UI/Spinner.vue";
+import { useLessonStore } from "@/stores/lesson";
+import { useUiStore } from '@/stores/ui';
 
 export default {
   components: { AdvancedSuggestionItem, Spinner },
@@ -67,13 +69,8 @@ export default {
     }
   },
   computed: {
-    ...mapState({
-      lesson: state => state.lesson.lesson,
-      lessonImages: state => state.lesson.lessonImages,
-    }),
-    ...mapGetters({
-      lang: 'ui/lang'
-    }),
+    ...mapState(useLessonStore, ['lesson', 'lessonImages']),
+    ...mapState(useUiStore, ['lang']),
     getFilters: function () {
       const filters = [];
       if (this.documentationFilter) filters.push("documentation");

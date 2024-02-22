@@ -30,8 +30,9 @@
 <script>
 
 import SuggestionItem from "./SuggestionItem/SuggestionItem.vue";
-import s from "../../shared"
-import { mapGetters } from "vuex";
+import s from "../../shared";
+import { mapState } from "pinia";
+import { useUiStore } from "../../stores/ui";
 
 export default {
 
@@ -52,19 +53,14 @@ export default {
 		}
 	},
 	computed: {
-		...mapGetters({
-			lang: 'ui/lang',
-			langEsFormat: 'ui/langEsFormat'
-		}),
+		...mapState(useUiStore, ['lang', 'langEsFormat','getLessonFromPath']),
 		searchbarPlaceHolder: function () {
 			return "FRA" == this.lang ? "Rechercher" : "Search"
 		},
 		emptyResult: function () {
 			return "FRA" == this.lang ? "Aucun résultat de recherche." : "No results found."
 		},
-		...mapGetters({
-			getLessonFromPath: 'tree/getLessonFromPath',
-		}),
+		
 	},
 	methods: {
 		hideSuggestions() {

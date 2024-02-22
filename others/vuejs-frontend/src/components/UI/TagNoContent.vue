@@ -5,13 +5,12 @@
 </template>
 
 <script>
-  import {mapGetters} from 'vuex';
+  import {mapState} from 'pinia';
+import { useUiStore } from '@/stores/ui';
   export default {
     name: 'TagNoContent',
     computed: {
-      ...mapGetters({
-        isSortedByTag: "ui/isSortedByTag",
-      })
+      ...mapState(useUiStore, ['isSortedByTag']),
     },
     mounted() {
       if(!this.isSortedByTag) {

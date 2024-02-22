@@ -18,8 +18,14 @@
 </template>
 
 <script>
+  import { useUiStore } from '@/stores/ui';
   export default {
     name: "Carousel",
+    setup() {
+            return {
+                uiStore: useUiStore()
+            }
+        },
     props: {
       images: {
         type: Array,
@@ -50,7 +56,7 @@
         }
       },
       displayFullScreenImage(image) {
-        this.$store.dispatch('ui/displayLightBox', image);
+        this.uiStore.displayLightBox(image);
       }
     },
     mounted() {

@@ -16,36 +16,40 @@
 </template>
 
 <script>
-    import {mapGetters, mapState} from "vuex";
+    import {mapState} from "pinia";
     import Spinner from "./components/UI/Spinner";
     import CustomHeader from "./components/UI/CustomHeader";
     import LightBox from "./components/UI/LightBox";
     import TreeViewNode from "./components/UI/TreeViewNode";
+    import {useLessonStore} from '@/stores/lesson';
+    import {useUiStore} from '@/stores/ui';
+    import {useTreeStore} from '@/stores/tree';
 
     export default {
         name: 'App',
+        setup() {
+            return {
+                lessonStore: useLessonStore(),
+                uiStore: useUiStore(),
+                treeStore: useTreeStore()
+            }
+        },
         components: {LightBox, CustomHeader, TreeViewNode, Spinner},
         data: () => ({
             isFetching: true,
             isStyleLoaded: false,
         }),
         computed: {
-        ...mapState({
-            tree: state => state.tree.tree,
-            isDrawerOpen: state => state.ui.isDrawerOpen,
-            themeValues: state => state.ui.themeValues,
-        }),
-        ...mapGetters({
-            isSortedByTag: "ui/isSortedByTag",
-        })
+        ...mapState(useUiStore, ['isDrawerOpen','themeValues','isSortedByTag']),
+        ...mapState(useTreeStore, ['tree']),
         },
         created() {
             if (this.$router.currentRoute.name === 'Lesson') this.isUserOnLesson = true;
-            this.$store.dispatch('ui/fetchStyle', {smp : this.$smp}).finally(() => {
+            this.uiStore.fetchStyle({smp : this.$smp}).finally(() => {
                 this.isStyleLoaded = true;
             });
-            this.$store.dispatch('ui/fetchTags', {smp: this.$smp});
-            this.$store.dispatch('tree/fetchTree', {smp: this.$smp}).then(() => this.isFetching = false);
+            this.uiStore.fetchTags({smp: this.$smp});
+            this.treeStore.fetchTree({smp: this.$smp}).then(() => this.isFetching = false);
         },
         watch: {
             $route(to) {

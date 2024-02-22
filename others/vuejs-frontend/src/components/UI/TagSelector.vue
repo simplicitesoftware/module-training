@@ -38,19 +38,20 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from "vuex";
-
+import { mapState } from "pinia";
+import { useUiStore } from '@/stores/ui';
+import { useTreeStore } from '@/stores/tree';
 export default {
   name: "TagSelector",
+  setup() {
+    return {
+      uiStore: useUiStore(),
+      treeStore: useTreeStore()
+    }
+  },
   computed: {
-    ...mapState({
-      tagList: (state) => state.ui.tagList,
-    }),
-    ...mapGetters({
-      lang: "ui/lang",
-      getLessonFromPath: 'tree/getLessonFromPath',
-      isSortedByTag: "ui/isSortedByTag",
-    }),
+    ...mapState(useUiStore, ['tagList','lang','isSortedByTag']),
+    ...mapState(useTreeStore, ['getLessonFromPath']),
     // replace with server translation ?
     titleTranslation() {
       return "FRA" === this.lang ? "Filtrer les leçons" : "Filter lessons";
@@ -77,12 +78,12 @@ export default {
     },
     // change data
     selectTag(index) {
-      this.$store.commit("ui/TOGGLE_TAG_UI_SELECTION", index);
+      this.uiStore.TOGGLE_TAG_UI_SELECTION(index);
     },
     confirmChoice() {
-      this.$store.commit("ui/SET_TAG_LIST_SELECTION");
-      this.$store.commit("ui/TOGGLE_MODAL_STATE");
-      this.$store.dispatch("tree/fetchTree", { smp: this.$smp }).then((tree) => {
+      this.uiStore.SET_TAG_LIST_SELECTION();
+      this.uiStore.TOGGLE_MODAL_STATE();
+      this.treeStore.fetchTree({ smp: this.$smp }).then((tree) => {
         if(this.isSortedByTag && tree.length === 0) {
           this.$router.push('/tag-no-content')
         }
@@ -90,19 +91,19 @@ export default {
 
     },
     showAll() {
-      this.$store.commit("ui/DEFAULT_TAG_LIST");
-      this.$store.commit("ui/TOGGLE_MODAL_STATE");
-      this.$store.dispatch("tree/fetchTree", { smp: this.$smp })
+      this.uiStore.DEFAULT_TAG_LIST();
+      this.uiStore.TOGGLE_MODAL_STATE();
+      this.treeStore.fetchTree({ smp: this.$smp })
       .then(() => {
-        this.$store.commit("tree/OPEN_NODE", "/"+this.$router.currentRoute.params.lessonPath)
+        this.treeStore.OPEN_NODE("/"+this.$router.currentRoute.params.lessonPath)
         if(this.$router.currentRoute.name === 'TagNoContent') {
           this.$router.push('/');
         }
       });
     },
     cancelUiSelection() {
-      this.$store.commit("ui/TAG_MODAL_CANCELLATION");
-      this.$store.commit("ui/TOGGLE_MODAL_STATE");
+      this.uiStore.TAG_MODAL_CANCELLATION();
+      this.uiStore.TOGGLE_MODAL_STATE();
     },
   },
 };

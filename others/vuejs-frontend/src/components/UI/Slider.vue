@@ -1,7 +1,7 @@
 <template>
   <div class="slider" @mouseover="controlsVisible = true" @mouseout="controlsVisible = false">
       <transition :name="transitionName" class="slider__image-wrapper" v-for="(slide, index) in slides" :key="index">
-        <img v-show="index === currentImageIndex" :src="slide.filesrc" :alt="slide.filename" @click="$store.dispatch('ui/displayLightBox', slide.filesrc)"/>
+        <img v-show="index === currentImageIndex" :src="slide.filesrc" :alt="slide.filename" @click="$store.uiStore.displayLightBox(slide.filesrc)"/>
       </transition>
     <button class="slider__control slider__previous" v-if="controls" :class="controlsVisible && slides.length > 1 ? 'visible' : ''" @click.prevent="previous"><i class="material-icons">keyboard_arrow_left</i></button>
     <button class="slider__control slider__next" v-if="controls" :class="controlsVisible && slides.length > 1 ? 'visible' : ''" @click.prevent="next"><i class="material-icons">keyboard_arrow_right</i></button>
@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import { useUiStore } from '@/stores/ui';
   export default {
     name: "Slider",
     props: {
@@ -34,6 +35,11 @@
         note: 'Display the pagination at the bottom',
       },
     },
+    setup() {
+            return {
+                uiStore: useUiStore(),
+            }
+        },
     data: () => ({
       currentImageIndex: 0,
       direction: null,
@@ -60,7 +66,7 @@
         else this.currentImageIndex = indexToGo;
       },
       displayFullScreenImage(imageSrc) {
-        this.$store.dispatch('ui/displayLightBox', imageSrc);
+        this.uiStore.displayLightBox(imageSrc);
       }
     },
     computed: {

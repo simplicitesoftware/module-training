@@ -23,12 +23,20 @@
 </template>
 
 <script>
-import {mapGetters, mapState} from "vuex";
+import {mapState} from "pinia";
+import { useUiStore } from '@/stores/ui';
+import { useLessonStore } from "@/stores/lesson";
+import { useTreeStore } from "@/stores/tree";
 import SearchBar from "./SearchBar";
 import TagSelector from "./TagSelector";
 
 export default {
     name: "CustomHeader",
+    setup() {
+        return {
+            uiStore: useUiStore()
+        }
+    },
     data: () => ({
         searchbarVisible: true,
         navigationArrowVisible: false,
@@ -36,18 +44,9 @@ export default {
     }),
     components: { SearchBar, TagSelector },
     computed: {
-        ...mapState({
-            lesson: state => state.lesson.lesson,
-            isDrawerOpen: state => state.ui.isDrawerOpen, // remove ?
-            isModalOpen: state => state.ui.isModalOpen,
-            themeValues: state => state.ui.themeValues,
-        }),
-        ...mapGetters({
-            getLessonFromPath: 'tree/getLessonFromPath',
-            lang: 'ui/lang',
-            isTagDefined: 'ui/isTagDefined',
-            isSortedByTag: "ui/isSortedByTag",
-        }),
+        ...mapState(useLessonStore, ['lesson']),
+        ...mapState(useUiStore, ['isDrawerOpen', 'isModalOpen', 'themeValues', 'lang','isTagDefined', 'isSortedByTag']),
+        ...mapState(useTreeStore, ['getLessonFromPath']),
         tagClass() {
             return {
                 'material-icons header-buttons__button': !this.isSortedByTag,
@@ -68,17 +67,17 @@ export default {
             else if (direction === 1) this.shakeElement("next-button");
         },
         toggleMenu() {
-            this.$store.dispatch('ui/toggleDrawer');
+            this.uiStore.toggleDrawer();
         },
         toggleLang(){
-            this.$store.dispatch('ui/toggleLang', {smp: this.$smp});
+            this.uiStore.toggleLang({smp: this.$smp});
         },
         shakeElement(elementId) {
             document.getElementById(elementId).classList.add("shaked");
             setTimeout(() => document.getElementById(elementId).classList.remove('shaked'), 150);
         },
         tagSelectorClicked() {
-            this.$store.commit('ui/TOGGLE_MODAL_STATE');
+            this.uiStore.TOGGLE_MODAL_STATE();
         },
         toUi() {
             window.location.href = "/ui";

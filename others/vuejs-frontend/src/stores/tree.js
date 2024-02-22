@@ -1,13 +1,15 @@
-import { SET_TREE, OPEN_NODE, TOGGLE_NODE_OPEN } from "../mutation-types";
-
-export default {
+import { defineStore } from 'pinia';
+import { useLessonStore } from './lesson';
+import { useUiStore } from './ui';
+export const useTreeStore = defineStore('treeStore', {
 	namespaced: true,
-	state: {
+	state: () => ({
 		tree: [],
-	},
+	}),
 	getters: {
-		breadCrumbItems(state, getters, rootState) {
-			let parents = rootState.lesson.lesson.path.split('/');
+		breadCrumbItems(state) {
+			const lessonStore = useLessonStore();
+			let parents = lessonStore.$state.lesson.path.split('/');
 			parents.splice(0, 1);
 			let cursor = state.tree;
 			let path = "";
@@ -86,17 +88,19 @@ export default {
 			}
 	},
 	actions: {
-		async fetchTree({ commit, rootGetters }, payload) {
+		async fetchTree(payload) {
+			const treeStore = this;
 			// eslint-disable-next-line no-unused-vars
 			return new Promise((resolve) => {
-
+				const uiStore = useUiStore();
+				
 				payload.smp.getExternalObject('TrnTreeService').call(
 					{
 						array: true,
-						lang: rootGetters['ui/lang'],
+						lang: uiStore.lang,
 					},
 					{
-						tags: rootGetters['ui/selectedTagsRowId']
+						tags: uiStore.selectedTagsRowId
 					}
 				).then(function (res) {
 					let addStateValue = node => {
@@ -110,19 +114,17 @@ export default {
 						}
 					}
 					res.forEach(addStateValue);
-					commit(SET_TREE, res);
+					treeStore.SET_TREE(res);
 					resolve(res);
 				}).catch((e) => {
 					console.error(e);
 				})
 			})
 		},
-	},
-	mutations: {
-		[SET_TREE](state, tree) {
-			state.tree = tree;
+		SET_TREE(tree) {
+			this.tree = tree;
 		},
-		[OPEN_NODE](state, path) {
+		OPEN_NODE(path) {
 			const openNode = (foundNode, cursor) => {
 				if (foundNode?.is_category) {
 					foundNode.open = true;
@@ -130,9 +132,9 @@ export default {
 				}
 				return cursor;
 			}
-			treeExplorer(state.tree, path, openNode, "category");
+			treeExplorer(this.tree, path, openNode, "category");
 		},
-		[TOGGLE_NODE_OPEN](state, targetPath) {
+		TOGGLE_NODE_OPEN(targetPath) {
 			const toggleNode = (foundNode, cursor) => {
 				if (foundNode && foundNode.path == targetPath) {
 					foundNode.open = !foundNode.open;
@@ -141,10 +143,11 @@ export default {
 					cursor = foundNode.items;
 				return cursor;
 			}
-			treeExplorer(state.tree, targetPath, toggleNode, "category");
-		}
+			treeExplorer(this.tree, targetPath, toggleNode, "category");
+		},
 	},
-}
+	
+});
 
 // tree explorer that takes a function as an argument => used for mutations
 function treeExplorer(tree, path, f, searchType) {

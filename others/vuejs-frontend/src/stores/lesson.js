@@ -1,19 +1,21 @@
 /* eslint-disable no-debugger */
-import {SET_LESSON, SET_LESSON_IMAGES, UNSET_LESSON, SET_LESSON_TAGS, SET_LESSON_HTML} from "../mutation-types";
-
-export default {
+import { defineStore } from 'pinia';
+import { useTreeStore } from './tree';
+import { useUiStore } from './ui';
+export const useLessonStore = defineStore('lessonStore', {
     namespaced: true,
-    state: {
+    state: () => ({
         lesson: {},
         lessonImages: [],
         lessonTags: [],
-    },
+    }),
     actions: {
-        async openLesson({dispatch, commit} , payload) {
-            commit('tree/OPEN_NODE', payload.lesson.path, { root: true });
-            await dispatch("fetchLesson", payload);
+        async openLesson(payload) {
+          const treeStore = useTreeStore();
+            treeStore.OPEN_NODE(payload.lesson.path, { root: true });
+            await this.fetchLesson(payload);
         },
-    async openHomePage({dispatch}, payload) {
+    async openHomePage(payload) {
       return new Promise((resolve, reject) => {
         let page = payload.smp.getBusinessObject("TrnPage");
         page.search(
@@ -22,7 +24,7 @@ export default {
           if(array[0]) {
             payload.lesson.row_id = array[0].trnPageTrnLessonid;
             payload.lesson.viz = array[0].trnPageTrnLessonid__trnLsnVisualization;
-            await dispatch("fetchLesson", payload);
+            await this.fetchLesson(payload);
             resolve();
           }
           reject('Unable to fetch homepage from backend');
@@ -30,7 +32,7 @@ export default {
       });  
     },
 
-    async openPage({dispatch}, payload) {
+    async openPage(payload) {
       return new Promise((resolve, reject) => {
         let page = payload.smp.getBusinessObject("TrnPage");
         page.search({"trnPageTrnLessonid__trnLsnFrontPath": payload.path, "trnPageTrnLessonid__trnLsnPublish": true}, {inlineDocs: 'infos'})
@@ -38,7 +40,7 @@ export default {
           if(array[0]) {
             payload.lesson.row_id = array[0].trnPageTrnLessonid;
             payload.lesson.viz = array[0].trnPageTrnLessonid__trnLsnVisualization;
-            await dispatch("fetchLesson", payload);
+            await this.fetchLesson(payload);
             resolve();
           } else {
             reject();
@@ -50,38 +52,40 @@ export default {
       })
     },
 
-    async fetchLesson({dispatch}, payload) {
-      await dispatch("fetchLessonTag", payload);
-      await dispatch("fetchLessonContent", payload);
+    async fetchLesson(payload) {
+      await this.fetchLessonTag(payload);
+      await this.fetchLessonContent(payload);
       // only fetch image on other than Linear mode
       // See on Training module in TrnLesson.java -> setLinearPictureContent()
       if(payload.lesson.viz !== 'LINEAR') {
-        await dispatch("fetchLessonImages", payload);
+        await this.fetchLessonImages(payload);
       }
     },
 
-    async fetchLessonContent({commit, rootGetters}, payload) {
+    async fetchLessonContent(payload) {
+      const lesonStore = this;
       return new Promise((resolve) => {
+        const uiStore = useUiStore();
         payload.smp.getExternalObject('TrnTreeService').call(
           {
-            lang:rootGetters['ui/lang'],
+            lang:uiStore.lang,
             getLesson:payload.lesson.row_id
           }
         ).then(function(res){
-          commit(SET_LESSON, res);
+          lesonStore.SET_LESSON(res);
           resolve();
         })
       })
     },
 
-    async fetchLessonImages({commit}, payload) {  
+    async fetchLessonImages(payload) {  
       return new Promise((resolve, reject) => {
         let picture = payload.smp.getBusinessObject("TrnPicture");
         picture.search(
           {'trnPicLsnId': payload.lesson.row_id}, {inlineDocs: 'infos'}
         ).then(array => {
           if(array){
-            commit(SET_LESSON_IMAGES, array.map(pic => ({
+            this.SET_LESSON_IMAGES(array.map(pic => ({
               filename: pic.trnPicImage.name,
               filesize: pic.trnPicImage.size,
               filesrc: picture.getFieldDocumentURL("trnPicImage", pic)
@@ -94,14 +98,15 @@ export default {
       });
     },
 
-    async fetchLessonTag({commit, rootGetters}, payload) {
+    async fetchLessonTag(payload) {
       return new Promise((resolve, reject) => {
+        const uiStore = useUiStore();
         let lessonTags = payload.smp.getBusinessObject("TrnTagLsn");
         lessonTags.search(
           {'trnTaglsnLsnId': payload.lesson.row_id}
         ).then(array => {
           if(array) {
-            commit(SET_LESSON_TAGS, array.map(tag => rootGetters['ui/getTagDisplayWithRowId'](tag.trnTaglsnTagId)));
+            this.SET_LESSON_TAGS(array.map(tag =>uiStore.getTagDisplayWithRowId(tag.trnTaglsnTagId)));
             resolve();
           }
           else
@@ -110,26 +115,21 @@ export default {
       })
     },
 
-    unsetLesson({commit}) {
-      commit(UNSET_LESSON);
-    }
-  },
-  mutations: {
-    [SET_LESSON](state, lesson) {
-      state.lesson = lesson;
+    unsetLesson() {
+      this.lesson = {};
+      this.lessonImages = [];
     },
-    [SET_LESSON_HTML](state, html) {
-      state.lesson.html = html;
+    SET_LESSON(lesson){
+      this.lesson = lesson;
     },
-    [SET_LESSON_IMAGES](state, images) {
-      state.lessonImages = images;
+    SET_LESSON_HTML(html){
+      this.lesson.html = html;
     },
-    [UNSET_LESSON](state) {
-      state.lesson = {};
-      state.lessonImages = [];
+    SET_LESSON_IMAGES(images){
+      this.lessonImages = images;
     },
-    [SET_LESSON_TAGS](state, lessonTags) {
-      state.lessonTags = lessonTags;
+    SET_LESSON_TAGS(tags){
+      this.lessonTags = tags;
     }
   }
-}
+});

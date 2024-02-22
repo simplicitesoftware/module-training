@@ -1,22 +1,20 @@
 <template>
   <transition name="light-box">
     <div class="light-box" v-show="isLightBoxVisible">
-      <div class="light-box__overlay" @click="$store.dispatch('ui/hideLightBox')"></div>
+      <div class="light-box__overlay" @click="$store.uiStore.hideLightBox()"></div>
       <img class="light-box__image" :src="lightBoxImageSrc" alt="light-box image"/>
     </div>
   </transition>
 </template>
 
 <script>
-  import {mapState} from "vuex";
+  import {mapState} from "pinia";
+  import { useUiStore } from '@/stores/ui';
 
   export default {
     name: "LightBox",
     computed: {
-      ...mapState({
-        lightBoxImageSrc: state => state.ui.lightBoxImageSrc,
-        isLightBoxVisible: state => state.ui.isLightBoxVisible
-      }),
+      ...mapState(useUiStore, ['lightBoxImageSrc','isLightBoxVisible']),
     },
   }
 </script>

@@ -17,8 +17,10 @@
 </template>
 
 <script>
-import {mapState} from 'vuex';
-
+import {mapState} from 'pinia';
+import { useLessonStore } from '@/stores/lesson';
+import { useUiStore } from '@/stores/ui';
+import { useTreeStore } from '@/stores/tree';
 export default {
     props: {
         node: {
@@ -36,10 +38,9 @@ export default {
     },
     name: "TreeViewNode",
     computed: {
-        ...mapState({
-            lesson: state => state.lesson.lesson,
-            themeValues: state => state.ui.themeValues,
-        }),
+        ...mapState(useLessonStore, ['lesson']),
+        ...mapState(useUiStore, ['themeValues']),
+        ...mapState(useTreeStore, ['TOGGLE_NODE_OPEN']),
         indent() {
             if (this.depth === 0) return {
             'padding-left': `10px`,
@@ -63,7 +64,7 @@ export default {
     methods: {
         nodeClicked(node) {
             if (node.is_category) {
-				this.$store.commit('tree/TOGGLE_NODE_OPEN', node.path);
+				this.TOGGLE_NODE_OPEN(node.path);
 			} else {
 				this.$router.push("/lesson" + node.path).catch(err => console.error(err));
 			}

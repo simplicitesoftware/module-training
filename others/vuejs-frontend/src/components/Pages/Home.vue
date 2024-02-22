@@ -40,10 +40,16 @@
 </template>
 
 <script>
-import {mapState} from "vuex";
+import { mapState} from "pinia";
 import Spinner from "../UI/Spinner";
+import { useLessonStore } from "../../stores/lesson";
 export default {
 	components: {Spinner},
+	setup() {
+            return {
+                lessonStore: useLessonStore()
+            }
+        },
 		name: "HomePage",
 		metaInfo: {
 			// Children can override the title.
@@ -55,7 +61,7 @@ export default {
 			gotServerResponse: false,  
 		}),
 		async created() {
-			this.$store.dispatch("lesson/openHomePage", {
+			this.lessonStore.openHomePage({
 				smp: this.$smp,
 				lesson: {row_id: undefined, viz: undefined},
 			}).then(() => {
@@ -66,14 +72,11 @@ export default {
 			})
 		},
 		computed: {
-			...mapState({
-				lesson: state => state.lesson.lesson,
-				lessonImages: state => state.lesson.lessonImages,
-			}),
+			...mapState(useLessonStore, ['lesson','lessonImages']),
 		},
 		methods: {
 			beforeDestroy() {
-				this.$store.dispatch('lesson/unsetLesson');
+				this.lessonStore.unsetLesson();
 			},
 		},
 	}
