@@ -88,7 +88,7 @@ export const useUiStore = defineStore('uiStore', {
 			this.isDrawerOpen = choice;
 		},
 		SET_LIGHT_BOX_IMAGE(imageSrc) {
-			globalThis.lightBoxImageSrc = imageSrc;
+			this.lightBoxImageSrc = imageSrc;
 		},
 		SET_LIGHT_BOX_VISIBILITY(visibility) {
 			this.isLightBoxVisible = visibility;

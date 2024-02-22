@@ -90,8 +90,14 @@ export default {
 			} else {
 				this.isSugOpen = true;
 			}
-			const res = await s.callSearchService(this.$smp.parameters.url, this.$smp.getBearerTokenHeader(), this.inputValue, this.lang, [], 0);
-			this.suggestions = res.results;
+			try{
+				console.log(this.$smp.parameters.url);
+				const res = await s.callSearchService(this.$smp.parameters.url, this.$smp.getBearerTokenHeader(), this.inputValue, this.lang, [], 0);
+				console.log(res);
+				this.suggestions = res.results;
+			}catch(err){
+				console.log("error in queryIndex: ", err);
+			}
 		},
 
 	}

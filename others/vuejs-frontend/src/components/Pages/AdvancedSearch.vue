@@ -84,10 +84,16 @@ export default {
       if (this.query) {
         this.fetchingResults = true;
         this.allResults = false;
-        const res = await s.callSearchService(this.$smp.parameters.url, this.$smp.getBearerTokenHeader(), this.query, this.lang, this.getFilters, this.page);
-        this.suggestions = res.results;
-        this.searchInfo = new ResultInfo(res.search_info);
-        this.page += this.searchInfo.pageIncrement;
+        try{
+          const res = await s.callSearchService(this.$smp.parameters.url, this.$smp.getBearerTokenHeader(), this.query, this.lang, this.getFilters, this.page);
+          this.suggestions = res.results;
+          this.searchInfo = new ResultInfo(res.search_info); 
+          this.page += this.searchInfo.pageIncrement;
+        }catch(err){
+          console.log("error in queryIndex: ", err);
+        }
+        
+       
         this.fetchingResults = false;
       } else {
         this.suggestions = [];
@@ -97,12 +103,16 @@ export default {
     async searchScroll() {
       if (this.query) {
         this.fetchingResults = true;
-        const res = await s.callSearchService(this.$smp.parameters.url, this.$smp.getBearerTokenHeader(), this.query, this.lang, this.getFilters, this.page);
-        const fetchedSuggestions = res.results;
-        if (fetchedSuggestions.length === 0) {
-          this.allResults = true;
+        try{
+          const res = await s.callSearchService(this.$smp.parameters.url, this.$smp.getBearerTokenHeader(), this.query, this.lang, this.getFilters, this.page);
+          const fetchedSuggestions = res.results;
+          if (fetchedSuggestions.length === 0) {
+            this.allResults = true;
+            this.suggestions = this.suggestions.concat(fetchedSuggestions);
+          }
+        }catch(err){
+          console.log("error in queryIndex: ", err);
         }
-        this.suggestions = this.suggestions.concat(fetchedSuggestions);
         this.page += this.searchInfo.pageIncrement;
       }
     },

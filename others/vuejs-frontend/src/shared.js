@@ -1,6 +1,6 @@
 export default {
     callSearchService: function (simpliciteInstanceUrl, simpliciteToken, inputValue, lang, filters, page) {
-        return new Promise((res, rej) => {
+        return new Promise((res ,rej) => {
             const headers = new Headers();
             headers.append("Authorization", simpliciteToken);
             headers.append("Content-Type", "application/json");
@@ -22,8 +22,8 @@ export default {
                     res(json);
                 })
                 .catch((error) => {
-                    console.log(error)
-                    rej([])
+                    console.log(error);
+                    rej([]);
                 })
                 .finally(() => {
                     res([]);
