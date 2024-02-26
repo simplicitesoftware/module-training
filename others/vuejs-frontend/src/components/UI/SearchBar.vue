@@ -91,7 +91,6 @@ export default {
 				this.isSugOpen = true;
 			}
 			try{
-				console.log(this.$smp.parameters.url);
 				const res = await s.callSearchService(this.$smp.parameters.url, this.$smp.getBearerTokenHeader(), this.inputValue, this.lang, [], 0);
 				console.log(res);
 				this.suggestions = res.results;

@@ -32,7 +32,7 @@ function setSimplicitePublicSession() {
 
     const cfg = { url: instanceUrl, debug: false };
     const app = simplicite.session(cfg);
-
+    console.log(app.authtoken);
     app.info("Version: " + simplicite.constants.MODULE_VERSION);
     app.debug(app.parameters);
     return app;
@@ -42,7 +42,6 @@ window.onload = function() {
     Vue.prototype.$smp = setSimplicitePublicSession();
     // temporary default to this value while index service is being implemented
     Vue.prototype.$SEARCH_TYPE = "simplicite";
-    console.log("main.js");
     new Vue({
         el: "#app",
         render: (h) => h(App),

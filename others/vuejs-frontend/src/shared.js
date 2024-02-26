@@ -2,7 +2,9 @@ export default {
     callSearchService: function (simpliciteInstanceUrl, simpliciteToken, inputValue, lang, filters, page) {
         return new Promise((res ,rej) => {
             const headers = new Headers();
-            headers.append("Authorization", simpliciteToken);
+            if(simpliciteToken) {
+                headers.append("X-Simplicite-Authorization",simpliciteToken);
+            }
             headers.append("Content-Type", "application/json");
 
             const requestOptions = {
