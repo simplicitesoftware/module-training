@@ -178,6 +178,9 @@ function treeExplorer(tree, path, f, searchType) {
 				});
 			}
 		}
+		if (foundNode === undefined) {
+			return false;
+		}
 		cursor = f(foundNode, cursor);
 		if (!Array.isArray(cursor)) {
 			if (!Object.hasOwn(cursor, "items")) {

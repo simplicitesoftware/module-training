@@ -173,8 +173,6 @@ export default {
 			return this.$smp.parameters.url + "/lesson" + this.lesson.path
 		},
 		openLesson(lesson) {
-			console.log(this);
-
 			this.lessonStore.openLesson({
 				smp: this.$smp,
 				lesson: lesson
@@ -192,7 +190,7 @@ export default {
 			})
 		},
 		openLessonFromPath() {
-			let path = "/" + this.$router.currentRoute.params.lessonPath;
+			let path = "/" + this.$router.currentRoute.value.params.lessonPath;
 			if (path.includes(".md")) {
 				const mdLessonPath = path.split(".md");
 				path = mdLessonPath[0];
@@ -206,7 +204,7 @@ export default {
 			this.lessonStore.openPage({
 				smp: this.$smp,
 				lesson: { row_id: undefined, viz: undefined },
-				path: "/" + this.$router.currentRoute.params.pagePath
+				path: "/" + this.$router.currentRoute.value.params.pagePath
 			})
 				.catch(async e => {
 					await this.$router.push('/404');
@@ -216,7 +214,7 @@ export default {
 				})
 		},
 		async openCategory() {
-			const cat = this.getCategoryFromPath("/" + this.$router.currentRoute.params.categoryPath);
+			const cat = this.getCategoryFromPath("/" + this.$router.currentRoute.value.params.categoryPath);
 			if (cat) {
 				// open first found lesson if it exists, otherwise just open node
 				const foundLesson = cat.items.find((item) => item.is_category === false);
@@ -251,7 +249,6 @@ export default {
 		fetchVideoUrl() {
 			new Promise((resolve, reject) => {
 				this.getVideoUrl().then(url => {
-					console.log("url: "+url);
 					resolve(url);
 				}).catch(error => {
 					reject(error);
@@ -267,11 +264,11 @@ export default {
 		hljs.configure({
 			cssSelector: "code"
 		});
-		if (Object.prototype.hasOwnProperty.call(this.$router.currentRoute.params, "lessonPath") && this.tree.length) {
+		if (Object.prototype.hasOwnProperty.call(this.$router.currentRoute.value.params, "lessonPath") && this.tree.length) {
 			this.openLessonFromPath();
-		} else if (Object.prototype.hasOwnProperty.call(this.$router.currentRoute.params, "pagePath")) {
+		} else if (Object.prototype.hasOwnProperty.call(this.$router.currentRoute.value.params, "pagePath")) {
 			this.openPage();
-		} else if (Object.prototype.hasOwnProperty.call(this.$router.currentRoute.params, "categoryPath")) {
+		} else if (Object.prototype.hasOwnProperty.call(this.$router.currentRoute.value.params, "categoryPath")) {
 			this.openCategory();
 		}
 		
@@ -280,7 +277,7 @@ export default {
 		this.addScrollListeners();
 		this.$el.addEventListener("click", this.onHtmlClick);
 	},
-	beforeDestroy() {
+	beforeUnmount() {
 		this.lessonStore.unsetLesson();
 	},
 	metaInfo() {

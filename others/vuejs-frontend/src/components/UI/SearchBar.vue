@@ -92,10 +92,9 @@ export default {
 			}
 			try{
 				const res = await s.callSearchService(this.$smp.parameters.url, this.$smp.getBearerTokenHeader(), this.inputValue, this.lang, [], 0);
-				console.log(res);
 				this.suggestions = res.results;
 			}catch(err){
-				console.log("error in queryIndex: ", err);
+				console.log("error in queryIndex ");
 			}
 		},
 

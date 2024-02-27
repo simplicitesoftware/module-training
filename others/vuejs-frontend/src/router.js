@@ -1,4 +1,4 @@
-import VueRouter from 'vue-router'
+import {createRouter, createWebHistory} from 'vue-router'
 import Home from "./components/Pages/Home"
 import Lesson from "./components/Pages/Lesson"
 import PageNotFound from "./components/Pages/PageNotFound"
@@ -17,11 +17,13 @@ const routes = [
     { path: '/sandbox/:demandId', component: SandBoxDeployment, name:'SandBoxDeployment' },
     { path: '/sandbox-demand', component: SandBoxDemand, name: 'SandBoxDemand' },
     { path: '/tag-no-content', component: TagNotContent, name: 'TagNoContent'},
-    { path: '/*', component: PageNotFound, name: 'PageNotFound' }
+    { path: '/:pathMatch(.*)*', component: PageNotFound, name: 'PageNotFound' }
 ];
 
 //2. Exporting the router instance
-export default  new VueRouter({
-    mode: 'history',
-    routes
+const router =  createRouter({
+    history: createWebHistory(),
+    routes,
 });
+
+export default router;

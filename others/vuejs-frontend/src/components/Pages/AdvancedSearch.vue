@@ -62,7 +62,7 @@ export default {
     allResults: false
   }),
   async created() {
-    const initialQuery = this.$router.currentRoute.params.query;
+    const initialQuery = this.$router.currentRoute.value.params.query;
     if (initialQuery) {
       this.query = initialQuery;
       await this.search()
@@ -90,7 +90,7 @@ export default {
           this.searchInfo = new ResultInfo(res.search_info); 
           this.page += this.searchInfo.pageIncrement;
         }catch(err){
-          console.log("error in queryIndex: ", err);
+          console.log("error in queryIndex", err);
         }
         
        
@@ -111,7 +111,7 @@ export default {
             this.suggestions = this.suggestions.concat(fetchedSuggestions);
           }
         }catch(err){
-          console.log("error in queryIndex: ", err);
+          console.log("error in queryIndex",);
         }
         this.page += this.searchInfo.pageIncrement;
       }
