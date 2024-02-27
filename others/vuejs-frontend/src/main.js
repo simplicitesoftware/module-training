@@ -9,7 +9,7 @@ import router from "./router";
 //import "@/directives";
 import Meta from "vue-meta";
 import simplicite from "simplicite";
-import vClickOutside from "v-click-outside";
+import vClickOutside from "click-outside-vue3";
 
 Vue.use(VueRouter);
 Vue.use(Meta);
