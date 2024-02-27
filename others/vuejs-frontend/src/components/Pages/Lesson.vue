@@ -252,11 +252,11 @@ export default {
 		hljs.configure({
 			cssSelector: "code"
 		});
-		if (Object.prototype.hasOwnProperty.call(this.$router.currentRoute.params, "lessonPath") && this.tree.length) {
+		if (Object.config.globalProperties.hasOwnProperty.call(this.$router.currentRoute.params, "lessonPath") && this.tree.length) {
 			this.openLessonFromPath();
-		} else if (Object.prototype.hasOwnProperty.call(this.$router.currentRoute.params, "pagePath")) {
+		} else if (Object.config.globalProperties.hasOwnProperty.call(this.$router.currentRoute.params, "pagePath")) {
 			this.openPage();
-		} else if (Object.prototype.hasOwnProperty.call(this.$router.currentRoute.params, "categoryPath")) {
+		} else if (Object.config.globalProperties.hasOwnProperty.call(this.$router.currentRoute.params, "categoryPath")) {
 			this.openCategory();
 		}
 	},
@@ -316,153 +316,150 @@ export default {
 				border-radius: 10px
 
 .lesson-html-content
-	/* ::v-deep is used instead of >>> because we are using sass. It is a deep selector to apply styles to the v-html content*/
+	/* :deep is used instead of >>> because we are using sass. It is a deep selector to apply styles to the v-html content*/
 	margin-top: 10px
 	font-size: 1rem
 	@include flex-column-nowrap
 	
-	& ::v-deep
-		:not(pre) code.hljs  // targets inline code
-			display: inline
-			padding: 3px
-			border-radius: 3px
-			font-family: monospace
-			
-		code.hljs
-			border-radius: 10px
-			margin-bottom: 8px
-			font-family: monospace
+	& :deep(:not(pre) code.hljs)  // targets inline code
+		display: inline
+		padding: 3px
+		border-radius: 3px
+		font-family: monospace
+	& :deep(code.hljs)
+		border-radius: 10px
+		margin-bottom: 8px
+		font-family: monospace
 
-		img
-			max-width: 100%
-			height: auto
-			overflow-clip-margin: content-box
-			overflow: clip
-		pre
-			margin-bottom: 10px
+	& :deep(img)
+		max-width: 100%
+		height: auto
+		overflow-clip-margin: content-box
+		overflow: clip
+	& :deep(pre)
+		margin-bottom: 10px
 
-		table
-			width: 100%      
-			margin: 8px 0
-			color: $table-color-text
-			border-collapse: collapse
-		thead
-			padding-top: 10px
-			display: table-header-group
-			vertical-align: middle
-		th
-			font-size: map_get($title-sizes, "x-small")
-			font-weight: bold
-			background-color: $table-color-head-background
-			padding: map_get($paddings, "medium")
-		tr
-			&:nth-child(odd)
-				background-color: $table-color-row-background
-		td
-			padding: map_get($paddings, "small")
+	& :deep(table)
+		width: 100%      
+		margin: 8px 0
+		color: $table-color-text
+		border-collapse: collapse
+	& :deep(thead)
+		padding-top: 10px
+		display: table-header-group
+		vertical-align: middle
+	& :deep(th)
+		font-size: map_get($title-sizes, "x-small")
+		font-weight: bold
+		background-color: $table-color-head-background
+		padding: map_get($paddings, "medium")
+	& :deep(tr)
+		&:nth-child(odd)
+			background-color: $table-color-row-background
+	& :deep(td)
+		padding: map_get($paddings, "small")
 		// th, td
 		//   padding: map_get($paddings, "small")
-		th, td
-			border: solid 1px #E0E0E0
+	& :deep(th, td)
+		border: solid 1px #E0E0E0
 
-		h1, h2, h3, h4, h5, h6
-			position: relative
-			font-weight: normal
+	& :deep(h1, h2, h3, h4, h5, h6)
+		position: relative
+		font-weight: normal
+		display: flex
+		align-items: center
+		&:hover
+			.anchor-link
+				.icons
+					visibility: visible
+
+		.anchor-link
+			color: #808080
 			display: flex
 			align-items: center
+			padding: 4px 0 0 10px
 			&:hover
-				.anchor-link
-					.icons
-						visibility: visible
-
-			.anchor-link
+				text-decoration: none
 				color: #808080
-				display: flex
-				align-items: center
-				padding: 4px 0 0 10px
-				&:hover
-					text-decoration: none
-					color: #808080
 
-				.icons					
-					visibility: hidden
+			.icons					
+				visibility: hidden
 				
-		h1
-			font-size: map-get($title-sizes, 1)
-			color: #5BC0DE
-			border-bottom: solid 1px #E0E0E0
-			margin: 0 0 15px 0
-		h2
-			font-size: map-get($title-sizes, 2)
-			color: #5CB85C
-			border-bottom: solid 1px #E0E0E0
-			margin: 0 0 12px 0
-		h3
-			font-size: map-get($title-sizes, 3)
-			color: #F0AD4E
-			border-bottom: solid 1px #E0E0E0
-			margin: 0 0 8px 0
-			.anchor-link
-				padding-top: 3px
-		h4
-			font-size: map-get($title-sizes, 4)
-			color: $color-secondary
-			border-bottom: solid 1px #E0E0E0
-			margin: 0 0 7px 0
-		h5
-			font-size: map-get($title-sizes, 5)
-			color: $color-secondary
-		h6
-			font-size: map-get($title-sizes, 6)
-			color: $color-secondary
-		p
-			margin-bottom: 10px
-		ul
-			margin-bottom: 10px
-		ol
-			list-style-type: decimal
-			padding-left: 40px //ol and ul require a certain amount of padding to display the style-type
-			//The use of the reset style in app is still to keep though, because it doesn't provoke other issues
-			padding-bottom: 10px
-		li
-			margin-bottom: 5px
-		.info, .success, .warning, .error
-			border-radius: map-get($radius, regular)
-			padding: 0.7rem
-			margin: map-get($margins, x-small)
-		.info, .note
-			background-color: $color-information
-		.important
-			background-color: #ffc29e
-		.success
-			background-color: $color-success
-		.warning
-			background-color: $color-warning
-		.error
-			background-color: $color-error
+	& :deep(h1)
+		font-size: map-get($title-sizes, 1)
+		color: #5BC0DE
+		border-bottom: solid 1px #E0E0E0
+		margin: 0 0 15px 0
+	& :deep(h2)
+		font-size: map-get($title-sizes, 2)
+		color: #5CB85C
+		border-bottom: solid 1px #E0E0E0
+		margin: 0 0 12px 0
+	& :deep(h3)
+		font-size: map-get($title-sizes, 3)
+		color: #F0AD4E
+		border-bottom: solid 1px #E0E0E0
+		margin: 0 0 8px 0
+		.anchor-link
+			padding-top: 3px
+	& :deep(h4)
+		font-size: map-get($title-sizes, 4)
+		color: $color-secondary
+		border-bottom: solid 1px #E0E0E0
+		margin: 0 0 7px 0
+	& :deep(h5)
+		font-size: map-get($title-sizes, 5)
+		color: $color-secondary
+	& :deep(h6)
+		font-size: map-get($title-sizes, 6)
+		color: $color-secondary
+	& :deep(p)
+		margin-bottom: 10px
+	& :deep(ul)
+		margin-bottom: 10px
+	& :deep(ol)
+		list-style-type: decimal
+		padding-left: 40px //ol and ul require a certain amount of padding to display the style-type
+		//The use of the reset style in app is still to keep though, because it doesn't provoke other issues
+		padding-bottom: 10px
+	& :deep(li)
+		margin-bottom: 5px
+	& :deep(.info, .success, .warning, .error)
+		border-radius: map-get($radius, regular)
+		padding: 0.7rem
+		margin: map-get($margins, x-small)
+	& :deep(.info, .note)
+		background-color: $color-information
+	& :deep(.important)
+		background-color: #ffc29e
+	& :deep(.success)
+		background-color: $color-success
+	& :deep(.warning)
+		background-color: $color-warning
+	& :deep(.error)
+		background-color: $color-error
 
-		blockquote > p::before
-			content: ''
-		blockquote > p::after
-			content: ''
-		blockquote
-			background-color: $color-information
-			padding: map_get($paddings, "medium")
-			border-radius: map-get($radius, regular)
-			margin-bottom: 10px
-			p, ul, li
-				margin-bottom: 0px
+	& :deep(blockquote > p::before)
+		content: ''
+	& :deep(blockquote > p::after)
+		content: ''
+	& :deep(blockquote)
+		background-color: $color-information
+		padding: map_get($paddings, "medium")
+		border-radius: map-get($radius, regular)
+		margin-bottom: 10px
+		p, ul, li
+			margin-bottom: 0px
             
-		strong
+	& :deep(strong)
+		text-decoration: underline
+	& :deep(a)
+		color: #007bff
+		text-decoration: none
+		background-color: transparent
+		&:hover
+			color: #0062ff
 			text-decoration: underline
-		a
-			color: #007bff
-			text-decoration: none
-			background-color: transparent
-			&:hover
-				color: #0062ff
-				text-decoration: underline
-
 .grid
 	position: absolute
 	width: 100%

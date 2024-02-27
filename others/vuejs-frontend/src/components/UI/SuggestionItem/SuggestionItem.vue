@@ -48,13 +48,12 @@ export default {
     background-color: #EDF3FA
     border-radius: .3rem
     cursor: pointer
-  & ::v-deep
-    em 
-      background-color: yellow
-      font-weight: bold
-      font-style: normal
-    input
-      visibility: hidden
+  & :deep(em)
+    background-color: yellow
+    font-weight: bold
+    font-style: normal
+  & :deep(input)
+    visibility: hidden
 
 .result-header
   color: black
@@ -91,10 +90,9 @@ export default {
   padding-left: .5rem
   flex-grow: 1
   line-height: 1.3rem
-  & ::v-deep
-    h1, h2, h3, h4, h5, h6
-      font-size: 1rem
-      font-weight: normal
+  & :deep(h1, h2, h3, h4, h5, h6)
+    font-size: 1rem
+    font-weight: normal
 
 
 </style>

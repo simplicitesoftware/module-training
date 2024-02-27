@@ -65,16 +65,19 @@ export default {
     border-radius: 5px
     margin: -1px -1px 0 -1px
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px
-  & ::v-deep
-    em 
-      background-color: yellow
-      font-weight: bold
-      font-style: normal
-    input
-      visibility: hidden
-    h1, h2, h3, h4, h5, h6
-      font-size: 1rem
-      font-weight: normal
+  & :deep(em)
+    background-color: yellow,
+    font-weight: bold
+    font-style: normal
+  
+  & :deep(input)
+    visibility: hidden
+  
+  & :deep(h1, h2, h3, h4, h5, h6)
+    font-size: 1rem,
+    font-weight: normal
+  
+      
   
   .result-header
     display: flex
