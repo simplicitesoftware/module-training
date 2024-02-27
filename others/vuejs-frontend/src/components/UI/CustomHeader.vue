@@ -84,7 +84,7 @@ export default {
         }
     },
     created() {
-        if (this.$router.currentRoute.name === 'Lesson') this.navigationArrowVisible = true
+        if (this.$router.currentRoute.value.name === 'Lesson') this.navigationArrowVisible = true
     },
     watch:{
         $route (to){

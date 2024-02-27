@@ -75,7 +75,7 @@ export default {
 			...mapState(useLessonStore, ['lesson','lessonImages']),
 		},
 		methods: {
-			beforeDestroy() {
+			beforeUnmount() {
 				this.lessonStore.unsetLesson();
 			},
 		},

@@ -23,8 +23,7 @@ export default {
                 .then((json) => {
                     res(json);
                 })
-                .catch((error) => {
-                    console.log(error);
+                .catch(() => {
                     rej([]);
                 })
                 .finally(() => {

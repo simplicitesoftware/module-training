@@ -95,8 +95,8 @@ export default {
       this.uiStore.TOGGLE_MODAL_STATE();
       this.treeStore.fetchTree({ smp: this.$smp })
       .then(() => {
-        this.treeStore.OPEN_NODE("/"+this.$router.currentRoute.params.lessonPath)
-        if(this.$router.currentRoute.name === 'TagNoContent') {
+        this.treeStore.OPEN_NODE("/"+this.$router.currentRoute.value.params.lessonPath)
+        if(this.$router.currentRoute.value.name === 'TagNoContent') {
           this.$router.push('/');
         }
       });

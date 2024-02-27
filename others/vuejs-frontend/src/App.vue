@@ -82,7 +82,8 @@ button
     border: 0
     background-color: transparent
     color: inherit
-
+#app
+    height: 100%
 .app
     font-family: 'Source Sans Pro', sans-serif
     
