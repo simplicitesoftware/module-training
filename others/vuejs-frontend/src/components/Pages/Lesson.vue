@@ -109,22 +109,13 @@ export default {
 	data: () => ({
 		alreadyScrolledImages: [],
 		lessonViz: 'linear',
-		spinner: true
+		spinner: true,
+		videoUrl: null
 	}),
 	watch: {
 		lesson: function (newLesson, oldLesson) {
 			if (newLesson.viz === 'TUTO') {
 				this.lessonViz = 'default';
-			}
-		}
-	},
-	asyncComputed: {
-		async videoUrl() {
-			if (this.lesson?.video) {
-				return await getDocumentURL(this);
-			}
-			else {
-				return false;
 			}
 		}
 	},
@@ -192,6 +183,7 @@ export default {
 			}).finally(() => {
 				this.addAnchorIcons();
 				hljs.highlightAll();
+				this.fetchVideoUrl();
 				if (this.$route.hash) {
 					const id = this.$route.hash.replace('#', '');
 					const el = document.getElementById(id);
@@ -206,6 +198,7 @@ export default {
 				path = mdLessonPath[0];
 			}
 			const lesson = this.getLessonFromPath(path);
+			
 			if (!lesson) this.$router.push('/404');
 			else this.openLesson(lesson);
 		},
@@ -247,18 +240,41 @@ export default {
 				}
 			}
 		},
+		async getVideoUrl() {
+			if (this.lesson?.video) {
+				return await getDocumentURL(this);
+			}
+			else {
+				false;
+			}
+		},
+		fetchVideoUrl() {
+			new Promise((resolve, reject) => {
+				this.getVideoUrl().then(url => {
+					console.log("url: "+url);
+					resolve(url);
+				}).catch(error => {
+					reject(error);
+				});
+			}).then(url => {
+				this.videoUrl = url;
+			}).catch(error => {
+				console.error(error);
+			});
+		}
 	},
 	async created() {
 		hljs.configure({
 			cssSelector: "code"
 		});
-		if (Object.config.globalProperties.hasOwnProperty.call(this.$router.currentRoute.params, "lessonPath") && this.tree.length) {
+		if (Object.prototype.hasOwnProperty.call(this.$router.currentRoute.params, "lessonPath") && this.tree.length) {
 			this.openLessonFromPath();
-		} else if (Object.config.globalProperties.hasOwnProperty.call(this.$router.currentRoute.params, "pagePath")) {
+		} else if (Object.prototype.hasOwnProperty.call(this.$router.currentRoute.params, "pagePath")) {
 			this.openPage();
-		} else if (Object.config.globalProperties.hasOwnProperty.call(this.$router.currentRoute.params, "categoryPath")) {
+		} else if (Object.prototype.hasOwnProperty.call(this.$router.currentRoute.params, "categoryPath")) {
 			this.openCategory();
 		}
+		
 	},
 	mounted() {
 		this.addScrollListeners();

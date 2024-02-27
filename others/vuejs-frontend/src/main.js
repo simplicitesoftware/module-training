@@ -2,7 +2,6 @@
 import Vue from "vue";
 import App from "./App.vue";
 import VueRouter from "vue-router";
-/* import Vuex from "vuex"; */
 import { createPinia } from 'pinia';
 import router from "./router";
 //import store from "./state/store";
@@ -10,13 +9,10 @@ import router from "./router";
 //import "@/directives";
 import Meta from "vue-meta";
 import simplicite from "simplicite";
-import AsyncComputed from "vue-async-computed";
 import vClickOutside from "v-click-outside";
 
 Vue.use(VueRouter);
-//Vue.use(Vuex); // enable vuex store management system
 Vue.use(Meta);
-Vue.use(AsyncComputed);
 Vue.use(vClickOutside);
 const pinia = createPinia();
 Vue.use(pinia);
