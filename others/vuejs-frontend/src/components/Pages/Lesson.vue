@@ -373,10 +373,10 @@ export default {
 		padding: map_get($paddings, "small")
 		// th, td
 		//   padding: map_get($paddings, "small")
-	& :deep(th, td)
+	& :deep(th), :deep(td)
 		border: solid 1px #E0E0E0
 
-	& :deep(h1, h2, h3, h4, h5, h6)
+	& :deep(h1), :deep(h2), :deep(h3), :deep(h4), :deep(h5), :deep(h6)
 		position: relative
 		font-weight: normal
 		display: flex
