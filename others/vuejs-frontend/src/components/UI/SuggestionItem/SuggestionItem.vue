@@ -90,7 +90,7 @@ export default {
   padding-left: .5rem
   flex-grow: 1
   line-height: 1.3rem
-  & :deep(h1, h2, h3, h4, h5, h6)
+  & :deep(h1), :deep(h2), :deep(h3), :deep(h4), :deep(h5), :deep(h6)
     font-size: 1rem
     font-weight: normal
 

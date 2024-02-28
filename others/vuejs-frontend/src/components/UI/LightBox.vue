@@ -1,7 +1,7 @@
 <template>
   <transition name="light-box">
     <div class="light-box" v-show="isLightBoxVisible">
-      <div class="light-box__overlay" @click="$store.uiStore.hideLightBox()"></div>
+      <div class="light-box__overlay" @click="hideLightBox()"></div>
       <img class="light-box__image" :src="lightBoxImageSrc" alt="light-box image"/>
     </div>
   </transition>
@@ -14,7 +14,7 @@
   export default {
     name: "LightBox",
     computed: {
-      ...mapState(useUiStore, ['lightBoxImageSrc','isLightBoxVisible']),
+      ...mapState(useUiStore, ['lightBoxImageSrc','isLightBoxVisible','hideLightBox']),
     },
   }
 </script>
