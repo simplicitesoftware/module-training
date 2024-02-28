@@ -1,6 +1,6 @@
 <template>
   <transition name="modal-fade">
-    <div class="modal" role="dialog">
+    <div class="modal" role="dialog" v-if="true">
       <div class="modal-dialog" v-click-outside="onClickOutside">
         <div class="modal-content">
           <div class="modal-header">
