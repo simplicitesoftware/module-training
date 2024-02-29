@@ -11,7 +11,6 @@
     "deploy": "npm run build && npm run zip"
   },
   "dependencies": {
-    "@appbaseio/reactivesearch-vue": "^1.36.7",
     "click-outside-vue3": "^4.0.1",
     "core-js": "^3.36.0",
     "highlight.js": "^11.9.0",

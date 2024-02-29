@@ -1,7 +1,8 @@
+
 module.exports = {
     publicPath: '/',
     configureWebpack: {
-        devtool: 'source-map'
+        devtool: 'source-map',
     },
     chainWebpack: (config) => {
         config.plugin('define').tap((definitions) => {
@@ -11,4 +12,5 @@ module.exports = {
           return definitions
         })
       }
+      
 }

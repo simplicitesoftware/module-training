@@ -12,7 +12,7 @@
 		</div>
 		<div class="suggestionRelative">
 			<div v-if="isSugOpen" class="result-list-container">
-				<div v-if="suggestions">
+				<div v-if="suggestions.length > 0">
 					<div v-for="suggestion in suggestions || []" :key="suggestion.id">
 						<SuggestionItem :suggestion="suggestion" @suggestionItemSelected="suggestionSelected" />
 					</div>
@@ -49,7 +49,7 @@ export default {
 			hover: false,
 			isSugOpen: false,
 			result: '',
-			suggestions: null,
+			suggestions: [],
 		}
 	},
 	computed: {
@@ -92,9 +92,15 @@ export default {
 			}
 			try{
 				const res = await s.callSearchService(this.$smp.parameters.url, this.$smp.getBearerTokenHeader(), this.inputValue, this.lang, [], 0);
-				this.suggestions = res.results;
+				if(res.results){
+					this.suggestions = res.results;
+				}else{
+					this.suggestion = [];
+				}
+				
 			}catch(err){
-				console.log("error in queryIndex ");
+				console.log("error in search query ");
+				this.suggestion = [];
 			}
 		},
 
