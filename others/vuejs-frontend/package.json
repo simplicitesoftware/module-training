@@ -16,8 +16,8 @@
     "highlight.js": "^11.9.0",
     "pinia": "^2.1.7",
     "simplicite": "^3.0.1",
-    "vue": "^3.2.47",
-    "vue-meta": "^3.0.0-alpha.2",
+    "vue": "^3.4.21",
+    "vue-meta": "^3.0.0-alpha.10",
     "vue-router": "^4.3.0"
   },
   "devDependencies": {
