@@ -145,7 +145,7 @@ export default {
 					}
 				}
 				// On affiche la dernière image dans le carousel
-				if (potentialImages.length) this.$refs.slider.goToImage(potentialImages[potentialImages.length - 1]);
+				if (this.$refs.slider && potentialImages.length) this.$refs.slider.goToImage(potentialImages[potentialImages.length - 1]);
 			});
 		},
 		addAnchorIcons() {
