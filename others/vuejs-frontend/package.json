@@ -14,6 +14,7 @@
     "click-outside-vue3": "^4.0.1",
     "core-js": "^3.36.0",
     "highlight.js": "^11.9.0",
+    "mermaid": "^10.8.0",
     "pinia": "^2.1.7",
     "simplicite": "^3.0.1",
     "vue": "^3.4.21",

@@ -40,6 +40,7 @@
 
 <script>
 /* eslint-disable no-console,no-unused-vars,no-undef */
+
 import Spinner from "../UI/Spinner";
 import EmptyContent from "../UI/EmptyContent";
 import Slider from "../UI/Slider";
@@ -64,7 +65,7 @@ import ldif from 'highlight.js/lib/languages/ldif';
 import nginx from 'highlight.js/lib/languages/nginx';
 import apache from 'highlight.js/lib/languages/apache';
 import sql from 'highlight.js/lib/languages/sql';
-
+import mermaid from "mermaid";
 // manually importing required languages for performances reasons
 hljs.registerLanguage('javascript', javascript);
 hljs.registerLanguage('java', java);
@@ -100,11 +101,14 @@ function getDocumentURL(vm) {
 export default {
 	name: "Lesson",
 	setup() {
-            return {
-                lessonStore: useLessonStore(),
-                treeStore: useTreeStore()
-            }
-        },
+		mermaid.initialize({
+			securityLevel: 'high',
+		});
+        return {
+			lessonStore: useLessonStore(),
+            treeStore: useTreeStore()
+        }
+    },
 	components: { Slider, Spinner, EmptyContent },
 	data: () => ({
 		alreadyScrolledImages: [],
@@ -172,6 +176,7 @@ export default {
 		getAnchorLink(anchorId) {
 			return this.$smp.parameters.url + "/lesson" + this.lesson.path
 		},
+
 		openLesson(lesson) {
 			this.lessonStore.openLesson({
 				smp: this.$smp,
@@ -181,7 +186,13 @@ export default {
 			}).finally(() => {
 				this.addAnchorIcons();
 				hljs.highlightAll();
-				this.fetchVideoUrl();
+				mermaid.run({
+					querySelector: '.mermaid',
+				});
+				mermaid.run({
+					querySelector: '.language-mermaid',
+				});
+				this.fetchVideoUrl();				
 				if (this.$route.hash) {
 					const id = this.$route.hash.replace('#', '');
 					const el = document.getElementById(id);
