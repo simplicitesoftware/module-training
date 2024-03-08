@@ -176,7 +176,14 @@ export default {
 		getAnchorLink(anchorId) {
 			return this.$smp.parameters.url + "/lesson" + this.lesson.path
 		},
-
+		unbindMermaidForHljs() {
+			const mermaidDivs = document.querySelectorAll(".language-mermaid");
+			mermaidDivs.forEach((div) => {
+				div.classList.remove("language-mermaid");
+				div.classList.add("nohighlight");
+				div.classList.add("mermaid");
+			});
+		},
 		openLesson(lesson) {
 			this.lessonStore.openLesson({
 				smp: this.$smp,
@@ -185,13 +192,14 @@ export default {
 				this.spinner = false;
 			}).finally(() => {
 				this.addAnchorIcons();
+				this.unbindMermaidForHljs();
 				hljs.highlightAll();
 				mermaid.run({
 					querySelector: '.mermaid',
 				});
-				mermaid.run({
+				/* mermaid.run({
 					querySelector: '.language-mermaid',
-				});
+				}); */
 				this.fetchVideoUrl();				
 				if (this.$route.hash) {
 					const id = this.$route.hash.replace('#', '');
