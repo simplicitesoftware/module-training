@@ -21,7 +21,6 @@ function setSimplicitePublicSession() {
         deploymentType === "remote" || deploymentType === "local"
             ? process.env.VUE_APP_SIM_INSTANCE_URL
             : window.location.origin;
-    console.log(deploymentType +" :"+instanceUrl)
     const cfg = { url: instanceUrl, debug: false };
     const app = simplicite.session(cfg);
     app.info("Version: " + simplicite.constants.MODULE_VERSION);
