@@ -456,11 +456,11 @@ export default {
 		padding-bottom: 10px
 	& :deep(li)
 		margin-bottom: 5px
-	& :deep(.info, .success, .warning, .error)
+	& :deep(.info), :deep(.success), :deep(.warning), :deep(.error)
 		border-radius: map-get($radius, regular)
 		padding: 0.7rem
 		margin: map-get($margins, x-small)
-	& :deep(.info, .note)
+	& :deep(.info), :deep(.note)
 		background-color: $color-information
 	& :deep(.important)
 		background-color: #ffc29e
