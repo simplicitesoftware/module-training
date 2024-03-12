@@ -27,9 +27,29 @@ function setSimplicitePublicSession() {
     app.debug(app.parameters);
     return app;
 }
-
+function fetchFaviconUrl(smp){
+    const siteTheme = smp.getBusinessObject('TrnSiteTheme');
+    
+    siteTheme.search().then(async (res) => {
+        if (res[0]) {
+            let FaviconUrl = siteTheme.getFieldDocumentURL("trnThemeFavicon", res[0]);
+            if(FaviconUrl){
+                let favicon = document.querySelector('link[rel="icon"]');
+                if (!favicon) {
+                    favicon = document.createElement('link')
+                    favicon.setAttribute('rel', 'icon')
+                    favicon.setAttribute('sizes', '192x192')
+                    document.head.appendChild(favicon);
+                }
+                favicon.setAttribute('href', FaviconUrl);
+            }
+        }
+    });
+}
 window.onload = function() {
-    vueApp.config.globalProperties.$smp = setSimplicitePublicSession();
+    let smp=setSimplicitePublicSession();
+    vueApp.config.globalProperties.$smp = smp;
+    fetchFaviconUrl(smp);
     // temporary default to this value while index service is being implemented
     vueApp.config.globalProperties.$SEARCH_TYPE = "simplicite";
     vueApp.mount('#app');
