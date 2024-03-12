@@ -351,7 +351,8 @@ export default {
 	margin-top: 10px
 	font-size: 1rem
 	@include flex-column-nowrap
-	
+	& :deep(details>pre code.hljs)
+		display: block
 	& :deep(:not(pre) code.hljs)  // targets inline code
 		display: inline
 		padding: 3px
