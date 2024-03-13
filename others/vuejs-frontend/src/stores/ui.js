@@ -83,6 +83,15 @@ export const useUiStore = defineStore('uiStore', {
 				}).catch(e => console.log(e));
 			});
 		},
+		getFormattedTitle(title) {
+			const documentHeader = document.querySelector('head > titletemplate');
+			if (!documentHeader) return title;
+			const titleTemplate = documentHeader.innerText;
+			if (!titleTemplate) return title;
+			if(!titleTemplate.includes('%s')) return titleTemplate;
+			const formattedTitle = titleTemplate.replace('%s', title);
+			return formattedTitle;
+		},
 		//Mutations
 		SET_DRAWER_STATE(choice) {
 			this.isDrawerOpen = choice;

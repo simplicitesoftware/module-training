@@ -3,7 +3,7 @@ import {createApp} from "vue";
 import App from "./App.vue";
 import { createPinia } from 'pinia';
 import router from "./router";
-import { createMetaManager } from "vue-meta";
+import { createMetaManager, plugin as metaPlugin } from "vue-meta";
 import simplicite from "simplicite";
 import vClickOutside from "click-outside-vue3";
 const pinia = createPinia();
@@ -11,6 +11,7 @@ const vueApp = createApp(App);
 vueApp.use(pinia);
 vueApp.use(router);
 vueApp.use(createMetaManager());
+vueApp.use(metaPlugin);
 
 vueApp.use(vClickOutside);
 
@@ -27,9 +28,9 @@ function setSimplicitePublicSession() {
     app.debug(app.parameters);
     return app;
 }
+//to redo with vue-meta
 function fetchFaviconUrl(smp){
     const siteTheme = smp.getBusinessObject('TrnSiteTheme');
-    
     siteTheme.search().then(async (res) => {
         if (res[0]) {
             let FaviconUrl = siteTheme.getFieldDocumentURL("trnThemeFavicon", res[0]);

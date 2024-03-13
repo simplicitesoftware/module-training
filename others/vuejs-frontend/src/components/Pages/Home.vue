@@ -43,17 +43,21 @@
 import { mapState} from "pinia";
 import Spinner from "../UI/Spinner";
 import { useLessonStore } from "../../stores/lesson";
+import { useUiStore } from "../../stores/ui";
 export default {
 	components: {Spinner},
 	setup() {
             return {
-                lessonStore: useLessonStore()
+                lessonStore: useLessonStore(),
+				uiStore: useUiStore(),
             }
         },
 		name: "HomePage",
-		metaInfo: {
-			// Children can override the title.
-			title: "Home",
+		metaInfo(){
+			let title =this.uiStore.getFormattedTitle("Home");
+			return {
+				title: title
+			}
 		},
 		data: () => ({
 			// set to true when server has responded to the homepage request

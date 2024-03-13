@@ -1,4 +1,5 @@
 <template>
+    <metainfo></metainfo>
     <div v-if="isStyleLoaded" id="app" class="app">
         <CustomHeader/>
         <main>
@@ -56,16 +57,21 @@
                 this.isUserOnLesson = to.name === 'Lesson';
             }
         },
-        metaInfo: {
-            // Children can override the title.
-            title: 'App',
-            titleTemplate: 'Docs | %s',
-            // Define meta tags here.
-            meta: [
-                {'http-equiv': 'Content-Type', 'content': 'text/html; charset=utf-8'},
-                {'name': 'viewport', 'content': 'width=device-width, initial-scale=1'},
-                {'name': 'description', 'content': 'I have things here on my site.'}
-            ]
+        metaInfo(){
+            return {
+                // Children can override the title.
+                title: 'App',
+                titleTemplate: 'Docs | %s',
+                // Define meta tags here.
+                meta: [
+                    {'http-equiv': 'Content-Type', 'content': 'text/html; charset=utf-8'},
+                    {'name': 'viewport', 'content': 'width=device-width, initial-scale=1'},
+                    {'name': 'description', 'content': 'I have things here on my site.'},
+                ],
+                /* link: [
+                    {  'rel': 'icon', 'size': '192x192', 'href': 'simplicite.svg'}
+                ] */
+            }
         }
     };
 </script>

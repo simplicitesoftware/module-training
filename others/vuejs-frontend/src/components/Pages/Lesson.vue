@@ -47,6 +47,7 @@ import Slider from "../UI/Slider";
 import { mapState } from "pinia";
 import { useLessonStore } from "../../stores/lesson";
 import { useTreeStore } from "../../stores/tree";
+import { useUiStore } from "../../stores/ui";
 
 import hljs from "highlight.js/lib/core";
 import javascript from 'highlight.js/lib/languages/javascript';
@@ -101,12 +102,14 @@ function getDocumentURL(vm) {
 export default {
 	name: "Lesson",
 	setup() {
+		
 		mermaid.initialize({
 			securityLevel: 'high',
 		});
         return {
 			lessonStore: useLessonStore(),
-            treeStore: useTreeStore()
+            treeStore: useTreeStore(),
+			uiStore: useUiStore()
         }
     },
 	components: { Slider, Spinner, EmptyContent },
@@ -299,10 +302,11 @@ export default {
 		this.lessonStore.unsetLesson();
 	},
 	metaInfo() {
-		let lesson = this.lesson;
+		let titleLesson = this.uiStore.getFormattedTitle(this.lesson.title);
+		if(!titleLesson) titleLesson = "Docs";
 		// Children can override the title.
 		return {
-			title: lesson.title
+			title: titleLesson
 		}
 	}
 };
