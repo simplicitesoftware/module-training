@@ -518,6 +518,8 @@ export default {
 	border-bottom: 1px solid #eee
 	background-color: #fff
 	padding-bottom: 1em
+	scrollbar-color: #E7E7E7 transparent
+	scrollbar-width: thin
 
 .default
 	.slider-block

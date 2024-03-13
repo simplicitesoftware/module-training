@@ -113,7 +113,8 @@ button
             display: block
             transition: $duration-drawer-collapse ease-in-out
             position: relative
-
+            scrollbar-color: #E7E7E7 transparent
+            scrollbar-width: thin
         .page-content
             width: 100%
 

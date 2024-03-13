@@ -111,6 +111,8 @@ export default {
 			border-radius: map-get($radius, regular)
 			@include box-shadow
 			overflow: auto
+			scrollbar-color: #E7E7E7 transparent
+			scrollbar-width: thin
 			.content-block
 				width: 100%
 				height: 100%
