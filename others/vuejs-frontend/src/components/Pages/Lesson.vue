@@ -217,9 +217,21 @@ export default {
 				path = mdLessonPath[0];
 			}
 			const lesson = this.getLessonFromPath(path);
-			
-			if (!lesson) this.$router.push('/404');
+			if (!lesson) this.checkUrlRewriting(path);
 			else this.openLesson(lesson);
+		},
+		async checkUrlRewriting(path) {
+			const urlRewriting = this.$smp.getBusinessObject("TrnUrlRewriting");
+			const array = await urlRewriting.search(
+				{"trnSourceUrl": "*" + path}, 
+				{inlineDocs: 'infos'}
+			);
+			if (array[0]) {
+				path = array[0].trnDestinationUrl;
+			}else{
+				path = "/404";
+			}
+			this.$router.push(path);
 		},
 		async openPage() {
 			this.lessonStore.openPage({
