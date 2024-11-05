@@ -1,5 +1,5 @@
 {
-    "date": "2023-11-28 18:05:51",
+    "date": "2024-11-05 17:55:40",
     "name": "Training",
     "format": "json",
     "files": ["Training.json"],
@@ -8,5 +8,5 @@
         "branch": "master"
     }},
     "version": "2.10",
-    "platform": "5.3.23"
+    "platform": "5.3.54"
 }

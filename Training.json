@@ -200,7 +200,7 @@
    "field": "row_module_id",
    "list": [{
     "object": "UserSysParam",
-    "userkey": "training-sync~FORCE_CHANGE_PASSWORD",
+    "userkey": "training-sync FORCE_CHANGE_PASSWORD",
     "item": {
      "usp_user_id__usr_login": "training-sync",
      "usp_param_id__sys_code": "FORCE_CHANGE_PASSWORD",
@@ -251,7 +251,7 @@
    "field": "row_module_id",
    "list": [{
     "object": "Profile",
-    "userkey": "ADMIN~TRN_ADMIN",
+    "userkey": "ADMIN TRN_ADMIN",
     "item": {
      "prf_profile_id__grp_name": "ADMIN",
      "prf_group_id__grp_name": "TRN_ADMIN",
@@ -267,7 +267,7 @@
    "list": [
     {
      "object": "Responsability",
-     "userkey": "designer~TRN_ADMIN~2022-11-22",
+     "userkey": "designer TRN_ADMIN 11/22/2022",
      "item": {
       "rsp_login_id__usr_login": "designer",
       "rsp_group_id__grp_name": "TRN_ADMIN",
@@ -279,7 +279,7 @@
     },
     {
      "object": "Responsability",
-     "userkey": "training-sync~TRN_SYNC~2021-08-30",
+     "userkey": "training-sync TRN_SYNC 08/30/2021",
      "item": {
       "rsp_login_id__usr_login": "training-sync",
       "rsp_group_id__grp_name": "TRN_SYNC",
@@ -298,7 +298,7 @@
    "field": "row_module_id",
    "list": [{
     "object": "ListOfValue",
-    "userkey": "TEXT~TRN_INACTIVATED_UI_WARNING~ANY",
+    "userkey": "TEXT TRN_INACTIVATED_UI_WARNING *",
     "item": {
      "lov_name": "TEXT",
      "lov_code": "TRN_INACTIVATED_UI_WARNING",
@@ -436,7 +436,7 @@
    "list": [
     {
      "object": "FieldListCode",
-     "userkey": "TRN_PAGE_TYPE~homepage",
+     "userkey": "TRN_PAGE_TYPE homepage",
      "item": {
       "lov_list_id__lov_name": "TRN_PAGE_TYPE",
       "lov_code": "homepage",
@@ -451,7 +451,7 @@
     },
     {
      "object": "FieldListCode",
-     "userkey": "TRN_PAGE_TYPE~others",
+     "userkey": "TRN_PAGE_TYPE others",
      "item": {
       "lov_list_id__lov_name": "TRN_PAGE_TYPE",
       "lov_code": "others",
@@ -466,7 +466,7 @@
     },
     {
      "object": "FieldListCode",
-     "userkey": "TRN_SIT_LANGUAGE~fre",
+     "userkey": "TRN_SIT_LANGUAGE fre",
      "item": {
       "lov_list_id__lov_name": "TRN_SIT_LANGUAGE",
       "lov_code": "fre",
@@ -481,7 +481,7 @@
     },
     {
      "object": "FieldListCode",
-     "userkey": "TRN_SIT_LANGUAGE~spa",
+     "userkey": "TRN_SIT_LANGUAGE spa",
      "item": {
       "lov_list_id__lov_name": "TRN_SIT_LANGUAGE",
       "lov_code": "spa",
@@ -496,7 +496,7 @@
     },
     {
      "object": "FieldListCode",
-     "userkey": "TRN_SIT_LANGUAGE~eng",
+     "userkey": "TRN_SIT_LANGUAGE eng",
      "item": {
       "lov_list_id__lov_name": "TRN_SIT_LANGUAGE",
       "lov_code": "eng",
@@ -511,7 +511,7 @@
     },
     {
      "object": "FieldListCode",
-     "userkey": "TRN_SYNC_ACTION_TYPE~FS",
+     "userkey": "TRN_SYNC_ACTION_TYPE FS",
      "item": {
       "lov_list_id__lov_name": "TRN_SYNC_ACTION_TYPE",
       "lov_code": "FS",
@@ -526,7 +526,7 @@
     },
     {
      "object": "FieldListCode",
-     "userkey": "TRN_SYNC_ACTION_TYPE~GIT",
+     "userkey": "TRN_SYNC_ACTION_TYPE GIT",
      "item": {
       "lov_list_id__lov_name": "TRN_SYNC_ACTION_TYPE",
       "lov_code": "GIT",
@@ -541,7 +541,7 @@
     },
     {
      "object": "FieldListCode",
-     "userkey": "TRN_SYNC_STATUS~OK",
+     "userkey": "TRN_SYNC_STATUS OK",
      "item": {
       "lov_list_id__lov_name": "TRN_SYNC_STATUS",
       "lov_code": "OK",
@@ -556,7 +556,7 @@
     },
     {
      "object": "FieldListCode",
-     "userkey": "TRN_SYNC_STATUS~KO",
+     "userkey": "TRN_SYNC_STATUS KO",
      "item": {
       "lov_list_id__lov_name": "TRN_SYNC_STATUS",
       "lov_code": "KO",
@@ -571,7 +571,7 @@
     },
     {
      "object": "FieldListCode",
-     "userkey": "TRN_SYNC_TYPE~GIT",
+     "userkey": "TRN_SYNC_TYPE GIT",
      "item": {
       "lov_list_id__lov_name": "TRN_SYNC_TYPE",
       "lov_code": "GIT",
@@ -586,7 +586,7 @@
     },
     {
      "object": "FieldListCode",
-     "userkey": "TRN_SYNC_TYPE~SYNC",
+     "userkey": "TRN_SYNC_TYPE SYNC",
      "item": {
       "lov_list_id__lov_name": "TRN_SYNC_TYPE",
       "lov_code": "SYNC",
@@ -601,7 +601,7 @@
     },
     {
      "object": "FieldListCode",
-     "userkey": "TRN_SYNC_TYPE~REINDEX",
+     "userkey": "TRN_SYNC_TYPE REINDEX",
      "item": {
       "lov_list_id__lov_name": "TRN_SYNC_TYPE",
       "lov_code": "REINDEX",
@@ -616,7 +616,7 @@
     },
     {
      "object": "FieldListCode",
-     "userkey": "TRN_SYNC_TYPE~DROP",
+     "userkey": "TRN_SYNC_TYPE DROP",
      "item": {
       "lov_list_id__lov_name": "TRN_SYNC_TYPE",
       "lov_code": "DROP",
@@ -631,7 +631,7 @@
     },
     {
      "object": "FieldListCode",
-     "userkey": "TRN_SYNC_TYPE~DISCOURSE",
+     "userkey": "TRN_SYNC_TYPE DISCOURSE",
      "item": {
       "lov_list_id__lov_name": "TRN_SYNC_TYPE",
       "lov_code": "DISCOURSE",
@@ -646,7 +646,7 @@
     },
     {
      "object": "FieldListCode",
-     "userkey": "TRNCTPLANGUAGE~A",
+     "userkey": "TRNCTPLANGUAGE A",
      "item": {
       "lov_list_id__lov_name": "TRNCTPLANGUAGE",
       "lov_code": "A",
@@ -661,7 +661,7 @@
     },
     {
      "object": "FieldListCode",
-     "userkey": "TRNCTPLANGUAGE~B",
+     "userkey": "TRNCTPLANGUAGE B",
      "item": {
       "lov_list_id__lov_name": "TRNCTPLANGUAGE",
       "lov_code": "B",
@@ -676,7 +676,7 @@
     },
     {
      "object": "FieldListCode",
-     "userkey": "TRNCTPLANGUAGE~C",
+     "userkey": "TRNCTPLANGUAGE C",
      "item": {
       "lov_list_id__lov_name": "TRNCTPLANGUAGE",
       "lov_code": "C",
@@ -691,7 +691,7 @@
     },
     {
      "object": "FieldListCode",
-     "userkey": "TRNCTRLANG~A",
+     "userkey": "TRNCTRLANG A",
      "item": {
       "lov_list_id__lov_name": "TRNCTRLANG",
       "lov_code": "A",
@@ -706,7 +706,7 @@
     },
     {
      "object": "FieldListCode",
-     "userkey": "TRNCTRLANG~B",
+     "userkey": "TRNCTRLANG B",
      "item": {
       "lov_list_id__lov_name": "TRNCTRLANG",
       "lov_code": "B",
@@ -721,7 +721,7 @@
     },
     {
      "object": "FieldListCode",
-     "userkey": "TRNCTRLANG~C",
+     "userkey": "TRNCTRLANG C",
      "item": {
       "lov_list_id__lov_name": "TRNCTRLANG",
       "lov_code": "C",
@@ -736,7 +736,7 @@
     },
     {
      "object": "FieldListCode",
-     "userkey": "TRNLSNVISUALIZATION~TUTO",
+     "userkey": "TRNLSNVISUALIZATION TUTO",
      "item": {
       "lov_list_id__lov_name": "TRNLSNVISUALIZATION",
       "lov_code": "TUTO",
@@ -751,7 +751,7 @@
     },
     {
      "object": "FieldListCode",
-     "userkey": "TRNLSNVISUALIZATION~LINEAR",
+     "userkey": "TRNLSNVISUALIZATION LINEAR",
      "item": {
       "lov_list_id__lov_name": "TRNLSNVISUALIZATION",
       "lov_code": "LINEAR",
@@ -766,7 +766,7 @@
     },
     {
      "object": "FieldListCode",
-     "userkey": "TRNLTRLAN~A",
+     "userkey": "TRNLTRLAN A",
      "item": {
       "lov_list_id__lov_name": "TRNLTRLAN",
       "lov_code": "A",
@@ -781,7 +781,7 @@
     },
     {
      "object": "FieldListCode",
-     "userkey": "TRNLTRLAN~B",
+     "userkey": "TRNLTRLAN B",
      "item": {
       "lov_list_id__lov_name": "TRNLTRLAN",
       "lov_code": "B",
@@ -796,7 +796,7 @@
     },
     {
      "object": "FieldListCode",
-     "userkey": "TRNLTRLAN~C",
+     "userkey": "TRNLTRLAN C",
      "item": {
       "lov_list_id__lov_name": "TRNLTRLAN",
       "lov_code": "C",
@@ -811,7 +811,7 @@
     },
     {
      "object": "FieldListCode",
-     "userkey": "TRNPICLANG~FR",
+     "userkey": "TRNPICLANG FR",
      "item": {
       "lov_list_id__lov_name": "TRNPICLANG",
       "lov_code": "FR",
@@ -826,7 +826,7 @@
     },
     {
      "object": "FieldListCode",
-     "userkey": "TRNPICLANG~EN",
+     "userkey": "TRNPICLANG EN",
      "item": {
       "lov_list_id__lov_name": "TRNPICLANG",
       "lov_code": "EN",
@@ -841,7 +841,7 @@
     },
     {
      "object": "FieldListCode",
-     "userkey": "TRNPICLANG~SP",
+     "userkey": "TRNPICLANG SP",
      "item": {
       "lov_list_id__lov_name": "TRNPICLANG",
       "lov_code": "SP",
@@ -864,18 +864,7 @@
    "list": [
     {
      "object": "FieldListValue",
-     "userkey": "TRN_PAGE_TYPE~homepage~ENU",
-     "item": {
-      "lov_code_id__lov_list_id__lov_name": "TRN_PAGE_TYPE",
-      "lov_code_id__lov_code": "homepage",
-      "lov_lang": "ENU",
-      "lov_value": "homepage",
-      "row_module_id__mdl_name": "Training"
-     }
-    },
-    {
-     "object": "FieldListValue",
-     "userkey": "TRN_PAGE_TYPE~others~ENU",
+     "userkey": "TRN_PAGE_TYPE others English",
      "item": {
       "lov_code_id__lov_list_id__lov_name": "TRN_PAGE_TYPE",
       "lov_code_id__lov_code": "others",
@@ -886,7 +875,18 @@
     },
     {
      "object": "FieldListValue",
-     "userkey": "TRN_PAGE_TYPE~homepage~FRA",
+     "userkey": "TRN_PAGE_TYPE homepage English",
+     "item": {
+      "lov_code_id__lov_list_id__lov_name": "TRN_PAGE_TYPE",
+      "lov_code_id__lov_code": "homepage",
+      "lov_lang": "ENU",
+      "lov_value": "homepage",
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "FieldListValue",
+     "userkey": "TRN_PAGE_TYPE homepage French",
      "item": {
       "lov_code_id__lov_list_id__lov_name": "TRN_PAGE_TYPE",
       "lov_code_id__lov_code": "homepage",
@@ -897,7 +897,7 @@
     },
     {
      "object": "FieldListValue",
-     "userkey": "TRN_PAGE_TYPE~others~FRA",
+     "userkey": "TRN_PAGE_TYPE others French",
      "item": {
       "lov_code_id__lov_list_id__lov_name": "TRN_PAGE_TYPE",
       "lov_code_id__lov_code": "others",
@@ -908,18 +908,7 @@
     },
     {
      "object": "FieldListValue",
-     "userkey": "TRN_SIT_LANGUAGE~fre~ENU",
-     "item": {
-      "lov_code_id__lov_list_id__lov_name": "TRN_SIT_LANGUAGE",
-      "lov_code_id__lov_code": "fre",
-      "lov_lang": "ENU",
-      "lov_value": "French",
-      "row_module_id__mdl_name": "Training"
-     }
-    },
-    {
-     "object": "FieldListValue",
-     "userkey": "TRN_SIT_LANGUAGE~spa~ENU",
+     "userkey": "TRN_SIT_LANGUAGE spa English",
      "item": {
       "lov_code_id__lov_list_id__lov_name": "TRN_SIT_LANGUAGE",
       "lov_code_id__lov_code": "spa",
@@ -930,7 +919,18 @@
     },
     {
      "object": "FieldListValue",
-     "userkey": "TRN_SIT_LANGUAGE~eng~ENU",
+     "userkey": "TRN_SIT_LANGUAGE fre English",
+     "item": {
+      "lov_code_id__lov_list_id__lov_name": "TRN_SIT_LANGUAGE",
+      "lov_code_id__lov_code": "fre",
+      "lov_lang": "ENU",
+      "lov_value": "French",
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "FieldListValue",
+     "userkey": "TRN_SIT_LANGUAGE eng English",
      "item": {
       "lov_code_id__lov_list_id__lov_name": "TRN_SIT_LANGUAGE",
       "lov_code_id__lov_code": "eng",
@@ -941,18 +941,7 @@
     },
     {
      "object": "FieldListValue",
-     "userkey": "TRN_SIT_LANGUAGE~fre~FRA",
-     "item": {
-      "lov_code_id__lov_list_id__lov_name": "TRN_SIT_LANGUAGE",
-      "lov_code_id__lov_code": "fre",
-      "lov_lang": "FRA",
-      "lov_value": "Français",
-      "row_module_id__mdl_name": "Training"
-     }
-    },
-    {
-     "object": "FieldListValue",
-     "userkey": "TRN_SIT_LANGUAGE~spa~FRA",
+     "userkey": "TRN_SIT_LANGUAGE spa French",
      "item": {
       "lov_code_id__lov_list_id__lov_name": "TRN_SIT_LANGUAGE",
       "lov_code_id__lov_code": "spa",
@@ -963,7 +952,18 @@
     },
     {
      "object": "FieldListValue",
-     "userkey": "TRN_SIT_LANGUAGE~eng~FRA",
+     "userkey": "TRN_SIT_LANGUAGE fre French",
+     "item": {
+      "lov_code_id__lov_list_id__lov_name": "TRN_SIT_LANGUAGE",
+      "lov_code_id__lov_code": "fre",
+      "lov_lang": "FRA",
+      "lov_value": "Français",
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "FieldListValue",
+     "userkey": "TRN_SIT_LANGUAGE eng French",
      "item": {
       "lov_code_id__lov_list_id__lov_name": "TRN_SIT_LANGUAGE",
       "lov_code_id__lov_code": "eng",
@@ -974,7 +974,7 @@
     },
     {
      "object": "FieldListValue",
-     "userkey": "TRN_SYNC_ACTION_TYPE~FS~ENU",
+     "userkey": "TRN_SYNC_ACTION_TYPE FS English",
      "item": {
       "lov_code_id__lov_list_id__lov_name": "TRN_SYNC_ACTION_TYPE",
       "lov_code_id__lov_code": "FS",
@@ -985,7 +985,7 @@
     },
     {
      "object": "FieldListValue",
-     "userkey": "TRN_SYNC_ACTION_TYPE~GIT~ENU",
+     "userkey": "TRN_SYNC_ACTION_TYPE GIT English",
      "item": {
       "lov_code_id__lov_list_id__lov_name": "TRN_SYNC_ACTION_TYPE",
       "lov_code_id__lov_code": "GIT",
@@ -996,7 +996,7 @@
     },
     {
      "object": "FieldListValue",
-     "userkey": "TRN_SYNC_ACTION_TYPE~GIT~FRA",
+     "userkey": "TRN_SYNC_ACTION_TYPE GIT French",
      "item": {
       "lov_code_id__lov_list_id__lov_name": "TRN_SYNC_ACTION_TYPE",
       "lov_code_id__lov_code": "GIT",
@@ -1007,7 +1007,7 @@
     },
     {
      "object": "FieldListValue",
-     "userkey": "TRN_SYNC_ACTION_TYPE~FS~FRA",
+     "userkey": "TRN_SYNC_ACTION_TYPE FS French",
      "item": {
       "lov_code_id__lov_list_id__lov_name": "TRN_SYNC_ACTION_TYPE",
       "lov_code_id__lov_code": "FS",
@@ -1018,7 +1018,7 @@
     },
     {
      "object": "FieldListValue",
-     "userkey": "TRN_SYNC_STATUS~OK~ENU",
+     "userkey": "TRN_SYNC_STATUS OK English",
      "item": {
       "lov_code_id__lov_list_id__lov_name": "TRN_SYNC_STATUS",
       "lov_code_id__lov_code": "OK",
@@ -1029,7 +1029,7 @@
     },
     {
      "object": "FieldListValue",
-     "userkey": "TRN_SYNC_STATUS~KO~ENU",
+     "userkey": "TRN_SYNC_STATUS KO English",
      "item": {
       "lov_code_id__lov_list_id__lov_name": "TRN_SYNC_STATUS",
       "lov_code_id__lov_code": "KO",
@@ -1040,7 +1040,7 @@
     },
     {
      "object": "FieldListValue",
-     "userkey": "TRN_SYNC_STATUS~OK~FRA",
+     "userkey": "TRN_SYNC_STATUS OK French",
      "item": {
       "lov_code_id__lov_list_id__lov_name": "TRN_SYNC_STATUS",
       "lov_code_id__lov_code": "OK",
@@ -1051,7 +1051,7 @@
     },
     {
      "object": "FieldListValue",
-     "userkey": "TRN_SYNC_STATUS~KO~FRA",
+     "userkey": "TRN_SYNC_STATUS KO French",
      "item": {
       "lov_code_id__lov_list_id__lov_name": "TRN_SYNC_STATUS",
       "lov_code_id__lov_code": "KO",
@@ -1062,7 +1062,7 @@
     },
     {
      "object": "FieldListValue",
-     "userkey": "TRN_SYNC_TYPE~GIT~ANY",
+     "userkey": "TRN_SYNC_TYPE GIT *",
      "item": {
       "lov_code_id__lov_list_id__lov_name": "TRN_SYNC_TYPE",
       "lov_code_id__lov_code": "GIT",
@@ -1073,7 +1073,7 @@
     },
     {
      "object": "FieldListValue",
-     "userkey": "TRN_SYNC_TYPE~SYNC~ANY",
+     "userkey": "TRN_SYNC_TYPE SYNC *",
      "item": {
       "lov_code_id__lov_list_id__lov_name": "TRN_SYNC_TYPE",
       "lov_code_id__lov_code": "SYNC",
@@ -1084,7 +1084,7 @@
     },
     {
      "object": "FieldListValue",
-     "userkey": "TRN_SYNC_TYPE~REINDEX~ANY",
+     "userkey": "TRN_SYNC_TYPE REINDEX *",
      "item": {
       "lov_code_id__lov_list_id__lov_name": "TRN_SYNC_TYPE",
       "lov_code_id__lov_code": "REINDEX",
@@ -1095,7 +1095,7 @@
     },
     {
      "object": "FieldListValue",
-     "userkey": "TRN_SYNC_TYPE~DROP~ENU",
+     "userkey": "TRN_SYNC_TYPE DROP English",
      "item": {
       "lov_code_id__lov_list_id__lov_name": "TRN_SYNC_TYPE",
       "lov_code_id__lov_code": "DROP",
@@ -1106,7 +1106,7 @@
     },
     {
      "object": "FieldListValue",
-     "userkey": "TRN_SYNC_TYPE~DISCOURSE~ENU",
+     "userkey": "TRN_SYNC_TYPE DISCOURSE English",
      "item": {
       "lov_code_id__lov_list_id__lov_name": "TRN_SYNC_TYPE",
       "lov_code_id__lov_code": "DISCOURSE",
@@ -1117,7 +1117,7 @@
     },
     {
      "object": "FieldListValue",
-     "userkey": "TRN_SYNC_TYPE~DROP~FRA",
+     "userkey": "TRN_SYNC_TYPE DROP French",
      "item": {
       "lov_code_id__lov_list_id__lov_name": "TRN_SYNC_TYPE",
       "lov_code_id__lov_code": "DROP",
@@ -1128,7 +1128,7 @@
     },
     {
      "object": "FieldListValue",
-     "userkey": "TRN_SYNC_TYPE~DISCOURSE~FRA",
+     "userkey": "TRN_SYNC_TYPE DISCOURSE French",
      "item": {
       "lov_code_id__lov_list_id__lov_name": "TRN_SYNC_TYPE",
       "lov_code_id__lov_code": "DISCOURSE",
@@ -1139,7 +1139,7 @@
     },
     {
      "object": "FieldListValue",
-     "userkey": "TRNCTPLANGUAGE~A~ENU",
+     "userkey": "TRNCTPLANGUAGE A English",
      "item": {
       "lov_code_id__lov_list_id__lov_name": "TRNCTPLANGUAGE",
       "lov_code_id__lov_code": "A",
@@ -1150,7 +1150,7 @@
     },
     {
      "object": "FieldListValue",
-     "userkey": "TRNCTPLANGUAGE~B~ENU",
+     "userkey": "TRNCTPLANGUAGE B English",
      "item": {
       "lov_code_id__lov_list_id__lov_name": "TRNCTPLANGUAGE",
       "lov_code_id__lov_code": "B",
@@ -1161,7 +1161,7 @@
     },
     {
      "object": "FieldListValue",
-     "userkey": "TRNCTPLANGUAGE~C~ENU",
+     "userkey": "TRNCTPLANGUAGE C English",
      "item": {
       "lov_code_id__lov_list_id__lov_name": "TRNCTPLANGUAGE",
       "lov_code_id__lov_code": "C",
@@ -1172,7 +1172,18 @@
     },
     {
      "object": "FieldListValue",
-     "userkey": "TRNCTPLANGUAGE~A~FRA",
+     "userkey": "TRNCTPLANGUAGE C French",
+     "item": {
+      "lov_code_id__lov_list_id__lov_name": "TRNCTPLANGUAGE",
+      "lov_code_id__lov_code": "C",
+      "lov_lang": "FRA",
+      "lov_value": "C",
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "FieldListValue",
+     "userkey": "TRNCTPLANGUAGE A French",
      "item": {
       "lov_code_id__lov_list_id__lov_name": "TRNCTPLANGUAGE",
       "lov_code_id__lov_code": "A",
@@ -1183,7 +1194,7 @@
     },
     {
      "object": "FieldListValue",
-     "userkey": "TRNCTPLANGUAGE~B~FRA",
+     "userkey": "TRNCTPLANGUAGE B French",
      "item": {
       "lov_code_id__lov_list_id__lov_name": "TRNCTPLANGUAGE",
       "lov_code_id__lov_code": "B",
@@ -1194,29 +1205,7 @@
     },
     {
      "object": "FieldListValue",
-     "userkey": "TRNCTPLANGUAGE~C~FRA",
-     "item": {
-      "lov_code_id__lov_list_id__lov_name": "TRNCTPLANGUAGE",
-      "lov_code_id__lov_code": "C",
-      "lov_lang": "FRA",
-      "lov_value": "C",
-      "row_module_id__mdl_name": "Training"
-     }
-    },
-    {
-     "object": "FieldListValue",
-     "userkey": "TRNCTRLANG~A~ENU",
-     "item": {
-      "lov_code_id__lov_list_id__lov_name": "TRNCTRLANG",
-      "lov_code_id__lov_code": "A",
-      "lov_lang": "ENU",
-      "lov_value": "A",
-      "row_module_id__mdl_name": "Training"
-     }
-    },
-    {
-     "object": "FieldListValue",
-     "userkey": "TRNCTRLANG~B~ENU",
+     "userkey": "TRNCTRLANG B English",
      "item": {
       "lov_code_id__lov_list_id__lov_name": "TRNCTRLANG",
       "lov_code_id__lov_code": "B",
@@ -1227,7 +1216,18 @@
     },
     {
      "object": "FieldListValue",
-     "userkey": "TRNCTRLANG~C~ENU",
+     "userkey": "TRNCTRLANG A English",
+     "item": {
+      "lov_code_id__lov_list_id__lov_name": "TRNCTRLANG",
+      "lov_code_id__lov_code": "A",
+      "lov_lang": "ENU",
+      "lov_value": "A",
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "FieldListValue",
+     "userkey": "TRNCTRLANG C English",
      "item": {
       "lov_code_id__lov_list_id__lov_name": "TRNCTRLANG",
       "lov_code_id__lov_code": "C",
@@ -1238,18 +1238,7 @@
     },
     {
      "object": "FieldListValue",
-     "userkey": "TRNCTRLANG~A~FRA",
-     "item": {
-      "lov_code_id__lov_list_id__lov_name": "TRNCTRLANG",
-      "lov_code_id__lov_code": "A",
-      "lov_lang": "FRA",
-      "lov_value": "A",
-      "row_module_id__mdl_name": "Training"
-     }
-    },
-    {
-     "object": "FieldListValue",
-     "userkey": "TRNCTRLANG~B~FRA",
+     "userkey": "TRNCTRLANG B French",
      "item": {
       "lov_code_id__lov_list_id__lov_name": "TRNCTRLANG",
       "lov_code_id__lov_code": "B",
@@ -1260,7 +1249,18 @@
     },
     {
      "object": "FieldListValue",
-     "userkey": "TRNCTRLANG~C~FRA",
+     "userkey": "TRNCTRLANG A French",
+     "item": {
+      "lov_code_id__lov_list_id__lov_name": "TRNCTRLANG",
+      "lov_code_id__lov_code": "A",
+      "lov_lang": "FRA",
+      "lov_value": "A",
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "FieldListValue",
+     "userkey": "TRNCTRLANG C French",
      "item": {
       "lov_code_id__lov_list_id__lov_name": "TRNCTRLANG",
       "lov_code_id__lov_code": "C",
@@ -1271,7 +1271,7 @@
     },
     {
      "object": "FieldListValue",
-     "userkey": "TRNLSNVISUALIZATION~TUTO~ENU",
+     "userkey": "TRNLSNVISUALIZATION TUTO English",
      "item": {
       "lov_code_id__lov_list_id__lov_name": "TRNLSNVISUALIZATION",
       "lov_code_id__lov_code": "TUTO",
@@ -1282,7 +1282,7 @@
     },
     {
      "object": "FieldListValue",
-     "userkey": "TRNLSNVISUALIZATION~LINEAR~ENU",
+     "userkey": "TRNLSNVISUALIZATION LINEAR English",
      "item": {
       "lov_code_id__lov_list_id__lov_name": "TRNLSNVISUALIZATION",
       "lov_code_id__lov_code": "LINEAR",
@@ -1293,18 +1293,7 @@
     },
     {
      "object": "FieldListValue",
-     "userkey": "TRNLSNVISUALIZATION~TUTO~FRA",
-     "item": {
-      "lov_code_id__lov_list_id__lov_name": "TRNLSNVISUALIZATION",
-      "lov_code_id__lov_code": "TUTO",
-      "lov_lang": "FRA",
-      "lov_value": "Tutoriel",
-      "row_module_id__mdl_name": "Training"
-     }
-    },
-    {
-     "object": "FieldListValue",
-     "userkey": "TRNLSNVISUALIZATION~LINEAR~FRA",
+     "userkey": "TRNLSNVISUALIZATION LINEAR French",
      "item": {
       "lov_code_id__lov_list_id__lov_name": "TRNLSNVISUALIZATION",
       "lov_code_id__lov_code": "LINEAR",
@@ -1315,18 +1304,18 @@
     },
     {
      "object": "FieldListValue",
-     "userkey": "TRNLTRLAN~A~ENU",
+     "userkey": "TRNLSNVISUALIZATION TUTO French",
      "item": {
-      "lov_code_id__lov_list_id__lov_name": "TRNLTRLAN",
-      "lov_code_id__lov_code": "A",
-      "lov_lang": "ENU",
-      "lov_value": "A",
+      "lov_code_id__lov_list_id__lov_name": "TRNLSNVISUALIZATION",
+      "lov_code_id__lov_code": "TUTO",
+      "lov_lang": "FRA",
+      "lov_value": "Tutoriel",
       "row_module_id__mdl_name": "Training"
      }
     },
     {
      "object": "FieldListValue",
-     "userkey": "TRNLTRLAN~B~ENU",
+     "userkey": "TRNLTRLAN B English",
      "item": {
       "lov_code_id__lov_list_id__lov_name": "TRNLTRLAN",
       "lov_code_id__lov_code": "B",
@@ -1337,7 +1326,7 @@
     },
     {
      "object": "FieldListValue",
-     "userkey": "TRNLTRLAN~C~ENU",
+     "userkey": "TRNLTRLAN C English",
      "item": {
       "lov_code_id__lov_list_id__lov_name": "TRNLTRLAN",
       "lov_code_id__lov_code": "C",
@@ -1348,7 +1337,18 @@
     },
     {
      "object": "FieldListValue",
-     "userkey": "TRNLTRLAN~A~FRA",
+     "userkey": "TRNLTRLAN A English",
+     "item": {
+      "lov_code_id__lov_list_id__lov_name": "TRNLTRLAN",
+      "lov_code_id__lov_code": "A",
+      "lov_lang": "ENU",
+      "lov_value": "A",
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "FieldListValue",
+     "userkey": "TRNLTRLAN A French",
      "item": {
       "lov_code_id__lov_list_id__lov_name": "TRNLTRLAN",
       "lov_code_id__lov_code": "A",
@@ -1359,7 +1359,7 @@
     },
     {
      "object": "FieldListValue",
-     "userkey": "TRNLTRLAN~B~FRA",
+     "userkey": "TRNLTRLAN B French",
      "item": {
       "lov_code_id__lov_list_id__lov_name": "TRNLTRLAN",
       "lov_code_id__lov_code": "B",
@@ -1370,7 +1370,7 @@
     },
     {
      "object": "FieldListValue",
-     "userkey": "TRNLTRLAN~C~FRA",
+     "userkey": "TRNLTRLAN C French",
      "item": {
       "lov_code_id__lov_list_id__lov_name": "TRNLTRLAN",
       "lov_code_id__lov_code": "C",
@@ -1381,29 +1381,7 @@
     },
     {
      "object": "FieldListValue",
-     "userkey": "TRNPICLANG~FR~ENU",
-     "item": {
-      "lov_code_id__lov_list_id__lov_name": "TRNPICLANG",
-      "lov_code_id__lov_code": "FR",
-      "lov_lang": "ENU",
-      "lov_value": "FR",
-      "row_module_id__mdl_name": "Training"
-     }
-    },
-    {
-     "object": "FieldListValue",
-     "userkey": "TRNPICLANG~EN~ENU",
-     "item": {
-      "lov_code_id__lov_list_id__lov_name": "TRNPICLANG",
-      "lov_code_id__lov_code": "EN",
-      "lov_lang": "ENU",
-      "lov_value": "EN",
-      "row_module_id__mdl_name": "Training"
-     }
-    },
-    {
-     "object": "FieldListValue",
-     "userkey": "TRNPICLANG~SP~ENU",
+     "userkey": "TRNPICLANG SP English",
      "item": {
       "lov_code_id__lov_list_id__lov_name": "TRNPICLANG",
       "lov_code_id__lov_code": "SP",
@@ -1414,18 +1392,40 @@
     },
     {
      "object": "FieldListValue",
-     "userkey": "TRNPICLANG~FR~FRA",
+     "userkey": "TRNPICLANG FR English",
      "item": {
       "lov_code_id__lov_list_id__lov_name": "TRNPICLANG",
       "lov_code_id__lov_code": "FR",
-      "lov_lang": "FRA",
-      "lov_value": "French",
+      "lov_lang": "ENU",
+      "lov_value": "FR",
       "row_module_id__mdl_name": "Training"
      }
     },
     {
      "object": "FieldListValue",
-     "userkey": "TRNPICLANG~EN~FRA",
+     "userkey": "TRNPICLANG EN English",
+     "item": {
+      "lov_code_id__lov_list_id__lov_name": "TRNPICLANG",
+      "lov_code_id__lov_code": "EN",
+      "lov_lang": "ENU",
+      "lov_value": "EN",
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "FieldListValue",
+     "userkey": "TRNPICLANG SP French",
+     "item": {
+      "lov_code_id__lov_list_id__lov_name": "TRNPICLANG",
+      "lov_code_id__lov_code": "SP",
+      "lov_lang": "FRA",
+      "lov_value": "Spanish",
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "FieldListValue",
+     "userkey": "TRNPICLANG EN French",
      "item": {
       "lov_code_id__lov_list_id__lov_name": "TRNPICLANG",
       "lov_code_id__lov_code": "EN",
@@ -1436,12 +1436,12 @@
     },
     {
      "object": "FieldListValue",
-     "userkey": "TRNPICLANG~SP~FRA",
+     "userkey": "TRNPICLANG FR French",
      "item": {
       "lov_code_id__lov_list_id__lov_name": "TRNPICLANG",
-      "lov_code_id__lov_code": "SP",
+      "lov_code_id__lov_code": "FR",
       "lov_lang": "FRA",
-      "lov_value": "Spanish",
+      "lov_value": "French",
       "row_module_id__mdl_name": "Training"
      }
     }
@@ -1887,12 +1887,7 @@
      "object": "Field",
      "userkey": "trnDestinationUrl",
      "item": {
-      "fld_name": {
-       "value": "trnDestinationUrl",
-       "oldvalue": "trnUrlCurrent",
-       "oldvalue1": "TrnUrlCurrent",
-       "oldvalue2": "trnUrlCurrent"
-      },
+      "fld_name": "trnDestinationUrl",
       "fld_dbname": "trn_destination_url",
       "fld_visible": "3",
       "fld_updatable": "1",
@@ -2623,11 +2618,7 @@
      "object": "Field",
      "userkey": "trnPageTrnLessonid",
      "item": {
-      "fld_name": {
-       "value": "trnPageTrnLessonid",
-       "oldvalue": "trnPageTrnLessonid",
-       "oldvalue1": "TrnPage_TrnLesson_id"
-      },
+      "fld_name": "trnPageTrnLessonid",
       "fld_dbname": "trn_page_trn_lessonid",
       "fld_visible": "3",
       "fld_updatable": "1",
@@ -3014,11 +3005,7 @@
      "object": "Field",
      "userkey": "trnSourceUrl",
      "item": {
-      "fld_name": {
-       "value": "trnSourceUrl",
-       "oldvalue": "trnSourceURL",
-       "oldvalue1": "trnUrlOld"
-      },
+      "fld_name": "trnSourceUrl",
       "fld_dbname": "trn_source_url",
       "fld_visible": "3",
       "fld_updatable": "1",
@@ -3061,10 +3048,7 @@
      "object": "Field",
      "userkey": "trnSyncActionType",
      "item": {
-      "fld_name": {
-       "value": "trnSyncActionType",
-       "oldvalue": "trnSyncType"
-      },
+      "fld_name": "trnSyncActionType",
       "fld_dbname": "trn_sync_action_type",
       "fld_visible": "3",
       "fld_updatable": "1",
@@ -3758,7 +3742,7 @@
    "list": [
     {
      "object": "FieldStyle",
-     "userkey": "TrnCategory~trnCatPublish~0",
+     "userkey": "TrnCategory trnCatPublish 0",
      "item": {
       "sty_object": "TrnCategory",
       "sty_field": "trnCatPublish",
@@ -3772,7 +3756,7 @@
     },
     {
      "object": "FieldStyle",
-     "userkey": "TrnCategory~trnCatPublish~1",
+     "userkey": "TrnCategory trnCatPublish 1",
      "item": {
       "sty_object": "TrnCategory",
       "sty_field": "trnCatPublish",
@@ -3786,7 +3770,7 @@
     },
     {
      "object": "FieldStyle",
-     "userkey": "TrnLesson~trnLsnPublish~0",
+     "userkey": "TrnLesson trnLsnPublish 0",
      "item": {
       "sty_object": "TrnLesson",
       "sty_field": "trnLsnPublish",
@@ -3800,7 +3784,7 @@
     },
     {
      "object": "FieldStyle",
-     "userkey": "TrnLesson~trnLsnPublish~1",
+     "userkey": "TrnLesson trnLsnPublish 1",
      "item": {
       "sty_object": "TrnLesson",
       "sty_field": "trnLsnPublish",
@@ -3814,7 +3798,7 @@
     },
     {
      "object": "FieldStyle",
-     "userkey": "TrnLsnTranslate~trnLtrHasContent~0",
+     "userkey": "TrnLsnTranslate trnLtrHasContent 0",
      "item": {
       "sty_object": "TrnLsnTranslate",
       "sty_field": "trnLtrHasContent",
@@ -3828,7 +3812,7 @@
     },
     {
      "object": "FieldStyle",
-     "userkey": "TrnLsnTranslate~trnLtrHasContent~1",
+     "userkey": "TrnLsnTranslate trnLtrHasContent 1",
      "item": {
       "sty_object": "TrnLsnTranslate",
       "sty_field": "trnLtrHasContent",
@@ -3842,7 +3826,7 @@
     },
     {
      "object": "FieldStyle",
-     "userkey": "TrnSyncSupervisor~trnSyncStatus~KO",
+     "userkey": "TrnSyncSupervisor trnSyncStatus KO",
      "item": {
       "sty_object": "TrnSyncSupervisor",
       "sty_field": "trnSyncStatus",
@@ -3856,7 +3840,7 @@
     },
     {
      "object": "FieldStyle",
-     "userkey": "TrnSyncSupervisor~trnSyncStatus~OK",
+     "userkey": "TrnSyncSupervisor trnSyncStatus OK",
      "item": {
       "sty_object": "TrnSyncSupervisor",
       "sty_field": "trnSyncStatus",
@@ -4954,10 +4938,7 @@
      "object": "ObjectInternal",
      "userkey": "TrnSiteTheme",
      "item": {
-      "obo_name": {
-       "value": "TrnSiteTheme",
-       "oldvalue": "TrnSiteStyle"
-      },
+      "obo_name": "TrnSiteTheme",
       "obo_dbtable": "trn_site_theme",
       "obo_role": "OBJ",
       "obo_class": null,
@@ -5115,10 +5096,7 @@
      "object": "ObjectInternal",
      "userkey": "TrnTag",
      "item": {
-      "obo_name": {
-       "value": "TrnTag",
-       "oldvalue": "TrnTag"
-      },
+      "obo_name": "TrnTag",
       "obo_dbtable": "trn_tag",
       "obo_role": "OBJ",
       "obo_class": null,
@@ -5432,7 +5410,7 @@
    "list": [
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnCategory~trnCatCode~20",
+     "userkey": "TrnCategory trnCatCode 20",
      "item": {
       "obf_object_id__obo_name": "TrnCategory",
       "obf_field_id__fld_name": "trnCatCode",
@@ -5468,7 +5446,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnCategory~trnCatOrder~30",
+     "userkey": "TrnCategory trnCatOrder 30",
      "item": {
       "obf_object_id__obo_name": "TrnCategory",
       "obf_field_id__fld_name": "trnCatOrder",
@@ -5504,7 +5482,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnCategory~trnCatPublish~40",
+     "userkey": "TrnCategory trnCatPublish 40",
      "item": {
       "obf_object_id__obo_name": "TrnCategory",
       "obf_field_id__fld_name": "trnCatPublish",
@@ -5540,7 +5518,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnCategory~trnCatPath~50",
+     "userkey": "TrnCategory trnCatPath 50",
      "item": {
       "obf_object_id__obo_name": "TrnCategory",
       "obf_field_id__fld_name": "trnCatPath",
@@ -5576,7 +5554,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnCategory~trnCatFrontPath~60",
+     "userkey": "TrnCategory trnCatFrontPath 60",
      "item": {
       "obf_object_id__obo_name": "TrnCategory",
       "obf_field_id__fld_name": "trnCatFrontPath",
@@ -5612,7 +5590,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnCategory~trnCatId~70",
+     "userkey": "TrnCategory trnCatId 70",
      "item": {
       "obf_object_id__obo_name": "TrnCategory",
       "obf_field_id__fld_name": "trnCatId",
@@ -5648,7 +5626,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnCategory~trnCatPath~80",
+     "userkey": "TrnCategory trnCatPath 80",
      "item": {
       "obf_object_id__obo_name": "TrnCategory",
       "obf_field_id__fld_name": "trnCatPath",
@@ -5684,7 +5662,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnCategory~trnCatCode~90",
+     "userkey": "TrnCategory trnCatCode 90",
      "item": {
       "obf_object_id__obo_name": "TrnCategory",
       "obf_field_id__fld_name": "trnCatCode",
@@ -5720,7 +5698,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnCategory~trnCatFrontPath~140",
+     "userkey": "TrnCategory trnCatFrontPath 140",
      "item": {
       "obf_object_id__obo_name": "TrnCategory",
       "obf_field_id__fld_name": "trnCatFrontPath",
@@ -5756,7 +5734,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnCategoryTranslate~trnCtrLang~10",
+     "userkey": "TrnCategoryTranslate trnCtrLang 10",
      "item": {
       "obf_object_id__obo_name": "TrnCategoryTranslate",
       "obf_field_id__fld_name": "trnCtrLang",
@@ -5792,7 +5770,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnCategoryTranslate~trnCtrTitle~20",
+     "userkey": "TrnCategoryTranslate trnCtrTitle 20",
      "item": {
       "obf_object_id__obo_name": "TrnCategoryTranslate",
       "obf_field_id__fld_name": "trnCtrTitle",
@@ -5828,7 +5806,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnCategoryTranslate~trnCtrDescription~30",
+     "userkey": "TrnCategoryTranslate trnCtrDescription 30",
      "item": {
       "obf_object_id__obo_name": "TrnCategoryTranslate",
       "obf_field_id__fld_name": "trnCtrDescription",
@@ -5864,7 +5842,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnCategoryTranslate~trnCtrCatId~100",
+     "userkey": "TrnCategoryTranslate trnCtrCatId 100",
      "item": {
       "obf_object_id__obo_name": "TrnCategoryTranslate",
       "obf_field_id__fld_name": "trnCtrCatId",
@@ -5900,7 +5878,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnCategoryTranslate~trnCatPath~110",
+     "userkey": "TrnCategoryTranslate trnCatPath 110",
      "item": {
       "obf_object_id__obo_name": "TrnCategoryTranslate",
       "obf_field_id__fld_name": "trnCatPath",
@@ -5936,7 +5914,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnLesson~trnLsnCode~2",
+     "userkey": "TrnLesson trnLsnCode 2",
      "item": {
       "obf_object_id__obo_name": "TrnLesson",
       "obf_field_id__fld_name": "trnLsnCode",
@@ -5972,7 +5950,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnLesson~trnLsnOrder~3",
+     "userkey": "TrnLesson trnLsnOrder 3",
      "item": {
       "obf_object_id__obo_name": "TrnLesson",
       "obf_field_id__fld_name": "trnLsnOrder",
@@ -6008,7 +5986,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnLesson~trnLsnPublish~4",
+     "userkey": "TrnLesson trnLsnPublish 4",
      "item": {
       "obf_object_id__obo_name": "TrnLesson",
       "obf_field_id__fld_name": "trnLsnPublish",
@@ -6044,7 +6022,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnLesson~trnLsnPath~5",
+     "userkey": "TrnLesson trnLsnPath 5",
      "item": {
       "obf_object_id__obo_name": "TrnLesson",
       "obf_field_id__fld_name": "trnLsnPath",
@@ -6080,7 +6058,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnLesson~trnLsnVisualization~6",
+     "userkey": "TrnLesson trnLsnVisualization 6",
      "item": {
       "obf_object_id__obo_name": "TrnLesson",
       "obf_field_id__fld_name": "trnLsnVisualization",
@@ -6116,7 +6094,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnLesson~trnLsnFrontPath~90",
+     "userkey": "TrnLesson trnLsnFrontPath 90",
      "item": {
       "obf_object_id__obo_name": "TrnLesson",
       "obf_field_id__fld_name": "trnLsnFrontPath",
@@ -6152,7 +6130,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnLesson~trnLsnCatId~100",
+     "userkey": "TrnLesson trnLsnCatId 100",
      "item": {
       "obf_object_id__obo_name": "TrnLesson",
       "obf_field_id__fld_name": "trnLsnCatId",
@@ -6188,7 +6166,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnLesson~trnCatPath~120",
+     "userkey": "TrnLesson trnCatPath 120",
      "item": {
       "obf_object_id__obo_name": "TrnLesson",
       "obf_field_id__fld_name": "trnCatPath",
@@ -6224,7 +6202,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnLesson~trnCatFrontPath~130",
+     "userkey": "TrnLesson trnCatFrontPath 130",
      "item": {
       "obf_object_id__obo_name": "TrnLesson",
       "obf_field_id__fld_name": "trnCatFrontPath",
@@ -6260,7 +6238,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnLesson~trnCatOrder~140",
+     "userkey": "TrnLesson trnCatOrder 140",
      "item": {
       "obf_object_id__obo_name": "TrnLesson",
       "obf_field_id__fld_name": "trnCatOrder",
@@ -6296,7 +6274,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnLesson~trnTagLsnVirtual~200",
+     "userkey": "TrnLesson trnTagLsnVirtual 200",
      "item": {
       "obf_object_id__obo_name": "TrnLesson",
       "obf_field_id__fld_name": "trnTagLsnVirtual",
@@ -6332,7 +6310,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnLsnTranslate~trnLtrLang~10",
+     "userkey": "TrnLsnTranslate trnLtrLang 10",
      "item": {
       "obf_object_id__obo_name": "TrnLsnTranslate",
       "obf_field_id__fld_name": "trnLtrLang",
@@ -6368,7 +6346,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnLsnTranslate~trnLtrTitle~20",
+     "userkey": "TrnLsnTranslate trnLtrTitle 20",
      "item": {
       "obf_object_id__obo_name": "TrnLsnTranslate",
       "obf_field_id__fld_name": "trnLtrTitle",
@@ -6404,7 +6382,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnLsnTranslate~trnLtrContent~40",
+     "userkey": "TrnLsnTranslate trnLtrContent 40",
      "item": {
       "obf_object_id__obo_name": "TrnLsnTranslate",
       "obf_field_id__fld_name": "trnLtrContent",
@@ -6440,7 +6418,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnLsnTranslate~trnLtrVideo~50",
+     "userkey": "TrnLsnTranslate trnLtrVideo 50",
      "item": {
       "obf_object_id__obo_name": "TrnLsnTranslate",
       "obf_field_id__fld_name": "trnLtrVideo",
@@ -6476,7 +6454,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnLsnTranslate~trnLtrHtmlContent~60",
+     "userkey": "TrnLsnTranslate trnLtrHtmlContent 60",
      "item": {
       "obf_object_id__obo_name": "TrnLsnTranslate",
       "obf_field_id__fld_name": "trnLtrHtmlContent",
@@ -6512,7 +6490,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnLsnTranslate~trnLtrLsnId~100",
+     "userkey": "TrnLsnTranslate trnLtrLsnId 100",
      "item": {
       "obf_object_id__obo_name": "TrnLsnTranslate",
       "obf_field_id__fld_name": "trnLtrLsnId",
@@ -6548,7 +6526,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnLsnTranslate~trnLsnPath~110",
+     "userkey": "TrnLsnTranslate trnLsnPath 110",
      "item": {
       "obf_object_id__obo_name": "TrnLsnTranslate",
       "obf_field_id__fld_name": "trnLsnPath",
@@ -6584,7 +6562,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnLsnTranslate~trnLsnCode~120",
+     "userkey": "TrnLsnTranslate trnLsnCode 120",
      "item": {
       "obf_object_id__obo_name": "TrnLsnTranslate",
       "obf_field_id__fld_name": "trnLsnCode",
@@ -6620,7 +6598,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnLsnTranslate~trnLsnFrontPath~130",
+     "userkey": "TrnLsnTranslate trnLsnFrontPath 130",
      "item": {
       "obf_object_id__obo_name": "TrnLsnTranslate",
       "obf_field_id__fld_name": "trnLsnFrontPath",
@@ -6656,7 +6634,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnLsnTranslate~trnLsnPublish~140",
+     "userkey": "TrnLsnTranslate trnLsnPublish 140",
      "item": {
       "obf_object_id__obo_name": "TrnLsnTranslate",
       "obf_field_id__fld_name": "trnLsnPublish",
@@ -6692,7 +6670,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnLsnTranslate~trnLtrRawContent~150",
+     "userkey": "TrnLsnTranslate trnLtrRawContent 150",
      "item": {
       "obf_object_id__obo_name": "TrnLsnTranslate",
       "obf_field_id__fld_name": "trnLtrRawContent",
@@ -6728,7 +6706,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnLsnTranslate~trnLtrHasContent~160",
+     "userkey": "TrnLsnTranslate trnLtrHasContent 160",
      "item": {
       "obf_object_id__obo_name": "TrnLsnTranslate",
       "obf_field_id__fld_name": "trnLtrHasContent",
@@ -6764,7 +6742,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnPage~trnPageCode~10",
+     "userkey": "TrnPage trnPageCode 10",
      "item": {
       "obf_object_id__obo_name": "TrnPage",
       "obf_field_id__fld_name": "trnPageCode",
@@ -6800,7 +6778,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnPage~trnPageType~20",
+     "userkey": "TrnPage trnPageType 20",
      "item": {
       "obf_object_id__obo_name": "TrnPage",
       "obf_field_id__fld_name": "trnPageType",
@@ -6836,7 +6814,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnPage~trnPageTrnLessonid~100",
+     "userkey": "TrnPage trnPageTrnLessonid 100",
      "item": {
       "obf_object_id__obo_name": "TrnPage",
       "obf_field_id__fld_name": "trnPageTrnLessonid",
@@ -6872,7 +6850,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnPage~trnLsnPath~110",
+     "userkey": "TrnPage trnLsnPath 110",
      "item": {
       "obf_object_id__obo_name": "TrnPage",
       "obf_field_id__fld_name": "trnLsnPath",
@@ -6908,7 +6886,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnPage~trnLsnFrontPath~120",
+     "userkey": "TrnPage trnLsnFrontPath 120",
      "item": {
       "obf_object_id__obo_name": "TrnPage",
       "obf_field_id__fld_name": "trnLsnFrontPath",
@@ -6944,7 +6922,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnPage~trnLsnPublish~130",
+     "userkey": "TrnPage trnLsnPublish 130",
      "item": {
       "obf_object_id__obo_name": "TrnPage",
       "obf_field_id__fld_name": "trnLsnPublish",
@@ -6980,7 +6958,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnPage~trnLsnVisualization~140",
+     "userkey": "TrnPage trnLsnVisualization 140",
      "item": {
       "obf_object_id__obo_name": "TrnPage",
       "obf_field_id__fld_name": "trnLsnVisualization",
@@ -7016,7 +6994,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnPicture~trnPicId~5",
+     "userkey": "TrnPicture trnPicId 5",
      "item": {
       "obf_object_id__obo_name": "TrnPicture",
       "obf_field_id__fld_name": "trnPicId",
@@ -7052,7 +7030,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnPicture~trnPicLang~20",
+     "userkey": "TrnPicture trnPicLang 20",
      "item": {
       "obf_object_id__obo_name": "TrnPicture",
       "obf_field_id__fld_name": "trnPicLang",
@@ -7088,7 +7066,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnPicture~trnPicImage~30",
+     "userkey": "TrnPicture trnPicImage 30",
      "item": {
       "obf_object_id__obo_name": "TrnPicture",
       "obf_field_id__fld_name": "trnPicImage",
@@ -7124,7 +7102,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnPicture~trnPicLsnId~100",
+     "userkey": "TrnPicture trnPicLsnId 100",
      "item": {
       "obf_object_id__obo_name": "TrnPicture",
       "obf_field_id__fld_name": "trnPicLsnId",
@@ -7160,7 +7138,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnPicture~trnLsnPath~110",
+     "userkey": "TrnPicture trnLsnPath 110",
      "item": {
       "obf_object_id__obo_name": "TrnPicture",
       "obf_field_id__fld_name": "trnLsnPath",
@@ -7196,7 +7174,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnSiteContent~trnSitCode~10",
+     "userkey": "TrnSiteContent trnSitCode 10",
      "item": {
       "obf_object_id__obo_name": "TrnSiteContent",
       "obf_field_id__fld_name": "trnSitCode",
@@ -7232,7 +7210,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnSiteContent~trnSitLanguage~20",
+     "userkey": "TrnSiteContent trnSitLanguage 20",
      "item": {
       "obf_object_id__obo_name": "TrnSiteContent",
       "obf_field_id__fld_name": "trnSitLanguage",
@@ -7268,7 +7246,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnSiteContent~trnSitContent~30",
+     "userkey": "TrnSiteContent trnSitContent 30",
      "item": {
       "obf_object_id__obo_name": "TrnSiteContent",
       "obf_field_id__fld_name": "trnSitContent",
@@ -7304,7 +7282,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnSiteTheme~trnThemeColor~10",
+     "userkey": "TrnSiteTheme trnThemeColor 10",
      "item": {
       "obf_object_id__obo_name": "TrnSiteTheme",
       "obf_field_id__fld_name": "trnThemeColor",
@@ -7340,7 +7318,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnSiteTheme~trnThemeSecondaryColor~20",
+     "userkey": "TrnSiteTheme trnThemeSecondaryColor 20",
      "item": {
       "obf_object_id__obo_name": "TrnSiteTheme",
       "obf_field_id__fld_name": "trnThemeSecondaryColor",
@@ -7376,7 +7354,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnSiteTheme~trnThemeIcon~30",
+     "userkey": "TrnSiteTheme trnThemeIcon 30",
      "item": {
       "obf_object_id__obo_name": "TrnSiteTheme",
       "obf_field_id__fld_name": "trnThemeIcon",
@@ -7412,7 +7390,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnSyncSupervisor~trnSyncStatus~5",
+     "userkey": "TrnSyncSupervisor trnSyncStatus 5",
      "item": {
       "obf_object_id__obo_name": "TrnSyncSupervisor",
       "obf_field_id__fld_name": "trnSyncStatus",
@@ -7448,7 +7426,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnSyncSupervisor~trnSyncDate~10",
+     "userkey": "TrnSyncSupervisor trnSyncDate 10",
      "item": {
       "obf_object_id__obo_name": "TrnSyncSupervisor",
       "obf_field_id__fld_name": "trnSyncDate",
@@ -7484,7 +7462,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnSyncSupervisor~trnSyncType~20",
+     "userkey": "TrnSyncSupervisor trnSyncType 20",
      "item": {
       "obf_object_id__obo_name": "TrnSyncSupervisor",
       "obf_field_id__fld_name": "trnSyncType",
@@ -7520,7 +7498,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnSyncSupervisor~trnSyncTriggerInfo~30",
+     "userkey": "TrnSyncSupervisor trnSyncTriggerInfo 30",
      "item": {
       "obf_object_id__obo_name": "TrnSyncSupervisor",
       "obf_field_id__fld_name": "trnSyncTriggerInfo",
@@ -7556,7 +7534,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnSyncSupervisor~trnSyncLog~50",
+     "userkey": "TrnSyncSupervisor trnSyncLog 50",
      "item": {
       "obf_object_id__obo_name": "TrnSyncSupervisor",
       "obf_field_id__fld_name": "trnSyncLog",
@@ -7592,7 +7570,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnTag~trnTagCode~10",
+     "userkey": "TrnTag trnTagCode 10",
      "item": {
       "obf_object_id__obo_name": "TrnTag",
       "obf_field_id__fld_name": "trnTagCode",
@@ -7628,7 +7606,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnTagLsn~trnTaglsnTagId~100",
+     "userkey": "TrnTagLsn trnTaglsnTagId 100",
      "item": {
       "obf_object_id__obo_name": "TrnTagLsn",
       "obf_field_id__fld_name": "trnTaglsnTagId",
@@ -7664,7 +7642,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnTagLsn~trnTagCode~110",
+     "userkey": "TrnTagLsn trnTagCode 110",
      "item": {
       "obf_object_id__obo_name": "TrnTagLsn",
       "obf_field_id__fld_name": "trnTagCode",
@@ -7700,7 +7678,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnTagLsn~trnTaglsnLsnId~200",
+     "userkey": "TrnTagLsn trnTaglsnLsnId 200",
      "item": {
       "obf_object_id__obo_name": "TrnTagLsn",
       "obf_field_id__fld_name": "trnTaglsnLsnId",
@@ -7736,7 +7714,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnTagLsn~trnLsnPath~210",
+     "userkey": "TrnTagLsn trnLsnPath 210",
      "item": {
       "obf_object_id__obo_name": "TrnTagLsn",
       "obf_field_id__fld_name": "trnLsnPath",
@@ -7772,7 +7750,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnTagTranslate~trnTagTranslateTrad~10",
+     "userkey": "TrnTagTranslate trnTagTranslateTrad 10",
      "item": {
       "obf_object_id__obo_name": "TrnTagTranslate",
       "obf_field_id__fld_name": "trnTagTranslateTrad",
@@ -7808,7 +7786,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnTagTranslate~trnTagTranslateLang~20",
+     "userkey": "TrnTagTranslate trnTagTranslateLang 20",
      "item": {
       "obf_object_id__obo_name": "TrnTagTranslate",
       "obf_field_id__fld_name": "trnTagTranslateLang",
@@ -7844,7 +7822,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnTagTranslate~trnTaglangTagId~100",
+     "userkey": "TrnTagTranslate trnTaglangTagId 100",
      "item": {
       "obf_object_id__obo_name": "TrnTagTranslate",
       "obf_field_id__fld_name": "trnTaglangTagId",
@@ -7880,7 +7858,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnTagTranslate~trnTagCode~110",
+     "userkey": "TrnTagTranslate trnTagCode 110",
      "item": {
       "obf_object_id__obo_name": "TrnTagTranslate",
       "obf_field_id__fld_name": "trnTagCode",
@@ -7916,7 +7894,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnUrlRewriting~trnSourceUrl~10",
+     "userkey": "TrnUrlRewriting trnSourceUrl 10",
      "item": {
       "obf_object_id__obo_name": "TrnUrlRewriting",
       "obf_field_id__fld_name": "trnSourceUrl",
@@ -7952,7 +7930,7 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "TrnUrlRewriting~trnDestinationUrl~20",
+     "userkey": "TrnUrlRewriting trnDestinationUrl 20",
      "item": {
       "obf_object_id__obo_name": "TrnUrlRewriting",
       "obf_field_id__fld_name": "trnDestinationUrl",
@@ -7996,7 +7974,7 @@
    "list": [
     {
      "object": "Link",
-     "userkey": "100~TrnCategoryTranslate~trnCtrCatId",
+     "userkey": "100 TrnCategoryTranslate trnCtrCatId",
      "item": {
       "obf_ref_object_id__obo_name": "TrnCategory",
       "obf_order": 100,
@@ -8025,7 +8003,7 @@
     },
     {
      "object": "Link",
-     "userkey": "70~TrnCategory~trnCatId",
+     "userkey": "70 TrnCategory trnCatId",
      "item": {
       "obf_ref_object_id__obo_name": "TrnCategory",
       "obf_order": 70,
@@ -8054,7 +8032,7 @@
     },
     {
      "object": "Link",
-     "userkey": "100~TrnLesson~trnLsnCatId",
+     "userkey": "100 TrnLesson trnLsnCatId",
      "item": {
       "obf_ref_object_id__obo_name": "TrnCategory",
       "obf_order": 100,
@@ -8083,7 +8061,7 @@
     },
     {
      "object": "Link",
-     "userkey": "100~TrnLsnTranslate~trnLtrLsnId",
+     "userkey": "100 TrnLsnTranslate trnLtrLsnId",
      "item": {
       "obf_ref_object_id__obo_name": "TrnLesson",
       "obf_order": 100,
@@ -8112,7 +8090,7 @@
     },
     {
      "object": "Link",
-     "userkey": "100~TrnPicture~trnPicLsnId",
+     "userkey": "100 TrnPicture trnPicLsnId",
      "item": {
       "obf_ref_object_id__obo_name": "TrnLesson",
       "obf_order": 100,
@@ -8141,7 +8119,7 @@
     },
     {
      "object": "Link",
-     "userkey": "100~TrnPage~trnPageTrnLessonid",
+     "userkey": "100 TrnPage trnPageTrnLessonid",
      "item": {
       "obf_ref_object_id__obo_name": "TrnLesson",
       "obf_order": 100,
@@ -8170,7 +8148,7 @@
     },
     {
      "object": "Link",
-     "userkey": "200~TrnTagLsn~trnTaglsnLsnId",
+     "userkey": "200 TrnTagLsn trnTaglsnLsnId",
      "item": {
       "obf_ref_object_id__obo_name": "TrnLesson",
       "obf_order": 200,
@@ -8199,20 +8177,20 @@
     },
     {
      "object": "Link",
-     "userkey": "100~TrnTagTranslate~trnTaglangTagId",
+     "userkey": "200 TrnLesson trnTagLsnVirtual",
      "item": {
       "obf_ref_object_id__obo_name": "TrnTag",
-      "obf_order": 100,
+      "obf_order": 200,
       "obf_ref_order": null,
-      "obf_object_id__obj_name": "TrnTagTranslate",
-      "obf_field_id__fld_name": "trnTaglangTagId",
-      "obf_field_id__fld_dbname": "trn_taglang_tag_id",
+      "obf_object_id__obj_name": "TrnLesson",
+      "obf_field_id__fld_name": "trnTagLsnVirtual",
+      "obf_field_id__fld_dbname": null,
       "obf_field_id__fld_updatable": "1",
       "obf_field_id__fld_required": false,
-      "obf_field_id__fld_fonctid": true,
-      "obf_cascad": "C",
+      "obf_field_id__fld_fonctid": false,
+      "obf_cascad": "Z",
       "obf_card": "0,n",
-      "obf_query": null,
+      "obf_query": "t.row_id in (\n\tselect trn_taglsn_lsn_id\n\tfrom trn_tag_lsn\n\twhere trn_taglsn_tag_id=[row_id]\n)",
       "obf_filters": null,
       "obf_visible": true,
       "obf_ref_export": true,
@@ -8221,14 +8199,14 @@
       "obf_inline": false,
       "obf_rendering": null,
       "obf_treedepth": null,
-      "obf_area_id__ofa_name": null,
-      "obf_area_id__ofa_position": null,
+      "obf_area_id__ofa_name": "TrnLesson-Main",
+      "obf_area_id__ofa_position": 1,
       "row_module_id__mdl_name": "Training"
      }
     },
     {
      "object": "Link",
-     "userkey": "100~TrnTagLsn~trnTaglsnTagId",
+     "userkey": "100 TrnTagLsn trnTaglsnTagId",
      "item": {
       "obf_ref_object_id__obo_name": "TrnTag",
       "obf_order": 100,
@@ -8257,20 +8235,20 @@
     },
     {
      "object": "Link",
-     "userkey": "200~TrnLesson~trnTagLsnVirtual",
+     "userkey": "100 TrnTagTranslate trnTaglangTagId",
      "item": {
       "obf_ref_object_id__obo_name": "TrnTag",
-      "obf_order": 200,
+      "obf_order": 100,
       "obf_ref_order": null,
-      "obf_object_id__obj_name": "TrnLesson",
-      "obf_field_id__fld_name": "trnTagLsnVirtual",
-      "obf_field_id__fld_dbname": null,
+      "obf_object_id__obj_name": "TrnTagTranslate",
+      "obf_field_id__fld_name": "trnTaglangTagId",
+      "obf_field_id__fld_dbname": "trn_taglang_tag_id",
       "obf_field_id__fld_updatable": "1",
       "obf_field_id__fld_required": false,
-      "obf_field_id__fld_fonctid": false,
-      "obf_cascad": "Z",
+      "obf_field_id__fld_fonctid": true,
+      "obf_cascad": "C",
       "obf_card": "0,n",
-      "obf_query": "t.row_id in (\n\tselect trn_taglsn_lsn_id\n\tfrom trn_tag_lsn\n\twhere trn_taglsn_tag_id=[row_id]\n)",
+      "obf_query": null,
       "obf_filters": null,
       "obf_visible": true,
       "obf_ref_export": true,
@@ -8279,8 +8257,8 @@
       "obf_inline": false,
       "obf_rendering": null,
       "obf_treedepth": null,
-      "obf_area_id__ofa_name": "TrnLesson-Main",
-      "obf_area_id__ofa_position": 1,
+      "obf_area_id__ofa_name": null,
+      "obf_area_id__ofa_position": null,
       "row_module_id__mdl_name": "Training"
      }
     }
@@ -8303,7 +8281,6 @@
       "act_method": "indexDiscourse",
       "act_script": null,
       "act_url": null,
-      "act_image": "img/color/chat",
       "act_confirm": true,
       "act_confirm_expr": null,
       "act_confirm_ui": null,
@@ -8314,7 +8291,8 @@
       "act_count": null,
       "act_order": 3,
       "act_color": null,
-      "act_color_bg": null
+      "act_color_bg": null,
+      "act_image": "img/color/chat"
      }
     },
     {
@@ -8328,7 +8306,6 @@
       "act_method": "dropData",
       "act_script": null,
       "act_url": null,
-      "act_image": "error",
       "act_confirm": true,
       "act_confirm_expr": null,
       "act_confirm_ui": null,
@@ -8339,7 +8316,8 @@
       "act_count": null,
       "act_order": null,
       "act_color": null,
-      "act_color_bg": null
+      "act_color_bg": null,
+      "act_image": "error"
      }
     },
     {
@@ -8353,7 +8331,6 @@
       "act_method": "reIndexAll",
       "act_script": null,
       "act_url": null,
-      "act_image": "img/color/search",
       "act_confirm": true,
       "act_confirm_expr": null,
       "act_confirm_ui": null,
@@ -8364,7 +8341,8 @@
       "act_count": null,
       "act_order": null,
       "act_color": null,
-      "act_color_bg": null
+      "act_color_bg": null,
+      "act_image": "img/color/search"
      }
     },
     {
@@ -8378,7 +8356,6 @@
       "act_method": "forceSync",
       "act_script": null,
       "act_url": null,
-      "act_image": "icon/color/reload",
       "act_confirm": true,
       "act_confirm_expr": null,
       "act_confirm_ui": "<div class=\"field\" data-field=\"trnSyncActionType\" data-display=\"input\">",
@@ -8389,7 +8366,8 @@
       "act_count": null,
       "act_order": null,
       "act_color": null,
-      "act_color_bg": null
+      "act_color_bg": null,
+      "act_image": "icon/color/reload"
      }
     },
     {
@@ -8403,7 +8381,6 @@
       "act_method": "generateSitemap",
       "act_script": null,
       "act_url": null,
-      "act_image": null,
       "act_confirm": true,
       "act_confirm_expr": null,
       "act_confirm_ui": null,
@@ -8414,7 +8391,8 @@
       "act_count": null,
       "act_order": 10,
       "act_color": null,
-      "act_color_bg": null
+      "act_color_bg": null,
+      "act_image": null
      }
     }
    ]
@@ -8426,7 +8404,7 @@
    "field": "row_module_id",
    "list": [{
     "object": "ActionField",
-    "userkey": "forceSync~trnSyncActionType~10",
+    "userkey": "forceSync trnSyncActionType 10",
     "item": {
      "afd_action_id__act_name": "forceSync",
      "afd_field_id__fld_name": "trnSyncActionType",
@@ -8947,7 +8925,7 @@
    "list": [
     {
      "object": "Grant",
-     "userkey": "PUBLIC~TRN_CAT_R~TrnCategory~",
+     "userkey": "PUBLIC TRN_CAT_R TrnCategory",
      "item": {
       "grt_group_id__grp_name": "PUBLIC",
       "grt_function_id__fct_name": "TRN_CAT_R",
@@ -8961,7 +8939,7 @@
     },
     {
      "object": "Grant",
-     "userkey": "PUBLIC~TRN_CTR_R~TrnCategoryTranslate~",
+     "userkey": "PUBLIC TRN_CTR_R TrnCategoryTranslate",
      "item": {
       "grt_group_id__grp_name": "PUBLIC",
       "grt_function_id__fct_name": "TRN_CTR_R",
@@ -8975,7 +8953,7 @@
     },
     {
      "object": "Grant",
-     "userkey": "PUBLIC~TRN_COMMUNITY_INDEX_SERVICE_E~TrnDiscourseHookService~",
+     "userkey": "PUBLIC TRN_COMMUNITY_INDEX_SERVICE_E TrnDiscourseHookService",
      "item": {
       "grt_group_id__grp_name": "PUBLIC",
       "grt_function_id__fct_name": "TRN_COMMUNITY_INDEX_SERVICE_E",
@@ -8989,7 +8967,7 @@
     },
     {
      "object": "Grant",
-     "userkey": "PUBLIC~TRN_FRONT_E~TrnFront~",
+     "userkey": "PUBLIC TRN_FRONT_E TrnFront",
      "item": {
       "grt_group_id__grp_name": "PUBLIC",
       "grt_function_id__fct_name": "TRN_FRONT_E",
@@ -9003,7 +8981,7 @@
     },
     {
      "object": "Grant",
-     "userkey": "PUBLIC~TRN_GIT_CHECKOUT_SERVICE_E~TrnGitCheckoutService~",
+     "userkey": "PUBLIC TRN_GIT_CHECKOUT_SERVICE_E TrnGitCheckoutService",
      "item": {
       "grt_group_id__grp_name": "PUBLIC",
       "grt_function_id__fct_name": "TRN_GIT_CHECKOUT_SERVICE_E",
@@ -9017,7 +8995,7 @@
     },
     {
      "object": "Grant",
-     "userkey": "PUBLIC~TRN_LSN_R~TrnLesson~",
+     "userkey": "PUBLIC TRN_LSN_R TrnLesson",
      "item": {
       "grt_group_id__grp_name": "PUBLIC",
       "grt_function_id__fct_name": "TRN_LSN_R",
@@ -9031,7 +9009,7 @@
     },
     {
      "object": "Grant",
-     "userkey": "PUBLIC~TRN_LTR_R~TrnLsnTranslate~",
+     "userkey": "PUBLIC TRN_LTR_R TrnLsnTranslate",
      "item": {
       "grt_group_id__grp_name": "PUBLIC",
       "grt_function_id__fct_name": "TRN_LTR_R",
@@ -9045,7 +9023,7 @@
     },
     {
      "object": "Grant",
-     "userkey": "PUBLIC~TRN_PAGE_R~TrnPage~",
+     "userkey": "PUBLIC TRN_PAGE_R TrnPage",
      "item": {
       "grt_group_id__grp_name": "PUBLIC",
       "grt_function_id__fct_name": "TRN_PAGE_R",
@@ -9059,7 +9037,7 @@
     },
     {
      "object": "Grant",
-     "userkey": "PUBLIC~TRN_PIC_R~TrnPicture~",
+     "userkey": "PUBLIC TRN_PIC_R TrnPicture",
      "item": {
       "grt_group_id__grp_name": "PUBLIC",
       "grt_function_id__fct_name": "TRN_PIC_R",
@@ -9073,7 +9051,7 @@
     },
     {
      "object": "Grant",
-     "userkey": "PUBLIC~TRN_INDEX_SERVICE_E~TrnSearchService~",
+     "userkey": "PUBLIC TRN_INDEX_SERVICE_E TrnSearchService",
      "item": {
       "grt_group_id__grp_name": "PUBLIC",
       "grt_function_id__fct_name": "TRN_INDEX_SERVICE_E",
@@ -9087,7 +9065,7 @@
     },
     {
      "object": "Grant",
-     "userkey": "PUBLIC~TRN_SITE_MAP_EXT_E~TrnSitemap~",
+     "userkey": "PUBLIC TRN_SITE_MAP_EXT_E TrnSitemap",
      "item": {
       "grt_group_id__grp_name": "PUBLIC",
       "grt_function_id__fct_name": "TRN_SITE_MAP_EXT_E",
@@ -9101,7 +9079,7 @@
     },
     {
      "object": "Grant",
-     "userkey": "PUBLIC~TRN_SITE_THEME_R~TrnSiteTheme~",
+     "userkey": "PUBLIC TRN_SITE_THEME_R TrnSiteTheme",
      "item": {
       "grt_group_id__grp_name": "PUBLIC",
       "grt_function_id__fct_name": "TRN_SITE_THEME_R",
@@ -9115,7 +9093,7 @@
     },
     {
      "object": "Grant",
-     "userkey": "PUBLIC~TRN_SYNC_SERVICE_E~TrnSyncService~",
+     "userkey": "PUBLIC TRN_SYNC_SERVICE_E TrnSyncService",
      "item": {
       "grt_group_id__grp_name": "PUBLIC",
       "grt_function_id__fct_name": "TRN_SYNC_SERVICE_E",
@@ -9129,7 +9107,7 @@
     },
     {
      "object": "Grant",
-     "userkey": "PUBLIC~TRN_TAG_R~TrnTag~",
+     "userkey": "PUBLIC TRN_TAG_R TrnTag",
      "item": {
       "grt_group_id__grp_name": "PUBLIC",
       "grt_function_id__fct_name": "TRN_TAG_R",
@@ -9143,7 +9121,7 @@
     },
     {
      "object": "Grant",
-     "userkey": "PUBLIC~TRN_TAGLSN_R~TrnTagLsn~",
+     "userkey": "PUBLIC TRN_TAGLSN_R TrnTagLsn",
      "item": {
       "grt_group_id__grp_name": "PUBLIC",
       "grt_function_id__fct_name": "TRN_TAGLSN_R",
@@ -9157,7 +9135,7 @@
     },
     {
      "object": "Grant",
-     "userkey": "PUBLIC~TRN_TAG_SERVICE_E~TrnTagService~",
+     "userkey": "PUBLIC TRN_TAG_SERVICE_E TrnTagService",
      "item": {
       "grt_group_id__grp_name": "PUBLIC",
       "grt_function_id__fct_name": "TRN_TAG_SERVICE_E",
@@ -9171,7 +9149,7 @@
     },
     {
      "object": "Grant",
-     "userkey": "PUBLIC~TRN_TAGLANG_R~TrnTagTranslate~",
+     "userkey": "PUBLIC TRN_TAGLANG_R TrnTagTranslate",
      "item": {
       "grt_group_id__grp_name": "PUBLIC",
       "grt_function_id__fct_name": "TRN_TAGLANG_R",
@@ -9185,7 +9163,7 @@
     },
     {
      "object": "Grant",
-     "userkey": "PUBLIC~TrnTreeService-R~TrnTreeService~",
+     "userkey": "PUBLIC TrnTreeService-R TrnTreeService",
      "item": {
       "grt_group_id__grp_name": "PUBLIC",
       "grt_function_id__fct_name": "TrnTreeService-R",
@@ -9199,7 +9177,7 @@
     },
     {
      "object": "Grant",
-     "userkey": "PUBLIC~TRN_URL_REWRITING_R~TrnUrlRewriting~",
+     "userkey": "PUBLIC TRN_URL_REWRITING_R TrnUrlRewriting",
      "item": {
       "grt_group_id__grp_name": "PUBLIC",
       "grt_function_id__fct_name": "TRN_URL_REWRITING_R",
@@ -9213,7 +9191,7 @@
     },
     {
      "object": "Grant",
-     "userkey": "TRN_ADMIN~TRN_CAT_CRUD~TrnCategory~",
+     "userkey": "TRN_ADMIN TRN_CAT_CRUD TrnCategory",
      "item": {
       "grt_group_id__grp_name": "TRN_ADMIN",
       "grt_function_id__fct_name": "TRN_CAT_CRUD",
@@ -9227,7 +9205,7 @@
     },
     {
      "object": "Grant",
-     "userkey": "TRN_ADMIN~TRN_CTR_CRUD~TrnCategoryTranslate~",
+     "userkey": "TRN_ADMIN TRN_CTR_CRUD TrnCategoryTranslate",
      "item": {
       "grt_group_id__grp_name": "TRN_ADMIN",
       "grt_function_id__fct_name": "TRN_CTR_CRUD",
@@ -9241,7 +9219,7 @@
     },
     {
      "object": "Grant",
-     "userkey": "TRN_ADMIN~D-TrnDomain~TrnDomain~",
+     "userkey": "TRN_ADMIN D-TrnDomain TrnDomain",
      "item": {
       "grt_group_id__grp_name": "TRN_ADMIN",
       "grt_function_id__fct_name": "D-TrnDomain",
@@ -9255,7 +9233,7 @@
     },
     {
      "object": "Grant",
-     "userkey": "TRN_ADMIN~TRN_LSN_CRUD~TrnLesson~",
+     "userkey": "TRN_ADMIN TRN_LSN_CRUD TrnLesson",
      "item": {
       "grt_group_id__grp_name": "TRN_ADMIN",
       "grt_function_id__fct_name": "TRN_LSN_CRUD",
@@ -9269,7 +9247,7 @@
     },
     {
      "object": "Grant",
-     "userkey": "TRN_ADMIN~TRN_LTR_CRUD~TrnLsnTranslate~",
+     "userkey": "TRN_ADMIN TRN_LTR_CRUD TrnLsnTranslate",
      "item": {
       "grt_group_id__grp_name": "TRN_ADMIN",
       "grt_function_id__fct_name": "TRN_LTR_CRUD",
@@ -9283,7 +9261,7 @@
     },
     {
      "object": "Grant",
-     "userkey": "TRN_ADMIN~TRN_PAGE_CRUD~TrnPage~",
+     "userkey": "TRN_ADMIN TRN_PAGE_CRUD TrnPage",
      "item": {
       "grt_group_id__grp_name": "TRN_ADMIN",
       "grt_function_id__fct_name": "TRN_PAGE_CRUD",
@@ -9297,7 +9275,7 @@
     },
     {
      "object": "Grant",
-     "userkey": "TRN_ADMIN~TRN_PIC_CRUD~TrnPicture~",
+     "userkey": "TRN_ADMIN TRN_PIC_CRUD TrnPicture",
      "item": {
       "grt_group_id__grp_name": "TRN_ADMIN",
       "grt_function_id__fct_name": "TRN_PIC_CRUD",
@@ -9311,7 +9289,7 @@
     },
     {
      "object": "Grant",
-     "userkey": "TRN_ADMIN~TrnSiteContent-CUD~TrnSiteContent~",
+     "userkey": "TRN_ADMIN TrnSiteContent-CUD TrnSiteContent",
      "item": {
       "grt_group_id__grp_name": "TRN_ADMIN",
       "grt_function_id__fct_name": "TrnSiteContent-CUD",
@@ -9325,7 +9303,7 @@
     },
     {
      "object": "Grant",
-     "userkey": "TRN_ADMIN~TRN_SITE_THEME_CRUD~TrnSiteTheme~",
+     "userkey": "TRN_ADMIN TRN_SITE_THEME_CRUD TrnSiteTheme",
      "item": {
       "grt_group_id__grp_name": "TRN_ADMIN",
       "grt_function_id__fct_name": "TRN_SITE_THEME_CRUD",
@@ -9339,7 +9317,7 @@
     },
     {
      "object": "Grant",
-     "userkey": "TRN_ADMIN~TRN_SYNC_DISCOURSE_INDEXER_A~TrnSyncSupervisor~discourseIndexer",
+     "userkey": "TRN_ADMIN TRN_SYNC_DISCOURSE_INDEXER_A TrnSyncSupervisor discourseIndexer",
      "item": {
       "grt_group_id__grp_name": "TRN_ADMIN",
       "grt_function_id__fct_name": "TRN_SYNC_DISCOURSE_INDEXER_A",
@@ -9353,7 +9331,7 @@
     },
     {
      "object": "Grant",
-     "userkey": "TRN_ADMIN~TRN_SYNC_DROP_DATA_A~TrnSyncSupervisor~dropData",
+     "userkey": "TRN_ADMIN TRN_SYNC_DROP_DATA_A TrnSyncSupervisor dropData",
      "item": {
       "grt_group_id__grp_name": "TRN_ADMIN",
       "grt_function_id__fct_name": "TRN_SYNC_DROP_DATA_A",
@@ -9367,7 +9345,7 @@
     },
     {
      "object": "Grant",
-     "userkey": "TRN_ADMIN~TRN_SYNC_ES_INDEXATION_A~TrnSyncSupervisor~esIndexation",
+     "userkey": "TRN_ADMIN TRN_SYNC_ES_INDEXATION_A TrnSyncSupervisor esIndexation",
      "item": {
       "grt_group_id__grp_name": "TRN_ADMIN",
       "grt_function_id__fct_name": "TRN_SYNC_ES_INDEXATION_A",
@@ -9381,7 +9359,7 @@
     },
     {
      "object": "Grant",
-     "userkey": "TRN_ADMIN~TRN_SYNC_FORCE_SYNC_A~TrnSyncSupervisor~forceSync",
+     "userkey": "TRN_ADMIN TRN_SYNC_FORCE_SYNC_A TrnSyncSupervisor forceSync",
      "item": {
       "grt_group_id__grp_name": "TRN_ADMIN",
       "grt_function_id__fct_name": "TRN_SYNC_FORCE_SYNC_A",
@@ -9395,7 +9373,7 @@
     },
     {
      "object": "Grant",
-     "userkey": "TRN_ADMIN~TRN_SYNC_R~TrnSyncSupervisor~",
+     "userkey": "TRN_ADMIN TRN_SYNC_R TrnSyncSupervisor",
      "item": {
       "grt_group_id__grp_name": "TRN_ADMIN",
       "grt_function_id__fct_name": "TRN_SYNC_R",
@@ -9409,7 +9387,7 @@
     },
     {
      "object": "Grant",
-     "userkey": "TRN_ADMIN~TRN_TAG_CRUD~TrnTag~",
+     "userkey": "TRN_ADMIN TRN_TAG_CRUD TrnTag",
      "item": {
       "grt_group_id__grp_name": "TRN_ADMIN",
       "grt_function_id__fct_name": "TRN_TAG_CRUD",
@@ -9423,7 +9401,7 @@
     },
     {
      "object": "Grant",
-     "userkey": "TRN_ADMIN~TRN_TAGLSN_CRUD~TrnTagLsn~",
+     "userkey": "TRN_ADMIN TRN_TAGLSN_CRUD TrnTagLsn",
      "item": {
       "grt_group_id__grp_name": "TRN_ADMIN",
       "grt_function_id__fct_name": "TRN_TAGLSN_CRUD",
@@ -9437,7 +9415,7 @@
     },
     {
      "object": "Grant",
-     "userkey": "TRN_ADMIN~TRN_TAGLANG_CRUD~TrnTagTranslate~",
+     "userkey": "TRN_ADMIN TRN_TAGLANG_CRUD TrnTagTranslate",
      "item": {
       "grt_group_id__grp_name": "TRN_ADMIN",
       "grt_function_id__fct_name": "TRN_TAGLANG_CRUD",
@@ -9451,7 +9429,7 @@
     },
     {
      "object": "Grant",
-     "userkey": "TRN_ADMIN~TRN_URL_REWRITING_CRUD~TrnUrlRewriting~",
+     "userkey": "TRN_ADMIN TRN_URL_REWRITING_CRUD TrnUrlRewriting",
      "item": {
       "grt_group_id__grp_name": "TRN_ADMIN",
       "grt_function_id__fct_name": "TRN_URL_REWRITING_CRUD",
@@ -9465,7 +9443,7 @@
     },
     {
      "object": "Grant",
-     "userkey": "TRN_SYNC~TRN_SYNC_SERVICE_E~TrnSyncService~",
+     "userkey": "TRN_SYNC TRN_SYNC_SERVICE_E TrnSyncService",
      "item": {
       "grt_group_id__grp_name": "TRN_SYNC",
       "grt_function_id__fct_name": "TRN_SYNC_SERVICE_E",
@@ -9479,7 +9457,7 @@
     },
     {
      "object": "Grant",
-     "userkey": "TRN_SYNC~TRN_SYNC_R~TrnSyncSupervisor~",
+     "userkey": "TRN_SYNC TRN_SYNC_R TrnSyncSupervisor",
      "item": {
       "grt_group_id__grp_name": "TRN_SYNC",
       "grt_function_id__fct_name": "TRN_SYNC_R",
@@ -9548,7 +9526,7 @@
    "list": [
     {
      "object": "Map",
-     "userkey": "TrnDomain~50",
+     "userkey": "TrnDomain 50",
      "item": {
       "map_domain_id__obd_name": "TrnDomain",
       "map_object_id__obj_name": "TrnSiteTheme",
@@ -9560,7 +9538,7 @@
     },
     {
      "object": "Map",
-     "userkey": "TrnDomain~100",
+     "userkey": "TrnDomain 100",
      "item": {
       "map_domain_id__obd_name": "TrnDomain",
       "map_object_id__obj_name": "TrnCategory",
@@ -9572,7 +9550,7 @@
     },
     {
      "object": "Map",
-     "userkey": "TrnDomain~200",
+     "userkey": "TrnDomain 200",
      "item": {
       "map_domain_id__obd_name": "TrnDomain",
       "map_object_id__obj_name": "TrnLesson",
@@ -9584,7 +9562,7 @@
     },
     {
      "object": "Map",
-     "userkey": "TrnDomain~300",
+     "userkey": "TrnDomain 300",
      "item": {
       "map_domain_id__obd_name": "TrnDomain",
       "map_object_id__obj_name": "TrnPage",
@@ -9596,7 +9574,7 @@
     },
     {
      "object": "Map",
-     "userkey": "TrnDomain~400",
+     "userkey": "TrnDomain 400",
      "item": {
       "map_domain_id__obd_name": "TrnDomain",
       "map_object_id__obj_name": "TrnTag",
@@ -9608,7 +9586,7 @@
     },
     {
      "object": "Map",
-     "userkey": "TrnDomain~500",
+     "userkey": "TrnDomain 500",
      "item": {
       "map_domain_id__obd_name": "TrnDomain",
       "map_object_id__obj_name": "TrnUrlRewriting",
@@ -9620,7 +9598,7 @@
     },
     {
      "object": "Map",
-     "userkey": "TrnDomain~510",
+     "userkey": "TrnDomain 510",
      "item": {
       "map_domain_id__obd_name": "TrnDomain",
       "map_object_id__obj_name": "TrnSyncSupervisor",
@@ -9639,7 +9617,7 @@
    "field": "row_module_id",
    "list": [{
     "object": "ViewGroup",
-    "userkey": "Training~TRN_ADMIN",
+    "userkey": "Training TRN_ADMIN",
     "item": {
      "vig_view_id__viw_name": "Training",
      "vig_group_id__grp_name": "TRN_ADMIN",
@@ -9671,7 +9649,7 @@
    "list": [
     {
      "object": "TreeViewObject",
-     "userkey": "trnTreeView~0",
+     "userkey": "trnTreeView 0",
      "item": {
       "trv_tree_id__trv_name": "trnTreeView",
       "trv_level": "0",
@@ -9697,7 +9675,7 @@
     },
     {
      "object": "TreeViewObject",
-     "userkey": "trnTreeView~0-0",
+     "userkey": "trnTreeView 0-0",
      "item": {
       "trv_tree_id__trv_name": "trnTreeView",
       "trv_level": "0-0",
@@ -9731,7 +9709,7 @@
    "list": [
     {
      "object": "Resource",
-     "userkey": "Disposition(default)~ANY~training-module",
+     "userkey": "Disposition/default * training-module",
      "item": {
       "res_object": {
        "item": {"dis_code": "default"},
@@ -9755,7 +9733,7 @@
     },
     {
      "object": "Resource",
-     "userkey": "ObjectExternal(TrnFront)~ANY~SITE",
+     "userkey": "External object/TrnFront * SITE",
      "item": {
       "res_object": {
        "item": {"obe_name": "TrnFront"},
@@ -9779,7 +9757,7 @@
     },
     {
      "object": "Resource",
-     "userkey": "ObjectInternal(TrnCategory)~ANY~SCRIPT",
+     "userkey": "Business object/TrnCategory * SCRIPT",
      "item": {
       "res_object": {
        "item": {"obo_name": "TrnCategory"},
@@ -9803,31 +9781,7 @@
     },
     {
      "object": "Resource",
-     "userkey": "ObjectInternal(TrnLesson)~ANY~SCRIPT",
-     "item": {
-      "res_object": {
-       "item": {"obo_name": "TrnLesson"},
-       "icon": "img/system/business_object",
-       "label": "Business object",
-       "userkeylabel": "TrnLesson",
-       "object": "ObjectInternal"
-      },
-      "res_type": "JS",
-      "res_lang": "ANY",
-      "res_code": "SCRIPT",
-      "res_cached": false,
-      "res_file": {
-       "path": "resources/ObjectInternal/TrnLesson/SCRIPT.js",
-       "mime": "text/javascript",
-       "name": "SCRIPT.js"
-      },
-      "res_image": null,
-      "row_module_id__mdl_name": "Training"
-     }
-    },
-    {
-     "object": "Resource",
-     "userkey": "ObjectInternal(TrnPage)~ANY~SCRIPT",
+     "userkey": "Business object/TrnPage * SCRIPT",
      "item": {
       "res_object": {
        "item": {"obo_name": "TrnPage"},
@@ -9851,7 +9805,31 @@
     },
     {
      "object": "Resource",
-     "userkey": "ObjectInternal(TrnUrlRewriting)~ANY~SCRIPT",
+     "userkey": "Business object/TrnLesson * SCRIPT",
+     "item": {
+      "res_object": {
+       "item": {"obo_name": "TrnLesson"},
+       "icon": "img/system/business_object",
+       "label": "Business object",
+       "userkeylabel": "TrnLesson",
+       "object": "ObjectInternal"
+      },
+      "res_type": "JS",
+      "res_lang": "ANY",
+      "res_code": "SCRIPT",
+      "res_cached": false,
+      "res_file": {
+       "path": "resources/ObjectInternal/TrnLesson/SCRIPT.js",
+       "mime": "text/javascript",
+       "name": "SCRIPT.js"
+      },
+      "res_image": null,
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "Resource",
+     "userkey": "Business object/TrnUrlRewriting * SCRIPT",
      "item": {
       "res_object": {
        "item": {"obo_name": "TrnUrlRewriting"},
@@ -9875,7 +9853,7 @@
     },
     {
      "object": "Resource",
-     "userkey": "ObjectInternal(TrnSiteTheme)~ANY~SCRIPT",
+     "userkey": "Business object/TrnSiteTheme * SCRIPT",
      "item": {
       "res_object": {
        "item": {"obo_name": "TrnSiteTheme"},
@@ -9930,111 +9908,13 @@
    "list": [
     {
      "object": "Script",
-     "userkey": "TrnTools",
+     "userkey": "TrnDiscourseIndexerException",
      "item": {
-      "scr_code": "TrnTools",
+      "scr_code": "TrnDiscourseIndexerException",
       "scr_file": {
-       "path": "src/com/simplicite/commons/Training/TrnTools.java",
+       "path": "src/com/simplicite/commons/Training/TrnDiscourseIndexerException.java",
        "mime": "text/plain",
-       "name": "TrnTools.java"
-      },
-      "scr_type": "JSR",
-      "row_module_id__mdl_name": "Training"
-     }
-    },
-    {
-     "object": "Script",
-     "userkey": "TrnFsSyncTool",
-     "item": {
-      "scr_code": "TrnFsSyncTool",
-      "scr_file": {
-       "path": "src/com/simplicite/commons/Training/TrnFsSyncTool.java",
-       "mime": "text/plain",
-       "name": "TrnFsSyncTool.java"
-      },
-      "scr_type": "JSR",
-      "row_module_id__mdl_name": "Training"
-     }
-    },
-    {
-     "object": "Script",
-     "userkey": "TrnObject",
-     "item": {
-      "scr_code": "TrnObject",
-      "scr_file": {
-       "path": "src/com/simplicite/commons/Training/TrnObject.java",
-       "mime": "text/plain",
-       "name": "TrnObject.java"
-      },
-      "scr_type": "JSR",
-      "row_module_id__mdl_name": "Training"
-     }
-    },
-    {
-     "object": "Script",
-     "userkey": "TrnEsIndexer",
-     "item": {
-      "scr_code": "TrnEsIndexer",
-      "scr_file": {
-       "path": "src/com/simplicite/commons/Training/TrnEsIndexer.java",
-       "mime": "text/plain",
-       "name": "TrnEsIndexer.java"
-      },
-      "scr_type": "JSR",
-      "row_module_id__mdl_name": "Training"
-     }
-    },
-    {
-     "object": "Script",
-     "userkey": "TrnEsHelper",
-     "item": {
-      "scr_code": "TrnEsHelper",
-      "scr_file": {
-       "path": "src/com/simplicite/commons/Training/TrnEsHelper.java",
-       "mime": "text/plain",
-       "name": "TrnEsHelper.java"
-      },
-      "scr_type": "JSR",
-      "row_module_id__mdl_name": "Training"
-     }
-    },
-    {
-     "object": "Script",
-     "userkey": "TrnVerifyContent",
-     "item": {
-      "scr_code": "TrnVerifyContent",
-      "scr_file": {
-       "path": "src/com/simplicite/commons/Training/TrnVerifyContent.java",
-       "mime": "text/plain",
-       "name": "TrnVerifyContent.java"
-      },
-      "scr_type": "JSR",
-      "row_module_id__mdl_name": "Training"
-     }
-    },
-    {
-     "object": "Script",
-     "userkey": "TrnSyncException",
-     "item": {
-      "scr_code": "TrnSyncException",
-      "scr_file": {
-       "path": "src/com/simplicite/commons/Training/TrnSyncException.java",
-       "mime": "text/plain",
-       "name": "TrnSyncException.java"
-      },
-      "scr_type": "JSR",
-      "row_module_id__mdl_name": "Training"
-     }
-    },
-    {
-     "object": "Script",
-     "userkey": "TrnConfigException",
-     "item": {
-      "scr_code": "TrnConfigException",
-      "scr_file": {
-       "path": "src/com/simplicite/commons/Training/TrnConfigException.java",
-       "mime": "text/plain",
-       "name": "TrnConfigException.java"
+       "name": "TrnDiscourseIndexerException.java"
       },
       "scr_type": "JSR",
       "row_module_id__mdl_name": "Training"
@@ -10056,13 +9936,13 @@
     },
     {
      "object": "Script",
-     "userkey": "TrnDiscourseIndexerException",
+     "userkey": "TrnEsHelper",
      "item": {
-      "scr_code": "TrnDiscourseIndexerException",
+      "scr_code": "TrnEsHelper",
       "scr_file": {
-       "path": "src/com/simplicite/commons/Training/TrnDiscourseIndexerException.java",
+       "path": "src/com/simplicite/commons/Training/TrnEsHelper.java",
        "mime": "text/plain",
-       "name": "TrnDiscourseIndexerException.java"
+       "name": "TrnEsHelper.java"
       },
       "scr_type": "JSR",
       "row_module_id__mdl_name": "Training"
@@ -10070,13 +9950,13 @@
     },
     {
      "object": "Script",
-     "userkey": "TrnDiscourseTool",
+     "userkey": "TrnObject",
      "item": {
-      "scr_code": "TrnDiscourseTool",
+      "scr_code": "TrnObject",
       "scr_file": {
-       "path": "src/com/simplicite/commons/Training/TrnDiscourseTool.java",
+       "path": "src/com/simplicite/commons/Training/TrnObject.java",
        "mime": "text/plain",
-       "name": "TrnDiscourseTool.java"
+       "name": "TrnObject.java"
       },
       "scr_type": "JSR",
       "row_module_id__mdl_name": "Training"
@@ -10084,13 +9964,83 @@
     },
     {
      "object": "Script",
-     "userkey": "TrnTokenBucket",
+     "userkey": "TrnVerifyContent",
      "item": {
-      "scr_code": "TrnTokenBucket",
+      "scr_code": "TrnVerifyContent",
       "scr_file": {
-       "path": "src/com/simplicite/commons/Training/TrnTokenBucket.java",
+       "path": "src/com/simplicite/commons/Training/TrnVerifyContent.java",
        "mime": "text/plain",
-       "name": "TrnTokenBucket.java"
+       "name": "TrnVerifyContent.java"
+      },
+      "scr_type": "JSR",
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "Script",
+     "userkey": "TrnTools",
+     "item": {
+      "scr_code": "TrnTools",
+      "scr_file": {
+       "path": "src/com/simplicite/commons/Training/TrnTools.java",
+       "mime": "text/plain",
+       "name": "TrnTools.java"
+      },
+      "scr_type": "JSR",
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "Script",
+     "userkey": "TrnSyncException",
+     "item": {
+      "scr_code": "TrnSyncException",
+      "scr_file": {
+       "path": "src/com/simplicite/commons/Training/TrnSyncException.java",
+       "mime": "text/plain",
+       "name": "TrnSyncException.java"
+      },
+      "scr_type": "JSR",
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "Script",
+     "userkey": "TrnFsSyncTool",
+     "item": {
+      "scr_code": "TrnFsSyncTool",
+      "scr_file": {
+       "path": "src/com/simplicite/commons/Training/TrnFsSyncTool.java",
+       "mime": "text/plain",
+       "name": "TrnFsSyncTool.java"
+      },
+      "scr_type": "JSR",
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "Script",
+     "userkey": "TrnConfigException",
+     "item": {
+      "scr_code": "TrnConfigException",
+      "scr_file": {
+       "path": "src/com/simplicite/commons/Training/TrnConfigException.java",
+       "mime": "text/plain",
+       "name": "TrnConfigException.java"
+      },
+      "scr_type": "JSR",
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "Script",
+     "userkey": "TrnEsIndexer",
+     "item": {
+      "scr_code": "TrnEsIndexer",
+      "scr_file": {
+       "path": "src/com/simplicite/commons/Training/TrnEsIndexer.java",
+       "mime": "text/plain",
+       "name": "TrnEsIndexer.java"
       },
       "scr_type": "JSR",
       "row_module_id__mdl_name": "Training"
@@ -10154,13 +10104,13 @@
     },
     {
      "object": "Script",
-     "userkey": "TrnSearchSimplicite",
+     "userkey": "TrnDiscourseTool",
      "item": {
-      "scr_code": "TrnSearchSimplicite",
+      "scr_code": "TrnDiscourseTool",
       "scr_file": {
-       "path": "src/com/simplicite/commons/Training/TrnSearchSimplicite.java",
+       "path": "src/com/simplicite/commons/Training/TrnDiscourseTool.java",
        "mime": "text/plain",
-       "name": "TrnSearchSimplicite.java"
+       "name": "TrnDiscourseTool.java"
       },
       "scr_type": "JSR",
       "row_module_id__mdl_name": "Training"
@@ -10179,6 +10129,34 @@
       "scr_type": "JSR",
       "row_module_id__mdl_name": "Training"
      }
+    },
+    {
+     "object": "Script",
+     "userkey": "TrnSearchSimplicite",
+     "item": {
+      "scr_code": "TrnSearchSimplicite",
+      "scr_file": {
+       "path": "src/com/simplicite/commons/Training/TrnSearchSimplicite.java",
+       "mime": "text/plain",
+       "name": "TrnSearchSimplicite.java"
+      },
+      "scr_type": "JSR",
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "Script",
+     "userkey": "TrnTokenBucket",
+     "item": {
+      "scr_code": "TrnTokenBucket",
+      "scr_file": {
+       "path": "src/com/simplicite/commons/Training/TrnTokenBucket.java",
+       "mime": "text/plain",
+       "name": "TrnTokenBucket.java"
+      },
+      "scr_type": "JSR",
+      "row_module_id__mdl_name": "Training"
+     }
     }
    ]
   },
@@ -10190,7 +10168,7 @@
    "list": [
     {
      "object": "TranslateAction",
-     "userkey": "A~discourseIndexer~ENU",
+     "userkey": "Action discourseIndexer English",
      "item": {
       "tsl_typeAction": "A",
       "tsl_id__act_name": "discourseIndexer",
@@ -10202,7 +10180,7 @@
     },
     {
      "object": "TranslateAction",
-     "userkey": "A~dropData~ENU",
+     "userkey": "Action dropData English",
      "item": {
       "tsl_typeAction": "A",
       "tsl_id__act_name": "dropData",
@@ -10214,7 +10192,7 @@
     },
     {
      "object": "TranslateAction",
-     "userkey": "A~esIndexation~ENU",
+     "userkey": "Action esIndexation English",
      "item": {
       "tsl_typeAction": "A",
       "tsl_id__act_name": "esIndexation",
@@ -10226,7 +10204,7 @@
     },
     {
      "object": "TranslateAction",
-     "userkey": "A~forceSync~ENU",
+     "userkey": "Action forceSync English",
      "item": {
       "tsl_typeAction": "A",
       "tsl_id__act_name": "forceSync",
@@ -10238,7 +10216,7 @@
     },
     {
      "object": "TranslateAction",
-     "userkey": "A~sitemapGeneration~ENU",
+     "userkey": "Action sitemapGeneration English",
      "item": {
       "tsl_typeAction": "A",
       "tsl_id__act_name": "sitemapGeneration",
@@ -10250,7 +10228,7 @@
     },
     {
      "object": "TranslateAction",
-     "userkey": "A~discourseIndexer~FRA",
+     "userkey": "Action discourseIndexer French",
      "item": {
       "tsl_typeAction": "A",
       "tsl_id__act_name": "discourseIndexer",
@@ -10262,7 +10240,7 @@
     },
     {
      "object": "TranslateAction",
-     "userkey": "A~dropData~FRA",
+     "userkey": "Action dropData French",
      "item": {
       "tsl_typeAction": "A",
       "tsl_id__act_name": "dropData",
@@ -10274,7 +10252,7 @@
     },
     {
      "object": "TranslateAction",
-     "userkey": "A~esIndexation~FRA",
+     "userkey": "Action esIndexation French",
      "item": {
       "tsl_typeAction": "A",
       "tsl_id__act_name": "esIndexation",
@@ -10286,7 +10264,7 @@
     },
     {
      "object": "TranslateAction",
-     "userkey": "A~forceSync~FRA",
+     "userkey": "Action forceSync French",
      "item": {
       "tsl_typeAction": "A",
       "tsl_id__act_name": "forceSync",
@@ -10298,7 +10276,7 @@
     },
     {
      "object": "TranslateAction",
-     "userkey": "A~sitemapGeneration~FRA",
+     "userkey": "Action sitemapGeneration French",
      "item": {
       "tsl_typeAction": "A",
       "tsl_id__act_name": "sitemapGeneration",
@@ -10318,7 +10296,7 @@
    "list": [
     {
      "object": "TranslateField",
-     "userkey": "F~trnSyncType~ANY",
+     "userkey": "Field trnSyncType *",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnSyncType",
@@ -10334,7 +10312,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnCatCode~ENU",
+     "userkey": "Field trnCatCode English",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnCatCode",
@@ -10350,7 +10328,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnCatFrontPath~ENU",
+     "userkey": "Field trnCatFrontPath English",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnCatFrontPath",
@@ -10366,7 +10344,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnCatId~ENU",
+     "userkey": "Field trnCatId English",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnCatId",
@@ -10382,7 +10360,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnCatOrder~ENU",
+     "userkey": "Field trnCatOrder English",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnCatOrder",
@@ -10398,7 +10376,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnCatPath~ENU",
+     "userkey": "Field trnCatPath English",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnCatPath",
@@ -10414,7 +10392,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnCatPublish~ENU",
+     "userkey": "Field trnCatPublish English",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnCatPublish",
@@ -10430,7 +10408,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnCtrCatId~ENU",
+     "userkey": "Field trnCtrCatId English",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnCtrCatId",
@@ -10446,7 +10424,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnCtrDescription~ENU",
+     "userkey": "Field trnCtrDescription English",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnCtrDescription",
@@ -10462,7 +10440,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnCtrLang~ENU",
+     "userkey": "Field trnCtrLang English",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnCtrLang",
@@ -10478,7 +10456,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnCtrTitle~ENU",
+     "userkey": "Field trnCtrTitle English",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnCtrTitle",
@@ -10494,7 +10472,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnDestinationUrl~ENU",
+     "userkey": "Field trnDestinationUrl English",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnDestinationUrl",
@@ -10510,7 +10488,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnLsnCatId~ENU",
+     "userkey": "Field trnLsnCatId English",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnLsnCatId",
@@ -10526,7 +10504,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnLsnCode~ENU",
+     "userkey": "Field trnLsnCode English",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnLsnCode",
@@ -10542,7 +10520,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnLsnFrontPath~ENU",
+     "userkey": "Field trnLsnFrontPath English",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnLsnFrontPath",
@@ -10558,7 +10536,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnLsnOrder~ENU",
+     "userkey": "Field trnLsnOrder English",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnLsnOrder",
@@ -10574,7 +10552,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnLsnPath~ENU",
+     "userkey": "Field trnLsnPath English",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnLsnPath",
@@ -10590,7 +10568,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnLsnPublish~ENU",
+     "userkey": "Field trnLsnPublish English",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnLsnPublish",
@@ -10606,7 +10584,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnLsnVisualization~ENU",
+     "userkey": "Field trnLsnVisualization English",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnLsnVisualization",
@@ -10622,7 +10600,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnLtrContent~ENU",
+     "userkey": "Field trnLtrContent English",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnLtrContent",
@@ -10638,7 +10616,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnLtrHasContent~ENU",
+     "userkey": "Field trnLtrHasContent English",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnLtrHasContent",
@@ -10654,7 +10632,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnLtrHtmlContent~ENU",
+     "userkey": "Field trnLtrHtmlContent English",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnLtrHtmlContent",
@@ -10670,7 +10648,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnLtrLang~ENU",
+     "userkey": "Field trnLtrLang English",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnLtrLang",
@@ -10686,7 +10664,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnLtrLsnId~ENU",
+     "userkey": "Field trnLtrLsnId English",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnLtrLsnId",
@@ -10702,7 +10680,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnLtrRawContent~ENU",
+     "userkey": "Field trnLtrRawContent English",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnLtrRawContent",
@@ -10718,7 +10696,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnLtrTitle~ENU",
+     "userkey": "Field trnLtrTitle English",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnLtrTitle",
@@ -10734,7 +10712,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnLtrVideo~ENU",
+     "userkey": "Field trnLtrVideo English",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnLtrVideo",
@@ -10750,7 +10728,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnPageCode~ENU",
+     "userkey": "Field trnPageCode English",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnPageCode",
@@ -10766,7 +10744,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnPageTrnLessonid~ENU",
+     "userkey": "Field trnPageTrnLessonid English",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnPageTrnLessonid",
@@ -10782,7 +10760,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnPageType~ENU",
+     "userkey": "Field trnPageType English",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnPageType",
@@ -10798,7 +10776,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnPicId~ENU",
+     "userkey": "Field trnPicId English",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnPicId",
@@ -10814,7 +10792,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnPicImage~ENU",
+     "userkey": "Field trnPicImage English",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnPicImage",
@@ -10830,7 +10808,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnPicLang~ENU",
+     "userkey": "Field trnPicLang English",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnPicLang",
@@ -10846,7 +10824,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnPicLsnId~ENU",
+     "userkey": "Field trnPicLsnId English",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnPicLsnId",
@@ -10862,7 +10840,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnSitCode~ENU",
+     "userkey": "Field trnSitCode English",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnSitCode",
@@ -10878,7 +10856,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnSitContent~ENU",
+     "userkey": "Field trnSitContent English",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnSitContent",
@@ -10894,7 +10872,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnSitLanguage~ENU",
+     "userkey": "Field trnSitLanguage English",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnSitLanguage",
@@ -10910,7 +10888,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnSourceUrl~ENU",
+     "userkey": "Field trnSourceUrl English",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnSourceUrl",
@@ -10926,7 +10904,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnSyncActionType~ENU",
+     "userkey": "Field trnSyncActionType English",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnSyncActionType",
@@ -10942,7 +10920,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnSyncDate~ENU",
+     "userkey": "Field trnSyncDate English",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnSyncDate",
@@ -10958,7 +10936,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnSyncLog~ENU",
+     "userkey": "Field trnSyncLog English",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnSyncLog",
@@ -10974,7 +10952,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnSyncStatus~ENU",
+     "userkey": "Field trnSyncStatus English",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnSyncStatus",
@@ -10990,7 +10968,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnSyncTriggerInfo~ENU",
+     "userkey": "Field trnSyncTriggerInfo English",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnSyncTriggerInfo",
@@ -11006,7 +10984,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnTagCode~ENU",
+     "userkey": "Field trnTagCode English",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnTagCode",
@@ -11022,7 +11000,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnTaglangTagId~ENU",
+     "userkey": "Field trnTaglangTagId English",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnTaglangTagId",
@@ -11038,7 +11016,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnTaglsnLsnId~ENU",
+     "userkey": "Field trnTaglsnLsnId English",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnTaglsnLsnId",
@@ -11054,7 +11032,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnTaglsnTagId~ENU",
+     "userkey": "Field trnTaglsnTagId English",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnTaglsnTagId",
@@ -11070,7 +11048,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnTagLsnVirtual~ENU",
+     "userkey": "Field trnTagLsnVirtual English",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnTagLsnVirtual",
@@ -11086,7 +11064,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnTagTranslateLang~ENU",
+     "userkey": "Field trnTagTranslateLang English",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnTagTranslateLang",
@@ -11102,7 +11080,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnTagTranslateTrad~ENU",
+     "userkey": "Field trnTagTranslateTrad English",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnTagTranslateTrad",
@@ -11118,7 +11096,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnThemeColor~ENU",
+     "userkey": "Field trnThemeColor English",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnThemeColor",
@@ -11134,7 +11112,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnThemeIcon~ENU",
+     "userkey": "Field trnThemeIcon English",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnThemeIcon",
@@ -11150,7 +11128,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnThemeSecondaryColor~ENU",
+     "userkey": "Field trnThemeSecondaryColor English",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnThemeSecondaryColor",
@@ -11166,7 +11144,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnCatCode~FRA",
+     "userkey": "Field trnCatCode French",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnCatCode",
@@ -11182,7 +11160,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnCatFrontPath~FRA",
+     "userkey": "Field trnCatFrontPath French",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnCatFrontPath",
@@ -11198,7 +11176,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnCatId~FRA",
+     "userkey": "Field trnCatId French",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnCatId",
@@ -11214,7 +11192,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnCatOrder~FRA",
+     "userkey": "Field trnCatOrder French",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnCatOrder",
@@ -11230,7 +11208,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnCatPath~FRA",
+     "userkey": "Field trnCatPath French",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnCatPath",
@@ -11246,7 +11224,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnCatPublish~FRA",
+     "userkey": "Field trnCatPublish French",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnCatPublish",
@@ -11262,7 +11240,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnCtrCatId~FRA",
+     "userkey": "Field trnCtrCatId French",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnCtrCatId",
@@ -11278,7 +11256,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnCtrDescription~FRA",
+     "userkey": "Field trnCtrDescription French",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnCtrDescription",
@@ -11294,7 +11272,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnCtrLang~FRA",
+     "userkey": "Field trnCtrLang French",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnCtrLang",
@@ -11310,7 +11288,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnCtrTitle~FRA",
+     "userkey": "Field trnCtrTitle French",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnCtrTitle",
@@ -11326,7 +11304,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnDestinationUrl~FRA",
+     "userkey": "Field trnDestinationUrl French",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnDestinationUrl",
@@ -11342,7 +11320,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnLsnCatId~FRA",
+     "userkey": "Field trnLsnCatId French",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnLsnCatId",
@@ -11358,7 +11336,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnLsnCode~FRA",
+     "userkey": "Field trnLsnCode French",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnLsnCode",
@@ -11374,7 +11352,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnLsnFrontPath~FRA",
+     "userkey": "Field trnLsnFrontPath French",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnLsnFrontPath",
@@ -11390,7 +11368,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnLsnOrder~FRA",
+     "userkey": "Field trnLsnOrder French",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnLsnOrder",
@@ -11406,7 +11384,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnLsnPath~FRA",
+     "userkey": "Field trnLsnPath French",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnLsnPath",
@@ -11422,7 +11400,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnLsnPublish~FRA",
+     "userkey": "Field trnLsnPublish French",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnLsnPublish",
@@ -11438,7 +11416,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnLsnVisualization~FRA",
+     "userkey": "Field trnLsnVisualization French",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnLsnVisualization",
@@ -11454,7 +11432,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnLtrContent~FRA",
+     "userkey": "Field trnLtrContent French",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnLtrContent",
@@ -11470,7 +11448,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnLtrHasContent~FRA",
+     "userkey": "Field trnLtrHasContent French",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnLtrHasContent",
@@ -11486,7 +11464,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnLtrHtmlContent~FRA",
+     "userkey": "Field trnLtrHtmlContent French",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnLtrHtmlContent",
@@ -11502,7 +11480,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnLtrLang~FRA",
+     "userkey": "Field trnLtrLang French",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnLtrLang",
@@ -11518,7 +11496,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnLtrLsnId~FRA",
+     "userkey": "Field trnLtrLsnId French",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnLtrLsnId",
@@ -11534,7 +11512,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnLtrRawContent~FRA",
+     "userkey": "Field trnLtrRawContent French",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnLtrRawContent",
@@ -11550,7 +11528,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnLtrTitle~FRA",
+     "userkey": "Field trnLtrTitle French",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnLtrTitle",
@@ -11566,7 +11544,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnLtrVideo~FRA",
+     "userkey": "Field trnLtrVideo French",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnLtrVideo",
@@ -11582,7 +11560,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnPageCode~FRA",
+     "userkey": "Field trnPageCode French",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnPageCode",
@@ -11598,7 +11576,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnPageTrnLessonid~FRA",
+     "userkey": "Field trnPageTrnLessonid French",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnPageTrnLessonid",
@@ -11614,7 +11592,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnPageType~FRA",
+     "userkey": "Field trnPageType French",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnPageType",
@@ -11630,7 +11608,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnPicId~FRA",
+     "userkey": "Field trnPicId French",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnPicId",
@@ -11646,7 +11624,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnPicImage~FRA",
+     "userkey": "Field trnPicImage French",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnPicImage",
@@ -11662,7 +11640,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnPicLang~FRA",
+     "userkey": "Field trnPicLang French",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnPicLang",
@@ -11678,7 +11656,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnPicLsnId~FRA",
+     "userkey": "Field trnPicLsnId French",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnPicLsnId",
@@ -11694,7 +11672,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnSitCode~FRA",
+     "userkey": "Field trnSitCode French",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnSitCode",
@@ -11710,7 +11688,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnSitContent~FRA",
+     "userkey": "Field trnSitContent French",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnSitContent",
@@ -11726,7 +11704,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnSitLanguage~FRA",
+     "userkey": "Field trnSitLanguage French",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnSitLanguage",
@@ -11742,7 +11720,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnSourceUrl~FRA",
+     "userkey": "Field trnSourceUrl French",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnSourceUrl",
@@ -11758,7 +11736,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnSyncActionType~FRA",
+     "userkey": "Field trnSyncActionType French",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnSyncActionType",
@@ -11774,7 +11752,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnSyncDate~FRA",
+     "userkey": "Field trnSyncDate French",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnSyncDate",
@@ -11790,7 +11768,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnSyncLog~FRA",
+     "userkey": "Field trnSyncLog French",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnSyncLog",
@@ -11806,7 +11784,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnSyncStatus~FRA",
+     "userkey": "Field trnSyncStatus French",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnSyncStatus",
@@ -11822,7 +11800,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnSyncTriggerInfo~FRA",
+     "userkey": "Field trnSyncTriggerInfo French",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnSyncTriggerInfo",
@@ -11838,7 +11816,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnTagCode~FRA",
+     "userkey": "Field trnTagCode French",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnTagCode",
@@ -11854,7 +11832,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnTaglangTagId~FRA",
+     "userkey": "Field trnTaglangTagId French",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnTaglangTagId",
@@ -11870,7 +11848,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnTaglsnLsnId~FRA",
+     "userkey": "Field trnTaglsnLsnId French",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnTaglsnLsnId",
@@ -11886,7 +11864,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnTaglsnTagId~FRA",
+     "userkey": "Field trnTaglsnTagId French",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnTaglsnTagId",
@@ -11902,7 +11880,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnTagLsnVirtual~FRA",
+     "userkey": "Field trnTagLsnVirtual French",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnTagLsnVirtual",
@@ -11918,7 +11896,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnTagTranslateLang~FRA",
+     "userkey": "Field trnTagTranslateLang French",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnTagTranslateLang",
@@ -11934,7 +11912,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnTagTranslateTrad~FRA",
+     "userkey": "Field trnTagTranslateTrad French",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnTagTranslateTrad",
@@ -11950,7 +11928,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnThemeColor~FRA",
+     "userkey": "Field trnThemeColor French",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnThemeColor",
@@ -11966,7 +11944,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnThemeIcon~FRA",
+     "userkey": "Field trnThemeIcon French",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnThemeIcon",
@@ -11982,7 +11960,7 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "F~trnThemeSecondaryColor~FRA",
+     "userkey": "Field trnThemeSecondaryColor French",
      "item": {
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnThemeSecondaryColor",
@@ -12006,7 +11984,7 @@
    "list": [
     {
      "object": "TranslateFieldArea",
-     "userkey": "Z~TrnCategory-1~ENU",
+     "userkey": "Field area TrnCategory-1 English",
      "item": {
       "tsl_typeFieldArea": "Z",
       "tsl_id__ofa_name": "TrnCategory-1",
@@ -12017,7 +11995,7 @@
     },
     {
      "object": "TranslateFieldArea",
-     "userkey": "Z~TrnCategoryPicture-1~ENU",
+     "userkey": "Field area TrnCategoryPicture-1 English",
      "item": {
       "tsl_typeFieldArea": "Z",
       "tsl_id__ofa_name": "TrnCategoryPicture-1",
@@ -12028,7 +12006,7 @@
     },
     {
      "object": "TranslateFieldArea",
-     "userkey": "Z~TrnCategoryPicture-2~ENU",
+     "userkey": "Field area TrnCategoryPicture-2 English",
      "item": {
       "tsl_typeFieldArea": "Z",
       "tsl_id__ofa_name": "TrnCategoryPicture-2",
@@ -12039,7 +12017,7 @@
     },
     {
      "object": "TranslateFieldArea",
-     "userkey": "Z~TrnCategoryTranslate-1~ENU",
+     "userkey": "Field area TrnCategoryTranslate-1 English",
      "item": {
       "tsl_typeFieldArea": "Z",
       "tsl_id__ofa_name": "TrnCategoryTranslate-1",
@@ -12050,7 +12028,7 @@
     },
     {
      "object": "TranslateFieldArea",
-     "userkey": "Z~TrnLesson-1~ENU",
+     "userkey": "Field area TrnLesson-1 English",
      "item": {
       "tsl_typeFieldArea": "Z",
       "tsl_id__ofa_name": "TrnLesson-1",
@@ -12061,7 +12039,7 @@
     },
     {
      "object": "TranslateFieldArea",
-     "userkey": "Z~TrnLesson-Main~ENU",
+     "userkey": "Field area TrnLesson-Main English",
      "item": {
       "tsl_typeFieldArea": "Z",
       "tsl_id__ofa_name": "TrnLesson-Main",
@@ -12072,7 +12050,7 @@
     },
     {
      "object": "TranslateFieldArea",
-     "userkey": "Z~TrnLsnTranslate-1~ENU",
+     "userkey": "Field area TrnLsnTranslate-1 English",
      "item": {
       "tsl_typeFieldArea": "Z",
       "tsl_id__ofa_name": "TrnLsnTranslate-1",
@@ -12083,7 +12061,7 @@
     },
     {
      "object": "TranslateFieldArea",
-     "userkey": "Z~TrnLsnTranslate-2~ENU",
+     "userkey": "Field area TrnLsnTranslate-2 English",
      "item": {
       "tsl_typeFieldArea": "Z",
       "tsl_id__ofa_name": "TrnLsnTranslate-2",
@@ -12094,7 +12072,7 @@
     },
     {
      "object": "TranslateFieldArea",
-     "userkey": "Z~TrnPage-1~ENU",
+     "userkey": "Field area TrnPage-1 English",
      "item": {
       "tsl_typeFieldArea": "Z",
       "tsl_id__ofa_name": "TrnPage-1",
@@ -12105,7 +12083,7 @@
     },
     {
      "object": "TranslateFieldArea",
-     "userkey": "Z~TrnPage-3~ENU",
+     "userkey": "Field area TrnPage-3 English",
      "item": {
       "tsl_typeFieldArea": "Z",
       "tsl_id__ofa_name": "TrnPage-3",
@@ -12116,7 +12094,7 @@
     },
     {
      "object": "TranslateFieldArea",
-     "userkey": "Z~TrnPage-4~ENU",
+     "userkey": "Field area TrnPage-4 English",
      "item": {
       "tsl_typeFieldArea": "Z",
       "tsl_id__ofa_name": "TrnPage-4",
@@ -12127,7 +12105,7 @@
     },
     {
      "object": "TranslateFieldArea",
-     "userkey": "Z~TrnPage-5~ENU",
+     "userkey": "Field area TrnPage-5 English",
      "item": {
       "tsl_typeFieldArea": "Z",
       "tsl_id__ofa_name": "TrnPage-5",
@@ -12138,7 +12116,7 @@
     },
     {
      "object": "TranslateFieldArea",
-     "userkey": "Z~TrnPicture-1~ENU",
+     "userkey": "Field area TrnPicture-1 English",
      "item": {
       "tsl_typeFieldArea": "Z",
       "tsl_id__ofa_name": "TrnPicture-1",
@@ -12149,7 +12127,7 @@
     },
     {
      "object": "TranslateFieldArea",
-     "userkey": "Z~TrnSiteContent-1~ENU",
+     "userkey": "Field area TrnSiteContent-1 English",
      "item": {
       "tsl_typeFieldArea": "Z",
       "tsl_id__ofa_name": "TrnSiteContent-1",
@@ -12160,7 +12138,7 @@
     },
     {
      "object": "TranslateFieldArea",
-     "userkey": "Z~TrnSyncSupervisor-1~ENU",
+     "userkey": "Field area TrnSyncSupervisor-1 English",
      "item": {
       "tsl_typeFieldArea": "Z",
       "tsl_id__ofa_name": "TrnSyncSupervisor-1",
@@ -12171,7 +12149,7 @@
     },
     {
      "object": "TranslateFieldArea",
-     "userkey": "Z~TrnTag-1~ENU",
+     "userkey": "Field area TrnTag-1 English",
      "item": {
       "tsl_typeFieldArea": "Z",
       "tsl_id__ofa_name": "TrnTag-1",
@@ -12182,7 +12160,7 @@
     },
     {
      "object": "TranslateFieldArea",
-     "userkey": "Z~TrnTagLsn-1~ENU",
+     "userkey": "Field area TrnTagLsn-1 English",
      "item": {
       "tsl_typeFieldArea": "Z",
       "tsl_id__ofa_name": "TrnTagLsn-1",
@@ -12193,7 +12171,7 @@
     },
     {
      "object": "TranslateFieldArea",
-     "userkey": "Z~TrnUrlRewriting-1~ENU",
+     "userkey": "Field area TrnUrlRewriting-1 English",
      "item": {
       "tsl_typeFieldArea": "Z",
       "tsl_id__ofa_name": "TrnUrlRewriting-1",
@@ -12204,7 +12182,7 @@
     },
     {
      "object": "TranslateFieldArea",
-     "userkey": "Z~TrnCategory-1~FRA",
+     "userkey": "Field area TrnCategory-1 French",
      "item": {
       "tsl_typeFieldArea": "Z",
       "tsl_id__ofa_name": "TrnCategory-1",
@@ -12215,7 +12193,7 @@
     },
     {
      "object": "TranslateFieldArea",
-     "userkey": "Z~TrnCategoryPicture-1~FRA",
+     "userkey": "Field area TrnCategoryPicture-1 French",
      "item": {
       "tsl_typeFieldArea": "Z",
       "tsl_id__ofa_name": "TrnCategoryPicture-1",
@@ -12226,7 +12204,7 @@
     },
     {
      "object": "TranslateFieldArea",
-     "userkey": "Z~TrnCategoryPicture-2~FRA",
+     "userkey": "Field area TrnCategoryPicture-2 French",
      "item": {
       "tsl_typeFieldArea": "Z",
       "tsl_id__ofa_name": "TrnCategoryPicture-2",
@@ -12237,7 +12215,7 @@
     },
     {
      "object": "TranslateFieldArea",
-     "userkey": "Z~TrnCategoryTranslate-1~FRA",
+     "userkey": "Field area TrnCategoryTranslate-1 French",
      "item": {
       "tsl_typeFieldArea": "Z",
       "tsl_id__ofa_name": "TrnCategoryTranslate-1",
@@ -12248,7 +12226,7 @@
     },
     {
      "object": "TranslateFieldArea",
-     "userkey": "Z~TrnLesson-1~FRA",
+     "userkey": "Field area TrnLesson-1 French",
      "item": {
       "tsl_typeFieldArea": "Z",
       "tsl_id__ofa_name": "TrnLesson-1",
@@ -12259,7 +12237,7 @@
     },
     {
      "object": "TranslateFieldArea",
-     "userkey": "Z~TrnLesson-Main~FRA",
+     "userkey": "Field area TrnLesson-Main French",
      "item": {
       "tsl_typeFieldArea": "Z",
       "tsl_id__ofa_name": "TrnLesson-Main",
@@ -12270,7 +12248,7 @@
     },
     {
      "object": "TranslateFieldArea",
-     "userkey": "Z~TrnLsnTranslate-1~FRA",
+     "userkey": "Field area TrnLsnTranslate-1 French",
      "item": {
       "tsl_typeFieldArea": "Z",
       "tsl_id__ofa_name": "TrnLsnTranslate-1",
@@ -12281,7 +12259,7 @@
     },
     {
      "object": "TranslateFieldArea",
-     "userkey": "Z~TrnLsnTranslate-2~FRA",
+     "userkey": "Field area TrnLsnTranslate-2 French",
      "item": {
       "tsl_typeFieldArea": "Z",
       "tsl_id__ofa_name": "TrnLsnTranslate-2",
@@ -12292,7 +12270,7 @@
     },
     {
      "object": "TranslateFieldArea",
-     "userkey": "Z~TrnPage-1~FRA",
+     "userkey": "Field area TrnPage-1 French",
      "item": {
       "tsl_typeFieldArea": "Z",
       "tsl_id__ofa_name": "TrnPage-1",
@@ -12303,7 +12281,7 @@
     },
     {
      "object": "TranslateFieldArea",
-     "userkey": "Z~TrnPage-3~FRA",
+     "userkey": "Field area TrnPage-3 French",
      "item": {
       "tsl_typeFieldArea": "Z",
       "tsl_id__ofa_name": "TrnPage-3",
@@ -12314,7 +12292,7 @@
     },
     {
      "object": "TranslateFieldArea",
-     "userkey": "Z~TrnPage-4~FRA",
+     "userkey": "Field area TrnPage-4 French",
      "item": {
       "tsl_typeFieldArea": "Z",
       "tsl_id__ofa_name": "TrnPage-4",
@@ -12325,7 +12303,7 @@
     },
     {
      "object": "TranslateFieldArea",
-     "userkey": "Z~TrnPage-5~FRA",
+     "userkey": "Field area TrnPage-5 French",
      "item": {
       "tsl_typeFieldArea": "Z",
       "tsl_id__ofa_name": "TrnPage-5",
@@ -12336,7 +12314,7 @@
     },
     {
      "object": "TranslateFieldArea",
-     "userkey": "Z~TrnPicture-1~FRA",
+     "userkey": "Field area TrnPicture-1 French",
      "item": {
       "tsl_typeFieldArea": "Z",
       "tsl_id__ofa_name": "TrnPicture-1",
@@ -12347,7 +12325,7 @@
     },
     {
      "object": "TranslateFieldArea",
-     "userkey": "Z~TrnSiteContent-1~FRA",
+     "userkey": "Field area TrnSiteContent-1 French",
      "item": {
       "tsl_typeFieldArea": "Z",
       "tsl_id__ofa_name": "TrnSiteContent-1",
@@ -12358,7 +12336,7 @@
     },
     {
      "object": "TranslateFieldArea",
-     "userkey": "Z~TrnSyncSupervisor-1~FRA",
+     "userkey": "Field area TrnSyncSupervisor-1 French",
      "item": {
       "tsl_typeFieldArea": "Z",
       "tsl_id__ofa_name": "TrnSyncSupervisor-1",
@@ -12369,7 +12347,7 @@
     },
     {
      "object": "TranslateFieldArea",
-     "userkey": "Z~TrnTag-1~FRA",
+     "userkey": "Field area TrnTag-1 French",
      "item": {
       "tsl_typeFieldArea": "Z",
       "tsl_id__ofa_name": "TrnTag-1",
@@ -12380,7 +12358,7 @@
     },
     {
      "object": "TranslateFieldArea",
-     "userkey": "Z~TrnTagLsn-1~FRA",
+     "userkey": "Field area TrnTagLsn-1 French",
      "item": {
       "tsl_typeFieldArea": "Z",
       "tsl_id__ofa_name": "TrnTagLsn-1",
@@ -12391,7 +12369,7 @@
     },
     {
      "object": "TranslateFieldArea",
-     "userkey": "Z~TrnUrlRewriting-1~FRA",
+     "userkey": "Field area TrnUrlRewriting-1 French",
      "item": {
       "tsl_typeFieldArea": "Z",
       "tsl_id__ofa_name": "TrnUrlRewriting-1",
@@ -12410,7 +12388,7 @@
    "list": [
     {
      "object": "TranslateDomain",
-     "userkey": "O~TrnDomain~ENU",
+     "userkey": "Object TrnDomain English",
      "item": {
       "tsl_typeObject": "O",
       "tsl_id__obd_name": "TrnDomain",
@@ -12422,7 +12400,7 @@
     },
     {
      "object": "TranslateDomain",
-     "userkey": "O~TrnDomain~FRA",
+     "userkey": "Object TrnDomain French",
      "item": {
       "tsl_typeObject": "O",
       "tsl_id__obd_name": "TrnDomain",
@@ -12442,7 +12420,7 @@
    "list": [
     {
      "object": "TranslateObject",
-     "userkey": "O~TrnTagLsn~ANY",
+     "userkey": "Object TrnTagLsn *",
      "item": {
       "tsl_typeObject": "O",
       "tsl_id__obo_name": "TrnTagLsn",
@@ -12454,7 +12432,7 @@
     },
     {
      "object": "TranslateObject",
-     "userkey": "O~TrnCategory~ENU",
+     "userkey": "Object TrnCategory English",
      "item": {
       "tsl_typeObject": "O",
       "tsl_id__obo_name": "TrnCategory",
@@ -12466,7 +12444,7 @@
     },
     {
      "object": "TranslateObject",
-     "userkey": "O~TrnCategoryTranslate~ENU",
+     "userkey": "Object TrnCategoryTranslate English",
      "item": {
       "tsl_typeObject": "O",
       "tsl_id__obo_name": "TrnCategoryTranslate",
@@ -12478,7 +12456,7 @@
     },
     {
      "object": "TranslateObject",
-     "userkey": "O~TrnLesson~ENU",
+     "userkey": "Object TrnLesson English",
      "item": {
       "tsl_typeObject": "O",
       "tsl_id__obo_name": "TrnLesson",
@@ -12490,7 +12468,7 @@
     },
     {
      "object": "TranslateObject",
-     "userkey": "O~TrnLsnTranslate~ENU",
+     "userkey": "Object TrnLsnTranslate English",
      "item": {
       "tsl_typeObject": "O",
       "tsl_id__obo_name": "TrnLsnTranslate",
@@ -12502,7 +12480,7 @@
     },
     {
      "object": "TranslateObject",
-     "userkey": "O~TrnPage~ENU",
+     "userkey": "Object TrnPage English",
      "item": {
       "tsl_typeObject": "O",
       "tsl_id__obo_name": "TrnPage",
@@ -12514,7 +12492,7 @@
     },
     {
      "object": "TranslateObject",
-     "userkey": "O~TrnPicture~ENU",
+     "userkey": "Object TrnPicture English",
      "item": {
       "tsl_typeObject": "O",
       "tsl_id__obo_name": "TrnPicture",
@@ -12526,7 +12504,7 @@
     },
     {
      "object": "TranslateObject",
-     "userkey": "O~TrnSiteContent~ENU",
+     "userkey": "Object TrnSiteContent English",
      "item": {
       "tsl_typeObject": "O",
       "tsl_id__obo_name": "TrnSiteContent",
@@ -12538,7 +12516,7 @@
     },
     {
      "object": "TranslateObject",
-     "userkey": "O~TrnSiteTheme~ENU",
+     "userkey": "Object TrnSiteTheme English",
      "item": {
       "tsl_typeObject": "O",
       "tsl_id__obo_name": "TrnSiteTheme",
@@ -12550,7 +12528,7 @@
     },
     {
      "object": "TranslateObject",
-     "userkey": "O~TrnSyncSupervisor~ENU",
+     "userkey": "Object TrnSyncSupervisor English",
      "item": {
       "tsl_typeObject": "O",
       "tsl_id__obo_name": "TrnSyncSupervisor",
@@ -12562,7 +12540,7 @@
     },
     {
      "object": "TranslateObject",
-     "userkey": "O~TrnTag~ENU",
+     "userkey": "Object TrnTag English",
      "item": {
       "tsl_typeObject": "O",
       "tsl_id__obo_name": "TrnTag",
@@ -12574,7 +12552,7 @@
     },
     {
      "object": "TranslateObject",
-     "userkey": "O~TrnTagTranslate~ENU",
+     "userkey": "Object TrnTagTranslate English",
      "item": {
       "tsl_typeObject": "O",
       "tsl_id__obo_name": "TrnTagTranslate",
@@ -12586,7 +12564,7 @@
     },
     {
      "object": "TranslateObject",
-     "userkey": "O~TrnUrlRewriting~ENU",
+     "userkey": "Object TrnUrlRewriting English",
      "item": {
       "tsl_typeObject": "O",
       "tsl_id__obo_name": "TrnUrlRewriting",
@@ -12598,7 +12576,7 @@
     },
     {
      "object": "TranslateObject",
-     "userkey": "O~TrnCategory~FRA",
+     "userkey": "Object TrnCategory French",
      "item": {
       "tsl_typeObject": "O",
       "tsl_id__obo_name": "TrnCategory",
@@ -12610,7 +12588,7 @@
     },
     {
      "object": "TranslateObject",
-     "userkey": "O~TrnCategoryTranslate~FRA",
+     "userkey": "Object TrnCategoryTranslate French",
      "item": {
       "tsl_typeObject": "O",
       "tsl_id__obo_name": "TrnCategoryTranslate",
@@ -12622,7 +12600,7 @@
     },
     {
      "object": "TranslateObject",
-     "userkey": "O~TrnLesson~FRA",
+     "userkey": "Object TrnLesson French",
      "item": {
       "tsl_typeObject": "O",
       "tsl_id__obo_name": "TrnLesson",
@@ -12634,7 +12612,7 @@
     },
     {
      "object": "TranslateObject",
-     "userkey": "O~TrnLsnTranslate~FRA",
+     "userkey": "Object TrnLsnTranslate French",
      "item": {
       "tsl_typeObject": "O",
       "tsl_id__obo_name": "TrnLsnTranslate",
@@ -12646,7 +12624,7 @@
     },
     {
      "object": "TranslateObject",
-     "userkey": "O~TrnPage~FRA",
+     "userkey": "Object TrnPage French",
      "item": {
       "tsl_typeObject": "O",
       "tsl_id__obo_name": "TrnPage",
@@ -12658,7 +12636,7 @@
     },
     {
      "object": "TranslateObject",
-     "userkey": "O~TrnPicture~FRA",
+     "userkey": "Object TrnPicture French",
      "item": {
       "tsl_typeObject": "O",
       "tsl_id__obo_name": "TrnPicture",
@@ -12670,7 +12648,7 @@
     },
     {
      "object": "TranslateObject",
-     "userkey": "O~TrnSiteContent~FRA",
+     "userkey": "Object TrnSiteContent French",
      "item": {
       "tsl_typeObject": "O",
       "tsl_id__obo_name": "TrnSiteContent",
@@ -12682,7 +12660,7 @@
     },
     {
      "object": "TranslateObject",
-     "userkey": "O~TrnSiteTheme~FRA",
+     "userkey": "Object TrnSiteTheme French",
      "item": {
       "tsl_typeObject": "O",
       "tsl_id__obo_name": "TrnSiteTheme",
@@ -12694,7 +12672,7 @@
     },
     {
      "object": "TranslateObject",
-     "userkey": "O~TrnSyncSupervisor~FRA",
+     "userkey": "Object TrnSyncSupervisor French",
      "item": {
       "tsl_typeObject": "O",
       "tsl_id__obo_name": "TrnSyncSupervisor",
@@ -12706,7 +12684,7 @@
     },
     {
      "object": "TranslateObject",
-     "userkey": "O~TrnTag~FRA",
+     "userkey": "Object TrnTag French",
      "item": {
       "tsl_typeObject": "O",
       "tsl_id__obo_name": "TrnTag",
@@ -12718,7 +12696,7 @@
     },
     {
      "object": "TranslateObject",
-     "userkey": "O~TrnTagTranslate~FRA",
+     "userkey": "Object TrnTagTranslate French",
      "item": {
       "tsl_typeObject": "O",
       "tsl_id__obo_name": "TrnTagTranslate",
@@ -12730,7 +12708,7 @@
     },
     {
      "object": "TranslateObject",
-     "userkey": "O~TrnUrlRewriting~FRA",
+     "userkey": "Object TrnUrlRewriting French",
      "item": {
       "tsl_typeObject": "O",
       "tsl_id__obo_name": "TrnUrlRewriting",
@@ -12750,7 +12728,7 @@
    "list": [
     {
      "object": "TranslateExternal",
-     "userkey": "O~TrnDiscourseHookService~ENU",
+     "userkey": "Object TrnDiscourseHookService English",
      "item": {
       "tsl_typeObject": "O",
       "tsl_id__obe_name": "TrnDiscourseHookService",
@@ -12762,7 +12740,7 @@
     },
     {
      "object": "TranslateExternal",
-     "userkey": "O~TrnFront~ENU",
+     "userkey": "Object TrnFront English",
      "item": {
       "tsl_typeObject": "O",
       "tsl_id__obe_name": "TrnFront",
@@ -12774,7 +12752,7 @@
     },
     {
      "object": "TranslateExternal",
-     "userkey": "O~TrnGitCheckoutService~ENU",
+     "userkey": "Object TrnGitCheckoutService English",
      "item": {
       "tsl_typeObject": "O",
       "tsl_id__obe_name": "TrnGitCheckoutService",
@@ -12786,7 +12764,7 @@
     },
     {
      "object": "TranslateExternal",
-     "userkey": "O~TrnSearchService~ENU",
+     "userkey": "Object TrnSearchService English",
      "item": {
       "tsl_typeObject": "O",
       "tsl_id__obe_name": "TrnSearchService",
@@ -12798,7 +12776,7 @@
     },
     {
      "object": "TranslateExternal",
-     "userkey": "O~TrnSitemap~ENU",
+     "userkey": "Object TrnSitemap English",
      "item": {
       "tsl_typeObject": "O",
       "tsl_id__obe_name": "TrnSitemap",
@@ -12810,7 +12788,7 @@
     },
     {
      "object": "TranslateExternal",
-     "userkey": "O~TrnSyncService~ENU",
+     "userkey": "Object TrnSyncService English",
      "item": {
       "tsl_typeObject": "O",
       "tsl_id__obe_name": "TrnSyncService",
@@ -12822,7 +12800,7 @@
     },
     {
      "object": "TranslateExternal",
-     "userkey": "O~TrnTagService~ENU",
+     "userkey": "Object TrnTagService English",
      "item": {
       "tsl_typeObject": "O",
       "tsl_id__obe_name": "TrnTagService",
@@ -12834,7 +12812,7 @@
     },
     {
      "object": "TranslateExternal",
-     "userkey": "O~TrnTreeService~ENU",
+     "userkey": "Object TrnTreeService English",
      "item": {
       "tsl_typeObject": "O",
       "tsl_id__obe_name": "TrnTreeService",
@@ -12846,7 +12824,7 @@
     },
     {
      "object": "TranslateExternal",
-     "userkey": "O~TrnDiscourseHookService~FRA",
+     "userkey": "Object TrnDiscourseHookService French",
      "item": {
       "tsl_typeObject": "O",
       "tsl_id__obe_name": "TrnDiscourseHookService",
@@ -12858,7 +12836,7 @@
     },
     {
      "object": "TranslateExternal",
-     "userkey": "O~TrnFront~FRA",
+     "userkey": "Object TrnFront French",
      "item": {
       "tsl_typeObject": "O",
       "tsl_id__obe_name": "TrnFront",
@@ -12870,7 +12848,7 @@
     },
     {
      "object": "TranslateExternal",
-     "userkey": "O~TrnGitCheckoutService~FRA",
+     "userkey": "Object TrnGitCheckoutService French",
      "item": {
       "tsl_typeObject": "O",
       "tsl_id__obe_name": "TrnGitCheckoutService",
@@ -12882,7 +12860,7 @@
     },
     {
      "object": "TranslateExternal",
-     "userkey": "O~TrnSearchService~FRA",
+     "userkey": "Object TrnSearchService French",
      "item": {
       "tsl_typeObject": "O",
       "tsl_id__obe_name": "TrnSearchService",
@@ -12894,7 +12872,7 @@
     },
     {
      "object": "TranslateExternal",
-     "userkey": "O~TrnSitemap~FRA",
+     "userkey": "Object TrnSitemap French",
      "item": {
       "tsl_typeObject": "O",
       "tsl_id__obe_name": "TrnSitemap",
@@ -12906,7 +12884,7 @@
     },
     {
      "object": "TranslateExternal",
-     "userkey": "O~TrnSyncService~FRA",
+     "userkey": "Object TrnSyncService French",
      "item": {
       "tsl_typeObject": "O",
       "tsl_id__obe_name": "TrnSyncService",
@@ -12918,7 +12896,7 @@
     },
     {
      "object": "TranslateExternal",
-     "userkey": "O~TrnTagService~FRA",
+     "userkey": "Object TrnTagService French",
      "item": {
       "tsl_typeObject": "O",
       "tsl_id__obe_name": "TrnTagService",
@@ -12930,7 +12908,7 @@
     },
     {
      "object": "TranslateExternal",
-     "userkey": "O~TrnTreeService~FRA",
+     "userkey": "Object TrnTreeService French",
      "item": {
       "tsl_typeObject": "O",
       "tsl_id__obe_name": "TrnTreeService",
@@ -12950,7 +12928,7 @@
    "list": [
     {
      "object": "TranslateObjectField",
-     "userkey": "L~TrnCategory~trnCatPath~80~ENU",
+     "userkey": "Object field TrnCategory trnCatPath 80 English",
      "item": {
       "tsl_typeObjectField": "L",
       "tsl_id__obf_object_id__obo_name": "TrnCategory",
@@ -12967,7 +12945,7 @@
     },
     {
      "object": "TranslateObjectField",
-     "userkey": "L~TrnCategory~trnCatCode~90~ENU",
+     "userkey": "Object field TrnCategory trnCatCode 90 English",
      "item": {
       "tsl_typeObjectField": "L",
       "tsl_id__obf_object_id__obo_name": "TrnCategory",
@@ -12984,7 +12962,7 @@
     },
     {
      "object": "TranslateObjectField",
-     "userkey": "L~TrnCategory~trnCatFrontPath~140~ENU",
+     "userkey": "Object field TrnCategory trnCatFrontPath 140 English",
      "item": {
       "tsl_typeObjectField": "L",
       "tsl_id__obf_object_id__obo_name": "TrnCategory",
@@ -13001,7 +12979,7 @@
     },
     {
      "object": "TranslateObjectField",
-     "userkey": "L~TrnLesson~trnCatPath~120~ENU",
+     "userkey": "Object field TrnLesson trnCatPath 120 English",
      "item": {
       "tsl_typeObjectField": "L",
       "tsl_id__obf_object_id__obo_name": "TrnLesson",
@@ -13018,7 +12996,7 @@
     },
     {
      "object": "TranslateObjectField",
-     "userkey": "L~TrnLesson~trnCatFrontPath~130~ENU",
+     "userkey": "Object field TrnLesson trnCatFrontPath 130 English",
      "item": {
       "tsl_typeObjectField": "L",
       "tsl_id__obf_object_id__obo_name": "TrnLesson",
@@ -13035,7 +13013,7 @@
     },
     {
      "object": "TranslateObjectField",
-     "userkey": "L~TrnLsnTranslate~trnLsnCode~120~ENU",
+     "userkey": "Object field TrnLsnTranslate trnLsnCode 120 English",
      "item": {
       "tsl_typeObjectField": "L",
       "tsl_id__obf_object_id__obo_name": "TrnLsnTranslate",
@@ -13052,7 +13030,7 @@
     },
     {
      "object": "TranslateObjectField",
-     "userkey": "L~TrnLsnTranslate~trnLsnFrontPath~130~ENU",
+     "userkey": "Object field TrnLsnTranslate trnLsnFrontPath 130 English",
      "item": {
       "tsl_typeObjectField": "L",
       "tsl_id__obf_object_id__obo_name": "TrnLsnTranslate",
@@ -13069,7 +13047,7 @@
     },
     {
      "object": "TranslateObjectField",
-     "userkey": "L~TrnLsnTranslate~trnLsnPublish~140~ENU",
+     "userkey": "Object field TrnLsnTranslate trnLsnPublish 140 English",
      "item": {
       "tsl_typeObjectField": "L",
       "tsl_id__obf_object_id__obo_name": "TrnLsnTranslate",
@@ -13086,7 +13064,7 @@
     },
     {
      "object": "TranslateObjectField",
-     "userkey": "L~TrnPage~trnLsnPath~110~ENU",
+     "userkey": "Object field TrnPage trnLsnPath 110 English",
      "item": {
       "tsl_typeObjectField": "L",
       "tsl_id__obf_object_id__obo_name": "TrnPage",
@@ -13103,7 +13081,7 @@
     },
     {
      "object": "TranslateObjectField",
-     "userkey": "L~TrnPage~trnLsnFrontPath~120~ENU",
+     "userkey": "Object field TrnPage trnLsnFrontPath 120 English",
      "item": {
       "tsl_typeObjectField": "L",
       "tsl_id__obf_object_id__obo_name": "TrnPage",
@@ -13120,7 +13098,7 @@
     },
     {
      "object": "TranslateObjectField",
-     "userkey": "L~TrnPage~trnLsnPublish~130~ENU",
+     "userkey": "Object field TrnPage trnLsnPublish 130 English",
      "item": {
       "tsl_typeObjectField": "L",
       "tsl_id__obf_object_id__obo_name": "TrnPage",
@@ -13137,7 +13115,7 @@
     },
     {
      "object": "TranslateObjectField",
-     "userkey": "L~TrnPage~trnLsnVisualization~140~ENU",
+     "userkey": "Object field TrnPage trnLsnVisualization 140 English",
      "item": {
       "tsl_typeObjectField": "L",
       "tsl_id__obf_object_id__obo_name": "TrnPage",
@@ -13154,7 +13132,7 @@
     },
     {
      "object": "TranslateObjectField",
-     "userkey": "L~TrnTagLsn~trnTagCode~110~ENU",
+     "userkey": "Object field TrnTagLsn trnTagCode 110 English",
      "item": {
       "tsl_typeObjectField": "L",
       "tsl_id__obf_object_id__obo_name": "TrnTagLsn",
@@ -13171,7 +13149,7 @@
     },
     {
      "object": "TranslateObjectField",
-     "userkey": "L~TrnTagLsn~trnLsnPath~210~ENU",
+     "userkey": "Object field TrnTagLsn trnLsnPath 210 English",
      "item": {
       "tsl_typeObjectField": "L",
       "tsl_id__obf_object_id__obo_name": "TrnTagLsn",
@@ -13188,7 +13166,7 @@
     },
     {
      "object": "TranslateObjectField",
-     "userkey": "L~TrnCategory~trnCatPath~80~FRA",
+     "userkey": "Object field TrnCategory trnCatPath 80 French",
      "item": {
       "tsl_typeObjectField": "L",
       "tsl_id__obf_object_id__obo_name": "TrnCategory",
@@ -13205,7 +13183,7 @@
     },
     {
      "object": "TranslateObjectField",
-     "userkey": "L~TrnCategory~trnCatCode~90~FRA",
+     "userkey": "Object field TrnCategory trnCatCode 90 French",
      "item": {
       "tsl_typeObjectField": "L",
       "tsl_id__obf_object_id__obo_name": "TrnCategory",
@@ -13222,7 +13200,7 @@
     },
     {
      "object": "TranslateObjectField",
-     "userkey": "L~TrnCategory~trnCatFrontPath~140~FRA",
+     "userkey": "Object field TrnCategory trnCatFrontPath 140 French",
      "item": {
       "tsl_typeObjectField": "L",
       "tsl_id__obf_object_id__obo_name": "TrnCategory",
@@ -13239,7 +13217,7 @@
     },
     {
      "object": "TranslateObjectField",
-     "userkey": "L~TrnLesson~trnCatPath~120~FRA",
+     "userkey": "Object field TrnLesson trnCatPath 120 French",
      "item": {
       "tsl_typeObjectField": "L",
       "tsl_id__obf_object_id__obo_name": "TrnLesson",
@@ -13256,7 +13234,7 @@
     },
     {
      "object": "TranslateObjectField",
-     "userkey": "L~TrnLesson~trnCatFrontPath~130~FRA",
+     "userkey": "Object field TrnLesson trnCatFrontPath 130 French",
      "item": {
       "tsl_typeObjectField": "L",
       "tsl_id__obf_object_id__obo_name": "TrnLesson",
@@ -13273,7 +13251,7 @@
     },
     {
      "object": "TranslateObjectField",
-     "userkey": "L~TrnLsnTranslate~trnLsnCode~120~FRA",
+     "userkey": "Object field TrnLsnTranslate trnLsnCode 120 French",
      "item": {
       "tsl_typeObjectField": "L",
       "tsl_id__obf_object_id__obo_name": "TrnLsnTranslate",
@@ -13290,7 +13268,7 @@
     },
     {
      "object": "TranslateObjectField",
-     "userkey": "L~TrnLsnTranslate~trnLsnFrontPath~130~FRA",
+     "userkey": "Object field TrnLsnTranslate trnLsnFrontPath 130 French",
      "item": {
       "tsl_typeObjectField": "L",
       "tsl_id__obf_object_id__obo_name": "TrnLsnTranslate",
@@ -13307,7 +13285,7 @@
     },
     {
      "object": "TranslateObjectField",
-     "userkey": "L~TrnLsnTranslate~trnLsnPublish~140~FRA",
+     "userkey": "Object field TrnLsnTranslate trnLsnPublish 140 French",
      "item": {
       "tsl_typeObjectField": "L",
       "tsl_id__obf_object_id__obo_name": "TrnLsnTranslate",
@@ -13324,7 +13302,7 @@
     },
     {
      "object": "TranslateObjectField",
-     "userkey": "L~TrnPage~trnLsnPath~110~FRA",
+     "userkey": "Object field TrnPage trnLsnPath 110 French",
      "item": {
       "tsl_typeObjectField": "L",
       "tsl_id__obf_object_id__obo_name": "TrnPage",
@@ -13341,7 +13319,7 @@
     },
     {
      "object": "TranslateObjectField",
-     "userkey": "L~TrnPage~trnLsnFrontPath~120~FRA",
+     "userkey": "Object field TrnPage trnLsnFrontPath 120 French",
      "item": {
       "tsl_typeObjectField": "L",
       "tsl_id__obf_object_id__obo_name": "TrnPage",
@@ -13358,7 +13336,7 @@
     },
     {
      "object": "TranslateObjectField",
-     "userkey": "L~TrnPage~trnLsnPublish~130~FRA",
+     "userkey": "Object field TrnPage trnLsnPublish 130 French",
      "item": {
       "tsl_typeObjectField": "L",
       "tsl_id__obf_object_id__obo_name": "TrnPage",
@@ -13375,7 +13353,7 @@
     },
     {
      "object": "TranslateObjectField",
-     "userkey": "L~TrnPage~trnLsnVisualization~140~FRA",
+     "userkey": "Object field TrnPage trnLsnVisualization 140 French",
      "item": {
       "tsl_typeObjectField": "L",
       "tsl_id__obf_object_id__obo_name": "TrnPage",
@@ -13392,7 +13370,7 @@
     },
     {
      "object": "TranslateObjectField",
-     "userkey": "L~TrnTagLsn~trnLsnPath~210~FRA",
+     "userkey": "Object field TrnTagLsn trnLsnPath 210 French",
      "item": {
       "tsl_typeObjectField": "L",
       "tsl_id__obf_object_id__obo_name": "TrnTagLsn",
@@ -13417,21 +13395,7 @@
    "list": [
     {
      "object": "TranslateLink",
-     "userkey": "K~~~~ENU",
-     "item": {
-      "tsl_typeLink": "K",
-      "tsl_id__obf_object_id__obj_name": null,
-      "tsl_id__obf_field_id__fld_name": null,
-      "tsl_id__obf_order": null,
-      "tsl_lang": "ENU",
-      "tsl_value": "Subcategories",
-      "tsl_simplehelp": null,
-      "row_module_id__mdl_name": "Training"
-     }
-    },
-    {
-     "object": "TranslateLink",
-     "userkey": "K~TrnCategory~trnCatId~70~ENU",
+     "userkey": "Object link TrnCategory trnCatId 70 English",
      "item": {
       "tsl_typeLink": "K",
       "tsl_id__obf_object_id__obj_name": "TrnCategory",
@@ -13445,21 +13409,7 @@
     },
     {
      "object": "TranslateLink",
-     "userkey": "K~~~~FRA",
-     "item": {
-      "tsl_typeLink": "K",
-      "tsl_id__obf_object_id__obj_name": null,
-      "tsl_id__obf_field_id__fld_name": null,
-      "tsl_id__obf_order": null,
-      "tsl_lang": "FRA",
-      "tsl_value": "Catégories Filles",
-      "tsl_simplehelp": null,
-      "row_module_id__mdl_name": "Training"
-     }
-    },
-    {
-     "object": "TranslateLink",
-     "userkey": "K~TrnCategory~trnCatId~70~FRA",
+     "userkey": "Object link TrnCategory trnCatId 70 French",
      "item": {
       "tsl_typeLink": "K",
       "tsl_id__obf_object_id__obj_name": "TrnCategory",
@@ -13481,7 +13431,7 @@
    "list": [
     {
      "object": "TranslateView",
-     "userkey": "V~Training~ENU",
+     "userkey": "View Training English",
      "item": {
       "tsl_typeView": "V",
       "tsl_id__viw_name": "Training",
@@ -13493,7 +13443,7 @@
     },
     {
      "object": "TranslateView",
-     "userkey": "V~Training~FRA",
+     "userkey": "View Training French",
      "item": {
       "tsl_typeView": "V",
       "tsl_id__viw_name": "Training",
@@ -13513,7 +13463,7 @@
    "list": [
     {
      "object": "TranslateTreeView",
-     "userkey": "W~trnTreeView~ENU",
+     "userkey": "Treeview trnTreeView English",
      "item": {
       "tsl_typeTreeview": "W",
       "tsl_id__trv_name": "trnTreeView",
@@ -13525,7 +13475,7 @@
     },
     {
      "object": "TranslateTreeView",
-     "userkey": "W~trnTreeView~FRA",
+     "userkey": "Treeview trnTreeView French",
      "item": {
       "tsl_typeTreeview": "W",
       "tsl_id__trv_name": "trnTreeView",
@@ -13545,7 +13495,7 @@
    "list": [
     {
      "object": "TranslateDocIndex",
-     "userkey": "B~B-trnLtrVideo~ENU",
+     "userkey": "Bookshelf B-trnLtrVideo English",
      "item": {
       "tsl_typeDocIndex": "B",
       "tsl_id__din_name": "B-trnLtrVideo",
@@ -13556,7 +13506,7 @@
     },
     {
      "object": "TranslateDocIndex",
-     "userkey": "B~B-trnPicImage~ENU",
+     "userkey": "Bookshelf B-trnPicImage English",
      "item": {
       "tsl_typeDocIndex": "B",
       "tsl_id__din_name": "B-trnPicImage",
@@ -13567,7 +13517,7 @@
     },
     {
      "object": "TranslateDocIndex",
-     "userkey": "B~B-trnThemeIcon~ENU",
+     "userkey": "Bookshelf B-trnThemeIcon English",
      "item": {
       "tsl_typeDocIndex": "B",
       "tsl_id__din_name": "B-trnThemeIcon",
@@ -13578,7 +13528,7 @@
     },
     {
      "object": "TranslateDocIndex",
-     "userkey": "B~B-trnLtrVideo~FRA",
+     "userkey": "Bookshelf B-trnLtrVideo French",
      "item": {
       "tsl_typeDocIndex": "B",
       "tsl_id__din_name": "B-trnLtrVideo",
@@ -13589,7 +13539,7 @@
     },
     {
      "object": "TranslateDocIndex",
-     "userkey": "B~B-trnPicImage~FRA",
+     "userkey": "Bookshelf B-trnPicImage French",
      "item": {
       "tsl_typeDocIndex": "B",
       "tsl_id__din_name": "B-trnPicImage",
@@ -13600,7 +13550,7 @@
     },
     {
      "object": "TranslateDocIndex",
-     "userkey": "B~B-trnThemeIcon~FRA",
+     "userkey": "Bookshelf B-trnThemeIcon French",
      "item": {
       "tsl_typeDocIndex": "B",
       "tsl_id__din_name": "B-trnThemeIcon",
@@ -13619,7 +13569,7 @@
    "list": [
     {
      "object": "Dataset",
-     "userkey": "Training~Display-test-data",
+     "userkey": "Training Display-test-data",
      "item": {
       "row_module_id__mdl_name": "Training",
       "dt_name": "Display-test-data",
@@ -13633,7 +13583,7 @@
     },
     {
      "object": "Dataset",
-     "userkey": "Training~Docs-homepage",
+     "userkey": "Training Docs-homepage",
      "item": {
       "row_module_id__mdl_name": "Training",
       "dt_name": "Docs-homepage",
@@ -13647,7 +13597,7 @@
     },
     {
      "object": "Dataset",
-     "userkey": "Training~Technical-passwords",
+     "userkey": "Training Technical-passwords",
      "item": {
       "row_module_id__mdl_name": "Training",
       "dt_name": "Technical-passwords",
@@ -13661,7 +13611,7 @@
     },
     {
      "object": "Dataset",
-     "userkey": "Training~Trigger-forceDirSync",
+     "userkey": "Training Trigger-forceDirSync",
      "item": {
       "row_module_id__mdl_name": "Training",
       "dt_name": "Trigger-forceDirSync",
