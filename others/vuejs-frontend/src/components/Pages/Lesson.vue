@@ -251,10 +251,16 @@ export default {
 		// prevents page reloading on internal URL's
 		onHtmlClick(event) {
 			if (event.target.tagName.toLowerCase() === 'a') {
-				// if the href is served on the same base url
+				// Si c'est un lien interne avec une ancre (#), on laisse le comportement par défaut
+				if (event.target.getAttribute('href').startsWith('#')) {
+					return;
+				}
+				// Si le lien est sur le même domaine
 				if (event.target.href.includes(window.location.origin)) {
+
 					event.stopPropagation();
 					event.preventDefault();
+					
 					this.$router.push(event.target.pathname);
 				}
 			}
