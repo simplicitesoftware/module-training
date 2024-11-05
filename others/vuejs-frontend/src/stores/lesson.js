@@ -53,22 +53,22 @@ export const useLessonStore = defineStore('lessonStore', {
     },
 
     async fetchLesson(payload) {
+      const uiStore = useUiStore();
       await this.fetchLessonTag(payload);
-      await this.fetchLessonContent(payload);
+      await this.fetchLessonContent(payload,uiStore.lang);
       // only fetch image on other than Linear mode
       // See on Training module in TrnLesson.java -> setLinearPictureContent()
       if(payload.lesson.viz !== 'LINEAR') {
-        await this.fetchLessonImages(payload);
+        await this.fetchLessonImages(payload,uiStore.lang);
       }
     },
 
-    async fetchLessonContent(payload) {
+    async fetchLessonContent(payload,lang) {
       const lesonStore = this;
       return new Promise((resolve) => {
-        const uiStore = useUiStore();
         payload.smp.getExternalObject('TrnTreeService').call(
           {
-            lang:uiStore.lang,
+            lang:lang,
             getLesson:payload.lesson.row_id
           }
         ).then(function(res){
@@ -78,11 +78,11 @@ export const useLessonStore = defineStore('lessonStore', {
       })
     },
 
-    async fetchLessonImages(payload) {  
+    async fetchLessonImages(payload,lang) {  
       return new Promise((resolve, reject) => {
         let picture = payload.smp.getBusinessObject("TrnPicture");
         picture.search(
-          {'trnPicLsnId': payload.lesson.row_id}, {inlineDocs: 'infos'}
+          {'trnPicLsnId': payload.lesson.row_id,'trnPicLang': `in ('ANY', '${lang}')`}, {inlineDocs: 'infos'}
         ).then(array => {
           if(array){
             this.SET_LESSON_IMAGES(array.map(pic => ({
