@@ -25,5 +25,13 @@ const router =  createRouter({
     history: createWebHistory(),
     routes,
 });
-
+router.beforeEach((to, from, next) => {
+    if(to.name === 'Lesson'){
+     let title =  to.params.lessonPath.split('/').pop() || '';
+     if(title) title = 'Docs | ' + title; else title = 'Docs';
+     let ogTitle = document.querySelector('meta[property="og:title"]');
+     if(ogTitle) ogTitle.setAttribute('content', title);
+    }
+     next();
+ });
 export default router;

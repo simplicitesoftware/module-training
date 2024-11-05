@@ -10,6 +10,8 @@ import com.simplicite.util.ObjectDB;
 import com.simplicite.util.Tool;
 import com.simplicite.util.tools.HTMLTool;
 import com.simplicite.util.tools.Parameters;
+import org.json.JSONObject;
+import java.util.List;
 
 /**
  * External object TrnFront
@@ -22,7 +24,8 @@ public class TrnFront extends com.simplicite.webapp.web.StaticSiteExternalObject
 	@Override
 	public Object display(Parameters params){
 		redirectIfNecessary(params);
-		return super.display(params);
+		Object display = super.display(params);
+		return addOpenGraphMetaData(params,display);
 	}
 	
 	private void redirectIfNecessary(Parameters params){
@@ -96,5 +99,74 @@ public class TrnFront extends com.simplicite.webapp.web.StaticSiteExternalObject
 			AppLog.error(null, e, getGrant());
 			return super.notfound(params);
 		}
+	}
+	private Object addOpenGraphMetaData(Parameters params,Object display) {
+		String requestedUrl =params.getLocation();
+		JSONObject og = getOpenGraphInfo(requestedUrl, params);
+		if(requestedUrl.contains("lesson") && display instanceof byte[]){
+			String html = new String((byte[])display);
+			AppLog.info(html, getGrant());
+			for (String key : og.keySet()){
+				html = html.replaceAll("<meta property=\""+key+"\" content=\"[^\"]*\">", "<meta property=\""+key+"\" content=\""+og.getString(key)+"\">");
+			}
+			AppLog.info(html, getGrant());
+			return html;
+		} 
+		return display;
+	}
+	private JSONObject getOpenGraphInfo(String requestedUrl, Parameters params) {
+		String host = params.getHeader("host");
+		String img = getThemeFavIcon(host);
+		String title = "Docs";
+		if(requestedUrl.contains("lesson")) {
+			String lesson = requestedUrl.substring(requestedUrl.indexOf("lesson") + 6);
+			String id = getObjectFieldContent("TrnLesson" ,"row_id" , new JSONObject().put("trnLsnFrontPath", lesson));
+			if (!Tool.isEmpty(id)){
+				title = getObjectFieldContent("TrnLsnTranslate" , "trnLtrTitle", new JSONObject().put("trnLtrLsnId", id).put("trnLtrLang", "='ENU' or ='ANY'"),new JSONObject().put("trnLtrLang",-1));
+				title = "Docs | "+title;
+			}
+		}
+		return new JSONObject().put("og:description", "Platform documentation").put("og:url", "https://"+host).put("og:title", title).put("og:image", Tool.isEmpty(img)?"https://cdn.jsdelivr.net/gh/simplicitesoftware/resources@latest/public/logo_simplicite/icon/icon128.png":img);
+
+	}
+	private String getThemeFavIcon(String host){
+		return "https://" + host +"/simplicite.svg";
+		
+		/*  todo overridable favicon
+		ObjectDB obj = getGrant().getTmpObject("TrnSiteTheme");
+		synchronized(obj.getLock()){
+			obj.resetFilters();
+			List<String[]> res = obj.search();
+			if (Tool.isEmpty(res))
+				return "";
+			obj.select(res.get(0)[obj.getRowIdFieldIndex()]);
+			String docId = obj.getField("trnThemeFavIcon").getDocument().getId();
+			AppLog.info("getDataURL: "+obj.getField("trnThemeFavIcon").getDocument().getDataURL(false), getGrant());
+			return "https://" + host + HTMLTool.getPublicDocumentURL(obj.getName(),"trnThemeIcon",res.get(0)[obj.getRowIdFieldIndex()],docId,"inline",true,true);
+		} */
+	}
+	private String getObjectFieldContent(String object, String field, JSONObject filters){
+		return getObjectFieldContent(object, field, filters,null);	
+	}
+	private String getObjectFieldContent(String object, String field, JSONObject filters,JSONObject orders){
+		ObjectDB obj = getGrant().getTmpObject(object);
+		if(!Tool.isEmpty(orders)){
+			try{
+				obj.resetOrders();
+				for(String order : orders.keySet()){
+					obj.setFieldOrder(order, orders.getInt(order));
+				}
+			}catch(Exception e){
+				obj.resetOrders();
+			}
+		}
+		synchronized(obj.getLock()){
+			obj.resetFilters();
+			obj.setFilters(filters);
+			List<String[]> res = obj.search();
+			if (Tool.isEmpty(res))
+				return "";
+			return obj.search().get(0)[obj.getFieldIndex(field)];
+		}	
 	}
 }
