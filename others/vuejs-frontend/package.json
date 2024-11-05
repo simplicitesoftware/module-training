@@ -14,7 +14,7 @@
     "click-outside-vue3": "^4.0.1",
     "core-js": "^3.36.0",
     "highlight.js": "^11.9.0",
-    "mermaid": "^10.8.0",
+    "mermaid": "^10.9.3",
     "pinia": "^2.1.7",
     "simplicite": "^3.0.1",
     "vue": "^3.4.21",
@@ -31,7 +31,7 @@
     "eslint-plugin-vue": "^9.22.0",
     "sass": "^1.71.1",
     "sass-loader": "^8.0.0",
-    "webpack": "^5.90.3"
+    "webpack": "^5.96.1"
   },
   "eslintConfig": {
     "root": true,
