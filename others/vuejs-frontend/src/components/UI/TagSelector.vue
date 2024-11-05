@@ -110,7 +110,7 @@ export default {
 </script>
 
 <style scoped lang="sass">
-.modal-fade-enter
+//.modal-fade-enter
 
 .modal
   position: fixed

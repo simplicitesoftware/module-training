@@ -116,7 +116,7 @@ export default {
         height: 50px
         margin: 5px 5px 5px 16px
         &:hover
-        cursor: pointer
+            cursor: pointer
 
     .logo-warning
         width: $header-logo-width
@@ -124,7 +124,7 @@ export default {
         margin-top: map-get($margins, small)
         text-align: center
         &:hover
-        cursor: pointer
+            cursor: pointer
 
 
     .menu-icon
@@ -164,10 +164,10 @@ export default {
 
     @keyframes headshake
         0%
-        background-color: $color-accent
-        border: solid $color-accent
+            background-color: $color-accent
+            border: solid $color-accent
         25%
-        transform: translateX(10%)
+            transform: translateX(10%)
         75%
-        transform: translateX(-10%)
+            transform: translateX(-10%)
 </style>

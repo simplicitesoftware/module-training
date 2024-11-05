@@ -135,7 +135,7 @@ export default {
 		background-color: transparentize(white, 0.9)
 		cursor: pointer
 
-.searchbar-logo
+//.searchbar-logo
 
 .suggestionRelative
 	position: relative

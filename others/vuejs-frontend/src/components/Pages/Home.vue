@@ -130,8 +130,7 @@ export default {
 	.content-wrapper
 		padding-left: 22%
 		padding-right: 22%
-		.introduction
-		.text-image
+		.introduction,.text-image
 			display: flex
 			wrap: column
 			.default-text

@@ -109,7 +109,7 @@ import { useUiStore } from '@/stores/ui';
   .slider__previous, .slider__next
     position: absolute
     top: 50%
-    margin-top: -$slider-control-size/2
+    margin-top: calc(-1 * $slider-control-size / 2)
     &.visible
       opacity: 1
   .slider__next

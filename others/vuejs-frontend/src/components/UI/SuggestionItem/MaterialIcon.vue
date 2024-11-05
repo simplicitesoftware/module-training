@@ -47,8 +47,7 @@ export default {
     padding: 0.5rem 0.5rem 0.3rem 0.5rem
     background: linear-gradient(to bottom, #F2F2F2 18%, #ebebeb)
     
-    .icon
-    .svg
+    .icon,.svg
         width: 25px
         
     
