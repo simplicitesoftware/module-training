@@ -4,9 +4,9 @@
  "item": {
   "mdl_name": "Training",
   "mdl_prefix": "trn",
-  "mdl_version": "2.10",
+  "mdl_version": "2.11",
   "mdl_type": "A",
-  "mdl_url": "{\n\t\"type\": \"git\",\n\t\"origin\": { \n\t\t\"uri\": \"https://github.com/simplicitesoftware/module-training.git\",\n\t\t\"branch\": \"master\",\n\t},\n\t\"maven\": {\n\t\t\"javaVersion\": \"17\"\n\t}\n}",
+  "mdl_url": "{\n    \"maven\": {\"javaVersion\": \"17\"},\n    \"origin\": {\n        \"uri\": \"https://github.com/simplicitesoftware/module-training.git\",\n        \"branch\": \"master\"\n    },\n    \"type\": \"git\"\n}",
   "mdl_comment": "The module for the Simplicité Training platform.\n\nThis module objective is to offer an easy way to deploy a custom documentation.\nIt's a *Category* / *Lesson* / *Translations* model with a few additions such as *tags* or *pages*.\n\nThe training module not only gives the ability to manage content, but it also serves a Vue.js front end (see the external object *TrnFront*).\n<br>\nThe front end is served on the root url of your instance. For further details on the site mapping, see system parameter *URI_MAPPING*.\n\nMore info available on the front end default home page."
  },
  "links": [
