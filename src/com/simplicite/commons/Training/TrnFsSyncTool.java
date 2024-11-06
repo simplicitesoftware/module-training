@@ -746,6 +746,13 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	private void createPics(String lsnRowId, JSONObject specificLangJson, String lang) throws TrnSyncException {
 		if (specificLangJson.has("pics")) {
 			JSONArray pics = specificLangJson.getJSONArray("pics");
+			// alphabetical order pics
+			List<String> picList = new ArrayList<>();
+			for (int i = 0; i < pics.length(); i++) {
+				picList.add(pics.getString(i));
+			}
+			picList.sort((p1, p2) -> FilenameUtils.getBaseName(p1).compareTo(FilenameUtils.getBaseName(p2)));
+			pics = new JSONArray(picList);
 			BusinessObjectTool bot = new BusinessObjectTool(picture);
 			synchronized (picture) {
 				for (int i = 0; i < pics.length(); i++) {
