@@ -33,7 +33,7 @@ function fetchFaviconUrl(smp){
     const siteTheme = smp.getBusinessObject('TrnSiteTheme');
     siteTheme.search().then(async (res) => {
         if (res[0]) {
-            let FaviconUrl = siteTheme.getFieldDocumentURL("trnThemeFavicon", res[0]);
+            let FaviconUrl = siteTheme.getFieldDocumentURL("trnSitethemeFavicon", res[0]);
             if(FaviconUrl){
                 let favicon = document.querySelector('link[rel="icon"]');
                 if (!favicon) {

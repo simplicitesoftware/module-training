@@ -79,7 +79,7 @@ public class TrnVerifyContent implements java.io.Serializable {
 	}
 
 	private static boolean isLogo(File f) {
-		return f.getName().equals("logo500-white.png");
+		return f.getName().equals("logo500-white.png") || "favicon.svg".equals(f.getName());
 	}
 
 	private static void validateTagsJson(File f) throws TrnSyncException {

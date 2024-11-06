@@ -245,11 +245,11 @@
 
       &.server-ok {
         background-color: $color-form-background;
-        color: $color-accent;
-        border: solid 2px $color-accent;
+        color: $color-secondary;
+        border: solid 2px $color-secondary;
 
         &:hover {
-          background-color: lighten($color-accent, 50%);
+          background-color: lighten($color-secondary, 50%);
         }
       }
     }

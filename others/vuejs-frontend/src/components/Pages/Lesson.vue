@@ -303,6 +303,11 @@ export default {
 		hljs.configure({
 			cssSelector: "code"
 		});
+		this.uiStore.fetchStyle({smp : this.$smp}).finally(() => {
+			for (const key in this.uiStore.themeValues.colorAccents) {
+				document.documentElement.style.setProperty(key, this.uiStore.themeValues.colorAccents[key]);
+			}
+		});
 		if (Object.prototype.hasOwnProperty.call(this.$router.currentRoute.value.params, "lessonPath") && this.tree.length) {
 			this.openLessonFromPath();
 		} else if (Object.prototype.hasOwnProperty.call(this.$router.currentRoute.value.params, "pagePath")) {
@@ -441,17 +446,17 @@ export default {
 				
 	& :deep(h1)
 		font-size: map-get($title-sizes, 1)
-		color: #5BC0DE
+		color: $color-accent
 		border-bottom: solid 1px #E0E0E0
 		margin: 0 0 15px 0
 	& :deep(h2)
 		font-size: map-get($title-sizes, 2)
-		color: #5CB85C
+		color: $color-accent2
 		border-bottom: solid 1px #E0E0E0
 		margin: 0 0 12px 0
 	& :deep(h3)
 		font-size: map-get($title-sizes, 3)
-		color: #F0AD4E
+		color: $color-accent3
 		border-bottom: solid 1px #E0E0E0
 		margin: 0 0 8px 0
 		.anchor-link

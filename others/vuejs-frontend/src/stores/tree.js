@@ -152,8 +152,11 @@ export const useTreeStore = defineStore('treeStore', {
 // tree explorer that takes a function as an argument => used for mutations
 function treeExplorer(tree, path, f, searchType) {
 	//path = path;
-	let parents = path.split('/');
-	parents.splice(0, 1);
+	let parents = [];
+	if (path) {
+		parents = path.split('/');
+		parents.splice(0, 1);
+	}
 	let cursor = tree;
 	path = "";
 	for (let i = 0; i < parents.length; i++) {

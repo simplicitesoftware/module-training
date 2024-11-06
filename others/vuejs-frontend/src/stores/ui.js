@@ -13,7 +13,7 @@ export const useUiStore = defineStore('uiStore', {
 		tagList: [],
 		tagCache: [], // cache used to apply correct values after toggle lang
 		isModalOpen: false,
-		themeValues: { primaryColor: "#274E13", secondaryColor: "#6AA84F", iconUrl: undefined }
+		themeValues: { primaryColor: "#274E13", secondaryColor: "#6AA84F", iconUrl: undefined, colorAccents:{} }
 	}),
 	actions: {
 		toggleDrawer() {
@@ -75,7 +75,12 @@ export const useUiStore = defineStore('uiStore', {
 						const themeValues = {
 							primaryColor: res[0].trnThemeColor,
 							secondaryColor: res[0].trnThemeSecondaryColor,
-							iconUrl: iconUrl
+							iconUrl: iconUrl,
+							colorAccents: {
+								"--color-accent": res[0].trnSitethemeAccentColor1,
+								"--color-accent2": res[0].trnSitethemeAccentColor2,
+								"--color-accent3": res[0].trnSitethemeAccentColor3
+							}
 						}
 						this.SET_STYLE(themeValues)
 					}
