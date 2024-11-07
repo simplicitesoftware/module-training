@@ -305,7 +305,7 @@ export default {
 			cssSelector: "code"
 		});
 		this.uiStore.fetchStyle({smp : this.$smp}).finally(() => {
-			this.bg_color = this.uiStore.themeValues.secondaryColor;
+			this.bg_color = this.uiStore.themeValues.neutralColor;
 			for (const key in this.uiStore.themeValues.colorAccents) {
 				document.documentElement.style.setProperty(key, this.uiStore.themeValues.colorAccents[key]);
 			}

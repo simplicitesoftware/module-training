@@ -67,7 +67,7 @@ export default {
 		}),
 		async created() {
 			this.uiStore.fetchStyle({smp : this.$smp}).finally(() => {
-				this.bg_color = this.uiStore.themeValues.secondaryColor;
+				this.bg_color = this.uiStore.themeValues.neutralColor;
 			});
 			this.lessonStore.openHomePage({
 				smp: this.$smp,

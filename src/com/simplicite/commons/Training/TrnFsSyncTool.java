@@ -797,6 +797,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 				theme.getTool().getForCreateOrUpdate(Map.of());
 				theme.setFieldValue("trnThemeColor", json.getString("main_color"));
 				theme.setFieldValue("trnThemeSecondaryColor", json.getString("secondary_color"));
+				theme.setFieldValue("trnThemeNeutralColor",json.optString("neutral_color"));
 				theme.setFieldValue("trnSitethemeAccentColor1", json.optString("accent_color_1"));
 				theme.setFieldValue("trnSitethemeAccentColor2", json.optString("accent_color_2"));
 				theme.setFieldValue("trnSitethemeAccentColor3", json.optString("accent_color_3"));

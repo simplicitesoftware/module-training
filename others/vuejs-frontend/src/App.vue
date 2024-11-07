@@ -3,7 +3,7 @@
     <div v-if="isStyleLoaded" id="app" class="app">
         <CustomHeader/>
         <main>
-            <nav class="navigation-drawer" v-show="isDrawerOpen" :style="{background: `${themeValues.primaryColor}`}">
+            <nav class="navigation-drawer" v-show="isDrawerOpen" :style="{background: `linear-gradient(${themeValues.primaryColor} 65%, ${themeValues.secondaryColor})`}">
                 <TreeViewNode v-for="(motherCategory, index) in tree" :key="index" :node="motherCategory" :depth="0"/>
             </nav>
             <div class="page-content">
