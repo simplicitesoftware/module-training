@@ -1,7 +1,7 @@
 <template>
-	<div class="lesson" :class="lessonViz">
+	<div class="lesson" :class="lessonViz" :style="{background: bg_color}">
 		<div class="grid">
-			<div class="grid-item lesson-block">
+			<div class="grid-item lesson-block" :style="{background: bg_color}">
 				<Spinner v-if="spinner" />
 				<div v-else-if="lesson.html" class="lesson-wrapper">
 					<ul class="breadcrumb">
@@ -20,11 +20,11 @@
 					<EmptyContent v-else />
 				</div>
 			</div>
-			<div v-if="lesson.viz !== 'LINEAR'" class="grid-item slider-block">
+			<div v-if="lesson.viz !== 'LINEAR'" class="grid-item slider-block" :style="{background: bg_color}">
 				<Slider v-if="lessonImages.length" :slides="lessonImages" ref="slider" />
 				<EmptyContent v-else />
 			</div>
-			<div v-if="lesson.viz !== 'LINEAR'" class="grid-item video-block">
+			<div v-if="lesson.viz !== 'LINEAR'" class="grid-item video-block" :style="{background: bg_color}">
 				<div v-if="lesson" class="video-wrapper">
 					<video v-if="videoUrl" class="video-player" controls muted poster="../../../public/media.svg" :src="videoUrl"
 						preload="none">
@@ -107,6 +107,7 @@ export default {
 			securityLevel: 'high',
 		});
         return {
+			bg_color: "#ffffff",
 			lessonStore: useLessonStore(),
             treeStore: useTreeStore(),
 			uiStore: useUiStore()
@@ -304,6 +305,7 @@ export default {
 			cssSelector: "code"
 		});
 		this.uiStore.fetchStyle({smp : this.$smp}).finally(() => {
+			this.bg_color = this.uiStore.themeValues.secondaryColor;
 			for (const key in this.uiStore.themeValues.colorAccents) {
 				document.documentElement.style.setProperty(key, this.uiStore.themeValues.colorAccents[key]);
 			}

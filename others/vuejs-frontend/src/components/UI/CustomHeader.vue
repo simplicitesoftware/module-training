@@ -1,5 +1,5 @@
 <template>
-<header id="top-menu" :style="{background: `linear-gradient(to right, ${themeValues.primaryColor} 65%, ${themeValues.secondaryColor})`}">
+<header id="top-menu" :style="{background: `${themeValues.primaryColor}`}">
     <div class="menu-icon" @click="toggleMenu">
         <i class="material-icons menu-icon__image">menu</i>
     </div>
