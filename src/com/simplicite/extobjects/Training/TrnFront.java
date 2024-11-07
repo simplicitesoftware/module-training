@@ -20,10 +20,10 @@ import java.util.List;
  * External object TrnFront
  */
 public class TrnFront extends com.simplicite.webapp.web.StaticSiteExternalObject {
-  private static final long serialVersionUID = 1L;
-  private static final String NOT_FOUND = "index.html";
+	private static final long serialVersionUID = 1L;
+	private static final String NOT_FOUND = "index.html";
 	private static HashMap<String,String> rewritesMap = null;
-
+	
 	@Override
 	public Object display(Parameters params){
 		redirectIfNecessary(params);
@@ -104,11 +104,12 @@ public class TrnFront extends com.simplicite.webapp.web.StaticSiteExternalObject
 		}
 	}
 	private Object addOpenGraphMetaData(Parameters params,Object display) {
+		
 		String requestedUrl =params.getLocation();
 		JSONObject og = getOpenGraphInfo(requestedUrl, params);
 		if(requestedUrl.contains("lesson") && display instanceof byte[]){
 			String html = new String((byte[])display);
-			AppLog.info(html, getGrant());
+			if(!html.endsWith("</html>")) return display;
 			for (String key : og.keySet()){
 				html = html.replaceAll("<meta property=\""+key+"\" content=\"[^\"]*\">", "<meta property=\""+key+"\" content=\""+og.getString(key)+"\">");
 			}
