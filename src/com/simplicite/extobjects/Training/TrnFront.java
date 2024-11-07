@@ -4,9 +4,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+
 import com.simplicite.util.AppLog;
+import com.simplicite.util.DocumentDB;
 import com.simplicite.util.Grant;
 import com.simplicite.util.ObjectDB;
+import com.simplicite.util.ObjectField;
 import com.simplicite.util.Tool;
 import com.simplicite.util.tools.HTMLTool;
 import com.simplicite.util.tools.Parameters;
@@ -130,20 +133,19 @@ public class TrnFront extends com.simplicite.webapp.web.StaticSiteExternalObject
 
 	}
 	private String getThemeFavIcon(String host){
-		return "https://" + host +"/simplicite.svg";
-		
-		/*  todo overridable favicon
+		String iconUrl = "https://" + host +"/simplicite.svg";
+		// overridable favicon
 		ObjectDB obj = getGrant().getTmpObject("TrnSiteTheme");
 		synchronized(obj.getLock()){
 			obj.resetFilters();
 			List<String[]> res = obj.search();
-			if (Tool.isEmpty(res))
-				return "";
-			obj.select(res.get(0)[obj.getRowIdFieldIndex()]);
-			String docId = obj.getField("trnThemeFavIcon").getDocument().getId();
-			AppLog.info("getDataURL: "+obj.getField("trnThemeFavIcon").getDocument().getDataURL(false), getGrant());
-			return "https://" + host + HTMLTool.getPublicDocumentURL(obj.getName(),"trnThemeIcon",res.get(0)[obj.getRowIdFieldIndex()],docId,"inline",true,true);
-		} */
+			if (!Tool.isEmpty(res)){
+				String objId = res.get(0)[obj.getRowIdFieldIndex()];
+				String docId =  res.get(0)[obj.getFieldIndex("trnSitethemeFavicon")];
+				iconUrl = "https://" + host + HTMLTool.getPublicDocumentURL("object=TrnSiteTheme&inst=api_TrnSiteTheme&field=trnSitethemeFavicon&row_id="+objId+"&doc_id="+docId);
+			}
+		} 
+		return iconUrl;
 	}
 	private String getObjectFieldContent(String object, String field, JSONObject filters){
 		return getObjectFieldContent(object, field, filters,null);	
