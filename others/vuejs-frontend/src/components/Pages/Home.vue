@@ -1,8 +1,8 @@
 <template>
 	<div class="home">
 		<div class ="placeholder">
-			<div class="content">
-				<div class="content-block">
+			<div class="content" :style="{background: bg_color}">
+				<div class="content-block" >
 					<div v-if="lesson.row_id">
 						<div class="lesson-html-content" v-if="lesson.html" v-html="lesson.html"></div>
 					</div>
@@ -48,6 +48,7 @@ export default {
 	components: {Spinner},
 	setup() {
             return {
+				bg_color: "#ffffff",
                 lessonStore: useLessonStore(),
 				uiStore: useUiStore(),
             }
@@ -65,6 +66,9 @@ export default {
 			gotServerResponse: false,  
 		}),
 		async created() {
+			this.uiStore.fetchStyle({smp : this.$smp}).finally(() => {
+				this.bg_color = this.uiStore.themeValues.secondaryColor;
+			});
 			this.lessonStore.openHomePage({
 				smp: this.$smp,
 				lesson: {row_id: undefined, viz: undefined},

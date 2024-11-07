@@ -6,7 +6,7 @@
             <nav class="navigation-drawer" v-show="isDrawerOpen" :style="{background: `${themeValues.primaryColor}`}">
                 <TreeViewNode v-for="(motherCategory, index) in tree" :key="index" :node="motherCategory" :depth="0"/>
             </nav>
-            <div class="page-content" :style="{background: `${themeValues.secondaryColor}`}">
+            <div class="page-content">
                 <router-view v-if="!isFetching" class="page-content__router-view" :key="$route.fullPath"/>
                 <Spinner v-else/>
             </div>
@@ -83,7 +83,9 @@
     box-sizing: border-box
     margin: 0
     outline: none
-
+    scrollbar-color: #999 transparent
+    scrollbar-width: thin
+    
 button
     border: 0
     background-color: transparent
@@ -109,7 +111,7 @@ button
             min-width: max-content
             max-height: 100vh - $header-height
             z-index: 1000
-            overflow-y: scroll
+            overflow-y: auto
             display: block
             transition: $duration-drawer-collapse ease-in-out
             position: relative
