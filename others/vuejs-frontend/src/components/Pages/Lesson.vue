@@ -102,7 +102,6 @@ function getDocumentURL(vm) {
 export default {
 	name: "Lesson",
 	setup() {
-		
 		mermaid.initialize({
 			securityLevel: 'high',
 		});
@@ -118,7 +117,8 @@ export default {
 		alreadyScrolledImages: [],
 		lessonViz: 'linear',
 		spinner: true,
-		videoUrl: null
+		videoUrl: null,
+		search:null
 	}),
 	watch: {
 		lesson: function (newLesson, oldLesson) {
@@ -180,6 +180,43 @@ export default {
 		getAnchorLink(anchorId) {
 			return this.$smp.parameters.url + "/lesson" + this.lesson.path
 		},
+		highlightSearch(searchTerm, content) {
+			if (this.lesson.type !== "lesson" || this.lesson.catPath === "/pages" || !content) return;
+			// Créer un élément temporaire pour manipuler le contenu HTML
+			const tempDiv = document.createElement('div');
+			tempDiv.innerHTML = content.innerHTML;
+
+			// Fonction pour encadrer le texte sans toucher aux balises
+			const highlightText = (node) => {
+				if (node.nodeType === Node.TEXT_NODE) {
+					const regex = new RegExp(`(${searchTerm})`, 'gi');
+					const newNode = document.createElement('span');
+					newNode.innerHTML = this.escapeHtml(node.textContent).replace(regex, '<span class="highlight">$1</span>');
+					node.parentNode.replaceChild(newNode, node);
+				} else if (node.nodeType === Node.ELEMENT_NODE) {
+					// Vérifier si le noeud a des enfants
+					node.childNodes.forEach(highlightText);
+				}
+			};
+
+			// Appliquer la fonction sur tous les nœuds enfants
+			tempDiv.childNodes.forEach(highlightText);
+
+			// Remplacer le contenu original par le nouveau contenu
+			content.innerHTML = tempDiv.innerHTML;
+			
+		},
+		escapeHtml(unsafe) {
+			return unsafe
+				.replace(/&/g, "&amp;")
+				.replace(/</g, "&lt;")
+				.replace(/>/g, "&gt;")
+				.replace(/"/g, "&quot;")
+				.replace(/'/g, "&#039;")
+				.replace(/\(/g, "&#40;")
+				.replace(/\)/g, "&#41;")
+				;
+		},
 		unbindMermaidForHljs() {
 			const mermaidDivs = document.querySelectorAll(".language-mermaid");
 			mermaidDivs.forEach((div) => {
@@ -189,21 +226,28 @@ export default {
 			});
 		},
 		openLesson(lesson) {
+			
 			this.lessonStore.openLesson({
 				smp: this.$smp,
 				lesson: lesson
 			}).then(() => {
 				this.spinner = false;
 			}).finally(() => {
+				
 				this.addAnchorIcons();
 				this.unbindMermaidForHljs();
 				hljs.highlightAll();
+				
 				mermaid.run({
 					querySelector: '.mermaid',
 				}).catch((e) => {
 					console.error('mermaid parsing error: ',e.message);
 				})
-				this.fetchVideoUrl();				
+				if(this.search){
+					this.highlightSearch(this.search,document.querySelector('.lesson-html-content'));
+				}
+				this.fetchVideoUrl();
+				
 				if (this.$route.hash) {
 					const id = this.$route.hash.replace('#', '');
 					const el = document.getElementById(id);
@@ -301,6 +345,12 @@ export default {
 		}
 	},
 	async created() {
+		console.log("created");
+		const searchQuery = this.$route.query.search; // Accéder au paramètre de requête
+        if(searchQuery){
+			this.search = this.escapeHtml(searchQuery);
+		}
+		console.log(this.search);
 		hljs.configure({
 			cssSelector: "code"
 		});
@@ -521,6 +571,10 @@ export default {
 		&:hover
 			color: #0062ff
 			text-decoration: underline
+	& :deep(span)
+		.highlight
+			background-color: $color-highlight
+		
 .grid
 	position: absolute
 	width: 100%

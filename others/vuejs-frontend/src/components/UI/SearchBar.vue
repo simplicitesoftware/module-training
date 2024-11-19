@@ -69,12 +69,12 @@ export default {
 		openAdvancedSearch() {
 			this.hideSuggestions();
 			this.$router.push('/search/' + this.inputValue).catch(err => console.error(err));
+			this.inputValue ='';
 		},
 		suggestionSelected(suggestion) {
 			this.isSugOpen = false;
-			this.inputValue = '';
 			if (suggestion.type === "lesson") {
-				this.$router.push('/lesson' + suggestion.path).catch(err => console.error(err));
+				this.$router.push('/lesson' + suggestion.path +"?search="+this.inputValue).catch(err => console.error(err));
 			} else if (suggestion.type === "discourse") {
 				window.open(suggestion.url);
 			} else if (suggestion.type === "simplicite") {
@@ -82,6 +82,7 @@ export default {
 			} else if (suggestion.type === "page") {
 				this.$router.push('/page' + suggestion.path).catch(err => console.log(err));
 			}
+			this.inputValue = '';
 		},
 		async queryIndex() {
 			if (this.inputValue === "") {
@@ -92,6 +93,7 @@ export default {
 			}
 			try{
 				const res = await s.callSearchService(this.$smp.parameters.url, this.$smp.getBearerTokenHeader(), this.inputValue, this.lang, [], 0);
+				console.log("s.callSearchService: ",res);
 				if(res.results){
 					this.suggestions = res.results;
 				}else{

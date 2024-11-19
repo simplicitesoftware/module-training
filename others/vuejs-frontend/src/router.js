@@ -10,7 +10,7 @@ import AdvancedSearch from "./components/Pages/AdvancedSearch.vue"
 //1. Routes definition
 const routes = [
     { path: '/', component: Home, name: 'Home' },
-    { path: '/lesson/:lessonPath(.*)', component: Lesson, name: 'Lesson' },
+    { path: '/lesson/:lessonPath(.*)?', component: Lesson, name: 'Lesson' },
     { path: '/page/:pagePath(.*)', component: Lesson, name: 'Page' },
     { path: '/category/:categoryPath(.*)', component: Lesson, name: 'Category' },
     { path: '/search/:query(.*)', component: AdvancedSearch, name: 'AdvancedSearch' },

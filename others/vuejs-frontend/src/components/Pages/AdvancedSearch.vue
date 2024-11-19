@@ -27,7 +27,7 @@
             </div>
           </div>
           <div class="result_container" v-if="suggestions.length > 0">
-            <div class="search-info" v-if="searchInfo.totalHits">{{ searchInfo.totalHits }} results</div>
+            <div class="search-info" v-if="searchInfo?.totalHits">{{ searchInfo.totalHits }} results</div>
             <div class="item" v-for="suggestion in suggestions || []" :key="suggestion.id">
               <AdvancedSuggestionItem :suggestion="suggestion" />
             </div>
@@ -86,9 +86,15 @@ export default {
         this.allResults = false;
         try{
           const res = await s.callSearchService(this.$smp.parameters.url, this.$smp.getBearerTokenHeader(), this.query, this.lang, this.getFilters, this.page);
-          this.suggestions = res.results;
+          
+          
+          this.suggestions = res.results.map(result => {
+            result.searchTerm = this.query;
+            return result;
+          });
+          console.log(res.results);
           this.searchInfo = new ResultInfo(res.search_info); 
-          this.page += this.searchInfo.pageIncrement;
+          this.page += this.searchInfo?.pageIncrement;
         }catch(err){
           console.log("error in queryIndex", err);
         }
@@ -105,7 +111,10 @@ export default {
         this.fetchingResults = true;
         try{
           const res = await s.callSearchService(this.$smp.parameters.url, this.$smp.getBearerTokenHeader(), this.query, this.lang, this.getFilters, this.page);
-          const fetchedSuggestions = res.results;
+          const fetchedSuggestions = res.results.map(result => {
+            result.searchTerm = this.query;
+            return result;
+          });
           if (fetchedSuggestions.length === 0) {
             this.allResults = true;
             this.suggestions = this.suggestions.concat(fetchedSuggestions);
@@ -113,7 +122,7 @@ export default {
         }catch(err){
           console.log("error in queryIndex",);
         }
-        this.page += this.searchInfo.pageIncrement;
+        this.page += this.searchInfo?.pageIncrement;
       }
     },
     resetFilters(filter) {
@@ -148,10 +157,11 @@ export default {
 
 class ResultInfo {
   constructor(info) {
+    console.log(info);
     this.totalHits = info.total_hits;
     this.searchDuration = info.search_duration;
     this.searchType = info.search_type;
-    this.pageIncrement = info.page_increment;
+    this.pageIncrement = info.page_increment || 0;
   }
 }
 </script>
