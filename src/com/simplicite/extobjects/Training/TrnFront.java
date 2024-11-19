@@ -30,7 +30,7 @@ public class TrnFront extends com.simplicite.webapp.web.StaticSiteExternalObject
 		Object display = super.display(params);
 		return addOpenGraphMetaData(params,display);
 	}
-	
+	  
 	private void redirectIfNecessary(Parameters params){
 		loadRedirectsCache();
 		try {

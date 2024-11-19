@@ -939,6 +939,75 @@ paths:
         required: false
       tags:
       - TrnTagTranslate
+  /rest/TrnVideo:
+    get:
+      summary: Search TrnVideo business object records or get contextualized metadata
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-trnvideo-search
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/ArrayOfTrnVideo'
+          description: Success in searching business object records (or in getting
+            contextualized business object metadata, documentation, ...)
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+      parameters:
+      - in: query
+        name: _metadata
+        description: Metadata?
+        type: boolean
+        required: false
+      - in: query
+        name: _count
+        description: Count?
+        type: boolean
+        required: false
+      - in: query
+        name: _doc
+        description: Documentation?
+        type: boolean
+        required: false
+      - in: query
+        name: trnVidId
+        description: Search filter for Trn vid id
+        type: string
+        required: false
+      - in: query
+        name: trnVidLang
+        description: Search filter for Trn vid lang
+        type: string
+        required: false
+        enum:
+        - ANY
+        - ENU
+        - FRA
+      - in: query
+        name: trnVidVideo
+        description: Search filter for Trn vid video
+        type: string
+        required: false
+      - in: query
+        name: trnVidLsnId
+        description: Search filter for Trn vid lsn id
+        type: string
+        required: false
+      - in: query
+        name: trnVidLsnId__trnLsnPath
+        description: Search filter for Trn vid lsn id Path
+        type: string
+        required: false
+      tags:
+      - TrnVideo
   /rest/TrnCategory/{row_id}/tree:trnTreeView:
     get:
       summary: Get a treeview data for a TrnCategory business object record
@@ -2956,6 +3025,168 @@ paths:
       - TrnSiteTheme
       consumes:
       - application/json
+  /rest/TrnVideo/{row_id}:
+    post:
+      summary: Create a new TrnVideo business object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-trnvideo-create
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/TrnVideo'
+          description: Success in creating a new business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - schema:
+          $ref: '#/definitions/TrnVideo'
+        in: body
+        name: body
+      tags:
+      - TrnVideo
+      consumes:
+      - application/json
+    get:
+      summary: Get a TrnVideo business object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-trnvideo-get
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/TrnVideo'
+          description: Success in getting a single business object record
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - in: query
+        name: _inline_documents
+        description: Inline documents?
+        type: boolean
+        required: false
+      - in: query
+        name: _inline_thumbnails
+        description: Inline documents' thumbnails?
+        type: boolean
+        required: false
+      - in: query
+        name: _inline_objects
+        description: Inline objects?
+        type: boolean
+        required: false
+      tags:
+      - TrnVideo
+    delete:
+      summary: Delete a TrnVideo business object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-trnvideo-delete
+      responses:
+        '200':
+          description: Success in deleting a business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      tags:
+      - TrnVideo
+    put:
+      summary: Update a TrnVideo business object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-trnvideo-update
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/TrnVideo'
+          description: Success in updating a business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - schema:
+          $ref: '#/definitions/TrnVideo'
+        in: body
+        name: body
+      tags:
+      - TrnVideo
+      consumes:
+      - application/json
   /rest/TrnTagLsn/{row_id}:
     post:
       summary: Create a new TrnTagLsn business object record
@@ -3368,6 +3599,31 @@ definitions:
       trnSitCode:
         description: A code identifying the TrnSiteContent object
         type: string
+  TrnVideo:
+    type: object
+    properties:
+      trnVidLsnId__trnLsnPath:
+        description: Trn vid lsn id Path
+        type: string
+      trnVidLang:
+        description: Trn vid lang
+        type: string
+        enum:
+        - ANY
+        - ENU
+        - FRA
+      trnVidVideo:
+        description: Trn vid video
+        type: string
+      trnVidLsnId:
+        description: Trn vid lsn id
+        type: string
+      row_id:
+        description: Unique technical row ID
+        type: string
+      trnVidId:
+        description: Trn vid id
+        type: string
   TrnTagTranslate:
     type: object
     properties:
@@ -3468,6 +3724,10 @@ definitions:
     type: array
     items:
       $ref: '#/definitions/TrnPage'
+  ArrayOfTrnVideo:
+    type: array
+    items:
+      $ref: '#/definitions/TrnVideo'
   TrnPicture:
     type: object
     properties:
@@ -3892,3 +4152,5 @@ tags:
   description: Translations
 - name: TrnUrlRewriting
   description: URL rewriting
+- name: TrnVideo
+  description: Video
