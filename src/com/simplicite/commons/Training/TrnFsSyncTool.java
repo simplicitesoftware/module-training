@@ -49,6 +49,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	private TrnLesson lesson;
 	private ObjectDB lessonContent;
 	private ObjectDB picture;
+	private ObjectDB video;
 	private ObjectDB tag;
 	private TrnTagLsn tagLsn;
 	private ObjectDB tagTranslation;
@@ -290,7 +291,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 	}
 
 	private final List<String> TRN_OBJECTS = Arrays.asList("TrnCategory", "TrnCategoryTranslate", "TrnLesson",
-			"TrnLsnTranslate", "TrnPicture", "TrnTag", "TrnTagLsn", "TrnTagTranslate", "TrnUrlRewriting",
+			"TrnLsnTranslate", "TrnPicture","TrnVideo", "TrnTag", "TrnTagLsn", "TrnTagTranslate", "TrnUrlRewriting",
 			"TrnSiteTheme", "TrnPage");
 
 	private void loadTrnObjectAccess() {
@@ -306,6 +307,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		lesson = (TrnLesson) g.getObject("sync_TrnLesson", "TrnLesson");
 		lessonContent = g.getObject("sync_TrnLsnTranslate", "TrnLsnTranslate");
 		picture = g.getObject("sync_TrnPicture", "TrnPicture");
+		video = g.getObject("sync_TrnVideo","TrnVideo");
 		tag = g.getObject("sync_TrnTag", "TrnTag");
 		tagLsn = (TrnTagLsn) g.getObject("sync_TrnTagLsn", "TrnTagLsn");
 		tagTranslation = g.getObject("sync_TrnTagTranslate", "TrnTagTranslate");
@@ -612,6 +614,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 			if (content.has(lang)) {
 				JSONObject specificLangJson = content.getJSONObject(lang);
 				createPics(lsnRowId, specificLangJson, lang);
+				createVids(lsnRowId, specificLangJson, lang);
 				upsertLessonTranslation(lsnRowId, specificLangJson, lsnData.getString("code"), lang);
 			}
 		}
@@ -762,7 +765,6 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		}
 
 	}
-
 	private void createPic(String lsnRowId, String picName, String lang, BusinessObjectTool bot)
 			throws TrnSyncException {
 		try {
@@ -777,6 +779,52 @@ public class TrnFsSyncTool implements java.io.Serializable {
 			throw new TrnSyncException("TRN_CREATE_PICS", e.getMessage());
 		}
 	}
+	private void createVids(String lsnRowId, JSONObject specificLangJson, String lang) throws TrnSyncException {
+		if (specificLangJson.has("vids")) {
+			JSONArray vids = specificLangJson.getJSONArray("vids");
+			// alphabetical order vids
+			List<String> vidList = new ArrayList<>();
+			for (int i = 0; i < vids.length(); i++) {
+				vidList.add(vids.getString(i));
+			}
+			vidList.sort((p1, p2) -> FilenameUtils.getBaseName(p1).compareTo(FilenameUtils.getBaseName(p2)));
+			vids = new JSONArray(vidList);
+			BusinessObjectTool bot = new BusinessObjectTool(video);
+			synchronized (video) {
+				for (int i = 0; i < vids.length(); i++) {
+					createVid(lsnRowId, vids.getString(i), lang, bot);
+				}
+			}
+		}
+
+	}
+	private void createVid(String lsnRowId, String vidName, String lang, BusinessObjectTool bot)
+			throws TrnSyncException {
+
+		try {
+
+			File f = new File(vidName);
+			video.resetValues();
+			video.setFieldValue("trnVidLang", lang);
+			video.setFieldValue("trnVidLsnId", lsnRowId);
+			try{
+				video.getField("trnVidVideo").setDocument(video, f.getName(), new FileInputStream(f));
+			} catch (Exception e) {
+				throw new TrnSyncException("TRN_CREATE_VIDS", e.getMessage());
+			}finally{
+				
+				bot.validateAndCreate();
+			}
+			
+			
+			
+		}
+		catch (Exception e) {
+			AppLog.info(vidName+": "+video.getFieldValue("trnVidVideo"), g);
+			throw new TrnSyncException("TRN_CREATE_VIDS", e.getMessage());
+		}
+	}
+	
 
 	private void syncTheme() throws TrnSyncException {
 		File f = new File(contentDir.getPath(), THEME_JSON_NAME);
@@ -881,6 +929,19 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		}
 		return pics;
 	}
+	private JSONObject getVids(File lsnDir) {
+		JSONObject vids = new JSONObject();
+		for (String lang : langCodes) {
+			vids.put(lang, new JSONArray());
+		}
+
+		for (File f : lsnDir.listFiles()) {
+			if (TrnVerifyContent.isVideo(f)) {
+				vids.getJSONArray(getLocale(f)).put(f.getPath());
+			}
+		}
+		return vids;
+	}
 
 	private String getLocale(File f) {
 		String[] split = FilenameUtils.getBaseName(f.getName()).toUpperCase().split("_");
@@ -914,7 +975,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		File f;
 
 		JSONObject pictures = getPics(dir);
-
+		JSONObject videos = getVids(dir);
 		for (String lang : langCodes) {
 			if (lsnJson.has(lang)) {
 				JSONObject content = lsnJson.getJSONObject(lang);
@@ -924,15 +985,17 @@ public class TrnFsSyncTool implements java.io.Serializable {
 				if (f.exists())
 					content.put("markdown", f.getPath());
 
-				// add video file
+				// add lesson video file
 				f = getLsnVideoFile(dir, lang);
 				if (f.exists())
 					content.put("video", f.getPath());
-
+				// add other video files
+				if (videos.getJSONArray(lang).length() > 0)
+					content.put("vids", videos.getJSONArray(lang));
 				// add pics
 				if (pictures.getJSONArray(lang).length() > 0)
 					content.put("pics", pictures.getJSONArray(lang));
-
+				
 				contents.put(lang, content);
 			}
 		}

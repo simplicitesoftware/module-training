@@ -34,7 +34,8 @@ public class TrnLsnTranslate extends TrnObject {
             // might limit this to filesystem mode ?
 			try {
 				if (lsn.getFieldValue("trnLsnVisualization").equals("LINEAR")) {
-					html = setLinearPictureContent(html, lsn.getRowId());
+					html = setLinearPictureContent("TrnPicture","trnPicImage","trnPicLsnId",html, lsn.getRowId());
+					html = setLinearPictureContent("TrnVideo","trnVidVideo","trnVidLsnId",html, lsn.getRowId());
 					html = setBlockquoteType(html);
 				}
 			} catch (Exception e) {
@@ -72,26 +73,26 @@ public class TrnLsnTranslate extends TrnObject {
 	}
 
 	// When fetching a linear lesson, converts pictures old urls to current
-	private String setLinearPictureContent(String htmlContent, String lsnRowId) throws Exception {
+	private String setLinearPictureContent(String docObj,String docField,String lsnIdField , String htmlContent, String lsnRowId) throws Exception {
 		try {
 			Matcher m = PATTERN_LINEAR_PICS.matcher(htmlContent);
-			ObjectDB picObject = getGrant().getTmpObject("TrnPicture");
-			picObject.resetFilters();
-			picObject.setFieldFilter("trnPicLsnId", lsnRowId);
-			List<String[]> pics = picObject.search();
+			ObjectDB docObject = getGrant().getTmpObject(docObj);
+			docObject.resetFilters();
+			docObject.setFieldFilter(lsnIdField, lsnRowId);
+			List<String[]> docs = docObject.search();
 			// rebuilding string with StringBuilder
 			StringBuilder out = new StringBuilder();
 			int nextIndex = 0;
 			while (m.find()) {
 				String imgPath = m.group(1);
-				for (String[] pic : pics) {
+				for (String[] el : docs) {
 					// optimiser en cherchant les documents par doc name ?
 					// ou possible de fetch la liste des docs correspondants aux images de la leçon
 					// ?
-					picObject.setValues(pic);
-					String docId = picObject.getFieldValue("trnPicImage");
+					docObject.setValues(el);
+					String docId = docObject.getFieldValue(docField);
 					DocumentDB doc = DocumentDB.getDocument(docId, getGrant());
-					String frontUrl = getGrant().getContextURL() + doc.getURL("").replace("/ui", "");
+					String frontUrl = getGrant().getContextURL() + doc.getURL("inline").replace("/ui", "");
 					String docName = doc.getName();
 					if (imgPath.contains(docName)) {
 						// append the content of html from the nextIndex (beginning of string to copy)

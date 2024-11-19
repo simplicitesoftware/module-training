@@ -623,5 +623,8 @@ export default {
 		grid-column: 1/3
 	.lesson-html-content
 		line-height: 1.7
+		& :deep(video)
+			max-width: 90%
+	
 
 </style>

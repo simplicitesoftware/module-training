@@ -29,7 +29,7 @@ import com.simplicite.util.tools.ZIPTool;
 public class TrainingContentAdapter extends SimpleAdapter {
   private static final long serialVersionUID = 1L;
   private static final String[] IMAGE_EXTENSIONS = new String[] { ".png", ".jpeg", ".jpg", ".gif" };
-  private static final String[] VIDEO_EXTENSIONS = new String[] { ".webm" };
+  private static final String[] VIDEO_EXTENSIONS = new String[] { ".webm",".mp4" };
   private static final String[] CONTENT_FILE_EXTENSIONS = new String[] { ".md" };
   private static final String[] LANGUAGES = new String[] { "ANY", "FRA", "ENU" };
   private static final String DEFAULT_LANG = "ANY";
@@ -177,8 +177,10 @@ public class TrainingContentAdapter extends SimpleAdapter {
               getFileContentAsString(file.getAbsolutePath()));
         else if (isFileAnImage(file.getName()))
           createTrnPicture(language, lesson.getFieldValue("row_id"), file);
-        else if (isFileAVideo(file.getName()))
+        else if (isFileAVideo(file.getName()) &&"TUTO".equals(lessonDescription.optString("display","TUTO")))
           addVideoToTranslation(language, lesson.getFieldValue("row_id"), file);
+        else if (isFileAVideo(file.getName()))
+          createTrnVideo(language, lesson.getFieldValue("row_id"), file);
         else
           AppLog.info(getClass(), "readLessonFolder", "UNKNOWN FILE TYPE : " + file.getName(), getGrant());
       }
@@ -284,7 +286,24 @@ public class TrainingContentAdapter extends SimpleAdapter {
       AppLog.error(getClass(), "createTrnPicture", "CreateException when creating a TrnPicture", e, getGrant());
     }
   }
-
+  private void createTrnVideo(String language, String lessonId, File file) {
+    try {
+      // AppLog.info(getClass(), "createTrnPicture", "Creating image : " +
+      // image.getName() + " in lang : " + language + " for lesson : " + lessonId,
+      // getGrant());
+      ObjectDB video = getGrant().getObject(language + lessonId + "_TrnVideo", "TrnVideo");
+      video.setFieldValue("trnVidLsnId", lessonId);
+      video.setFieldValue("trnVidLang", language.toUpperCase());
+      video.getField("trnVidImage").setDocument(video, file.getName(), new FileInputStream(file));
+      new BusinessObjectTool(video).validateAndCreate();
+    } catch (IOException e) {
+      AppLog.error(getClass(), "createTrnVideo", "Error with image file of lesson" + lessonId, e, getGrant());
+    } catch (ValidateException e) {
+      AppLog.error(getClass(), "createTrnVideo", "ValidateException when creating a TrnVideo", e, getGrant());
+    } catch (CreateException e) {
+      AppLog.error(getClass(), "createTrnVideo", "CreateException when creating a TrnVideo", e, getGrant());
+    }
+  }
   private int getOrderFromFolderName(String folderName) {
     try {
       String[] splitted = folderName.split(FOLDER_SEPARATOR);

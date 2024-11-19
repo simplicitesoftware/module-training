@@ -147,9 +147,9 @@ public class TrnVerifyContent implements java.io.Serializable {
 				throw new TrnSyncException("TRN_SYNC_LESSON_CONTAINING_FOLDER", child);
 			else if (isMarkdown(child) && !lessonCode.equals(getLocaleStrippedBaseName(child)))
 				throw new TrnSyncException("TRN_SYNC_LESSON_MARDOWN_NAME_INCONSISTENT", child);
-			else if (isVideo(child) && !lessonCode.equals(getLocaleStrippedBaseName(child)))
+			/* else if (isVideo(child) && !lessonCode.equals(getLocaleStrippedBaseName(child)))
 				throw new TrnSyncException("TRN_SYNC_LESSON_VIDEO_NAME_INCONSISTENT", child);
-			else if (!isPic(child) && !isMarkdown(child) && !isVideo(child))
+			 */else if (!isPic(child) && !isMarkdown(child) && !isVideo(child))
 				throw new TrnSyncException("TRN_SYNC_FILETYPE_NOT_ALLOWED", child);
 		}
 		if (!hasJson)
@@ -165,7 +165,7 @@ public class TrnVerifyContent implements java.io.Serializable {
 		return "png".equals(extension) || "jpg".equals(extension) || "gif".equals(extension) || "svg".equals(extension);
 	}
 
-	private static boolean isVideo(File f) {
+	public static boolean isVideo(File f) {
 		return FilenameUtils.getExtension(f.getName()).equalsIgnoreCase("webm");
 	}
 
