@@ -624,7 +624,7 @@ export default {
 	.lesson-html-content
 		line-height: 1.7
 		& :deep(video)
-			max-width: 90%
+			max-width: 100%
 	
 
 </style>
