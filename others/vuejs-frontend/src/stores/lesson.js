@@ -8,6 +8,7 @@ export const useLessonStore = defineStore('lessonStore', {
         lesson: {},
         lessonImages: [],
         lessonTags: [],
+        lessonLoaded: false,
     }),
     actions: {
         async openLesson(payload) {
@@ -114,7 +115,12 @@ export const useLessonStore = defineStore('lessonStore', {
         })
       })
     },
-
+    setLessonLoaded() {
+      this.lessonLoaded = true;
+    },
+    resetLessonLoaded() {
+        this.lessonLoaded = false;
+    },
     unsetLesson() {
       this.lesson = {};
       this.lessonImages = [];

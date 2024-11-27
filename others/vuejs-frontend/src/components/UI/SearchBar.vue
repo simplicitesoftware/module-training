@@ -1,7 +1,7 @@
 <template>
 	<div id="SearchBar" v-click-outside="hideSuggestions">
 		<div class="searchElement">
-			<input class="searchbar" @input="queryIndex" v-model="inputValue" type="text" :placeholder="searchbarPlaceHolder"
+			<input ref="searchInput" class="searchbar" @input="queryIndex" v-model="inputValue" type="text" :placeholder="searchbarPlaceHolder"
 				v-on:keyup.enter="openAdvancedSearch" />
 			<div @click="openAdvancedSearch" class="searchbar-logo-container"
 				:style="{ [`background-color`]: `${themeValues.primaryColor}` }">
@@ -28,14 +28,14 @@
 
 
 <script>
-
+import { useLessonStore } from "../../stores/lesson";
+import { watch, nextTick } from 'vue';
 import SuggestionItem from "./SuggestionItem/SuggestionItem.vue";
 import s from "../../shared";
 import { mapState } from "pinia";
 import { useUiStore } from "../../stores/ui";
 
 export default {
-
 	name: "SearchBar",
 	components: {
 		SuggestionItem
@@ -43,7 +43,7 @@ export default {
 	props: {
 		themeValues: Object
 	},
-	data: function () {
+	data() {
 		return {
 			inputValue: '',
 			hover: false,
@@ -53,28 +53,33 @@ export default {
 		}
 	},
 	computed: {
-		...mapState(useUiStore, ['lang', 'langEsFormat','getLessonFromPath']),
-		searchbarPlaceHolder: function () {
+		...mapState(useUiStore, ['lang', 'langEsFormat', 'getLessonFromPath']),
+		searchbarPlaceHolder() {
 			return "FRA" == this.lang ? "Rechercher" : "Search"
 		},
-		emptyResult: function () {
+		emptyResult() {
 			return "FRA" == this.lang ? "Aucun résultat de recherche." : "No results found."
 		},
-		
 	},
 	methods: {
+		setFocus() {
+			console.log("setFocus appelé"); // Vérifiez que la méthode est appelée
+			nextTick(() => {
+				this.$refs.searchInput.focus(); // Définissez le focus ici
+			});
+		},
 		hideSuggestions() {
 			this.isSugOpen = false;
 		},
 		openAdvancedSearch() {
 			this.hideSuggestions();
 			this.$router.push('/search/' + this.inputValue).catch(err => console.error(err));
-			this.inputValue ='';
+			this.inputValue = '';
 		},
 		suggestionSelected(suggestion) {
 			this.isSugOpen = false;
 			if (suggestion.type === "lesson") {
-				this.$router.push('/lesson' + suggestion.path +"?search="+this.inputValue).catch(err => console.error(err));
+				this.$router.push('/lesson' + suggestion.path + "?search=" + this.inputValue).catch(err => console.error(err));
 			} else if (suggestion.type === "discourse") {
 				window.open(suggestion.url);
 			} else if (suggestion.type === "simplicite") {
@@ -91,21 +96,29 @@ export default {
 			} else {
 				this.isSugOpen = true;
 			}
-			try{
+			try {
 				const res = await s.callSearchService(this.$smp.parameters.url, this.$smp.getBearerTokenHeader(), this.inputValue, this.lang, [], 0);
-				console.log("s.callSearchService: ",res);
-				if(res.results){
+				console.log("s.callSearchService: ", res);
+				if (res.results) {
 					this.suggestions = res.results;
-				}else{
-					this.suggestion = [];
+				} else {
+					this.suggestions = []; // Corrigé de this.suggestion à this.suggestions
 				}
-				
-			}catch(err){
+			} catch (err) {
 				console.log("error in search query ");
-				this.suggestion = [];
+				this.suggestions = []; // Corrigé de this.suggestion à this.suggestions
 			}
 		},
-
+	},
+	mounted() {
+		const lessonStore = useLessonStore();
+		// Écoutez les changements d'état
+		watch(() => lessonStore.lessonLoaded, function(newValue) {
+			if (newValue) {
+				this.setFocus(); // Appelez setFocus si la leçon est chargée
+				lessonStore.resetLessonLoaded(); // Réinitialisez l'état après avoir défini le focus
+			}
+		}.bind(this)); // Utilisez .bind(this) pour lier le contexte
 	}
 };
 

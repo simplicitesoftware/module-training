@@ -226,14 +226,16 @@ export default {
 			});
 		},
 		openLesson(lesson) {
-			
 			this.lessonStore.openLesson({
 				smp: this.$smp,
 				lesson: lesson
 			}).then(() => {
 				this.spinner = false;
+				this.$nextTick(() => {
+					console.log("emit event");
+					this.lessonStore.setLessonLoaded();
+				});
 			}).finally(() => {
-				
 				this.addAnchorIcons();
 				this.unbindMermaidForHljs();
 				hljs.highlightAll();
