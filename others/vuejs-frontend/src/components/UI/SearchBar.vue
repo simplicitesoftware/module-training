@@ -28,8 +28,7 @@
 
 
 <script>
-import { useLessonStore } from "../../stores/lesson";
-import { watch, nextTick } from 'vue';
+import { watch, nextTick,onMounted } from 'vue';
 import SuggestionItem from "./SuggestionItem/SuggestionItem.vue";
 import s from "../../shared";
 import { mapState } from "pinia";
@@ -63,9 +62,8 @@ export default {
 	},
 	methods: {
 		setFocus() {
-			console.log("setFocus appelé"); // Vérifiez que la méthode est appelée
 			nextTick(() => {
-				this.$refs.searchInput.focus(); // Définissez le focus ici
+				this.$refs.searchInput.focus(); 
 			});
 		},
 		hideSuggestions() {
@@ -102,24 +100,31 @@ export default {
 				if (res.results) {
 					this.suggestions = res.results;
 				} else {
-					this.suggestions = []; // Corrigé de this.suggestion à this.suggestions
+					this.suggestions = [];
 				}
 			} catch (err) {
 				console.log("error in search query ");
-				this.suggestions = []; // Corrigé de this.suggestion à this.suggestions
+				this.suggestions = [];
 			}
 		},
 	},
 	mounted() {
-		const lessonStore = useLessonStore();
-		// Écoutez les changements d'état
-		watch(() => lessonStore.lessonLoaded, function(newValue) {
+		const uiStore = useUiStore();
+		
+		watch(() => uiStore.contentLoaded, function(newValue) {
 			if (newValue) {
-				this.setFocus(); // Appelez setFocus si la leçon est chargée
-				lessonStore.resetLessonLoaded(); // Réinitialisez l'état après avoir défini le focus
+				console.log("new load");
+				this.setFocus();
+				uiStore.resetContentLoaded(); 
 			}
-		}.bind(this)); // Utilisez .bind(this) pour lier le contexte
+		}.bind(this)); 
+
+		
+		onMounted(() => {
+			this.setFocus(); 
+		});
 	}
+	
 };
 
 </script>

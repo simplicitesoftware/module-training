@@ -231,10 +231,6 @@ export default {
 				lesson: lesson
 			}).then(() => {
 				this.spinner = false;
-				this.$nextTick(() => {
-					console.log("emit event");
-					this.lessonStore.setLessonLoaded();
-				});
 			}).finally(() => {
 				this.addAnchorIcons();
 				this.unbindMermaidForHljs();

@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { useLessonStore } from './lesson';
 import { useTreeStore } from './tree';
-
+import {  nextTick } from 'vue';
 export const useUiStore = defineStore('uiStore', {
 	namespaced: true,
 	state: () => ({
@@ -13,7 +13,9 @@ export const useUiStore = defineStore('uiStore', {
 		tagList: [],
 		tagCache: [], // cache used to apply correct values after toggle lang
 		isModalOpen: false,
+		contentLoaded: false,
 		themeValues: { primaryColor: "#274E13", secondaryColor: "#6AA84F",	neutralColor: "#ffffff", iconUrl: undefined, colorAccents:{} }
+		
 	}),
 	actions: {
 		toggleDrawer() {
@@ -97,6 +99,14 @@ export const useUiStore = defineStore('uiStore', {
 			if(!titleTemplate.includes('%s')) return titleTemplate;
 			const formattedTitle = titleTemplate.replace('%s', title);
 			return formattedTitle;
+		},
+		setContentLoaded() {
+			nextTick(() => {
+				this.contentLoaded = true;
+			});
+		},
+		resetContentLoaded() {
+			this.contentLoaded = false;
 		},
 		//Mutations
 		SET_DRAWER_STATE(choice) {

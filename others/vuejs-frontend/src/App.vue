@@ -48,6 +48,7 @@
             if (this.$router.currentRoute.name === 'Lesson') this.isUserOnLesson = true;
             this.uiStore.fetchStyle({smp : this.$smp}).finally(() => {
                 this.isStyleLoaded = true;
+                this.uiStore.setContentLoaded();
             });
             this.uiStore.fetchTags({smp: this.$smp});
             this.treeStore.fetchTree({smp: this.$smp}).then(() => this.isFetching = false);
@@ -55,6 +56,12 @@
         watch: {
             $route(to) {
                 this.isUserOnLesson = to.name === 'Lesson';
+                this.handlePageContentChange();
+            }
+        },
+        methods: {
+            handlePageContentChange() {
+                this.uiStore.setContentLoaded();
             }
         },
         metaInfo(){
