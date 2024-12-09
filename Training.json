@@ -4106,11 +4106,11 @@
       "fld_listsum": null,
       "fld_exportable": true,
       "fld_tray": null,
-      "fld_type": "19",
+      "fld_type": "17",
       "fld_type_id__flt_code": null,
       "fld_list_id__lov_name": null,
       "fld_copy": true,
-      "fld_size": 100,
+      "fld_size": 11,
       "fld_minsize": null,
       "fld_precision": null,
       "fld_fromdate_id__fld_name": null,
@@ -5109,7 +5109,7 @@
       "obo_exportorder": 40,
       "obo_distinct": false,
       "obo_indexable": true,
-      "obo_groupby": false,
+      "obo_groupby": null,
       "obo_dfltref": null,
       "obo_template_id__tpl_name": "TrnLsnTranslate",
       "obo_copy": true,
@@ -5124,13 +5124,13 @@
       "obo_useform": true,
       "obo_title": null,
       "obo_icon": "img/color/copy_file",
-      "obo_refcount": false,
-      "obo_tree": false,
+      "obo_refcount": null,
+      "obo_tree": null,
       "obo_viewmode": "T",
       "obo_historic": null,
       "obo_printable": true,
       "obo_followlink": true,
-      "obo_mergeable": false,
+      "obo_mergeable": null,
       "obo_social": ["1"],
       "obo_rowid_id__fld_name": null,
       "obo_extend_id__obj_name": null,
@@ -8754,7 +8754,7 @@
      "item": {
       "obf_object_id__obo_name": "TrnVideo",
       "obf_field_id__fld_name": "trnVidVideo",
-      "obf_field_id__fld_type": "19",
+      "obf_field_id__fld_type": "17",
       "obf_order": 30,
       "obf_group_by": null,
       "obf_dfault_order": null,
@@ -10516,6 +10516,19 @@
       "din_grant": false,
       "row_module_id__mdl_name": "Training"
      }
+    },
+    {
+     "object": "DocIndex",
+     "userkey": "B-trnVidVideo",
+     "item": {
+      "din_name": "B-trnVidVideo",
+      "din_field_id__fld_name": "trnVidVideo",
+      "din_path": null,
+      "din_min": null,
+      "din_max": null,
+      "din_grant": false,
+      "row_module_id__mdl_name": "Training"
+     }
     }
    ]
   },
@@ -11686,7 +11699,7 @@
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnLtrRawContent",
       "tsl_lang": "ENU",
-      "tsl_value": "trn ltr raw content",
+      "tsl_value": "Raw Content",
       "tsl_simplehelp": null,
       "tsl_short_value": null,
       "tsl_placeholder": null,
@@ -12246,7 +12259,7 @@
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnVidLang",
       "tsl_lang": "ENU",
-      "tsl_value": "Trn vid lang",
+      "tsl_value": "Language",
       "tsl_simplehelp": null,
       "tsl_short_value": null,
       "tsl_placeholder": null,
@@ -12278,7 +12291,7 @@
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnVidVideo",
       "tsl_lang": "ENU",
-      "tsl_value": "Trn vid video",
+      "tsl_value": "Video",
       "tsl_simplehelp": null,
       "tsl_short_value": null,
       "tsl_placeholder": null,
@@ -12598,7 +12611,7 @@
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnLtrHasContent",
       "tsl_lang": "FRA",
-      "tsl_value": "Trn ltr has content",
+      "tsl_value": "A du contenu",
       "tsl_simplehelp": null,
       "tsl_short_value": null,
       "tsl_placeholder": null,
@@ -12662,7 +12675,7 @@
       "tsl_typeField": "F",
       "tsl_id__fld_name": "trnLtrRawContent",
       "tsl_lang": "FRA",
-      "tsl_value": "Raw Content",
+      "tsl_value": "Contenu brut",
       "tsl_simplehelp": null,
       "tsl_short_value": null,
       "tsl_placeholder": null,
@@ -13289,7 +13302,7 @@
       "tsl_typeFieldArea": "Z",
       "tsl_id__ofa_name": "TrnCategoryPicture-1",
       "tsl_lang": "ENU",
-      "tsl_value": "TrnCategoryPicture-1",
+      "tsl_value": "Picture",
       "row_module_id__mdl_name": "Training"
      }
     },
@@ -13300,7 +13313,7 @@
       "tsl_typeFieldArea": "Z",
       "tsl_id__ofa_name": "TrnCategoryPicture-2",
       "tsl_lang": "ENU",
-      "tsl_value": "TrnCategoryPicture-2",
+      "tsl_value": "Category Information",
       "row_module_id__mdl_name": "Training"
      }
     },
@@ -13322,7 +13335,7 @@
       "tsl_typeFieldArea": "Z",
       "tsl_id__ofa_name": "TrnLesson-1",
       "tsl_lang": "ENU",
-      "tsl_value": "TrnLesson-1",
+      "tsl_value": "Lesson",
       "row_module_id__mdl_name": "Training"
      }
     },
@@ -13432,7 +13445,7 @@
       "tsl_typeFieldArea": "Z",
       "tsl_id__ofa_name": "TrnSiteTheme-1",
       "tsl_lang": "ENU",
-      "tsl_value": "TrnSiteTheme-1",
+      "tsl_value": "Site theme",
       "row_module_id__mdl_name": "Training"
      }
     },
@@ -13487,7 +13500,7 @@
       "tsl_typeFieldArea": "Z",
       "tsl_id__ofa_name": "TrnUrlRewriting-1",
       "tsl_lang": "ENU",
-      "tsl_value": "TrnUrlRewriting-1",
+      "tsl_value": "Url rewriting",
       "row_module_id__mdl_name": "Training"
      }
     },
@@ -13498,7 +13511,7 @@
       "tsl_typeFieldArea": "Z",
       "tsl_id__ofa_name": "TrnVideo-1",
       "tsl_lang": "ENU",
-      "tsl_value": "Video -1",
+      "tsl_value": "Video",
       "row_module_id__mdl_name": "Training"
      }
     },
@@ -13520,7 +13533,7 @@
       "tsl_typeFieldArea": "Z",
       "tsl_id__ofa_name": "TrnCategoryPicture-1",
       "tsl_lang": "FRA",
-      "tsl_value": "TrnCategoryPicture",
+      "tsl_value": "Image",
       "row_module_id__mdl_name": "Training"
      }
     },
@@ -13553,7 +13566,7 @@
       "tsl_typeFieldArea": "Z",
       "tsl_id__ofa_name": "TrnLesson-1",
       "tsl_lang": "FRA",
-      "tsl_value": "Lesson -1",
+      "tsl_value": "Lesson",
       "row_module_id__mdl_name": "Training"
      }
     },
@@ -13663,7 +13676,7 @@
       "tsl_typeFieldArea": "Z",
       "tsl_id__ofa_name": "TrnSiteTheme-1",
       "tsl_lang": "FRA",
-      "tsl_value": "Site theme -1",
+      "tsl_value": "Site theme",
       "row_module_id__mdl_name": "Training"
      }
     },
@@ -13718,7 +13731,7 @@
       "tsl_typeFieldArea": "Z",
       "tsl_id__ofa_name": "TrnUrlRewriting-1",
       "tsl_lang": "FRA",
-      "tsl_value": "Url rewriting -1",
+      "tsl_value": "Url rewriting",
       "row_module_id__mdl_name": "Training"
      }
     },
@@ -14879,7 +14892,7 @@
       "tsl_typeDocIndex": "B",
       "tsl_id__din_name": "B-trnLtrVideo",
       "tsl_lang": "ENU",
-      "tsl_value": "B-trn ltr video",
+      "tsl_value": "Video",
       "row_module_id__mdl_name": "Training"
      }
     },
@@ -14890,7 +14903,7 @@
       "tsl_typeDocIndex": "B",
       "tsl_id__din_name": "B-trnPicImage",
       "tsl_lang": "ENU",
-      "tsl_value": "B-trn pic image",
+      "tsl_value": "Image",
       "row_module_id__mdl_name": "Training"
      }
     },
@@ -14901,7 +14914,7 @@
       "tsl_typeDocIndex": "B",
       "tsl_id__din_name": "B-trnSitethemeFavicon",
       "tsl_lang": "ENU",
-      "tsl_value": "B-trn sitetheme favicon",
+      "tsl_value": "theme favicon",
       "row_module_id__mdl_name": "Training"
      }
     },
@@ -14912,7 +14925,7 @@
       "tsl_typeDocIndex": "B",
       "tsl_id__din_name": "B-trnThemeIcon",
       "tsl_lang": "ENU",
-      "tsl_value": "B-trn theme icon",
+      "tsl_value": "theme icon",
       "row_module_id__mdl_name": "Training"
      }
     },
@@ -14923,7 +14936,18 @@
       "tsl_typeDocIndex": "B",
       "tsl_id__din_name": "B-trnTrnsitethemeFavicon",
       "tsl_lang": "ENU",
-      "tsl_value": "B-trn trnsitetheme favicon",
+      "tsl_value": "theme favicon",
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "TranslateDocIndex",
+     "userkey": "Bookshelf B-trnVidVideo English",
+     "item": {
+      "tsl_typeDocIndex": "B",
+      "tsl_id__din_name": "B-trnVidVideo",
+      "tsl_lang": "ENU",
+      "tsl_value": "video",
       "row_module_id__mdl_name": "Training"
      }
     },
@@ -14934,7 +14958,7 @@
       "tsl_typeDocIndex": "B",
       "tsl_id__din_name": "B-trnLtrVideo",
       "tsl_lang": "FRA",
-      "tsl_value": "B-trn ltr video",
+      "tsl_value": "Video",
       "row_module_id__mdl_name": "Training"
      }
     },
@@ -14945,7 +14969,7 @@
       "tsl_typeDocIndex": "B",
       "tsl_id__din_name": "B-trnPicImage",
       "tsl_lang": "FRA",
-      "tsl_value": "B-trn pic image",
+      "tsl_value": "Image",
       "row_module_id__mdl_name": "Training"
      }
     },
@@ -14956,7 +14980,7 @@
       "tsl_typeDocIndex": "B",
       "tsl_id__din_name": "B-trnSitethemeFavicon",
       "tsl_lang": "FRA",
-      "tsl_value": "B-trn sitetheme favicon",
+      "tsl_value": "theme favicon",
       "row_module_id__mdl_name": "Training"
      }
     },
@@ -14967,7 +14991,7 @@
       "tsl_typeDocIndex": "B",
       "tsl_id__din_name": "B-trnThemeIcon",
       "tsl_lang": "FRA",
-      "tsl_value": "B-trn theme icon",
+      "tsl_value": "theme icon",
       "row_module_id__mdl_name": "Training"
      }
     },
@@ -14978,7 +15002,18 @@
       "tsl_typeDocIndex": "B",
       "tsl_id__din_name": "B-trnTrnsitethemeFavicon",
       "tsl_lang": "FRA",
-      "tsl_value": "B-trn trnsitetheme favicon",
+      "tsl_value": "theme favicon",
+      "row_module_id__mdl_name": "Training"
+     }
+    },
+    {
+     "object": "TranslateDocIndex",
+     "userkey": "Bookshelf B-trnVidVideo French",
+     "item": {
+      "tsl_typeDocIndex": "B",
+      "tsl_id__din_name": "B-trnVidVideo",
+      "tsl_lang": "FRA",
+      "tsl_value": "video",
       "row_module_id__mdl_name": "Training"
      }
     }

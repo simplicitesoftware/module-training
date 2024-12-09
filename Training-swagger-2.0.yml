@@ -984,7 +984,7 @@ paths:
         required: false
       - in: query
         name: trnVidLang
-        description: Search filter for Trn vid lang
+        description: Search filter for Language
         type: string
         required: false
         enum:
@@ -993,7 +993,7 @@ paths:
         - FRA
       - in: query
         name: trnVidVideo
-        description: Search filter for Trn vid video
+        description: Search filter for Video
         type: string
         required: false
       - in: query
@@ -3606,15 +3606,15 @@ definitions:
         description: Trn vid lsn id Path
         type: string
       trnVidLang:
-        description: Trn vid lang
+        description: Language
         type: string
         enum:
         - ANY
         - ENU
         - FRA
       trnVidVideo:
-        description: Trn vid video
-        type: string
+        description: Video
+        type: object
       trnVidLsnId:
         description: Trn vid lsn id
         type: string

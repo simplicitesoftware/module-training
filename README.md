@@ -67,7 +67,7 @@ More info available on the front end default home page.
 |--------------------------------------------------------------|------------------------------------------|----------|-----------|----------|----------------------------------------------------------------------------------|
 | `trnVidId`                                                   | id                                       | yes*     | yes       |          | -                                                                                |
 | `trnVidLang`                                                 | enum(100) using `LANG_ALL` list          | yes      | yes       |          | -                                                                                |
-| `trnVidVideo`                                                | extfile(100)                             | yes      | yes       |          | -                                                                                |
+| `trnVidVideo`                                                | document                                 | yes      | yes       |          | -                                                                                |
 | `trnVidLsnId` link to **`TrnLesson`**                        | id                                       |          | yes       |          | -                                                                                |
 | _Ref. `trnVidLsnId.trnLsnPath`_                              | _text(400)_                              |          |           |          | -                                                                                |
 
