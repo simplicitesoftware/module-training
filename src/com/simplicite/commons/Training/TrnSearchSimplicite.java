@@ -24,7 +24,7 @@ public class TrnSearchSimplicite implements java.io.Serializable {
 
   public static JSONObject search(String query, String lang, Grant g, int pageNum) throws Exception {
     JSONObject json = new JSONObject();
-    json.put("results", getFilteredResults(query, lang, g, pageNum)).put("page_increment", 1);
+    json.put("results", getFilteredResults(query, lang, g, pageNum)).put("search_info", new JSONObject().put("page_increment", 1).put("search_type", "simplicite"));
     return json;
   }
 

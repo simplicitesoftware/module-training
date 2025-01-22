@@ -1,6 +1,6 @@
 package com.simplicite.commons.Training;
 
-import kong.unirest.json.JSONObject;
+import org.json.JSONObject;
 
 /**
  * Shared code TrnDiscourseIndexerException

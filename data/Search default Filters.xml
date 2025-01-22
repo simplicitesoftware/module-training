@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<simplicite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.simplicite.fr/base" xsi:schemaLocation="http://www.simplicite.fr/base https://www.simplicite.io/resources/schemas/base.xsd">
+<object>
+	<name>TrnSearchIndex</name>
+	<action>upsert</action>
+	<data>
+		<trnTsiFilter>discourse</trnTsiFilter>
+		<trnTsiDisplay>Community</trnTsiDisplay>
+		<trnTsiIcon><![CDATA[DATA:discourse-logo.svg:base64:PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgLTEgMTA0IDEwNiI+CiAgPHBhdGggZmlsbD0iIzIzMWYyMCIgZD0iTTUxLjg3IDBDMjMuNzEgMCAwIDIyLjgzIDAgNTF2NTIuODFsNTEuODYtLjA1YzI4LjE2IDAgNTEtMjMuNzEgNTEtNTEuODdTODAgMCA1MS44NyAwWiIvPgogIDxwYXRoIGZpbGw9IiNmZmY5YWUiIGQ9Ik01Mi4zNyAxOS43NGEzMS42MiAzMS42MiAwIDAgMC0yNy43OSA0Ni42N2wtNS43MiAxOC40IDIwLjU0LTQuNjRhMzEuNjEgMzEuNjEgMCAxIDAgMTMtNjAuNDNaIi8+CiAgPHBhdGggZmlsbD0iIzAwYWVlZiIgZD0iTTc3LjQ1IDMyLjEyYTMxLjYgMzEuNiAwIDAgMS0zOC4wNSA0OGwtMjAuNTQgNC43IDIwLjkxLTIuNDdhMzEuNiAzMS42IDAgMCAwIDM3LjY4LTUwLjIzWiIvPgogIDxwYXRoIGZpbGw9IiMwMGE5NGYiIGQ9Ik03MS42MyAyNi4yOUEzMS42IDMxLjYgMCAwIDEgMzguOCA3OGwtMTkuOTQgNi44MiAyMC41NC00LjY1YTMxLjYgMzEuNiAwIDAgMCAzMi4yMy01My44OFoiLz4KICA8cGF0aCBmaWxsPSIjZjE1ZDIyIiBkPSJNMjYuNDcgNjcuMTFhMzEuNjEgMzEuNjEgMCAwIDEgNTEtMzUgMzEuNjEgMzEuNjEgMCAwIDAtNTIuODkgMzQuM2wtNS43MiAxOC40WiIvPgogIDxwYXRoIGZpbGw9IiNlMzFiMjMiIGQ9Ik0yNC41OCA2Ni40MWEzMS42MSAzMS42MSAwIDAgMSA0Ny4wNS00MC4xMiAzMS42MSAzMS42MSAwIDAgMC00OSAzOS42M2wtMy43NiAxOC45WiIvPgo8L3N2Zz4=]]></trnTsiIcon>
+		<trnTsiMaterialIconsName/>
+	</data>
+</object>
+<object>
+	<name>TrnSearchIndex</name>
+	<action>upsert</action>
+	<data>
+		<trnTsiFilter>lesson</trnTsiFilter>
+		<trnTsiDisplay>Documentation</trnTsiDisplay>
+		<trnTsiIcon/>
+		<trnTsiMaterialIconsName>article</trnTsiMaterialIconsName>
+	</data>
+</object>
+</simplicite>

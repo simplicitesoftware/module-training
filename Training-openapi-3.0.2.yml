@@ -2,7 +2,7 @@
 # / __(_)_ __  _ __| (_)__(_) |_ /_/
 # \__ \ | '  \| '_ \ | / _| |  _/ -_)
 # |___/_|_|_|_| .__/_|_\__|_|\__\___|
-#             |_| Module: Training 2.12
+#             |_| Module: Training 2.14
 components:
   schemas:
     Error404:
@@ -60,6 +60,10 @@ components:
         trnVidId:
           description: Trn vid id
           type: string
+    ArrayOfTrnSearchIndex:
+      type: array
+      items:
+        $ref: '#/components/schemas/TrnSearchIndex'
     TrnTagTranslate:
       type: object
       properties:
@@ -138,7 +142,7 @@ components:
           description: Description
           type: string
         trnCtrCatId:
-          description: Category|Categories
+          description: Category
           type: string
         row_id:
           description: Unique technical row ID
@@ -181,13 +185,69 @@ components:
           description: Lesson Path
           type: string
         trnPicLsnId:
-          description: Lesson|Lessons
+          description: Lesson
           type: string
         trnPicId:
           description: Trn pic id
           type: string
         row_id:
           description: Unique technical row ID
+          type: string
+    TrnSearchScript:
+      type: object
+      properties:
+        row_module_id__mdl_name:
+          description: Module name
+          type: string
+        row_module_id:
+          description: Module
+          type: string
+        trnSsTsiId__trnTsiFilter:
+          description: Trn ss tsi id Filter
+          type: string
+        scr_file:
+          description: Source code
+          type: object
+        scr_code:
+          description: Name
+          type: string
+        row_id:
+          description: Unique technical row ID
+          type: string
+        scr_type:
+          description: Type
+          type: string
+          enum:
+          - JSR
+          - TST
+          - LIB
+          - SQL
+          - XML
+          - OTH
+        trnSsTsiId:
+          description: Trn ss tsi id
+          type: string
+    ArrayOfTrnSearchScript:
+      type: array
+      items:
+        $ref: '#/components/schemas/TrnSearchScript'
+    TrnSearchIndex:
+      type: object
+      properties:
+        trnTsiMaterialIconsName:
+          description: Material icons name
+          type: string
+        trnTsiIcon:
+          description: Icon
+          type: object
+        trnTsiDisplay:
+          description: Display
+          type: string
+        row_id:
+          description: Unique technical row ID
+          type: string
+        trnTsiFilter:
+          description: Filter
           type: string
     Error400:
       type: object
@@ -282,6 +342,9 @@ components:
         trnSitethemeFavicon:
           description: Favicon
           type: object
+        trnTrnsitethemeBaseTitle:
+          description: Base title
+          type: string
         trnThemeColor:
           description: Main color
           type: string
@@ -440,7 +503,7 @@ components:
           description: Determines if the lesson is visible on the front-end application.
           type: boolean
         trnPageTrnLessonid:
-          description: Lesson|Lessons
+          description: Lesson
           type: string
         trnPageCode:
           description: Code
@@ -506,7 +569,7 @@ components:
             that is displayed by the front-end application.
           type: string
         trnLtrRawContent:
-          description: trn ltr raw content
+          description: Raw Content
           type: string
         trnLtrLsnId__trnLsnPublish:
           description: Determines if the lesson is visible on the front-end application.
@@ -787,6 +850,201 @@ paths:
         required: true
       tags:
       - TrnLesson
+  /rest/TrnSearchScript/{row_id}:
+    post:
+      summary: Create a new TrnSearchScript business object record
+      security:
+      - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrnSearchScript'
+      operationId: obj-trnsearchscript-create
+      responses:
+        '200':
+          description: Success in creating a new business object record
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrnSearchScript'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error400'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500'
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        required: true
+      tags:
+      - TrnSearchScript
+    get:
+      summary: Get a TrnSearchScript business object record
+      security:
+      - bearerAuth: []
+      operationId: obj-trnsearchscript-get
+      responses:
+        '200':
+          description: Success in getting a single business object record
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrnSearchScript'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        required: true
+      - schema:
+          type: boolean
+        in: query
+        name: _inline_documents
+        description: Inline documents?
+        required: false
+      - schema:
+          type: boolean
+        in: query
+        name: _inline_thumbnails
+        description: Inline documents' thumbnails?
+        required: false
+      - schema:
+          type: boolean
+        in: query
+        name: _inline_objects
+        description: Inline objects?
+        required: false
+      tags:
+      - TrnSearchScript
+    delete:
+      summary: Delete a TrnSearchScript business object record
+      security:
+      - bearerAuth: []
+      operationId: obj-trnsearchscript-delete
+      responses:
+        '200':
+          description: Success in deleting a business object record
+          content:
+            application/json: {}
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error400'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        required: true
+      tags:
+      - TrnSearchScript
+    put:
+      summary: Update a TrnSearchScript business object record
+      security:
+      - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrnSearchScript'
+      operationId: obj-trnsearchscript-update
+      responses:
+        '200':
+          description: Success in updating a business object record
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrnSearchScript'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error400'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        required: true
+      tags:
+      - TrnSearchScript
   /rest/TrnSyncSupervisor/{row_id}/action:dropData:
     get:
       summary: Call a custom action for a TrnSyncSupervisor business object record
@@ -912,7 +1170,7 @@ paths:
           type: string
         in: query
         name: trnCtrCatId
-        description: Search filter for Category|Categories
+        description: Search filter for Category
         required: false
       - schema:
           type: string
@@ -922,6 +1180,103 @@ paths:
         required: false
       tags:
       - TrnCategoryTranslate
+  /rest/TrnSearchScript:
+    get:
+      summary: Search TrnSearchScript business object records or get contextualized
+        metadata
+      security:
+      - bearerAuth: []
+      operationId: obj-trnsearchscript-search
+      responses:
+        '200':
+          description: Success in searching business object records (or in getting
+            contextualized business object metadata, documentation, ...)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfTrnSearchScript'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500'
+      parameters:
+      - schema:
+          type: boolean
+        in: query
+        name: _metadata
+        description: Metadata?
+        required: false
+      - schema:
+          type: boolean
+        in: query
+        name: _count
+        description: Count?
+        required: false
+      - schema:
+          type: boolean
+        in: query
+        name: _doc
+        description: Documentation?
+        required: false
+      - schema:
+          type: string
+        in: query
+        name: scr_code
+        description: Search filter for Name
+        required: false
+      - schema:
+          type: string
+        in: query
+        name: scr_file
+        description: Search filter for Source code
+        required: false
+      - schema:
+          type: string
+          enum:
+          - JSR
+          - TST
+          - LIB
+          - SQL
+          - XML
+          - OTH
+        in: query
+        name: scr_type
+        description: Search filter for Type
+        required: false
+      - schema:
+          type: string
+        in: query
+        name: trnSsTsiId
+        description: Search filter for Trn ss tsi id
+        required: false
+      - schema:
+          type: string
+        in: query
+        name: trnSsTsiId__trnTsiFilter
+        description: Search filter for Trn ss tsi id Filter
+        required: false
+      - schema:
+          type: string
+        in: query
+        name: row_module_id
+        description: Search filter for Module
+        required: false
+      - schema:
+          type: string
+        in: query
+        name: row_module_id__mdl_name
+        description: Search filter for Module name
+        required: false
+      tags:
+      - TrnSearchScript
   /rest/TrnSyncSupervisor/{row_id}:
     post:
       summary: Create a new TrnSyncSupervisor business object record
@@ -1117,6 +1472,201 @@ paths:
         required: true
       tags:
       - TrnSyncSupervisor
+  /rest/TrnSearchIndex/{row_id}:
+    post:
+      summary: Create a new TrnSearchIndex business object record
+      security:
+      - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrnSearchIndex'
+      operationId: obj-trnsearchindex-create
+      responses:
+        '200':
+          description: Success in creating a new business object record
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrnSearchIndex'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error400'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500'
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        required: true
+      tags:
+      - TrnSearchIndex
+    get:
+      summary: Get a TrnSearchIndex business object record
+      security:
+      - bearerAuth: []
+      operationId: obj-trnsearchindex-get
+      responses:
+        '200':
+          description: Success in getting a single business object record
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrnSearchIndex'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        required: true
+      - schema:
+          type: boolean
+        in: query
+        name: _inline_documents
+        description: Inline documents?
+        required: false
+      - schema:
+          type: boolean
+        in: query
+        name: _inline_thumbnails
+        description: Inline documents' thumbnails?
+        required: false
+      - schema:
+          type: boolean
+        in: query
+        name: _inline_objects
+        description: Inline objects?
+        required: false
+      tags:
+      - TrnSearchIndex
+    delete:
+      summary: Delete a TrnSearchIndex business object record
+      security:
+      - bearerAuth: []
+      operationId: obj-trnsearchindex-delete
+      responses:
+        '200':
+          description: Success in deleting a business object record
+          content:
+            application/json: {}
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error400'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        required: true
+      tags:
+      - TrnSearchIndex
+    put:
+      summary: Update a TrnSearchIndex business object record
+      security:
+      - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrnSearchIndex'
+      operationId: obj-trnsearchindex-update
+      responses:
+        '200':
+          description: Success in updating a business object record
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrnSearchIndex'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error400'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        required: true
+      tags:
+      - TrnSearchIndex
   /rest/TrnUrlRewriting/{row_id}:
     post:
       summary: Create a new TrnUrlRewriting business object record
@@ -1599,6 +2149,12 @@ paths:
         in: query
         name: trnThemeNeutralColor
         description: Search filter for Neutral color
+        required: false
+      - schema:
+          type: string
+        in: query
+        name: trnTrnsitethemeBaseTitle
+        description: Search filter for Base title
         required: false
       tags:
       - TrnSiteTheme
@@ -2546,7 +3102,7 @@ paths:
           type: string
         in: query
         name: trnLtrRawContent
-        description: Search filter for trn ltr raw content
+        description: Search filter for Raw Content
         required: false
       - schema:
           type: boolean
@@ -3107,7 +3663,7 @@ paths:
           type: string
         in: query
         name: trnPicLsnId
-        description: Search filter for Lesson|Lessons
+        description: Search filter for Lesson
         required: false
       - schema:
           type: string
@@ -3596,7 +4152,7 @@ paths:
           type: string
         in: query
         name: trnPageTrnLessonid
-        description: Search filter for Lesson|Lessons
+        description: Search filter for Lesson
         required: false
       - schema:
           type: string
@@ -3629,6 +4185,78 @@ paths:
         required: false
       tags:
       - TrnPage
+  /rest/TrnSearchIndex:
+    get:
+      summary: Search TrnSearchIndex business object records or get contextualized
+        metadata
+      security:
+      - bearerAuth: []
+      operationId: obj-trnsearchindex-search
+      responses:
+        '200':
+          description: Success in searching business object records (or in getting
+            contextualized business object metadata, documentation, ...)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfTrnSearchIndex'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500'
+      parameters:
+      - schema:
+          type: boolean
+        in: query
+        name: _metadata
+        description: Metadata?
+        required: false
+      - schema:
+          type: boolean
+        in: query
+        name: _count
+        description: Count?
+        required: false
+      - schema:
+          type: boolean
+        in: query
+        name: _doc
+        description: Documentation?
+        required: false
+      - schema:
+          type: string
+        in: query
+        name: trnTsiFilter
+        description: Search filter for Filter
+        required: false
+      - schema:
+          type: string
+        in: query
+        name: trnTsiDisplay
+        description: Search filter for Display
+        required: false
+      - schema:
+          type: string
+        in: query
+        name: trnTsiIcon
+        description: Search filter for Icon
+        required: false
+      - schema:
+          type: string
+        in: query
+        name: trnTsiMaterialIconsName
+        description: Search filter for Material icons name
+        required: false
+      tags:
+      - TrnSearchIndex
   /rest/TrnSyncSupervisor/{row_id}/action:esIndexation:
     get:
       summary: Call a custom action for a TrnSyncSupervisor business object record
@@ -4822,7 +5450,7 @@ info:
     email: contact@simplicitesoftware.com
   description: API for module Training
   title: Training
-  version: '2.12'
+  version: '2.14'
 tags:
 - name: TrnCategory
   description: Category
@@ -4836,6 +5464,10 @@ tags:
   description: Page
 - name: TrnPicture
   description: Picture
+- name: TrnSearchIndex
+  description: search filters
+- name: TrnSearchScript
+  description: search script
 - name: TrnSiteContent
   description: Site Contents
 - name: TrnSiteTheme

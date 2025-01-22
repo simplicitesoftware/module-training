@@ -1,4 +1,4 @@
-![](https://docs.simplicite.io//logos/logo250.png)
+![](https://platform.simplicite.io/logos/standard/logo250.png)
 * * *
 
 Apache Maven
@@ -18,18 +18,34 @@ Sonar analysis
 mvn sonar:sonar
 ```
 
-Checkstyle
-----------
+Checkstyle (optional)
+---------------------
 
 ``` text
 mvn checkstyle:check
 ```
 
-JSHint (requires node.js)
--------------------------
+JSHint (optional, requires node.js)
+-----------------------------------
 
 ``` text
 npm install
 npm run jshint
+```
+
+ESLint (optional, requires node.js)
+-----------------------------------
+
+``` text
+npm install
+npm run eslint
+```
+
+StyleLint (optional, requires node.js)
+--------------------------------------
+
+``` text
+npm install
+npm run stylelint
 ```
 

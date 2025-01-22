@@ -121,7 +121,7 @@ public class TrnFront extends com.simplicite.webapp.web.StaticSiteExternalObject
 	private JSONObject getOpenGraphInfo(String requestedUrl, Parameters params) {
 		String host = params.getHeader("host");
 		String img = getThemeFavIcon(host);
-		String title = "Docs";
+		String title = getThemeTitle();
 		if(requestedUrl.contains("lesson")) {
 			String lesson = requestedUrl.substring(requestedUrl.indexOf("lesson") + 6);
 			String id = getObjectFieldContent("TrnLesson" ,"row_id" , new JSONObject().put("trnLsnFrontPath", lesson));
@@ -147,6 +147,19 @@ public class TrnFront extends com.simplicite.webapp.web.StaticSiteExternalObject
 			}
 		} 
 		return iconUrl;
+	}
+	private String getThemeTitle(){
+		String title = "Docs";
+		// overridable favicon
+		ObjectDB obj = getGrant().getTmpObject("TrnSiteTheme");
+		synchronized(obj.getLock()){
+			obj.resetFilters();
+			List<String[]> res = obj.search();
+			if (!Tool.isEmpty(res)){
+				title = res.get(0)[obj.getFieldIndex("trnTrnsitethemeBaseTitle")];
+			}
+		} 
+		return title;
 	}
 	private String getObjectFieldContent(String object, String field, JSONObject filters){
 		return getObjectFieldContent(object, field, filters,null);	

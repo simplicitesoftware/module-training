@@ -5,12 +5,8 @@ import com.simplicite.util.Grant;
 import com.simplicite.util.exceptions.HTTPException;
 import com.simplicite.util.tools.RESTTool;
 
-import kong.unirest.HttpResponse;
-import kong.unirest.Unirest;
-
 import java.util.Map;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**

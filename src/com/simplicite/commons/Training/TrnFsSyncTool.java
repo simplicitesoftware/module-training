@@ -16,7 +16,7 @@ import com.simplicite.util.tools.BusinessObjectTool;
 import com.simplicite.util.tools.BusinessObjectTool.ReturnMessage;
 import com.simplicite.util.tools.FileTool;
 import com.simplicite.extobjects.Training.TrnFront;
-
+import com.simplicite.util.DocumentDB;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -850,9 +850,17 @@ public class TrnFsSyncTool implements java.io.Serializable {
 				theme.setFieldValue("trnSitethemeAccentColor2", json.optString("accent_color_2"));
 				theme.setFieldValue("trnSitethemeAccentColor3", json.optString("accent_color_3"));
 				theme.getField("trnThemeIcon").setDocument(theme, icon.getName(), new FileInputStream(icon));
+				if (json.has("base_title")){
+					theme.setFieldValue("trnTrnsitethemeBaseTitle", json.getString("base_title"));
+				}else {
+					theme.setFieldValue("trnTrnsitethemeBaseTitle", theme.getField("trnTrnsitethemeBaseTitle").getDefault());
+				}
 				if(json.has("favicon_path")){
 					File favicon = new File(contentDir.getPath(), json.getString("favicon_path"));
 					theme.getField("trnSitethemeFavicon").setDocument(theme,favicon.getName(),new FileInputStream(favicon));
+				}else{
+					theme.getField("trnSitethemeFavicon").getDocument().setStatus(DocumentDB.STATUS_TO_DELETE);
+					theme.getField("trnSitethemeFavicon").setValue("");
 				}
 				theme.getTool().validateAndSave();
 			}
