@@ -29,7 +29,6 @@ export default {
   methods: {
     onClick(event) {
       if(event.type === "click") {
-        console.log(this.suggestion.searchTerm);
         if (this.suggestion.type === "lesson") {
           event.preventDefault();
           this.$router.push('/lesson' + this.suggestion.path +"?search="+this.suggestion.searchTerm).catch(err => console.error(err));

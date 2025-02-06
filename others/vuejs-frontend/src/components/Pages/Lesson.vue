@@ -343,12 +343,10 @@ export default {
 		}
 	},
 	async created() {
-		console.log("created");
 		const searchQuery = this.$route.query.search; // Accéder au paramètre de requête
         if(searchQuery){
 			this.search = this.escapeHtml(searchQuery);
 		}
-		console.log(this.search);
 		hljs.configure({
 			cssSelector: "code"
 		});
@@ -615,7 +613,7 @@ export default {
 .linear
 	.lesson-wrapper
 		//@include fillParent()
-		padding-right: 20%
+		padding-right: 25px
 		padding-left: 25px
 	.lesson-block
 		grid-column: 1/3

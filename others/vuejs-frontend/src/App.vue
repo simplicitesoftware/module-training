@@ -1,20 +1,24 @@
 <template>
-    <metainfo></metainfo>
-    <div v-if="isStyleLoaded" id="app" class="app">
-        <CustomHeader/>
-        <main>
-            <nav class="navigation-drawer" v-show="isDrawerOpen" :style="{background: `linear-gradient(${themeValues.primaryColor} 65%, ${themeValues.secondaryColor})`}">
-                <MenuSearchBar v-model="searchQuery" class="search-bar" />
-                <TreeViewNode v-for="(motherCategory, index) in filteredTree" :key="index" :node="motherCategory" :depth="0" :searchQuery="searchQuery"/>
-            </nav>
-            <div class="page-content">
-                <router-view v-if="!isFetching" class="page-content__router-view" :key="$route.fullPath"/>
-                <Spinner v-else/>
-            </div>
-        </main>
-        <LightBox/>
+    <div class="root-container">
+        <metainfo></metainfo>
+        <div v-if="isStyleLoaded" id="app" class="app">
+            <CustomHeader/>
+            <main>
+                <nav class="navigation-drawer" v-show="isDrawerOpen" :style="{background: `linear-gradient(${themeValues.primaryColor} 65%, ${themeValues.secondaryColor})`}">
+                    <MenuSearchBar v-model="searchQuery" class="search-bar" />
+                    <TreeViewNode v-for="(motherCategory, index) in filteredTree" :key="index" :node="motherCategory" :depth="0" :searchQuery="searchQuery"/>
+                </nav>
+                <div class="page-content">
+                    <router-view v-if="!isFetching" class="page-content__router-view" :key="$route.fullPath"/>
+                    <Spinner v-else/>
+                    <TableOfContents class="page-content_toc" v-if="!isFetching"/>
+                    <Spinner v-else/>
+                </div>
+            </main>
+            <LightBox/>
+        </div>
+        <Spinner v-else/>
     </div>
-    <Spinner v-else/>
 </template>
 
 <script>
@@ -27,6 +31,7 @@
     import {useLessonStore} from '@/stores/lesson';
     import {useUiStore} from '@/stores/ui';
     import {useTreeStore} from '@/stores/tree';
+    import TableOfContents from "./components/UI/TableOfContents.vue";
 
     export default {
         name: 'App',
@@ -37,7 +42,7 @@
                 treeStore: useTreeStore()
             }
         },
-        components: {LightBox, CustomHeader, TreeViewNode, Spinner, MenuSearchBar},
+        components: {LightBox, CustomHeader, TreeViewNode, Spinner, MenuSearchBar, TableOfContents},
         data: () => ({
             isFetching: true,
             isStyleLoaded: false,
@@ -175,12 +180,13 @@ button
                 padding: 8px
 
         .page-content 
+            display: flex
             width: 100%
 
             &__router-view 
-                width: 100%
+                width: 80%
                 height: 100%
-
+            
         .drawer-enter-active 
             animation: drawerIn $duration-drawer-collapse
 
@@ -198,5 +204,7 @@ button
                 width: $drawer-width
             to 
                 width: 0
-
+                
+.root-container
+    height: 100%
 </style>

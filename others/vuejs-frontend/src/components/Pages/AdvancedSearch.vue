@@ -92,7 +92,6 @@ export default {
             result.searchTerm = this.query;
             return result;
           });
-          console.log(res.results);
           this.searchInfo = new ResultInfo(res.search_info); 
           this.page += this.searchInfo?.pageIncrement;
         }catch(err){
@@ -157,7 +156,6 @@ export default {
 
 class ResultInfo {
   constructor(info) {
-    console.log(info);
     this.totalHits = info.total_hits;
     this.searchDuration = info.search_duration;
     this.searchType = info.search_type;

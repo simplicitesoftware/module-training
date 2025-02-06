@@ -77,7 +77,6 @@
     }),
     methods: {
       sendDemand: function () {
-        console.log("COUNTER ===" + this.clickCounter);
         if (this.clickCounter === 0) {
           let email = document.getElementById("email");
           if (email.value !== "" && email.value !== undefined && email.value !== null) {
@@ -113,10 +112,8 @@
         let req = new XMLHttpRequest();
         req.open("POST", "https://portalpr.dev.simplicite.io/ext/PorIsdService", true);
         req.setRequestHeader("Content-type", "application/json");
-        req.addEventListener("load", (result) => {
-          console.log(result)
+        req.addEventListener("load", () => {
           if (req.status >= 200 && req.status < 400) {
-            console.log(req)
             this.showSpinner = false;
             btn.classList.add("server-ok");
             btn.innerText = "Un email vous a été envoyé !"

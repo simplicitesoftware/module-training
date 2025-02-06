@@ -113,7 +113,6 @@ export default {
 		
 		watch(() => uiStore.contentLoaded, function(newValue) {
 			if (newValue) {
-				console.log("new load");
 				this.setFocus();
 				uiStore.resetContentLoaded(); 
 			}

@@ -43,7 +43,6 @@
       let req = new XMLHttpRequest();
       req.open("GET", baseURL + demandId, true);
       req.send(null);
-      console.log(req.responseText);
     }
   }
 

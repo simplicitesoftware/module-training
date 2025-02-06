@@ -6,6 +6,9 @@
             </span>
         </div>
         <input v-model="search" type="text" class="searchbar"/>
+        <button v-if="search" @click="clearSearch" class="clear-button">
+            <span class="material-icons">close</span>
+        </button>
     </div>
 </template>
 
@@ -20,6 +23,11 @@ export default {
             set(value) {
                 this.$emit('update:modelValue', value); // Emits the updated value
             }
+        }
+    },
+    methods: {
+        clearSearch() {
+            this.search = '';
         }
     }
 }
@@ -63,4 +71,21 @@ export default {
 .searchbar:focus
     outline: none
     transition: border-color 0.3s ease
+
+.clear-button
+    position: absolute
+    right: 10px
+    background: none
+    border: none
+    cursor: pointer
+    display: flex
+    align-items: center
+    justify-content: center
+    height: 100%
+    .material-icons
+        font-size: 1.2rem
+        color: #888
+
+    &:hover .material-icons
+        color: #555
 </style>
