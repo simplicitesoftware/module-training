@@ -1,7 +1,7 @@
 <template>
-	<div class="home">
+	<div class="home" :style="{background: uiStore.themeValues.neutralColor}">
 		<div class ="placeholder">
-			<div class="content" :style="{background: bg_color}">
+			<div class="content">
 				<div class="content-block" >
 					<div v-if="lesson.row_id">
 						<div class="lesson-html-content" v-if="lesson.html" v-html="lesson.html"></div>
@@ -48,7 +48,6 @@ export default {
 	components: {Spinner},
 	setup() {
             return {
-				bg_color: "#ffffff",
                 lessonStore: useLessonStore(),
 				uiStore: useUiStore(),
             }
