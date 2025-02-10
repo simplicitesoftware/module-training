@@ -137,7 +137,7 @@ export default {
             }
 
             // Get all h1-h3 elements from the content
-            const headings = Array.from(markdownContent.querySelectorAll('h1, h2, h3'))
+            const headings = Array.from(markdownContent.querySelectorAll('h1, h2, h3, h4'))
             if (headings.length === 0) {
                 console.warn('No headings found in content')
                 return
@@ -251,7 +251,7 @@ export default {
 
 .toc-wrapper
     top: $header-height // Use the header height variable
-    padding: 1em
+    padding: 1rem 1rem 1rem 0
     width: 20%
     z-index: 5
     height: calc(100vh - #{$header-height}) // Use the header height variable
@@ -297,6 +297,8 @@ export default {
             margin-left: 1rem
         &--h3
             margin-left: 2rem
+        &--h4
+            margin-left: 3rem
             
         &--active
             > .toc__link
