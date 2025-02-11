@@ -5,7 +5,7 @@
                 search
             </span>
         </div>
-        <input v-model="search" type="text" class="searchbar"/>
+        <input v-model="search" type="text" class="searchbar" :placeholder="searchbarPlaceHolder"/>
         <button v-if="search" @click="clearSearch" class="clear-button">
             <span class="material-icons">close</span>
         </button>
@@ -13,17 +13,23 @@
 </template>
 
 <script>
+import { mapState } from "pinia";
+import { useUiStore } from '@/stores/ui';
 export default {
     props: {
         modelValue: String
     },
     computed: {
+        ...mapState(useUiStore, ['lang']),
         search: {
             get() { return this.modelValue; },
             set(value) {
                 this.$emit('update:modelValue', value); // Emits the updated value
             }
-        }
+        },
+        searchbarPlaceHolder() {
+			return "FRA" == this.lang ? "Recherche dans le menu" : "Search the menu"
+		},
     },
     methods: {
         clearSearch() {

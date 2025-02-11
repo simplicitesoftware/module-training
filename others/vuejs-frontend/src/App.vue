@@ -6,7 +6,7 @@
             <main>
                 <nav class="navigation-drawer" v-show="isDrawerOpen" :style="{background: `linear-gradient(${themeValues.primaryColor} 65%, ${themeValues.secondaryColor})`}">
                     <MenuSearchBar v-model="searchQuery" class="search-bar" />
-                    <TreeViewNode v-for="(motherCategory, index) in filteredTree" :key="index" :node="motherCategory" :depth="0" :searchQuery="searchQuery"/>
+                    <TreeViewNode v-for="(motherCategory, index) in fullTree" :key="index" :node="motherCategory" :depth="0" :searchQuery="searchQuery"/>
                 </nav>
                 <div class="page-content">
                     <router-view v-if="!isFetching" class="page-content__router-view" :key="$route.fullPath"/>
@@ -53,13 +53,13 @@
             ...mapState(useUiStore, ['isDrawerOpen','themeValues','isSortedByTag']),
             ...mapState(useTreeStore, ['tree']),
 
-            filteredTree() {
+            fullTree() {
                 if (this.searchQuery.trim()) {
                     return this.tree
                         .map((node) => this.filterTree(node, this.searchQuery.toLowerCase()))
                         .filter((node) => node !== null);
                 }
-                return this.originalTree; // Reset to original tree when search is cleared
+                return this.tree; // Reset to original tree when search is cleared
             },
         },
         created() {
@@ -71,7 +71,6 @@
             this.uiStore.fetchTags({smp: this.$smp});
             this.treeStore.fetchTree({smp: this.$smp}).then(() =>  {
                 this.isFetching = false;
-                this.originalTree = [...this.tree]; // Store the original tree once it's fetched
             });
         },
         watch: {
@@ -79,17 +78,11 @@
                 this.isUserOnLesson = to.name === 'Lesson';
                 this.handlePageContentChange();
             },
-            tree(newTree) {
-                // Store the initial tree structure
-                if (this.originalTree.length === 0 && newTree.length > 0) {
-                    this.originalTree = [...newTree]; // Clone the original tree to reset later
-                }
-            },
             searchQuery(newQuery) {
                 if (newQuery === "") {
                     // If the search is cleared, reset the tree to its original state
                     this.$nextTick(() => {
-                        this.treeStore.SET_TREE(this.originalTree); // Use treeStore to reset or modify tree if needed
+                        this.treeStore.SET_TREE(this.tree); // Use treeStore to reset or modify tree if needed
                     });
                 }
             },
