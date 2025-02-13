@@ -319,6 +319,10 @@ export default {
 					this.$router.push(event.target.pathname);
 				}
 			}
+			// display image in lightbox when clicked
+			if (event.target.tagName.toLowerCase() === 'img') {
+				this.uiStore.displayLightBox(event.target.src);
+			}
 		},
 		async getVideoUrl() {
 			if (this.lesson?.video) {
