@@ -20,6 +20,7 @@
 					<EmptyContent v-else />
 				</div>
 			</div>
+			<TableOfContents class="grid-item toc-block" v-if="lesson.viz == 'LINEAR'"/>
 			<div v-if="lesson.viz !== 'LINEAR'" class="grid-item slider-block" :style="{background: bg_color}">
 				<Slider v-if="lessonImages.length" :slides="lessonImages" ref="slider" />
 				<EmptyContent v-else />
@@ -67,6 +68,8 @@ import nginx from 'highlight.js/lib/languages/nginx';
 import apache from 'highlight.js/lib/languages/apache';
 import sql from 'highlight.js/lib/languages/sql';
 import mermaid from "mermaid";
+import TableOfContents from "../UI/TableOfContents.vue";
+
 // manually importing required languages for performances reasons
 hljs.registerLanguage('javascript', javascript);
 hljs.registerLanguage('java', java);
@@ -112,7 +115,7 @@ export default {
 			uiStore: useUiStore()
         }
     },
-	components: { Slider, Spinner, EmptyContent },
+	components: { Slider, Spinner, EmptyContent, TableOfContents },
 	data: () => ({
 		alreadyScrolledImages: [],
 		lessonViz: 'linear',
@@ -615,16 +618,20 @@ export default {
 		line-height: 1.6
 
 .linear
+	.grid
+		grid-template-columns: 80% 20%
 	.lesson-wrapper
 		//@include fillParent()
 		padding-right: 25px
 		padding-left: 25px
 	.lesson-block
-		grid-column: 1/3
+		grid-column: 1
 	.lesson-html-content
 		line-height: 1.7
 		& :deep(video)
 			max-width: 100%
-	
+	.toc-block
+		grid-column: 2
+		grid-row: 1/3
 
 </style>

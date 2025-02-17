@@ -28,7 +28,6 @@
 <script>
 import { mapState } from "pinia";
 import { useUiStore } from '@/stores/ui';
-import { useLessonStore } from '@/stores/lesson';
 import Spinner from "./Spinner.vue";
 
 export default {
@@ -37,7 +36,6 @@ export default {
     setup() {
         return {
             uiStore: useUiStore(),
-            lessonStore: useLessonStore()
         }
     },
     computed: {
@@ -250,11 +248,7 @@ export default {
 @import "../../assets/sass/mixins"
 
 .toc-wrapper
-    top: $header-height // Use the header height variable
-    padding: 1rem 1rem 1rem 0
-    width: 20%
     z-index: 5
-    height: calc(100vh - #{$header-height}) // Use the header height variable
 
 .toc
     position: relative

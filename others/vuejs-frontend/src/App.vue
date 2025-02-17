@@ -11,8 +11,6 @@
                 <div class="page-content">
                     <router-view v-if="!isFetching" class="page-content__router-view" :key="$route.fullPath"/>
                     <Spinner v-else/>
-                    <TableOfContents class="page-content_toc" v-if="!isFetching"/>
-                    <Spinner v-else/>
                 </div>
             </main>
             <LightBox/>
@@ -31,7 +29,6 @@
     import {useLessonStore} from '@/stores/lesson';
     import {useUiStore} from '@/stores/ui';
     import {useTreeStore} from '@/stores/tree';
-    import TableOfContents from "./components/UI/TableOfContents.vue";
 
     export default {
         name: 'App',
@@ -42,7 +39,7 @@
                 treeStore: useTreeStore()
             }
         },
-        components: {LightBox, CustomHeader, TreeViewNode, Spinner, MenuSearchBar, TableOfContents},
+        components: {LightBox, CustomHeader, TreeViewNode, Spinner, MenuSearchBar},
         data: () => ({
             isFetching: true,
             isStyleLoaded: false,
@@ -177,7 +174,7 @@ button
             width: 100%
 
             &__router-view 
-                width: 80%
+                width: 100%
                 height: 100%
             
         .drawer-enter-active 
