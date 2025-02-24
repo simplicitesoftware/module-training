@@ -308,7 +308,11 @@ export default {
 		},
 		// prevents page reloading on internal URL's
 		onHtmlClick(event) {
+			
 			if (event.target.tagName.toLowerCase() === 'a') {
+				if (event.target.hasAttribute('download')) {
+					return;
+				}
 				// Si c'est un lien interne avec une ancre (#), on laisse le comportement par défaut
 				if (event.target.getAttribute('href').startsWith('#')) {
 					return;
