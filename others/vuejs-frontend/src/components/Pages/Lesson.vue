@@ -131,6 +131,7 @@ export default {
 		}
 	},
 	computed: {
+		...mapState(useLessonStore, ['lang']),
 		...mapState(useLessonStore, ['lesson','lessonImages','lessonTags']),
 		...mapState(useTreeStore, ['tree','breadCrumbItems','getLessonFromPath','getCategoryFromPath']),
 	},
@@ -228,6 +229,38 @@ export default {
 				div.classList.add("mermaid");
 			});
 		},
+		addCopyButtons() {
+			if (this.lesson.type !== "lesson" || this.lesson.catPath === "/pages") return;
+			const codeBlocks = document.querySelector(".lesson-block").querySelectorAll("pre code");
+			
+			const texts = {
+				copy: 'Copy to clipboard',
+				copied: 'Copied to clipboard'
+			};
+			
+			for (const codeBlock of codeBlocks) {
+				const button = document.createElement("button");
+				button.className = "copy-button";
+				button.innerHTML = `<span class="material-icons">content_copy</span> ${texts.copy}`;
+				button.setAttribute("title", texts.copy);
+				
+				// Add button to pre element (parent of code)
+				const pre = codeBlock.parentElement;
+				pre.style.position = 'relative';
+				pre.appendChild(button);
+				
+				button.onclick = () => {
+					navigator.clipboard.writeText(codeBlock.textContent);
+					button.innerHTML = `<span class="material-icons">check</span> ${texts.copied}`;
+					button.classList.add('copied');
+					
+					setTimeout(() => {
+						button.innerHTML = `<span class="material-icons">content_copy</span> ${texts.copy}`;
+						button.classList.remove('copied');
+					}, 2000);
+				};
+			}
+		},
 		openLesson(lesson) {
 			this.lessonStore.openLesson({
 				smp: this.$smp,
@@ -238,6 +271,7 @@ export default {
 				this.addAnchorIcons();
 				this.unbindMermaidForHljs();
 				hljs.highlightAll();
+				this.addCopyButtons();
 				
 				mermaid.run({
 					querySelector: '.mermaid',
@@ -308,21 +342,20 @@ export default {
 		},
 		// prevents page reloading on internal URL's
 		onHtmlClick(event) {
-			
+
+			// Si c'est un lien interne avec une ancre (#), on laisse le comportement par défaut
+			if (event.target.parentNode.tagName.toLowerCase() === 'a' && event.target.parentNode.getAttribute('href').startsWith('#')) {
+				navigator.clipboard.writeText(event.target.parentNode.href);
+				return;
+			}
 			if (event.target.tagName.toLowerCase() === 'a') {
 				if (event.target.hasAttribute('download')) {
 					return;
 				}
-				// Si c'est un lien interne avec une ancre (#), on laisse le comportement par défaut
-				if (event.target.getAttribute('href').startsWith('#')) {
-					return;
-				}
 				// Si le lien est sur le même domaine
 				if (event.target.href.includes(window.location.origin)) {
-
 					event.stopPropagation();
 					event.preventDefault();
-					
 					this.$router.push(event.target.pathname);
 				}
 			}
@@ -456,6 +489,40 @@ export default {
 		overflow: clip
 	& :deep(pre)
 		margin-bottom: 10px
+		position: relative
+		
+		.copy-button
+			position: absolute
+			top: 8px
+			right: 8px
+			padding: 4px
+			background: rgba(255, 255, 255, 0.1)
+			border: none
+			border-radius: 4px
+			color: black
+			cursor: pointer
+			opacity: 0
+			transition: opacity 0.2s, background-color 0.2s
+			display: flex
+			align-items: center
+			justify-content: center
+			
+			&.copied
+				background: rgba(40, 167, 69, 0.2)
+				opacity: 1
+				
+			&:hover
+				background: rgba(255, 255, 255, 0.2)
+				
+				&.copied
+					background: rgba(40, 167, 69, 0.3)
+		
+			.material-icons
+				font-size: 18px
+		
+		&:hover
+			.copy-button
+				opacity: 1
 
 	& :deep(table)
 		width: 100%      
