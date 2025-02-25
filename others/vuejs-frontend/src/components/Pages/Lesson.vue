@@ -356,7 +356,8 @@ export default {
 				if (event.target.href.includes(window.location.origin)) {
 					event.stopPropagation();
 					event.preventDefault();
-					this.$router.push(event.target.pathname);
+					let path = event.target.hasAttribute('href') ? event.target.getAttribute('href') : event.target.pathname;
+					this.$router.push(path);
 				}
 			}
 			// display image in lightbox when clicked
