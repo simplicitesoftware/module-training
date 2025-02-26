@@ -967,7 +967,7 @@ public class TrnFsSyncTool implements java.io.Serializable {
 		if (!lsnJson.has("ANY"))
 			lsnJson.put("ANY", new JSONObject());
 		lsn.put("published", lsnJson.optBoolean("published", true));
-		lsn.put("viz", lsnJson.optString("display", "TUTO"));
+		lsn.put("viz", lsnJson.optString("display", "LINEAR"));
 		lsn.put("tags", lsnJson.optJSONArray("tags"));
 		lsn.put("page", lsnJson.optBoolean("page", false));
 

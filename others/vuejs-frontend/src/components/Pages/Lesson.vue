@@ -342,27 +342,37 @@ export default {
 		},
 		// prevents page reloading on internal URL's
 		onHtmlClick(event) {
+			const target = event.target;
+			const tagName = target.tagName.toLowerCase();
 
-			// Si c'est un lien interne avec une ancre (#), on laisse le comportement par défaut
-			if (event.target.parentNode.tagName.toLowerCase() === 'a' && event.target.parentNode.getAttribute('href').startsWith('#')) {
-				navigator.clipboard.writeText(event.target.parentNode.href);
-				return;
-			}
-			if (event.target.tagName.toLowerCase() === 'a') {
-				if (event.target.hasAttribute('download')) {
+			// Handle anchor tags
+			if (tagName === 'a' || (tagName === 'span' && target.parentNode.tagName.toLowerCase() === 'a')) {
+				const link = tagName === 'a' ? target : target.parentNode;
+				
+				// Handle internal anchor links
+				if (link.getAttribute('href')?.startsWith('#')) {
+					navigator.clipboard.writeText(link.href);
 					return;
 				}
-				// Si le lien est sur le même domaine
-				if (event.target.href.includes(window.location.origin)) {
+
+				// Skip processing for TOC links and download links
+				if (link.closest('.toc') || link.hasAttribute('download')) {
+					return;
+				}
+
+				// Handle internal navigation
+				if (link.href?.includes(window.location.origin)) {
 					event.stopPropagation();
 					event.preventDefault();
-					let path = event.target.hasAttribute('href') ? event.target.getAttribute('href') : event.target.pathname;
+					const path = link.getAttribute('href') || link.pathname;
 					this.$router.push(path);
 				}
+				return;
 			}
-			// display image in lightbox when clicked
-			if (event.target.tagName.toLowerCase() === 'img') {
-				this.uiStore.displayLightBox(event.target.src);
+
+			// Handle images
+			if (tagName === 'img') {
+				this.uiStore.displayLightBox(target.src);
 			}
 		},
 		async getVideoUrl() {
